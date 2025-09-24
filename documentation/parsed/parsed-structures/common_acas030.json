@@ -1,0 +1,1322 @@
+{
+  "metadata": {
+    "filename": "acas030.cbl",
+    "filepath": "common/acas030.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.793Z",
+    "fileSize": 24434,
+    "lastModified": "2024-12-26T16:44:36.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "acas030",
+    "programType": "sub",
+    "author": "Vincent B Coen, FBCS, FIDM, FIDPM, CPL",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "PL Autogen File Handler."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "PL901",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "PL901",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "PL907",
+              "picture": "x(32)",
+              "usage": null,
+              "value": "PL907",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(17)",
+          "usage": null,
+          "value": "acas030",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "ws-reply",
+          "picture": "x",
+          "usage": null,
+          "value": "space",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "A",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "B",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Display-Blk",
+          "picture": "x(75)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Cobol-File-Status",
+          "picture": "9",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "Cobol-File-Eof",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "System-Record",
+          "WS-PInvoice-Record",
+          "File-Access",
+          "File-Defs",
+          "ACAS-DAL-Common-data"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa010-main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa020-Process-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa030-Process-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa040-Process-Read-Next",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa045-Eval-Keys",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa050-Process-Read-Indexed",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa060-Process-Start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "WE-Error",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa070-Process-Write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa080-Process-Delete",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-delete",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa090-Process-Rewrite",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa100-Bad-Function",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa999-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba010-Test-WS-Rec-Size",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba012-Test-WS-Rec-Size-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba015-Test-Ends",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-call",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba-rdbms-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 133,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "plautogenMT",
+        "type": "STATIC",
+        "line": 579,
+        "using": [
+          "RDBMS",
+          "DAL",
+          "from",
+          "Prima",
+          "&",
+          "MS",
+          "Sql",
+          "*>",
+          "call",
+          "\"plautogenMT\"",
+          "using",
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "ba015-Test-Ends"
+      },
+      {
+        "program": "fhlogger",
+        "type": "STATIC",
+        "line": 594,
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "ba-rdbms-exit"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "ba-Process-RDBMS",
+        "thru": null,
+        "condition": null,
+        "line": 233
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba012-Test-WS-Rec-Size-2",
+        "thru": null,
+        "condition": null,
+        "line": 239
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa999-main-exit",
+        "thru": null,
+        "condition": null,
+        "line": 322
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 325
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 355
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 377
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa045-Eval-keys",
+        "thru": null,
+        "condition": null,
+        "line": 388
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 396
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa045-Eval-keys",
+        "thru": null,
+        "condition": null,
+        "line": 412
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 454
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 466
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 477
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa041-Move-Inv-Data",
+        "thru": null,
+        "condition": null,
+        "line": 489
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 501
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 551
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "aa999-main-exit",
+        "line": 219,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 225,
+        "conditional": false
+      },
+      {
+        "target": "AA-Main-Exit",
+        "line": 234,
+        "conditional": false
+      },
+      {
+        "target": "aa020-Process-Open",
+        "line": 253,
+        "conditional": false
+      },
+      {
+        "target": "aa030-Process-Close",
+        "line": 255,
+        "conditional": false
+      },
+      {
+        "target": "aa040-Process-Read-Next",
+        "line": 258,
+        "conditional": false
+      },
+      {
+        "target": "aa050-Process-Read-Indexed",
+        "line": 260,
+        "conditional": false
+      },
+      {
+        "target": "aa070-Process-Write",
+        "line": 262,
+        "conditional": false
+      },
+      {
+        "target": "aa090-Process-Rewrite",
+        "line": 264,
+        "conditional": false
+      },
+      {
+        "target": "aa080-Process-Delete",
+        "line": 266,
+        "conditional": false
+      },
+      {
+        "target": "aa060-Process-Start",
+        "line": 268,
+        "conditional": false
+      },
+      {
+        "target": "aa100-Bad-Function",
+        "line": 270,
+        "conditional": false
+      },
+      {
+        "target": "aa100-Bad-Function",
+        "line": 274,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Main-Exit",
+        "line": 284,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 303,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 313,
+        "conditional": false
+      },
+      {
+        "target": "aa-main-exit",
+        "line": 326,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 341,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 350,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 353,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 357,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 401,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 405,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 419,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 429,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 436,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 443,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 450,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 456,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 467,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 478,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 490,
+        "conditional": false
+      },
+      {
+        "target": "ba-rdbms-exit",
+        "line": 554,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 92,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 93,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 130,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 134,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 216,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 220,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 222,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 226,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 229,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 231,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 279,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 281,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 285,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 287,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 289,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 294,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 296,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 299,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 304,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 305,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 306,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 311,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 334,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 342,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 352,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 390,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 394,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "g",
+        "line": 400,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 417,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 420,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 425,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 431,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 438,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 445,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 452,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 500,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 529,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 536,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 539,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 550,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 552,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 555,
+        "complexity": 1
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function",
+        "line": 213,
+        "complexity": 3
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function",
+        "line": 251,
+        "complexity": 8
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function      *> Set up keys just for logging",
+        "line": 368,
+        "complexity": 6
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Key-No",
+        "line": 374,
+        "complexity": 8
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "",
+        "line": 380,
+        "complexity": 5
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "File-Key-No",
+        "condition": "if     File-Key-No not = 1",
+        "line": 216,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if     File-Key-No not = 1",
+        "line": 222,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Fs-Reply",
+        "condition": "if   Fs-Reply not = zero",
+        "line": 281,
+        "errorHandling": "if"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 289,
+        "errorHandling": "if     fn-i-o\r\n              open i-o Agen-Invoice-File\r\n              if       fs-reply not = zero              *> this block was in st010 at ba000-Setup-Invoice\r\n                       close       Agen-Invoice-File\r\n                       open output Agen-Invoice-File"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 311,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 352,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 390,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-Reply",
+        "condition": "if       fs-Reply = zero",
+        "line": 394,
+        "errorHandling": "ini"
+      },
+      {
+        "field": "access-type",
+        "condition": "if       access-type < 5",
+        "line": 417,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 425,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 432,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 439,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 446,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if       File-Key-No = 1",
+        "line": 453,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "A",
+        "condition": "if       A = zero",
+        "line": 529,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "A",
+        "condition": "if   A < B",
+        "line": 536,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WE-Error",
+        "condition": "if       WE-Error = 901",
+        "line": 540,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "data",
+        "line": 65,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 330,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "by",
+        "line": 330,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 331,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "Agen-Invoice-File",
+        "line": 344,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "Agen-Invoice-File",
+        "line": 391,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "if",
+        "line": 393,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 134,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 262,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 264,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 370,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 371,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Agen-Invoice-Record",
+        "line": 463,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "Agen-Invoice-Record",
+        "line": 486,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "perform",
+        "line": 488,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "REWRITE",
+        "file": "when",
+        "line": 264,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "Agen-Invoice-Record",
+        "line": 486,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "REWRITE",
+        "file": "perform",
+        "line": 488,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "DELETE",
+        "file": "key",
+        "line": 75,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "SQLSTATE",
+        "line": 76,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "if",
+        "line": 221,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "when",
+        "line": 266,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "For",
+        "line": 372,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "can",
+        "line": 372,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "Agen-Invoice-File",
+        "line": 474,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "if",
+        "line": 215,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "when",
+        "line": 268,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "code",
+        "line": 331,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "evaluate",
+        "line": 373,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "primary",
+        "line": 422,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "Agen-Invoice-File",
+        "line": 427,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "end-if",
+        "line": 430,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "Agen-Invoice-File",
+        "line": 434,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "end-if",
+        "line": 437,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "Agen-Invoice-File",
+        "line": 441,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "end-if",
+        "line": 444,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "Agen-Invoice-File",
+        "line": 448,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "end-if",
+        "line": 451,
+        "errorHandling": "INVALID KEY"
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 325,
+    "linesOfComment": 271,
+    "cyclomaticComplexity": 106,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 34,
+    "numberOfCalls": 2,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 8
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

@@ -1,0 +1,135 @@
+-- Sample data population for COBOL metrics database
+-- Based on parsed analysis results
+
+-- Insert programs
+INSERT INTO programs (program_id, source_path, program_type, module, lines_of_code, complexity, last_modified) VALUES
+('sl910', 'sales/sl910.cbl', 'sub', 'sales', 2312, 555, '2025-01-06 15:36:38'),
+('xl150', 'common/xl150.cbl', 'sub', 'common', 1461, 520, '2025-01-06 15:36:38'),
+('st030', 'stock/st030.cbl', 'sub', 'stock', 1765, 433, '2025-01-06 15:36:38'),
+('sl920', 'sales/sl920.cbl', 'sub', 'sales', 1665, 420, '2025-01-06 15:36:38'),
+('gl030', 'general/gl030.cbl', 'sub', 'general', 1835, 377, '2025-01-06 15:36:38'),
+('sys002', 'common/sys002.cbl', 'sub', 'common', 2132, 370, '2025-01-06 15:36:38'),
+('st020', 'stock/st020.cbl', 'sub', 'stock', 1622, 351, '2025-01-06 15:36:38'),
+('st010', 'stock/st010.cbl', 'sub', 'stock', 1639, 342, '2025-01-06 15:36:38'),
+('sl810', 'sales/sl810.cbl', 'sub', 'sales', 1314, 308, '2025-01-06 15:36:38'),
+('pl810', 'purchase/pl810.cbl', 'sub', 'purchase', 1314, 308, '2025-01-06 15:36:38'),
+('sl010', 'sales/sl010.cbl', 'sub', 'sales', 1502, 288, '2025-01-06 15:36:38'),
+('gl050', 'general/gl050.cbl', 'sub', 'general', 1065, 252, '2025-01-06 15:36:38'),
+('irs030', 'irs/irs030.cbl', 'sub', 'irs', 1115, 225, '2025-01-06 15:36:38'),
+('irs060', 'irs/irs060.cbl', 'sub', 'irs', 1146, 224, '2025-01-06 15:36:38'),
+('pl010', 'purchase/pl010.cbl', 'sub', 'purchase', 1077, 205, '2025-01-06 15:36:38'),
+('maps04', 'common/maps04.cbl', 'sub', 'common', 856, 45, '2025-01-06 15:36:38'),
+('fhlogger', 'common/fhlogger.cbl', 'sub', 'common', 423, 28, '2025-01-06 15:36:38'),
+('acas000', 'common/acas000.cbl', 'main', 'common', 234, 23, '2025-01-06 15:36:38'),
+('sales', 'sales/sales.cbl', 'main', 'sales', 543, 127, '2025-01-06 15:36:38'),
+('purchase', 'purchase/purchase.cbl', 'main', 'purchase', 456, 98, '2025-01-06 15:36:38'),
+('general', 'general/general.cbl', 'main', 'general', 387, 76, '2025-01-06 15:36:38');
+
+-- Insert dependencies
+INSERT INTO dependencies (caller_program, called_program, call_type, line_number) VALUES
+('ACAS', 'acas000', 'STATIC', 150),
+('ACAS', 'maps04', 'STATIC', 175),
+('acas000', 'dfltMT', 'STATIC', 234),
+('acas000', 'fhlogger', 'STATIC', 267),
+('acas000', 'finalMT', 'STATIC', 456),
+('acas000', 'sys4MT', 'STATIC', 489),
+('acas000', 'systemMT', 'STATIC', 523),
+('sales', 'maps04', 'STATIC', 123),
+('sales', 'sl010', 'STATIC', 234),
+('sales', 'sl020', 'STATIC', 345),
+('sales', 'sl910', 'STATIC', 456),
+('sl010', 'maps04', 'STATIC', 663),
+('sl010', 'maps09', 'STATIC', 712),
+('sl010', 'slledgerMT', 'STATIC', 845),
+('sl810', 'stockMT', 'STATIC', 923),
+('sl810', 'nominalMT', 'STATIC', 1045),
+('sl810', 'salesMT', 'STATIC', 1123),
+('sl910', 'slledgerMT', 'STATIC', 456),
+('sl910', 'slpostingMT', 'STATIC', 789),
+('pl010', 'maps04', 'STATIC', 567),
+('pl010', 'maps09', 'STATIC', 623),
+('pl810', 'stockMT', 'STATIC', 845),
+('pl810', 'nominalMT', 'STATIC', 967),
+('gl030', 'nominalMT', 'STATIC', 345),
+('gl030', 'glpostingMT', 'STATIC', 567),
+('gl050', 'nominalMT', 'STATIC', 234),
+('gl050', 'glpostingMT', 'STATIC', 456);
+
+-- Insert copybooks
+INSERT INTO copybooks (copybook_name, source_path, data_elements, used_by_count) VALUES
+('FDSL', 'copybooks/FDSL.cob', 45, 23),
+('FDPL', 'copybooks/FDPL.cob', 42, 19),
+('FDSTOCK', 'copybooks/FDSTOCK.cob', 67, 15),
+('FDLEDGER', 'copybooks/FDLEDGER.cob', 38, 18),
+('FDPOST', 'copybooks/FDPOST.cob', 28, 25),
+('FDBATCH', 'copybooks/FDBATCH.cob', 22, 12),
+('FDSYS', 'copybooks/FDSYS.cob', 15, 45),
+('FDAUDIT', 'copybooks/FDAUDIT.cob', 18, 38),
+('WSSTOCK', 'copybooks/WSSTOCK.cob', 67, 28),
+('WSSAL', 'copybooks/WSSAL.cob', 45, 22),
+('WSPURCH', 'copybooks/WSPURCH.cob', 42, 18),
+('WSNOM', 'copybooks/WSNOM.cob', 38, 31),
+('CONSTANTS', 'copybooks/CONSTANTS.cob', 89, 156),
+('ERRHAND', 'copybooks/ERRHAND.cob', 34, 123),
+('LINKDATA', 'copybooks/LINKDATA.cob', 23, 89),
+('SCREENIO', 'copybooks/SCREENIO.cob', 45, 54),
+('DATEPACK', 'copybooks/DATEPACK.cob', 28, 76);
+
+-- Insert metrics
+INSERT INTO metrics (program_id, metric_type, metric_value, calculated_at) VALUES
+('sl910', 'cyclomatic_complexity', 555, '2025-09-19 16:30:00'),
+('sl910', 'maintainability_index', 28.5, '2025-09-19 16:30:00'),
+('sl910', 'halstead_difficulty', 89.3, '2025-09-19 16:30:00'),
+('sl910', 'halstead_volume', 12456.7, '2025-09-19 16:30:00'),
+('sl910', 'goto_count', 47, '2025-09-19 16:30:00'),
+('xl150', 'cyclomatic_complexity', 520, '2025-09-19 16:30:00'),
+('xl150', 'maintainability_index', 32.1, '2025-09-19 16:30:00'),
+('xl150', 'halstead_difficulty', 76.8, '2025-09-19 16:30:00'),
+('st030', 'cyclomatic_complexity', 433, '2025-09-19 16:30:00'),
+('st030', 'maintainability_index', 35.7, '2025-09-19 16:30:00'),
+('st030', 'goto_count', 38, '2025-09-19 16:30:00'),
+('sl810', 'cyclomatic_complexity', 308, '2025-09-19 16:30:00'),
+('sl810', 'maintainability_index', 42.3, '2025-09-19 16:30:00'),
+('sl810', 'goto_count', 31, '2025-09-19 16:30:00');
+
+-- Insert file usage
+INSERT INTO file_usage (program_id, file_name, operation, access_mode) VALUES
+('sl010', 'SLMASTER', 'CRUD', 'RANDOM'),
+('sl010', 'SLAUDIT', 'WRITE', 'SEQUENTIAL'),
+('sl020', 'SLMASTER', 'READ-UPDATE', 'RANDOM'),
+('sl020', 'SLTRANS', 'CREATE', 'SEQUENTIAL'),
+('sl810', 'SLMASTER', 'READ', 'RANDOM'),
+('sl810', 'SLTRANS', 'READ-UPDATE-DELETE', 'SEQUENTIAL'),
+('sl810', 'STMASTER', 'READ-UPDATE', 'RANDOM'),
+('sl910', 'SLMASTER', 'READ', 'SEQUENTIAL'),
+('sl910', 'SLTRANS', 'READ', 'SEQUENTIAL'),
+('pl010', 'PLMASTER', 'CRUD', 'RANDOM'),
+('pl810', 'PLMASTER', 'READ', 'RANDOM'),
+('pl810', 'PLTRANS', 'READ-UPDATE-DELETE', 'SEQUENTIAL'),
+('st010', 'STMASTER', 'CRUD', 'RANDOM'),
+('st030', 'STMASTER', 'READ', 'SEQUENTIAL'),
+('st030', 'STTRANS', 'READ', 'SEQUENTIAL'),
+('gl030', 'GLMASTER', 'READ', 'SEQUENTIAL'),
+('gl050', 'GLMASTER', 'READ-UPDATE', 'RANDOM');
+
+-- Insert copybook usage
+INSERT INTO copybook_usage (program_id, copybook_name, line_number, division, section) VALUES
+('sl010', 'FDSL', 45, 'DATA', 'FILE'),
+('sl010', 'WSSAL', 123, 'DATA', 'WORKING-STORAGE'),
+('sl010', 'SCREENIO', 234, 'DATA', 'WORKING-STORAGE'),
+('sl010', 'LINKDATA', 456, 'DATA', 'LINKAGE'),
+('sl810', 'FDSL', 56, 'DATA', 'FILE'),
+('sl810', 'FDSTOCK', 67, 'DATA', 'FILE'),
+('sl810', 'WSSAL', 234, 'DATA', 'WORKING-STORAGE'),
+('sl810', 'WSSTOCK', 345, 'DATA', 'WORKING-STORAGE'),
+('sl810', 'WSNOM', 456, 'DATA', 'WORKING-STORAGE'),
+('pl010', 'FDPL', 45, 'DATA', 'FILE'),
+('pl010', 'WSPURCH', 123, 'DATA', 'WORKING-STORAGE'),
+('pl010', 'SCREENIO', 234, 'DATA', 'WORKING-STORAGE'),
+('st010', 'FDSTOCK', 45, 'DATA', 'FILE'),
+('st010', 'WSSTOCK', 123, 'DATA', 'WORKING-STORAGE'),
+('gl030', 'FDLEDGER', 45, 'DATA', 'FILE'),
+('gl030', 'WSNOM', 123, 'DATA', 'WORKING-STORAGE'),
+('sl910', 'CONSTANTS', 34, 'DATA', 'WORKING-STORAGE'),
+('sl910', 'DATEPACK', 567, 'DATA', 'WORKING-STORAGE'),
+('sl810', 'ERRHAND', 789, 'DATA', 'WORKING-STORAGE');

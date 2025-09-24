@@ -1,0 +1,3232 @@
+{
+  "metadata": {
+    "filename": "systemMT.cbl",
+    "filepath": "common/systemMT.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.248Z",
+    "fileSize": 227257,
+    "lastModified": "2025-07-28T14:49:16.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "systemMT",
+    "programType": "sub",
+    "author": "Vincent B Coen, FBCS, FIDM, FIDPM, CPL",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "System  File RDB Handler using amended JC preSQL."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "77",
+          "name": "ws-Where",
+          "picture": "x(512)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "ws-maps-ser-x",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-maps-xx",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-maps-nn",
+              "picture": "9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "WS-MYSQL-I",
+          "picture": "S9(6)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-MYSQL-EDIT",
+          "picture": "-Z(18)9",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Table-Of-Keynames",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(30)",
+              "usage": null,
+              "value": "SYSTEM-REC-KEY",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(8)",
+              "usage": null,
+              "value": "00010001",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(3)",
+              "usage": null,
+              "value": "STR",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "table-of-keynames",
+          "children": [
+            {
+              "level": "03",
+              "name": "keyOfReference",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": "1",
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "KeyName",
+                  "picture": "x(30)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "KOR-Offset",
+                  "picture": "9(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "KOR-Length",
+                  "picture": "9(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "KOR-Type",
+                  "picture": "XXX",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "DAL-Data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "MOST-Relation",
+              "picture": "xxx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Most-Cursor-Set",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "Cursor-Not-Active",
+                  "value": "zero"
+                },
+                {
+                  "name": "Cursor-Active",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "subscripts",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "12",
+              "name": "J",
+              "picture": "s9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "12",
+              "name": "K",
+              "picture": "s9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "12",
+              "name": "L",
+              "picture": "s9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "work-fields",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-env-lines",
+              "picture": "999",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-22-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-23-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-98-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-99-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-Rec-Cnt",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Temp-work-fields",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "Temp-SQL-Err",
+              "picture": "x(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SM901",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "SM901",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "TP-SYSTEM-REC",
+          "picture": null,
+          "usage": "POINTER",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "TD-SYSTEM-REC",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "HV-SYSTEM-REC-KEY",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SYSTEM-RECORD-VERSION-PRIME",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SYSTEM-RECORD-VERSION-SECON",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-RATE-1",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-RATE-2",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-RATE-3",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-RATE-4",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-RATE-5",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-CYCLEA",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PERIOD",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PAGE-LINES",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-NEXT-INVOICE",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RUN-DAT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-START-DAT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-END-DAT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SUSER",
+              "picture": "X(32)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-USER-CODE",
+              "picture": "X(32)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ADDRESS-1",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ADDRESS-2",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ADDRESS-3",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ADDRESS-4",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-POST-CODE",
+              "picture": "X(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-COMPANY-EMAIL",
+              "picture": "X(30)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-COUNTRY",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PRINT-SPOOL-NAME",
+              "picture": "X(48)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PASS-VALUE",
+              "picture": "9(03)",
+              "usage": null,
+              "value": "PIC",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-1",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-2",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-3",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-4",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-5",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEVEL-6",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PASS-WORD",
+              "picture": "X(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-HOST",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-OP-SYSTEM",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-CURRENT-QUARTER",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-FILE-SYSTEM-USED",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-FILE-DUPLICATES-IN-USE",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-MAPS-SER",
+              "picture": "X(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-DATE-FORM",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-DATA-CAPTURE-USED",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-DB-NAME",
+              "picture": "X(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-USER",
+              "picture": "X(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-PASSWD",
+              "picture": "X(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-PORT",
+              "picture": "X(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-HOST",
+              "picture": "X(32)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-RDBMS-SOCKET",
+              "picture": "X(64)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-REG-NUMBER",
+              "picture": "X(11)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PARAM-RESTRICT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STATS-DATE-PERIOD",
+              "picture": "X(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-C",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-C-GROUPED",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-C-LEVEL",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-COMPS",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-COMPS-ACTIVE",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-M-V",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ARCH",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-TRANS-PRINT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-TRANS-PRINTED",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-HEADER-LEVEL",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SALES-RANGE",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PURCHASE-RANGE",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-BATCH-ID",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEDGER-2ND-INDEX",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-IRS-INSTEAD",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-LEDGER-SEC",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-UPDATES",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-POSTINGS",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-NEXT-BATCH",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-EXTRA-CHARGE-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PRINT-SPOOL-NAME2",
+              "picture": "X(48)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-NEXT-FOLIO",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-BL-PAY-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-CREDITORS",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-BL-PURCH-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-BL-PAY-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-P-CREDITORS",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-BL-PURCH-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-SL-PAY-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-S-DEBTORS",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-GL-SL-SALES-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-BL-END-CYCLE-DAT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-BL-NEXT-BATCH",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-AGE-TO-PAY",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PURCHASE-LEDGER",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-DELIM",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-ENTRY-LEVEL",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-FLAG-A",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-FLAG-I",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-P-FLAG-P",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-STOCK-LINK",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PRINT-SPOOL-NAME3",
+              "picture": "X(48)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-AUTOGEN",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-NEXT-REC",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SALES-LEDGER",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DELIM",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-OI-3-FLAG",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-CUST-FLAG",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-OI-5-FLAG",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-FLAG-OI-3",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-FULL-INVOICING",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-FLAG-A",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-FLAG-I",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-FLAG-P",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DUNNING",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-CHARGES",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-OWN-NOS",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-STATS-RUN",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DAY-BOOK",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-INVOICER",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-EXTRA-DESC",
+              "picture": "X(14)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-EXTRA-TYPE",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-EXTRA-PRINT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-STOCK-LINK",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-STOCK-AUDIT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-LATE-PER",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DISC",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-EXTRA-RATE",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DAYS-1",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DAYS-2",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-DAYS-3",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-CREDIT",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-MIN",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-MAX",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PF-RETENTION",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-FIRST-SL-BATCH",
+              "picture": "9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-FIRST-SL-INV",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-LIMIT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-PAY-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-DEBTORS",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-SALES-AC",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-S-END-CYCLE-DAT",
+              "picture": "9(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-COMP-HEAD-PICK",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-COMP-HEAD-INV",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-COMP-HEAD-STAT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-COMP-HEAD-LETS",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-VAT-PRINTED",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-INVOICE-LINES",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-AUTOGEN",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-NEXT-REC",
+              "picture": "S9(05)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-ABREV-REF",
+              "picture": "X(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-DEBUG",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-MANU-USED",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-OE-USED",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-AUDIT-USED",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-MOV-AUDIT",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-PERIOD-CUR",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-PERIOD-DAT",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STOCK-CONTROL",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-AVERAGING",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-ACTIVITY-REP-RUN",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-PAGE-LINES",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-AUDIT-NO",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-CLIENT",
+              "picture": "X(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-NEXT-POST",
+              "picture": "9(08)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT1",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT2",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-VAT3",
+              "picture": "9(02)V9(02)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-IRS-PASS-VALUE",
+              "picture": "9(03)",
+              "usage": null,
+              "value": "PIC",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SAVE-SEQU",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SYSTEM-WORK-GROUP",
+              "picture": "X(18)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-APP-CREATED",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-APPROP-AC",
+              "picture": "9(08)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-1ST-TIME-FLAG",
+              "picture": "9(03)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-PL-APPROP-AC6",
+              "picture": "9(08)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-SL-BO-FLAG",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "HV-STK-BO-ACTIVE",
+              "picture": "X(1)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(18)",
+          "usage": null,
+          "value": "systemMT",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-Reply",
+          "picture": "x",
+          "usage": null,
+          "value": "space",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Old-File-Function",
+          "picture": "9",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "Display-Message-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "WS-Where=",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "from",
+              "picture": "x(69)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Display-Message-2",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "SM004",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "using",
+              "picture": "x(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "using",
+              "picture": "9(3)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "using",
+              "picture": "x(199)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "SQL",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "using",
+              "picture": "x(67)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data",
+          "System-Record"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "ba010-Initialise",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "SQL-State",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba020-Process-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-string",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba030-Process-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba070-Process-Write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "WS-SQL-Retry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba090-Process-Rewrite",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "WS-SQL-Retry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba100-Bad-Function",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba998-Free",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba999-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba999-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "bb000-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "bb100-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "bb200-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "bb300-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Ca-Process-Logs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 231,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "fhlogger",
+        "type": "STATIC",
+        "line": 5252,
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "Ca-Process-Logs"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1000-OPEN",
+        "thru": "MYSQL-1090-EXIT",
+        "condition": null,
+        "line": 596
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1000-OPEN",
+        "thru": "MYSQL-1090-EXIT",
+        "condition": null,
+        "line": 623
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba998-Free",
+        "thru": null,
+        "condition": null,
+        "line": 639
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1980-CLOSE",
+        "thru": "MYSQL-1999-EXIT",
+        "condition": null,
+        "line": 647
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1210-COMMAND",
+        "thru": "MYSQL-1219-EXIT",
+        "condition": null,
+        "line": 692
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1220-STORE-RESULT",
+        "thru": "MYSQL-1239-EXIT",
+        "condition": null,
+        "line": 693
+      },
+      {
+        "type": "PERFORM",
+        "target": "bb100-UnloadHVs",
+        "thru": null,
+        "condition": null,
+        "line": 934
+      },
+      {
+        "type": "PERFORM",
+        "target": "bb000-HV-Load",
+        "thru": null,
+        "condition": null,
+        "line": 942
+      },
+      {
+        "type": "PERFORM",
+        "target": "bb200-Insert",
+        "thru": null,
+        "condition": null,
+        "line": 948
+      },
+      {
+        "type": "PERFORM",
+        "target": "bb000-HV-Load",
+        "thru": null,
+        "condition": null,
+        "line": 972
+      },
+      {
+        "type": "PERFORM",
+        "target": "bb300-Update",
+        "thru": null,
+        "condition": null,
+        "line": 997
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 1049
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 1054
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1210-COMMAND",
+        "thru": "MYSQL-1219-EXIT",
+        "condition": null,
+        "line": 3330
+      },
+      {
+        "type": "PERFORM",
+        "target": "MYSQL-1210-COMMAND",
+        "thru": "MYSQL-1219-EXIT",
+        "condition": null,
+        "line": 5242
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "ba999-end",
+        "line": 558,
+        "conditional": false
+      },
+      {
+        "target": "ba999-end",
+        "line": 564,
+        "conditional": false
+      },
+      {
+        "target": "ba020-Process-Open",
+        "line": 575,
+        "conditional": false
+      },
+      {
+        "target": "ba030-Process-Close",
+        "line": 577,
+        "conditional": false
+      },
+      {
+        "target": "ba040-Process-Read-Next",
+        "line": 580,
+        "conditional": false
+      },
+      {
+        "target": "ba070-Process-Write",
+        "line": 582,
+        "conditional": false
+      },
+      {
+        "target": "ba090-Process-Rewrite",
+        "line": 584,
+        "conditional": false
+      },
+      {
+        "target": "ba100-Bad-Function",
+        "line": 586,
+        "conditional": false
+      },
+      {
+        "target": "ba999-end",
+        "line": 625,
+        "conditional": false
+      },
+      {
+        "target": "ba999-end",
+        "line": 635,
+        "conditional": false
+      },
+      {
+        "target": "ba999-end",
+        "line": 650,
+        "conditional": false
+      },
+      {
+        "target": "ba998-Free",
+        "line": 715,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 908,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 925,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 931,
+        "conditional": false
+      },
+      {
+        "target": "ba999-end",
+        "line": 937,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 967,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 1016,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 1021,
+        "conditional": false
+      },
+      {
+        "target": "ba999-End",
+        "line": 1029,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 33,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 55,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 60,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 63,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 70,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 99,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 101,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 121,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 129,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 190,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 191,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 228,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 232,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 530,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 534,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 555,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 559,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 561,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 565,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 624,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 638,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 654,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 658,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 697,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 699,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 703,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 707,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 707,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 711,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 716,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 717,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "h",
+        "line": 720,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 904,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 909,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 911,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 915,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 923,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 928,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 949,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 953,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 957,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 962,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 963,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": ">",
+        "line": 964,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 1001,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 1003,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 1005,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 1009,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "g",
+        "line": 1015,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 1017,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 1048,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1051,
+        "complexity": 1
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function\n *>",
+        "line": 552,
+        "complexity": 3
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function",
+        "line": 573,
+        "complexity": 8
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "ws-env-lines",
+        "condition": "if       ws-env-lines < 24",
+        "line": 530,
+        "errorHandling": "move  ws-env-lines to ws-lines\n     end-if\n*> Force Esc, PgUp, PgDown, PrtSC to be detected\n     set"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if     File-Key-No not = 1",
+        "line": 555,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Key-No",
+        "condition": "if     File-Key-No not = 1",
+        "line": 561,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 624,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-MYSQL-Count-Rows",
+        "condition": "if       WS-MYSQL-Count-Rows = zero",
+        "line": 703,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if       return-code = -1",
+        "line": 904,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-MYSQL-Count-Rows",
+        "condition": "if       WS-MYSQL-Count-Rows = zero",
+        "line": 911,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 928,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-MYSQL-COUNT-ROWS",
+        "condition": "if       WS-MYSQL-COUNT-ROWS not = 1",
+        "line": 949,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "end-if",
+        "condition": "if\n     end-if\n>>D",
+        "line": 963,
+        "errorHandling": "move 99 to fs-reply                  *> this may need changing for val in WE-Error!!\n                    end-if\n              end-if\n     end-if\n>>D   display \" Looking in for \"\n>>D   display  WS-MYSQL-COMMAND (1:240)"
+      },
+      {
+        "field": "WS-MYSQL-COUNT-ROWS",
+        "condition": "if       WS-MYSQL-COUNT-ROWS not = 1",
+        "line": 1005,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "from",
+        "line": 59,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 100,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "data",
+        "line": 158,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "indexed",
+        "line": 164,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "the",
+        "line": 591,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 105,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 232,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 582,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 584,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "when",
+        "line": 584,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "according",
+        "line": 116,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "command",
+        "line": 124,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "key",
+        "line": 171,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "SQLSTATE",
+        "line": 172,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "function",
+        "line": 659,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "function",
+        "line": 980,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "OR",
+        "line": 162,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "condition",
+        "line": 278,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 4466,
+    "linesOfComment": 787,
+    "cyclomaticComplexity": 84,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 30,
+    "numberOfCalls": 1,
+    "numberOfFiles": 4,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 12
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

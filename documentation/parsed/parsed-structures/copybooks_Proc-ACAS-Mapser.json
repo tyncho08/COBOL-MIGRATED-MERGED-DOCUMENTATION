@@ -1,0 +1,376 @@
+{
+  "metadata": {
+    "filename": "Proc-ACAS-Mapser.cob",
+    "filepath": "copybooks/Proc-ACAS-Mapser.cob",
+    "parseTimestamp": "2025-09-19T16:22:55.009Z",
+    "fileSize": 6724,
+    "lastModified": "2018-01-13T22:33:05.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "PROC-ACAS-MAPSER",
+    "programType": "copybook",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "Capture-Data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [
+      {
+        "program": "maps01",
+        "type": "STATIC",
+        "line": 44,
+        "using": [
+          "maps01-ws"
+        ],
+        "context": "Capture-Data"
+      },
+      {
+        "program": "maps01",
+        "type": "STATIC",
+        "line": 49,
+        "using": [
+          "maps01-ws"
+        ],
+        "context": "Capture-Data"
+      },
+      {
+        "program": "maps04",
+        "type": "STATIC",
+        "line": 61,
+        "using": [
+          "maps03-ws"
+        ],
+        "context": "Capture-Data"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "level-setup",
+        "thru": null,
+        "condition": null,
+        "line": 64
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "Capture-Data",
+        "line": 40,
+        "conditional": false
+      },
+      {
+        "target": "level-setup",
+        "line": 185,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 18,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 23,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 39,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 41,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 111,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 115,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 118,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 122,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 125,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 129,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 132,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 136,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 138,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 142,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 144,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 148,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 154,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "B",
+        "line": 157,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "B",
+        "line": 160,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 163,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 167,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 170,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 173,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 176,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 184,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 18,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 39,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 111,
+        "errorHandling": "move zero to level-1\n     end-if\n     accept   ws-reply at 2035 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 118,
+        "errorHandling": "move zero to level-1\n     end-if\n     accept   ws-reply at 2035 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 125,
+        "errorHandling": "move zero to level-2\n     end-if\n     accept   ws-reply at 2135 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 132,
+        "errorHandling": "move zero to level-3\n     end-if\n     accept   ws-reply at 1975 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 138,
+        "errorHandling": "move zero to full-invoicing\n     end-if\n     accept   ws-reply at 2075 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 144,
+        "errorHandling": "move zero to Level-4\n     end-if\n     accept   ws-reply at 2175 with foreground-color 6 update"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 184,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "system-record",
+        "line": 76,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "system-record",
+        "line": 80,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "system-record",
+        "line": 84,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "system-record",
+        "line": 88,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 144,
+    "linesOfComment": 45,
+    "cyclomaticComplexity": 28,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 3,
+    "numberOfCalls": 3,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 2
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

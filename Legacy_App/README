@@ -1,0 +1,572 @@
+The file README.nightly should also be read if using the latest v3.02 code
+that is updated nightly if any changes have occurred to code, manuals etc.
+
+Once testing is complete I would like to issue the ACAS system as version v3.03.
+This will be reflected in cvs / svn source code versioning as cvs-v3.03 with a
+new file reflecting this.
+
+WARNING: The current version of ACAS built to the nightly archives is subject
+to testing for all the new features listed above as well as some not so listed.
+Including while testing to update the manuals to reflect current usage and
+screen lay outs etc.
+
+Offers to help in this endeavour would be gratefully received, and that can
+include help on Testing, Document writing and software updates and programming
+new features if and as required.
+
+I am, but only one person doing this work that originally had a team of 6
+helping but as the ACAS system is now open source there is no funds to pay for
+any such a team but in any event as I am coming up to my 78 year birthday this
+June and my work load has some what dropped - brain power likewise :(
+
+To help update software sources and manuals you need to be registered at
+sourceforge so you can be added as a "updater" etc.
+
+2025-04-14   *  Vincent B. Coen
+                All basic testing has completed for BO - Back Orders with the changed
+                or new program namely :
+                st020 - Stock Additions
+                sl970 - BO reporting, Update, Manual record creation.
+                sl910 - Invoice entry.
+
+                Manuals - Sales Ledger updated for BO processing although some more
+                          info might be needed.
+                          Building the ACAS System - Minor updates.
+                          System Set up procedures Updated, more needed ?
+
+                Check for typo's etc.
+
+2024-12-22   *  Vincent B. Coen
+                To confirm all work on OE has terminated as the one missing function
+                it had over ACAS was BO (Back Ordering) which has been added to ACAS
+                although very much under testing mode at least for the invoicing
+                program (sl910) as testing has finished for the other program changed
+                (st020 - Stock Additions), to support it plus the one new program
+                (sl970 BO Reporting and amendments).
+                Very limited testing in sl970 amendments as it was an after thought
+                mostly for use in testing but left in for users - just in case as the
+                Sales Invoicing program (Sl910) after processing a BO record will
+                delete it after being used/processed subject to user request.
+                I.e., it only will offer to delete after an invoice has been created.
+
+                Currently testing is in progress although slowly for the changes in
+                SL910 Sales Invoicing to confirm all BO extra coding is working as
+                expected and the rest of the system if nothing else than to add the
+                needed data throughout the ACAS system for the testing. Additional
+                testing (System) to validate that no changes made over the last year
+                or two has effected the system functionality AND to help update the
+                various manuals such as Sales, Purchase and the various others
+                used to help set the system up, ACAS into etc.
+                I am always looking for help with these manuals so all offers of
+                help is greatly accepted and the only thing a volunteer needs is to be
+                a registered member at Sourceforge so that you can be added as a
+                valid updater of the ACAS sources.
+
+
+2024-12-15   *  Vincent B. Coen
+                Coding for Back Orders has been completed ready for system
+                testing but mostly fir sales invoicing as stock is already
+                tested but subject to system testing.
+
+2024-04-16   *  Vincent B. Coen
+                Nightly builds updated on SF as well as in the cvs code base. I am
+                trying to remember to keep this up to date at least on a weekly basis
+                but cannot find a way of doing it in a automatic manner using Linux
+                crontab process mostly cause bu the need to input the password.
+
+                Manuals are still being updated with new one's added.
+
+                For Sales Ledger coding for Back order processing has been completed
+                although needs to be tested  which is about to start. These extra
+                processes includes changes to sl010, sl910 and new program sl970.
+                Also in Stock control - st010 and st020.
+
+                Recurring invoices programming has also been completed but again needs
+                testing as well. There is also some coding for similar in Purchase
+                ledger but is currently incomplete as the need for it here is
+                undetermined.  Options ?
+
+                I have added a new nightly file : OE-nightly.rar which is/was an
+                experiment where the code was taken from an archived tandy website.
+                I migrated the code over from RM Cobol v1.4 or about to GnuCobol and
+                while testing have had to make a lot of changes to clear a lot of bugs
+                mostly from the original code.
+
+                While testing I found only one extra features present that was not in
+                ACAS namely Back Order Processing but only to reporting stage nothing
+                beyond. Hence the reason for putting the feature in ACAS Sales and
+                Stock. The one other feature? that OE has is dealing with Salesmen and
+                their commissions but as there is no actual Payroll system to link to
+                it is a bit pointless and as there is no Payroll in ACAS, likewise.
+
+                Why would any business want to pay people a commission taking orders
+                over the telephone ?
+
+                So, with that the only feature in OE that differs from ACAS I have now
+                stopped doing any work on it but have made it available to any one who
+                want to take a look at the code base and before you ask no, that is how
+                I found it but remember in the late 70's micro's had very small amount
+                of Ram to work with such as 640kB and floppy disks as there storage
+                medium. So very tight when programming an application.
+                There original ACAS code was also tightly packed but using separate
+                modules to handle screen output and keyboard input was never
+                considered as the Cobol compiler used did a reasonable job of it - MF
+                CIS Cobol and may be we we had more experience of programming in Cobol.
+
+
+2024-03-17   *  Vincent B. Coen
+                Started work on changes to SL910, SL920 to support BO
+                (Back Orders) in invoicing will need new program SL970 for
+                reporting such actions.
+
+2024-03-13   *  Vincent B. Coen
+                Added fields in System record to support Back Ordering in
+                System record area and Stock control and likewise in Stock rec.
+                Applied to ACASDB.sql definitions etc including the DB master
+                load. Change code in System rdbms loader, no need for stock.
+
+2024-01-22   *  Vincent B. Coen
+                Corrected typos in the item below :
+
+2024-01-21   *  Vincent B. Coen
+                For development and testing I am now using v3.2 final instead of
+                playing with 3.3 A/Beta etc due to issues with building it using
+                libtool v2.4.7 which is the version used in my system of Mageia
+                v9 X64.
+
+                As of today the licence for the ACAS system has been updated to
+                reflect 2024 and some minor changes to the COPYRIGHT notice
+                itself. For this, see any Cobol source files with the .cob
+                extension but it is shown here for reference: --
+
+                I have, for the last few months been working on migrating over a
+                OE (Order Entry) system that I found on a archived Tandy website
+
+                This Cobol system was written in 1979 for the RM Cobol compiler
+                version around 1.4.  Needless to say it has not been an easy
+                process mostly due to the approach taken to keep the executables
+                within a 500k Ram for Dos and Xenix, Some of these issues are
+                still evident within the code.
+
+                My interest, was the fact that it at least on paper OE handled
+                BO (Back Orders) but the system has next to zero documentation
+                other than the original system specifications for a version 1
+                release. When testing the migration over to GnuCobol many bugs
+                appeared outside the migration, at least for the programs
+                tested.
+
+                This is most of the system but a few elements have not been.
+                This is due to time as I spent around 8 weeks on it with the
+                intention of considering adding it into Sales Ledger or
+                adding the BO (Back Order) element into SL. The testing so far
+                done indicates, that testing and development was not completed
+                as some functionality appears to be missing. In any event it
+                would take some time to migrate the BO process and maybe OE
+                itself, over to ACAS. So in this, I have at least for the moment
+                stopped work on it. The sources for it are included in the ACAS
+                archive but as a separate archive for anyone to have a play.
+
+                Another point is that it has differences in field usage from
+                ACAS in that the Stock item file has three different prices
+                available where ACAS just the one but provides discounts both at
+                the item level and the invoice so two of them would need to be
+                removed. The Customer file holds fields for Tax code, discount
+                and a few other examples of similar, that are not used in such a
+                manner and that would also need to be dealt with.
+                For the moment because of the way BO works (or NOT) it is on the
+                back burner.  I suspect it still requires some 2 - 4 weeks
+                testing to find and fix the current problems lurking within.
+
+                So I will be returning to ACAS manual updates and system testing
+                both for the new and existing features that are not very well
+                reported on, as well as checking that the recurring invoice sub
+                system works as required.
+
+                For those that are not sure what "recurring" billing is - It is
+                a system that allows for periodic invoicing such as yearly,
+                quarterly, monthly etc, for specific services such as Rents,
+                Subscriptions, monthly software usage fees etc. This clearly is
+                more for service items and not notably a stock / product type
+                facility. A very long time a go it was installed but a more
+                basic facility and as no one was really happy with it so it was
+                removed.
+
+                The new version of this, is a total rewrite - sort of as many
+                aspects are taken from the existing invoicing system but
+                using a different data file that when such a charge is due a
+                copy of the transaction is passed to the invoicing system and on
+                to the invoice file for further processing within the invoicing
+                sub system.
+
+                Well that is the theory anyway, all subject to testing.
+
+2022-12-08   *  Vincent B. Coen
+                For development and testing am now using gnucobol v3.2 from
+                the current svn stream and this version is issuing a warning
+                about goto-section and these are a go to statement that goes
+                to the start of the same section.
+                So for all other than Stock an extra element is added to the
+                compile commands in the scripts for both with and without rdbms
+                (comp-no-rdbms.sh and comp.sh etc, for each ledger).
+                but for stock as it only had three programs effected it was
+                quick to just change the program sources in st030, st040 and
+                st050. Same applies to sy002 and the same time I changed the
+                dates of copyright notices AND the version numbers of changed
+                programs.
+                I have not yet found or received aa reason for this compiler
+                change that is creating this warning message and as the code
+                only does a goto within the section the logic is totally valid
+                although if a goto was going outside the section to another
+                it could present a problem but this does not happen.
+
+                There is no other changes and none that effect any logic.
+
+2020-06-23   *  Vincent B. Coen
+                Added a CDF constant to turn ON or OFF file access
+                logging  in common/fhlogger.cbl
+                CURRENTLY it is ON, so after testing change it before
+                recompiling the ACAS system.
+                Happy 73rd to me and save paper !
+
+2019-12-08   *  Vincent B. Coen
+                Changed Cobol compiler sources to gnucobol-3.1-dev as
+                more stable than v3.2.
+
+2019-06-13   *  Vincent B. Coen
+                Updated all RDBMS load programs (common/*LD.cbl) to o/p
+                run messages other than no param file or no RDB set up to
+                file [SYS-DISPLAY.log] as these will produce a display messages
+                indicating the problem/s.
+                The SYS-DISPLAY.log file needs to be examined via 'less' to
+                check if any problems occurred. When running the load programs
+                via the masterLD.sh script it will output the content of this
+                file if it exists.
+                WHY this way ?  because the displayed output from program have
+                escape sequences which disappears from screen and also does not
+                appear if running the load programs with redirects i.e.,
+                abcdLD > loader.log.
+
+2018-07-12   *  Vincent B. Coen
+                Update to the nightly builds archive.
+                Added Oracle's ISAM handling code as archive db-6.2.32.NC.tar.gz.
+                This is for anyone wishing to use the current test data archive
+                that was created using the DBD ISAM library.
+                If you have a later one in use, it might also work.
+                Otherwise install and then recompile the GnuCOBOL compiler.
+                The test data will be in its own archive in the nightly download
+                directory area.
+                Note that test data will only get updated as testing occurs!!
+                Test data also includes a dummy client and Company Dykegrove
+                and as this is used for system testing as other system are tested
+                in whole or part the file count will increase,
+
+2018-06-10   *  Vincent B. Coen
+                Updates to General Ledger sources, Building the ACAS System manual,
+                General & IRS manuals - See discussion area for more info.
+
+2018-05-28   *  Vincent B. Coen
+                Changed all Menu programs ACAS, IRS, GL, SL, Stock etc to check
+                that terminal program settings for columns and lines is => 80, 24.
+                This adds new system messages so the Building the ACAS system
+                is updated.
+
+2018-05-22   *  Vincent B. Coen
+                After init. testing of General Ledger found bugs in file backup
+                routines for all systems other than IRS - this is still ongoing.
+                Corrected.
+2018-05-14   *  Vincent B. Coen
+                Check source for the MySql & Mariadb connector-C archives to the
+                cobolsrc/ACAS directory via a link and updated presql2 to 222.
+                as not being picked up, again a link.
+
+2018-04-25   *  Vincent B. Coen.
+                Changed ALL menu programs that plays with system recs 2, 4 to save
+                system rec 1 and restore it in overwrite for RDB before doing files.
+                This way all of them work the same way, also save all opened system
+                recs before doing a requested system set up.
+                Hopefully this will stop the system record getting corrupted and
+                RDBMS processing attempting to run when RDB is not set up.
+
+2018-04-24   *  Vincent B. Coen
+                Reminder that the nightly builds on SF is not up to date so to get 'the'
+                latest as updated at midnight (UK local time) get from :
+                http://applewood.linkpc.net/files/acas/nightlybuilds/
+
+                The only file is ACAS-Nightly.rar although there is also
+                ACAS-Test-Data.rar which I use for testing !
+
+                This file is refreshed at midnight and then saved as the above if any
+                changes have occurred.
+
+2018-04-07   *  Vincent B. Coen.
+                Updated presql2 docs, presql2.cbl and MySql-procedures.cpy as failing to
+                compile as I had incorrectly copied over the one from ACAS. Updated
+                copyright notices and other comments in programs.
+
+2018-04-06   *  Vincent B Coen
+                Have now added the mysql-connector-c libraries.
+                You need to untar them using tar xfvz mysql-connector-c-6.1.11-src.tar.gz
+                then go into the created directory and run:
+                make
+
+                When that finishes then run sudo make install
+                This will install it into /usr/local/mysql
+
+                I am changing the ACAS build scripts to use that location so if you change
+                the install directory prior to building the connector then you will also
+                need to look at and change the compile scripts for ACAS but not the ones
+                used to build a non-RDBMS version.
+
+                For additional notes on building the connector see the documentation on the
+                mysql website and here I used the Oracle one. So go to:
+
+                https://dev.mysql.com/doc/connector-c/en/connector-c-installation-source.html
+
+                and select the correct one for your platform but I use the Unix one.
+
+2018-03-13   *  Vincent B Coen
+                The DAL deliveryMT.scb and the RDBMS table DELIVERY-RECORD has been
+                changed to DELIVERY-REC as all the other tables end in -REC.
+                Effective tonight's nightly build so remember to re-compile all.
+                IF you need it I have a sql script to run to update an existing ACASDB.
+                Just let me know and I will add it to the nightlies.
+
+2018-03-03   *  Vincent B Coen
+2018-03-12      Updated instructions.
+                Tools needed are unzip or zip, unrar or rar or any other archive extractor
+                that can handle them.
+                If you are going to help test the nightly builds of ACAS you should
+                start testing by only using the Cobol file option within the ACAS parameter
+                file so leave RDBMS settings blank but only set
+                Cobol file processing set as Data File Handling to zero in the first data
+                screen when setting up or amending the system parameters that you get to
+                via option Z or on first starting ACAS for the first time.
+                There are RDBMS load programs for each of the Cobol files that will
+                read the Cobol file data and fill with data, the respective RDBMS table.
+                There is not any for the other way round so starting with files is practical
+                any way.
+
+                Current nightly release are supplied with a fairly current versions of:
+                1. GC (GnuCOBOL) as open-cobol-code.zip that is currently used to build
+                   and test ACAS.
+
+                2. presql2-16B.zip for the pre-SQL compiler needed to create all MySQL DAL
+                   modules and these do all accesses for RDBMS using MySQL RDBMS.
+                   Presql2 is currently at version 2.16B.
+
+                This must be built using the GC compiler and before compiling ACAS
+                but only if you are going to use RDBMS tables.
+                So the order for all building from the beginning is :
+                1. If not previously done create (in your home directory) the needed
+                   directories to hold
+                   A. The Cobol compiler : cobolcompiler
+                   B. The ACAS sources   : cobolsrc
+
+                2. Unpack the ACAS nightly archive to your home directory in tmp directory.
+                   From there - having used cd to go there:
+                   C. Unpack the Cobol compiler into A (creates open-cobol-code dir).
+                   D. Unpack the ACAS sources into B as cobolsrc (creates ACAS dir).
+
+                      You can cd to these directories one at a time and run the unzip from
+                      there by running :
+                      As you will need admin privileges start with
+                      sudo -s   --- supply your password
+                      ls -la /etc/ld.so.conf.d   - - Here you should get some files listed
+                             but if it does not exist create by running
+                             mkdir /etc/ld.so.conf.d
+                       Running unrar will add a file to this directory
+                      cd cobolsrc
+                      unrar x ~/tmp/nightlybuild.rar
+                      chown -R your-user-name: **      [ yes there is a colon ]
+                      exit                             -  to leave sudo privileges
+                      cd ~/cobolsrc                 -  As you are returned to your home dir.
+                      unzip presql2-16B.zip
+                      mv open-cobol-code.zip ../cobolcompiler
+                      cd ../cobolcompiler
+                      unzip open-cobol-code.zip
+
+                3. Build and run all tests for the Cobol compiler --
+                Assuming you have also installed the required packages (ncurses*, bdb etc)
+                you can build with 2 commands: ./configure
+                                               make checkall
+                            This builds the compiler then run the internal 900+ tests
+                            some of these are skipped and one or two expected fails
+                            then runs the NIST tests that can take 10 minutes or longer
+                            depending on the speed of your system.
+
+
+                4. If not already done and you are going to use the rdbms tables for ACAS,
+                   do the rest of 4 and 5 otherwise skip.
+                   Install MySQL packages including the required
+                   mysql(or mariadb)-connector-c, which contains the needed includes
+                   for MySQL which are needed to compile ACAS.
+
+                5. Using MySQL workbench or phpmyadmin to run the ACASDB.sql to
+                   create the ACAS database setting up rdb users that can update the ACASDB
+                   as a admin and as normal users. These are needed for running ACAS and
+                   building and running presql2 and its tools along with ACAS itself as a
+                   normal user (even if under testing).
+                   I will at looking for a way of doing this within one or more Cobol
+                   programs if it is possible.
+
+                6. Go in to cobolsrc and in order:
+                   A. Go into presql2-package using cd
+                      Change presql2.param text file to match your MySQL installation.
+                      presql2.param    -- MUST BE DONE NOW as will be used to compile ACAS.
+                      (After testing it with presql2, you can copy it to
+                      bldcopy2.param   -- Not needed for ACAS.
+                                          Optional extra tool not essential unless you
+                                          wish to print out a rdb table for Cobol copybook.
+                      prtschema2.param -- Not needed for ACAS.
+                                          Optional extra tool not essential unless you
+                                          wish to print out rdb tables -> Cobol mappings.)
+
+                   B. Build the MySQL api by running cobmysqlapi38.sh and the output file
+                      from this ( cobmysqlapi.o ) need to be copied to each of the ACAS
+                      source directories common, general, irs, purchase, sales & stock as
+                      well as ~/bin, /usr/local/lib.
+
+                   C. Build the three programs by running the scripts
+                      presql2.sh      --  MUST BE DONE.
+                      bldcopy2.sh     --  Not needed for ACAS.
+                      prtschema2.sh   --  Not needed for ACAS.
+
+                   D. run mkdir ~/bin     To create your local executable directory but this
+                                          may already exist.
+                      So that you can run them from anywhere within your home directory:
+                      cp -vp presql2    ~/bin
+                      cp -vp bldcopy2   ~/bin
+                      cp -vp prtschema2 ~/bin
+
+                7. Go in to ~/cobolsrc/ACAS and build the ACAS system by running :
+                   comp-all.sh  for RDBMS support or
+                   comp-all-no-rdbms.sh  for only using Cobol files.
+
+                   If you get any error messages during this, find and fix the problem but
+                   as it should not happen report it via email vbcoen@gmail.com.
+
+                8. Run install-ACAS.sh if doing it for the first time otherwise
+                    run install-ACAS-preinstalled.sh
+                   The later script will not populate your environment settings in
+                   .bashrc and for these to be active you will need to exit the terminal
+                   program and reload it to run the ACAS systems.
+                   Although running the install-ACAS.sh script many times will not cause
+                   problems running ACAS, it can make the file large and look messy.
+                   Loading a terminal program will be slower as well.
+
+Current status update:
+2018-03-12 - vbc 3.2.00 Manuals been undergoing updates as well as new manuals:
+                        Building the ACAS System - covers :
+                        Installing the GC Cobol compiler with all needed extra
+                        packages, building and running all tests.
+                        Installing the ACAS code and building the system using
+                        the GC (GnuCOBOL) Cobol compiler.
+                        Installing the MySQL or MariaDB RDBMS system along
+                        with the Mysql Workbench administration tool.
+                        Installing the ACAS database and all tables.
+                        Other notes useful to new administrators of the ACAS
+                        system including all Warning and Error messages
+                        produced by all programs and ACAS systems.
+                        Setting up the ACAS system parameter file with detailed
+                        instructions.
+                        Additional information as I continue with manual
+                        changes for the other manuals and wring the missing
+                        ones.
+                        Most of the new manuals and current manual updates for
+                        v3.02 will occur during detailed system testing but
+                        hoping to get basic one's finished beforehand for the
+                        missing manuals for Purchase Ledger as well as major
+                        Sales & General manual updates.
+
+                        IRS and Stock need revising for the new release.
+
+
+2017-03-29   *  Vincent B Coen
+		In archive is presql-1.14f (or later) this needs to be compiled
+                with the executables placed in your ~/bin path but specifically
+		presql2o, presql2M (can be the same file), cobmysqlapi.o.
+                Read the documentation in the presql package for more details.
+
+		Also the Mysql or Mariadb client libraries and includes need to
+                be installed along with the MySQL or Mariadb package elements.
+
+		If it was easy, everyone would be a programmer !
+
+		I will clean all of this up prior to formal release but the
+		installs of the MySQL system will still need to be done.
+		Luckily Linux distro's have these in their repos.
+
+2017-03-03   *  Vincent B Coen
+		This code base is for v3.02 which provides support for the
+		MySQL rdbms (Relational Database Management System).
+		The usage of MariaDB can be used as a drop in replacement for
+		MySQL. If this file is in the nightly builds archive then this
+		package is the current state of development for people who
+		wish to use/view very early releases and therefore may well not
+		be complete.
+		The code supplied may well not be tested and bugs will be
+		present.
+		Documentation has NOT yet been updated to deal with this version
+		and likewise some manuals are still to be cleaned up.
+		This version must be considered at best an Alpha release,
+
+2013-08-05   *  Vincent B Coen
+		This code base includes not only the code for ACAS but
+		also extras to support mysql and other rdbms systems.
+		These directories / sub directories are not required for
+		compiling the system but to support new code for rdbms
+		modules/routines that are still in development.
+		These directories include rdbms, rdbms-win
+		and experimental-stuff.
+		To compile the system go into the ACAS directory,
+		and run comp-all.sh.
+
+		This does 'assume' that you have the GnuCOBOL compiler
+		v1.1 or later installed and tested. It is recommended to use
+		version v2 as it offers far more functionality over v1.1.
+
+
+		Manuals for all systems & sub systems are still in a state
+		of rebuild/rewriting and should only be taken as a general
+		guide. Hopefully you can spot where the original manuals are
+ 		still present in each document. As coding AND testing
+		continues these are being updated but I only have one pair
+		of hands :)
+
+		Additional programming support is always welcome so get in
+		touch at vbcoen at gmail.com or via a forum and let me know
+ 	how you can help.  Like wise for documentation writing and
+ 	updates and testing.
+
+-- Start of CR notice --
+
+ From copyright.cob.
+
+ Copyright Notice.
+ ****************
+
+ These files and programs is part of the Applewood Computers Accounting
+ System and is copyright (c) Vincent B Coen. 1976-2025 and later.
+
+ This program is now free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation; version 3 and later as revised for personal
+ usage only and that includes for use within a business but without
+ repackaging or for Resale in any way.
+
+ Persons interested in repackaging, redevelopment for the purpose of resale or
+ distribution in a rental mode must get in touch with the copyright holder
+ with your commercial plans and proposals.
+
+ ACAS is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ for more details. If it breaks, you own both pieces but I will endeavour
+ to fix it, providing you tell me about the problem.
+
+ You should have received a copy of the GNU General Public License along
+ with ACAS; see the file COPYING.  If not, write to the Free Software
+ Foundation, 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+-- end of CR notice --
+

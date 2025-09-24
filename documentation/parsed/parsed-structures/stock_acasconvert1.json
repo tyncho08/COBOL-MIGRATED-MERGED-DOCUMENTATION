@@ -1,0 +1,231 @@
+{
+  "metadata": {
+    "filename": "acasconvert1.cbl",
+    "filepath": "stock/acasconvert1.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.258Z",
+    "fileSize": 11687,
+    "lastModified": "2024-12-26T18:03:51.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "acasconvert1",
+    "programType": "main",
+    "author": "Vincent B Coen, MBCS. 02/05/09.",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": "Linux",
+    "objectComputer": "Linux",
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "fs-reply",
+          "picture": "99",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(18)",
+          "usage": null,
+          "value": "IRSconv2",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "rec-count",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "AA000-Start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "AA010-Read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 51,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [
+      {
+        "target": "AA010-Read",
+        "line": 305,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 48,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 52,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 263,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 267,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 281,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 300,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "rec-count",
+        "formula": "add 1 to rec-count",
+        "line": 304,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = \"00\"",
+        "line": 263,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply  not = \"00\"",
+        "line": 267,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if fs-reply not = zero",
+        "line": 281,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if fs-reply not = zero",
+        "line": 300,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "post-In",
+        "line": 274,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 52,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "posting-record",
+        "line": 298,
+        "errorHandling": "INVALID KEY"
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 226,
+    "linesOfComment": 75,
+    "cyclomaticComplexity": 8,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 3,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 1
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

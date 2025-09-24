@@ -1,0 +1,4598 @@
+{
+  "metadata": {
+    "filename": "irs020.cbl",
+    "filepath": "irs/irs020.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.015Z",
+    "fileSize": 49091,
+    "lastModified": "2024-12-26T17:04:07.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "irs020",
+    "programType": "sub",
+    "author": "Cobol Conversion by Vincent Bryan Coen. FIDPM FBCS",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Postings Default File Utilities Program."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "print-file",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "menu-reply",
+              "picture": "9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "input-type",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "sub-input",
+                  "value": "Y"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-pass",
+              "picture": "x(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "A",
+              "picture": "99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "B",
+              "picture": "99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "w",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "y",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "hdtime",
+              "picture": null,
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "hd-hh",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-mm",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-ss",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-uu",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "HD2-Time",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd2-hh",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": ":",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd2-mm",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-acs",
+              "picture": "9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-codes",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-codes2",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-vat",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-vat2",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": null,
+              "usage": null,
+              "value": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "WS-Alpha-Cd1",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "26",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "line-1",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "p-user",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(25)",
+                  "usage": null,
+                  "value": "Incomplete",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(11)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-date",
+                  "picture": "x(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-time",
+                  "picture": "x(6)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-3",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "p-client",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(16)",
+                  "usage": null,
+                  "value": "Posting",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(23)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-4",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(64)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-5",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(10)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-num",
+                  "picture": "z9bb",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-ac",
+                  "picture": "zzzz9b",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-desc",
+                  "picture": "x(25)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(3)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-code",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-vat",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-6",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "p-client-2",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(17)",
+                  "usage": null,
+                  "value": "Finished",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(22)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-7",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(80)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-8",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(50)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-9",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "04",
+                  "name": "filler",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": "2",
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "x(4)",
+                      "usage": null,
+                      "value": "spaces",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "x",
+                      "usage": null,
+                      "value": "<",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "Pos-1",
+                      "picture": "x",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "x",
+                      "usage": null,
+                      "value": ">",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "xxx",
+                      "usage": null,
+                      "value": "spaces",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "Par-1",
+                      "picture": "x(24)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "xxx",
+                      "usage": null,
+                      "value": "spaces",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "x",
+                      "usage": null,
+                      "value": "[",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "Par-2",
+                      "picture": "x",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "filler",
+                      "picture": "x",
+                      "usage": null,
+                      "value": "]",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "All-My-Constants",
+          "picture": "9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Dummies-For-Unused-FH-Calls",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "Posting-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-IRS-Posting-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SY008",
+              "picture": "x(32)",
+              "usage": null,
+              "value": "SY008",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR911",
+              "picture": "x(47)",
+              "usage": null,
+              "value": "IR911",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR912",
+              "picture": "x(51)",
+              "usage": null,
+              "value": "IR912",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR913",
+              "picture": "x(48)",
+              "usage": null,
+              "value": "IR913",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR914",
+              "picture": "x(51)",
+              "usage": null,
+              "value": "IR914",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR915",
+              "picture": "x(49)",
+              "usage": null,
+              "value": "IR915",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR916",
+              "picture": "x(50)",
+              "usage": null,
+              "value": "IR916",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR020",
+              "picture": "x(52)",
+              "usage": null,
+              "value": "IR020",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR021",
+              "picture": "x(35)",
+              "usage": null,
+              "value": "IR021",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR022",
+              "picture": "x(28)",
+              "usage": null,
+              "value": "IR022",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR023",
+              "picture": "x(42)",
+              "usage": null,
+              "value": "IR023",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR024",
+              "picture": "x(62)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR025",
+              "picture": "x(44)",
+              "usage": null,
+              "value": "IR025",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "01",
+          "name": "prog-name",
+          "picture": "x(16)",
+          "usage": null,
+          "value": "irs020",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "menu-screen-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(16)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Default",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Client",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(29)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Start",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "End",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Select",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(1)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(2)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(3)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(4)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(5)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(9)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "F1",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Setup-Screen-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(16)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Default",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Setup-Screen-2Q",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Client",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Start",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "End",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Add",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "N",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "(2)",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "destroys",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "the",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Escape",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Amend-Screen-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(16)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Default",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Setup-Amend-Screen-3",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Client",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Start",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "End",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "A/C",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Description",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Code",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Description",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Code",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "01",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "02",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "03",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "04",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "05",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "06",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "07",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "08",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "09",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "10",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "11",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "12",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "13",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "14",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "15",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "16",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Display-Screen-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(16)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Default",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Finished-Account-Setup-Screen-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Client",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Finished",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Trading",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "--------Heading---------",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Income",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Fixed",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<A>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<B>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<C>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<D>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Direct",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Current",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<E>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<F>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<G>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<H>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Sundry",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Current",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<I>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<J>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Indirect",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "Capital",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<K>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<L>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<M>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "<N>",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x(24)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "P",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "pic",
+              "picture": "9(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "value",
+              "picture": null,
+              "usage": null,
+              "value": "]",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "IRS-System-Params",
+          "WS-System-Record",
+          "File-Defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "reverse-video",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "reverse-video",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "reverse-video",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "reverse-video",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "reverse-video",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "File-Defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main01-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Set-Up-Main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "get-input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-check",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "End-Input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "get-input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-check",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Setup-Fin-Retry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Set-Up-Finished-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "p-Client-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-perform",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Print-Fini",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "list-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "display-existing",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "display-existing-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 123,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "irsubn",
+        "type": "STATIC",
+        "line": 74,
+        "using": [],
+        "context": null
+      },
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 1031,
+        "using": [
+          "Print-Report"
+        ],
+        "context": "Print-Fini"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "acasirsubn",
+        "thru": null,
+        "condition": null,
+        "line": 75
+      },
+      {
+        "type": "PERFORM",
+        "target": "Set-Up",
+        "thru": null,
+        "condition": null,
+        "line": 624
+      },
+      {
+        "type": "PERFORM",
+        "target": "Amend",
+        "thru": null,
+        "condition": null,
+        "line": 627
+      },
+      {
+        "type": "PERFORM",
+        "target": "Show",
+        "thru": null,
+        "condition": null,
+        "line": 630
+      },
+      {
+        "type": "PERFORM",
+        "target": "Listing",
+        "thru": null,
+        "condition": null,
+        "line": 633
+      },
+      {
+        "type": "PERFORM",
+        "target": "Set-Up-Finished",
+        "thru": null,
+        "condition": null,
+        "line": 636
+      },
+      {
+        "type": "PERFORM",
+        "target": "file-init",
+        "thru": null,
+        "condition": null,
+        "line": 657
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "w from 1 by 1 until w > 16\n              add w 16 giving y\n              move 1 to cole\n              add 6 w giving lin\n              display w at curs with foreground-color 2",
+        "line": 663
+      },
+      {
+        "type": "PERFORM",
+        "target": "perform",
+        "thru": null,
+        "condition": null,
+        "line": 670
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 692
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 750
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub3-Write",
+        "thru": null,
+        "condition": null,
+        "line": 752
+      },
+      {
+        "type": "PERFORM",
+        "target": "amend",
+        "thru": null,
+        "condition": null,
+        "line": 764
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "w from 1 by 1 until w > 16\n              add w 16 giving y\n              move 1 to cole\n              add 6 w giving lin\n              display w at curs with foreground-color 2",
+        "line": 774
+      },
+      {
+        "type": "PERFORM",
+        "target": "perform",
+        "thru": null,
+        "condition": null,
+        "line": 781
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 817
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 856
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub3-Write",
+        "thru": null,
+        "condition": null,
+        "line": 858
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub5-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 871
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 881
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 893
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub5-Write",
+        "thru": null,
+        "condition": null,
+        "line": 905
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 907
+      },
+      {
+        "type": "PERFORM",
+        "target": "Input-Headings",
+        "thru": null,
+        "condition": null,
+        "line": 917
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 926
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 951
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "acasirsub3-Read-Next",
+        "thru": null,
+        "condition": "w from 1 by 1 until w > 32\n              move  w  to  p-num\n              move  def-acs (w)  to  p-ac\n              move  d",
+        "line": 964
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "w from 1 by 1 until w > 32\n              move  w  to  p-num\n              move  def-acs (w)  to  p-ac\n              move  def-acs (w)  to  nl-owning\n              move  zero  to  nl-s",
+        "line": 968
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 979
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 990
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub5-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 995
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "A from 1 by 1 until A > 13\n              move ar1 (A) to PAR-1 (1)             *> Desc\n              move ar1 (B) to PAR-1 (2)\n              move ar2 (A) to PAR-2 (1)             *> S",
+        "line": 1018
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub3-Write",
+        "thru": null,
+        "condition": null,
+        "line": 1048
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub3-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1059
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 1081
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 1107
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "main01-exit",
+        "line": 639,
+        "conditional": false
+      },
+      {
+        "target": "main-loop",
+        "line": 640,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 655,
+        "conditional": false
+      },
+      {
+        "target": "Set-Up-Main",
+        "line": 659,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 685,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 694,
+        "conditional": false
+      },
+      {
+        "target": "vat-check",
+        "line": 733,
+        "conditional": false
+      },
+      {
+        "target": "end-input",
+        "line": 737,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 742,
+        "conditional": false
+      },
+      {
+        "target": "End-Input",
+        "line": 790,
+        "conditional": false
+      },
+      {
+        "target": "end-input",
+        "line": 792,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 794,
+        "conditional": false
+      },
+      {
+        "target": "end-input",
+        "line": 810,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 819,
+        "conditional": false
+      },
+      {
+        "target": "vat-check",
+        "line": 847,
+        "conditional": false
+      },
+      {
+        "target": "get-input",
+        "line": 848,
+        "conditional": false
+      },
+      {
+        "target": "Set-Up-Finished-Exit",
+        "line": 878,
+        "conditional": false
+      },
+      {
+        "target": "setup-fin-retry",
+        "line": 898,
+        "conditional": false
+      },
+      {
+        "target": "Print-Fini",
+        "line": 998,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1045,
+        "conditional": false
+      },
+      {
+        "target": "main01-exit",
+        "line": 1068,
+        "conditional": false
+      },
+      {
+        "target": "main01-exit",
+        "line": 1075,
+        "conditional": false
+      },
+      {
+        "target": "main01-exit",
+        "line": 1088,
+        "conditional": false
+      },
+      {
+        "target": "display-existing-end",
+        "line": 1124,
+        "conditional": false
+      },
+      {
+        "target": "display-existing",
+        "line": 1129,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 58,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 58,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 120,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 124,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 364,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 623,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 626,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 629,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 632,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 635,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 638,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 654,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 656,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 658,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 681,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 693,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 702,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 705,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 708,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 724,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 729,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 732,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 736,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 738,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 756,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 789,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 791,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 793,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 796,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 801,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 809,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 818,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 844,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "1",
+        "line": 868,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 873,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 879,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "P",
+        "line": 884,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 886,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "P",
+        "line": 888,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 894,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 899,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 900,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "h",
+        "line": 942,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 973,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 983,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 997,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "P",
+        "line": 1003,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1009,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1043,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 1063,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 1070,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1083,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1105,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 1110,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1123,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1125,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "col2",
+        "formula": "add      22 to col2",
+        "line": 697,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      1 to col2",
+        "line": 699,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      1 to col2",
+        "line": 715,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      2 to col2",
+        "line": 717,
+        "rounding": null
+      },
+      {
+        "target": "w",
+        "formula": "add      1  to  w",
+        "line": 735,
+        "rounding": null
+      },
+      {
+        "target": "lin",
+        "formula": "add      1  to  lin",
+        "line": 741,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      22 to col2",
+        "line": 822,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      1 to col2",
+        "line": 824,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      1 to col2",
+        "line": 831,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      2 to col2",
+        "line": 833,
+        "rounding": null
+      },
+      {
+        "target": "B",
+        "formula": "add 1 to B",
+        "line": 1026,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      5 to col2",
+        "line": 1117,
+        "rounding": null
+      },
+      {
+        "target": "col2",
+        "formula": "add      1 to col2",
+        "line": 1120,
+        "rounding": null
+      },
+      {
+        "target": "w",
+        "formula": "add      1  to  w",
+        "line": 1122,
+        "rounding": null
+      },
+      {
+        "target": "lin",
+        "formula": "add      1  to  lin",
+        "line": 1128,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "subtract 16 from y",
+        "line": 797,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply = 1",
+        "line": 623,
+        "errorHandling": "if      menu-reply = 2 or Cob-Crt-Status = Cob-Scr-F2\n              perform Amend\n      else"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if      menu-reply = 2",
+        "line": 626,
+        "errorHandling": "if      menu-reply = 2 or Cob-Crt-Status = Cob-Scr-F2\n              perform Amend\n      else\n       if     menu-reply = 3 or Cob-Crt-Status = Cob-Scr-F3\n              perform Show\n       else"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if     menu-reply = 3",
+        "line": 629,
+        "errorHandling": "if      menu-reply = 2 or Cob-Crt-Status = Cob-Scr-F2\n              perform Amend\n      else\n       if     menu-reply = 3 or Cob-Crt-Status = Cob-Scr-F3\n              perform Show\n       else\n        if    menu-reply = 4 or Cob-Crt-Status = Cob-Scr-F4\n              perform Listing\n        else"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if    menu-reply = 4",
+        "line": 632,
+        "errorHandling": "if     menu-reply = 3 or Cob-Crt-Status = Cob-Scr-F3\n              perform Show\n       else\n        if    menu-reply = 4 or Cob-Crt-Status = Cob-Scr-F4\n              perform Listing\n        else\n         if   menu-reply = 5 or Cob-Crt-Status = Cob-Scr-F5\n              perform Set-Up-Finished"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if   menu-reply = 5",
+        "line": 635,
+        "errorHandling": "if    menu-reply = 4 or Cob-Crt-Status = Cob-Scr-F4\n              perform Listing\n        else\n         if   menu-reply = 5 or Cob-Crt-Status = Cob-Scr-F5\n              perform Set-Up-Finished\n         else\n         if   menu-reply = 9 or Cob-Crt-Status = Cob-Scr-Esc\n              go to main01-exit"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if   menu-reply = 9",
+        "line": 638,
+        "errorHandling": "if   menu-reply = 5 or Cob-Crt-Status = Cob-Scr-F5\n              perform Set-Up-Finished\n         else\n         if   menu-reply = 9 or Cob-Crt-Status = Cob-Scr-Esc\n              go to main01-exit"
+      },
+      {
+        "field": "Cob-Crt-Status",
+        "condition": "if       Cob-Crt-Status = Cob-Scr-Esc",
+        "line": 654,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "we-error",
+        "condition": "if       we-error  =  2",
+        "line": 693,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "w",
+        "condition": "if       w < 30",
+        "line": 702,
+        "errorHandling": "if      w = 30\n              move \"OB\" to ws-codes\n      else\n       if     w = 31"
+      },
+      {
+        "field": "w",
+        "condition": "if      w = 30",
+        "line": 705,
+        "errorHandling": "if      w = 30\n              move \"OB\" to ws-codes\n      else\n       if     w = 31                        *> Purchases\n              move \"VI\" to ws-codes\n       else                                 *"
+      },
+      {
+        "field": "w",
+        "condition": "if     w = 31",
+        "line": 708,
+        "errorHandling": "if      w = 30\n              move \"OB\" to ws-codes\n      else\n       if     w = 31                        *> Purchases\n              move \"VI\" to ws-codes\n       else                                 *> must be 32 (sales)"
+      },
+      {
+        "field": "w",
+        "condition": "if       w < 30",
+        "line": 724,
+        "errorHandling": "move \"N\" to ws-vat2\n              display ws-vat2 at curs2 with foreground-color 3\n     end-if"
+      },
+      {
+        "field": "ws-vat",
+        "condition": "if       ws-vat not = \"I\"",
+        "line": 732,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "w",
+        "condition": "if       w  >  32",
+        "line": 736,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "w",
+        "condition": "if       w  =  17",
+        "line": 738,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Cob-Crt-Status",
+        "condition": "if       Cob-Crt-Status = Cob-Scr-Esc",
+        "line": 789,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y = zero",
+        "line": 791,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y < 1",
+        "line": 793,
+        "errorHandling": "move 1 to cole"
+      },
+      {
+        "field": "y",
+        "condition": "if       y > 16",
+        "line": 796,
+        "errorHandling": "move 1 to cole\n     end-if\n     move     zero to lin"
+      },
+      {
+        "field": "ws-acs",
+        "condition": "if       ws-acs = zero",
+        "line": 809,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "we-error",
+        "condition": "if       we-error = 2",
+        "line": 818,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-vat",
+        "condition": "if       ws-vat not = \"I\"",
+        "line": 844,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "we-error",
+        "condition": "if       we-error not = zero",
+        "line": 873,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "PL-App-Created",
+        "condition": "if       PL-App-Created not = \"1\"",
+        "line": 884,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "PL-Approp-AC",
+        "condition": "if       PL-Approp-AC not = zero",
+        "line": 888,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "we-error",
+        "condition": "if    we-error = 2",
+        "line": 894,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "hdtime",
+        "condition": "if       hdtime not = \"00000000\"",
+        "line": 942,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ar1-fields",
+        "condition": "if       ar1-fields = spaces",
+        "line": 997,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "PL-Approp-AC",
+        "condition": "if       PL-Approp-AC not = zeros",
+        "line": 1003,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-pass",
+        "condition": "if       ws-pass not = pass-word",
+        "line": 1043,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 1063,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-IRS-Default-Record",
+        "condition": "if       WS-IRS-Default-Record = spaces",
+        "line": 1070,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "we-error",
+        "condition": "if       we-error not = zero",
+        "line": 1083,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-acs",
+        "condition": "if       ws-acs not = zero",
+        "line": 1105,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "w",
+        "condition": "if       w  >  32",
+        "line": 1123,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "w",
+        "condition": "if       w  =  17",
+        "line": 1125,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "perform",
+        "line": 870,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "indexed",
+        "line": 892,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "perform",
+        "line": 994,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "the",
+        "line": 1056,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 124,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "out",
+        "line": 747,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "out",
+        "line": 853,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "out",
+        "line": 902,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "and",
+        "line": 905,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 955,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 956,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 957,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 959,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 984,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1000,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1001,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1008,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1010,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1011,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1013,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Print-Record",
+        "line": 1025,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "date",
+        "line": 323,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "date",
+        "line": 356,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "date",
+        "line": 389,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 808,
+    "linesOfComment": 332,
+    "cyclomaticComplexity": 87,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 40,
+    "numberOfCalls": 2,
+    "numberOfFiles": 2,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 11
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

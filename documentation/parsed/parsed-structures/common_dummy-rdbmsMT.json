@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "filename": "dummy-rdbmsMT.cbl",
+    "filepath": "common/dummy-rdbmsMT.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.697Z",
+    "fileSize": 8063,
+    "lastModified": "2025-07-29T00:02:59.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "dummmy",
+    "programType": "sub",
+    "author": "V.B.Coen FBCS, FIDM, FIDPM.",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "ACAS RDBMS dummy entry points"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [
+        {
+          "level": "77",
+          "name": "filler",
+          "picture": "x(15)",
+          "usage": null,
+          "value": "dummy",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "DUMMY-REC",
+          "picture": "x",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data",
+          "DUMMY-REC"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "DUMMY-REC",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 76,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 30,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 73,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 77,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 77,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 51,
+    "linesOfComment": 122,
+    "cyclomaticComplexity": 4,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 2,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 1
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

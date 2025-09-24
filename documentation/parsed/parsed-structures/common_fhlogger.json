@@ -1,0 +1,413 @@
+{
+  "metadata": {
+    "filename": "fhlogger.cbl",
+    "filepath": "common/fhlogger.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.695Z",
+    "fileSize": 9408,
+    "lastModified": "2024-12-26T16:36:54.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "fhlogger",
+    "programType": "sub",
+    "author": "Vincent B Coen, FBCS, FIDM, FIDPM, CPL",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "File Logger for"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "Log-File",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "WS-CDT",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "CDT-Date",
+              "picture": "9(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "CDT-Time",
+              "picture": "9(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "CDT-Diff-HH",
+              "picture": "s99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "CBT-Diff-MM",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "FH901",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "FH901",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "FH903",
+              "picture": "x(34)",
+              "usage": null,
+              "value": "FH903",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(17)",
+          "usage": null,
+          "value": "fhloger",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Log-File-Open-Flag",
+          "picture": "9",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "LFOF-Closed",
+              "value": "zero"
+            },
+            {
+              "name": "LFOF-Open",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "level": "77",
+          "name": "fx-reply",
+          "picture": "99",
+          "usage": null,
+          "value": "zeroes",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "WS-Logging-On",
+          "picture": "X",
+          "usage": null,
+          "value": "C-Logging-On",
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "File-Logging-Off",
+              "value": "N"
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Ca010-Create-Log-Rec",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca999-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 100,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [
+      {
+        "target": "ca999-exit",
+        "line": 201,
+        "conditional": false
+      },
+      {
+        "target": "ca999-Exit",
+        "line": 205,
+        "conditional": false
+      },
+      {
+        "target": "ca999-Exit",
+        "line": 248,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 69,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 69,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 97,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 101,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 194,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 196,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 202,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 204,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "L",
+        "line": 207,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 209,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 212,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 227,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 239,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "Log-File-Rec-Written",
+        "formula": "add      1 to Log-File-Rec-Written",
+        "line": 250,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "File-Function",
+        "condition": "if       File-Function = zero",
+        "line": 196,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fx-Reply",
+        "condition": "if   fx-Reply not = zero",
+        "line": 209,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FX-Reply",
+        "condition": "if       FX-Reply not = zero",
+        "line": 239,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 101,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "failure",
+        "line": 177,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Log-Record",
+        "line": 238,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 116,
+    "linesOfComment": 140,
+    "cyclomaticComplexity": 17,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 5,
+    "numberOfCalls": 0,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 4
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

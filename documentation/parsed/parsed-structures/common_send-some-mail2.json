@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "filename": "send-some-mail2.cbl",
+    "filepath": "common/send-some-mail2.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.433Z",
+    "fileSize": 1721,
+    "lastModified": "2025-09-01T20:15:35.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "sendsomemail",
+    "programType": "main",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "Mail-To-Address",
+          "picture": "X(64)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Mail-Subject",
+          "picture": "X(64)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Mail-Body",
+          "picture": "X(256)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Mail-Command",
+          "picture": "X(600)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Mail-Return",
+          "picture": null,
+          "usage": "Binary-Long",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Mail-Attachment-Filename",
+          "picture": "X(64)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "beginning",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 58,
+        "using": [
+          "MAIL-COMMAND",
+          "RETURNING",
+          "MAIL-RETURN"
+        ],
+        "context": "beginning"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [],
+    "conditionals": []
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "purchase",
+        "line": 11,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 32,
+    "linesOfComment": 13,
+    "cyclomaticComplexity": 1,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 2,
+    "numberOfCalls": 1,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 0
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

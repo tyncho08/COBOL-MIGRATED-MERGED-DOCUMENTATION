@@ -1,0 +1,1023 @@
+{
+  "metadata": {
+    "filename": "acas008.cbl",
+    "filepath": "common/acas008.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.856Z",
+    "fileSize": 26861,
+    "lastModified": "2024-12-26T16:47:54.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "acas008",
+    "programType": "sub",
+    "author": "Vincent B Coen, FBCS, FIDM, FIDPM, CPL",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "SL/PL to IRS Posting File Handler."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "IR901",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "IR901",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR902",
+              "picture": "x(32)",
+              "usage": null,
+              "value": "IR902",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(20)",
+          "usage": null,
+          "value": "acas008",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "WS-Reply",
+          "picture": "x",
+          "usage": null,
+          "value": "space",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "A",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "B",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Display-Blk",
+          "picture": "x(75)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Cobol-File-Status",
+          "picture": "9",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "Cobol-File-Eof",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "System-Record",
+          "WS-IRS-Posting-Record",
+          "File-Access",
+          "File-Defs",
+          "ACAS-DAL-Common-data"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa010-main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-evaluate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa020-Process-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa030-Process-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa040-Process-Read-Next",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa070-Process-Write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa100-Bad-Function",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa999-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba010-Test-WS-Rec-Size",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba012-Test-WS-Rec-Size-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba015-Test-Ends",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-call",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba-rdbms-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 224,
+        "inDivision": "IDENTIFICATION",
+        "inSection": "exit"
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "slpostingMT",
+        "type": "STATIC",
+        "line": 581,
+        "using": [
+          "RDBMS",
+          "DAL",
+          "from",
+          "Prima",
+          "&",
+          "MS",
+          "Sql",
+          "*>",
+          "call",
+          "\"slpostingMT\"",
+          "using",
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "end-if"
+      },
+      {
+        "program": "fhlogger",
+        "type": "STATIC",
+        "line": 596,
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "ba-rdbms-exit"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "ba-Process-RDBMS",
+        "thru": null,
+        "condition": null,
+        "line": 135
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba-Process-RDBMS",
+        "thru": null,
+        "condition": null,
+        "line": 315
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba-Process-RDBMS",
+        "thru": null,
+        "condition": null,
+        "line": 323
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba012-Test-WS-Rec-Size-2",
+        "thru": null,
+        "condition": null,
+        "line": 338
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa999-main-exit",
+        "thru": null,
+        "condition": null,
+        "line": 427
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 430
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 496
+      },
+      {
+        "type": "PERFORM",
+        "target": "Ca-Process-Logs",
+        "thru": null,
+        "condition": null,
+        "line": 546
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "aa999-main-exit",
+        "line": 304,
+        "conditional": false
+      },
+      {
+        "target": "AA-Main-Exit",
+        "line": 316,
+        "conditional": false
+      },
+      {
+        "target": "AA-Main-Exit",
+        "line": 324,
+        "conditional": false
+      },
+      {
+        "target": "aa020-Process-Open",
+        "line": 354,
+        "conditional": false
+      },
+      {
+        "target": "aa030-Process-Close",
+        "line": 356,
+        "conditional": false
+      },
+      {
+        "target": "aa040-Process-Read-Next",
+        "line": 358,
+        "conditional": false
+      },
+      {
+        "target": "aa050-Process-Read-Indexed",
+        "line": 361,
+        "conditional": false
+      },
+      {
+        "target": "aa070-Process-Write",
+        "line": 364,
+        "conditional": false
+      },
+      {
+        "target": "aa090-Process-Rewrite",
+        "line": 366,
+        "conditional": false
+      },
+      {
+        "target": "aa080-Process-Delete",
+        "line": 368,
+        "conditional": false
+      },
+      {
+        "target": "aa060-Process-Start",
+        "line": 370,
+        "conditional": false
+      },
+      {
+        "target": "aa100-Bad-Function",
+        "line": 372,
+        "conditional": false
+      },
+      {
+        "target": "aa100-Bad-Function",
+        "line": 376,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Main-Exit",
+        "line": 387,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 398,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Main-Exit",
+        "line": 406,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 418,
+        "conditional": false
+      },
+      {
+        "target": "aa-main-exit",
+        "line": 431,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 447,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 456,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 459,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 464,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 473,
+        "conditional": false
+      },
+      {
+        "target": "aa999-main-exit",
+        "line": 485,
+        "conditional": false
+      },
+      {
+        "target": "ba-rdbms-exit",
+        "line": 549,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 47,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 54,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 81,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 90,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 95,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 102,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 182,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 183,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 221,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 225,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 311,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 319,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 321,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 327,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 330,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 344,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 344,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 381,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 383,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 388,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 390,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 392,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "g",
+        "line": 397,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 400,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 403,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 408,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 411,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 412,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 416,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 428,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 439,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 458,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 482,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 495,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 524,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 531,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 534,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 545,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 547,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 550,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 566,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 566,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 569,
+        "complexity": 1
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function",
+        "line": 297,
+        "complexity": 4
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "File-Function",
+        "line": 352,
+        "complexity": 8
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "Fs-Reply",
+        "condition": "if   Fs-Reply not = zero",
+        "line": 383,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 392,
+        "errorHandling": "if     fn-i-o     *> invalid for seq file\n              open i-o IRS-Post-File\n              if       fs-reply not = zero\n                       close       IRS-Post-File\n                       open output IRS-Post-File           *> Doesnt create in i-o\n                       close       IRS-"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if   FS-Reply = 35",
+        "line": 408,
+        "errorHandling": "if   fn-extend\n              move 997 to WE-Error\n              move 99  to FS-Reply\n              go to aa999-Main-Exit\n *>             open extend IRS-Post-File\n *>             if   FS-Reply = 35              *> in case GC bug still present\n *>                  close IRS-Post-File\n *>                  open  output IRS-Post-File\n *>        end-if\n         end-if\n     end-if"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 416,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 458,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "A",
+        "condition": "if       A = zero",
+        "line": 524,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "A",
+        "condition": "if   A < B",
+        "line": 531,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WE-Error",
+        "condition": "if       WE-Error = 901",
+        "line": 535,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "or",
+        "line": 60,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "from",
+        "line": 84,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "data",
+        "line": 150,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 436,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "IRS-Post-File",
+        "line": 450,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 225,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "and",
+        "line": 294,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "when",
+        "line": 299,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "IRS-Posting-Record",
+        "line": 472,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "and",
+        "line": 294,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "key",
+        "line": 164,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "SQLSTATE",
+        "line": 165,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "move",
+        "line": 301,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "etc",
+        "line": 345,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "record",
+        "line": 482,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "IRS-Post-File",
+        "line": 484,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "etc",
+        "line": 131,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "when",
+        "line": 300,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "when",
+        "line": 370,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "code",
+        "line": 436,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 230,
+    "linesOfComment": 369,
+    "cyclomaticComplexity": 81,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 28,
+    "numberOfCalls": 2,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 11
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

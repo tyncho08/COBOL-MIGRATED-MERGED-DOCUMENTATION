@@ -1,0 +1,346 @@
+{
+  "metadata": {
+    "filename": "maps09.cbl",
+    "filepath": "common/maps09.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.590Z",
+    "fileSize": 4746,
+    "lastModified": "2024-12-26T16:30:31.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "maps09",
+    "programType": "sub",
+    "author": "Cis Cobol Conversion By V B Coen FBCS, FIDM, FIDPM, 1/11/82",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Check-Digit (Mod 11) / Calculation Verification."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "ws-data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "alpha",
+              "picture": "x(37)",
+              "usage": null,
+              "value": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "alpha",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ar1",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "37",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "work-array",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "array",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "6",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "suma",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "77",
+          "name": "a",
+          "picture": "s9(5)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "y",
+          "picture": "s9(5)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "z",
+          "picture": "s9(5)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "maps09-ws"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "addition-loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "addition-error",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "addition-do",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "addition-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 58,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "addition-loop",
+        "thru": null,
+        "condition": null,
+        "line": 100
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "main-exit",
+        "line": 104,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 117,
+        "conditional": false
+      },
+      {
+        "target": "addition-error",
+        "line": 123,
+        "conditional": false
+      },
+      {
+        "target": "addition-do",
+        "line": 125,
+        "conditional": false
+      },
+      {
+        "target": "addition-end",
+        "line": 132,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 55,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 59,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 102,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 109,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 113,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "a",
+        "formula": "11 - (suma - (11 * z))",
+        "line": 107,
+        "rounding": null
+      },
+      {
+        "target": "z",
+        "formula": "y * (8 - a)",
+        "line": 138,
+        "rounding": null
+      },
+      {
+        "target": "suma",
+        "formula": "add      z  to  suma",
+        "line": 139,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "suma",
+        "condition": "if       suma = zero",
+        "line": 102,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "maps09-reply",
+        "condition": "if       maps09-reply = \"C\"",
+        "line": 109,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "maps09-reply",
+        "condition": "if       maps09-reply = \"V\"",
+        "line": 113,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 59,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 53,
+    "linesOfComment": 92,
+    "cyclomaticComplexity": 11,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 6,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 1
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

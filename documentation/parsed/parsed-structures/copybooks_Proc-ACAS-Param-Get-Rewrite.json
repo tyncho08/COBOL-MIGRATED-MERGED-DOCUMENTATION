@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "filename": "Proc-ACAS-Param-Get-Rewrite.cob",
+    "filepath": "copybooks/Proc-ACAS-Param-Get-Rewrite.cob",
+    "parseTimestamp": "2025-09-19T16:22:55.008Z",
+    "fileSize": 2327,
+    "lastModified": "2025-01-05T16:34:13.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "PROC-ACAS-PARAM-GET-REWRITE",
+    "programType": "copybook",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "zz900-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "File-Duplicates-In-Use",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz900-Get-System-Recs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz900-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz910-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "File-Duplicates-In-Use",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz910-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "System-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 11
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Open",
+        "thru": null,
+        "condition": null,
+        "line": 15
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 23
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Close",
+        "thru": null,
+        "condition": null,
+        "line": 25
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Open",
+        "thru": null,
+        "condition": null,
+        "line": 28
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Close",
+        "thru": null,
+        "condition": null,
+        "line": 32
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Open",
+        "thru": null,
+        "condition": null,
+        "line": 46
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 48
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Close",
+        "thru": null,
+        "condition": null,
+        "line": 49
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Open",
+        "thru": null,
+        "condition": null,
+        "line": 58
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 60
+      },
+      {
+        "type": "PERFORM",
+        "target": "System-Close",
+        "thru": null,
+        "condition": null,
+        "line": 61
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "zz900-Get-System-Recs",
+        "line": 29,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 12,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 20,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 24,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 43,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 12,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 24,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-System-Used",
+        "condition": "if       File-System-Used NOT = zero",
+        "line": 43,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "Cobol",
+        "line": 23,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "perform",
+        "line": 48,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "perform",
+        "line": 48,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 48,
+    "linesOfComment": 16,
+    "cyclomaticComplexity": 6,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 10,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 5
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

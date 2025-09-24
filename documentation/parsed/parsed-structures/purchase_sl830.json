@@ -1,0 +1,2777 @@
+{
+  "metadata": {
+    "filename": "sl830.cbl",
+    "filepath": "purchase/sl830.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.692Z",
+    "fileSize": 33092,
+    "lastModified": "2025-08-20T14:00:27.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "sl830",
+    "programType": "sub",
+    "author": "Vincent B Coen FBCS, FIDM, FIDPM, 23/05/23,",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Autogen Generate extract, report & Analysis."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "WS-Invoice-Record",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "Invoice-Record",
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Dummies-4-Unused-ACAS-FH-Calls",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "Default-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Final-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "System-Record-4",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Ledger-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Posting-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Batch-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-IRS-Posting-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Sales-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Delivery-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Purch-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Pay-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-OTM3-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-PInvoice-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-OTM5-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "File-Info",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "File-Size-Bytes",
+              "picture": "9(18)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-DD",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-MO",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-YYYY",
+              "picture": "9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-HH",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-MM",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-SS",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "filler",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "WS-Data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "Autogen-Status",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "Autogen-EOF",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "Autogen-Stored",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Active-Invoice-No",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Invoice-Write-Error-Flag",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Invoice-Errors",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-DELINV",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "Del-Exists",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "WS-Autogen-Date",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "WS-Autogen-YYYY",
+                  "picture": "9(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "WS-Autogen-MM",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "WS-Autogen-DD",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "WS-Autogen-Date9",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "WS-Autogen-Date",
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Temp-Stock-Key",
+              "picture": null,
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "WS-Abrev-Stock",
+                  "picture": "x(7)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "WS-Stock-No-Long",
+                  "picture": "x(6)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "WS-Inv-Month",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "WS-Inv-Mth",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "J",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Bin-To-Date",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Bin-Minimum",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Bin-Maximum",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-Test-Date",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-Date-Formats",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "WS-Swap",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Conv-Date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-UK",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "WS-Date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-Month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-Year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-USA",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "WS-Date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-usa-Month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-usa-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-Intl",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "WS-Date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-Intl-Year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-Intl-Month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-Intl-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SL198",
+              "picture": "x(39)",
+              "usage": null,
+              "value": "SL198",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL199",
+              "picture": "x(38)",
+              "usage": null,
+              "value": "SL199",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL200",
+              "picture": "x(40)",
+              "usage": null,
+              "value": "SL200",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL201",
+              "picture": "x(46)",
+              "usage": null,
+              "value": "SL201",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "Prog-Name",
+          "picture": "x(15)",
+          "usage": null,
+          "value": "SL830",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Exception-Msg",
+          "picture": "x(25)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-Temp-Run-Date",
+          "picture": "9(8)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-Locale-Run-Date",
+          "picture": "x(10)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "CC-Min-Date",
+          "picture": "9",
+          "usage": null,
+          "value": "2",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "CC-Max-Date",
+          "picture": "9",
+          "usage": null,
+          "value": "2",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "To-Day",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "WS-Calling-Data",
+          "System-Record",
+          "To-Day",
+          "File-Defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "File-Defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba000-Main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba010-Read-Autogen",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Autogen-Stored",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-perform",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba020-Check-For-Write-Errors",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz030-Start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz030-Read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz030-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz030-Terminate",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-perform",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "WS-Temp-Stock-Key",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz050-Test-Date",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz045-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz060-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz070-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "maps04-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 98,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "sl070",
+        "type": "STATIC",
+        "line": 406,
+        "using": [
+          "WS-Calling-Data",
+          "*>",
+          "and",
+          "Value",
+          "files"
+        ],
+        "context": "ba020-Check-For-Write-Errors"
+      },
+      {
+        "program": "maps04",
+        "type": "STATIC",
+        "line": 836,
+        "using": [
+          "maps03-ws"
+        ],
+        "context": "zz070-Exit"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "zz070-Convert-Date",
+        "thru": null,
+        "condition": null,
+        "line": 281
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz010-Open-Files",
+        "thru": null,
+        "condition": null,
+        "line": 288
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Process-Autogen",
+        "thru": null,
+        "condition": null,
+        "line": 290
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz020-Close-All-Files",
+        "thru": null,
+        "condition": null,
+        "line": 294
+      },
+      {
+        "type": "PERFORM UNTIL",
+        "target": "until",
+        "thru": null,
+        "condition": "Autogen-EOF\n              if       NOT Autogen-Stored = 1  *> We Have a record in WS-Invoice-Record\n                       perform  SLautogen-Read-Next\n              end-if",
+        "line": 321
+      },
+      {
+        "type": "PERFORM UNTIL",
+        "target": "SLautogen-Read-Next",
+        "thru": null,
+        "condition": "Autogen-EOF\n              if       NOT Autogen-Stored = 1  *> We Have a record in WS-Invoice-Record\n                       perform  SLautogen-Read-Next\n              end-if\n              if       FS-Reply not = zero   *> IS THIS RIGHT ???????? and above statements\n                       move  1 to Autogen-Status   *> Auto",
+        "line": 323
+      },
+      {
+        "type": "PERFORM",
+        "target": "move",
+        "thru": null,
+        "condition": null,
+        "line": 326
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz040-Generate-Invoice",
+        "thru": null,
+        "condition": null,
+        "line": 328
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba020-Check-For-Write-Errors",
+        "thru": null,
+        "condition": null,
+        "line": 329
+      },
+      {
+        "type": "PERFORM",
+        "target": "end-if",
+        "thru": null,
+        "condition": null,
+        "line": 330
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz040-Generate-Invoice",
+        "thru": null,
+        "condition": null,
+        "line": 337
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba020-Check-For-Write-Errors",
+        "thru": null,
+        "condition": null,
+        "line": 338
+      },
+      {
+        "type": "PERFORM",
+        "target": "cycle",
+        "thru": null,
+        "condition": null,
+        "line": 339
+      },
+      {
+        "type": "PERFORM",
+        "target": "cycle",
+        "thru": null,
+        "condition": null,
+        "line": 346
+      },
+      {
+        "type": "PERFORM",
+        "target": "cycle",
+        "thru": null,
+        "condition": null,
+        "line": 354
+      },
+      {
+        "type": "PERFORM",
+        "target": "cycle",
+        "thru": null,
+        "condition": null,
+        "line": 360
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz040-Generate-Invoice",
+        "thru": null,
+        "condition": null,
+        "line": 365
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba020-Check-For-Write-Errors",
+        "thru": null,
+        "condition": null,
+        "line": 366
+      },
+      {
+        "type": "PERFORM",
+        "target": "cycle",
+        "thru": null,
+        "condition": null,
+        "line": 367
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 383
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Close",
+        "thru": null,
+        "condition": null,
+        "line": 385
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 386
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Close",
+        "thru": null,
+        "condition": null,
+        "line": 388
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLautogen-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 394
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLautogen-Close",
+        "thru": null,
+        "condition": null,
+        "line": 395
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 415
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Close",
+        "thru": null,
+        "condition": null,
+        "line": 416
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 423
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Open-Extend",
+        "thru": null,
+        "condition": null,
+        "line": 425
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Close",
+        "thru": null,
+        "condition": null,
+        "line": 427
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLAutogen-Open",
+        "thru": null,
+        "condition": null,
+        "line": 430
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Open",
+        "thru": null,
+        "condition": null,
+        "line": 431
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Open",
+        "thru": null,
+        "condition": null,
+        "line": 432
+      },
+      {
+        "type": "PERFORM",
+        "target": "Analysis-Open",
+        "thru": null,
+        "condition": null,
+        "line": 433
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Open",
+        "thru": null,
+        "condition": null,
+        "line": 434
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Open",
+        "thru": null,
+        "condition": null,
+        "line": 435
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLAutogen-Close",
+        "thru": null,
+        "condition": null,
+        "line": 446
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Close",
+        "thru": null,
+        "condition": null,
+        "line": 447
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Close",
+        "thru": null,
+        "condition": null,
+        "line": 448
+      },
+      {
+        "type": "PERFORM",
+        "target": "Analysis-Close",
+        "thru": null,
+        "condition": null,
+        "line": 449
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Close",
+        "thru": null,
+        "condition": null,
+        "line": 450
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Close",
+        "thru": null,
+        "condition": null,
+        "line": 451
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Start",
+        "thru": null,
+        "condition": null,
+        "line": 467
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 473
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Delete",
+        "thru": null,
+        "condition": null,
+        "line": 479
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Close",
+        "thru": null,
+        "condition": null,
+        "line": 487
+      },
+      {
+        "type": "PERFORM",
+        "target": "DelInvNos-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 488
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLautogen-Delete",
+        "thru": null,
+        "condition": null,
+        "line": 528
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "J from 1 by 1 until J > sih-Lines\n                       move     Invoice-Lines (J) to WS-Invoice-Record\n                       perform  SLautogen-Delete\n                       if",
+        "line": 532
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "SLautogen-Delete",
+        "thru": null,
+        "condition": "J from 1 by 1 until J > sih-Lines\n                       move     Invoice-Lines (J) to WS-Invoice-Record\n                       perform  SLautogen-Delete\n                       if       FS-Reply not = zero\n                                display SL199 at 1410 with foreground-color 5 erase eol\n                       end-if",
+        "line": 534
+      },
+      {
+        "type": "PERFORM",
+        "target": "end-if",
+        "thru": null,
+        "condition": null,
+        "line": 538
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz030-get-a-deleted-invoice",
+        "thru": null,
+        "condition": null,
+        "line": 548
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Write",
+        "thru": null,
+        "condition": null,
+        "line": 551
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "J from 1 by 1 until J > sih-Lines\n              if      J > sih-Lines\n                      exit perform\n              end-if\n              move     Invoice-Lines (J) to WS-Invoice-Re",
+        "line": 558
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "end-if",
+        "thru": null,
+        "condition": "J from 1 by 1 until J > sih-Lines\n              if      J > sih-Lines\n                      exit perform\n              end-if\n              move     Invoice-Lines (J) to WS-Invoice-Record\n              move     WS-Active-Invoice-No to Invoice-Nos\n              move     J to Item-Nos    *> yes ove",
+        "line": 560
+      },
+      {
+        "type": "PERFORM",
+        "target": "Invoice-Write",
+        "thru": null,
+        "condition": null,
+        "line": 565
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz045-Update-Analysis",
+        "thru": null,
+        "condition": null,
+        "line": 570
+      },
+      {
+        "type": "PERFORM",
+        "target": "SLautogen-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 625
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 666
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 674
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 711
+      },
+      {
+        "type": "PERFORM",
+        "target": "Stock-Audit-Write",
+        "thru": null,
+        "condition": null,
+        "line": 716
+      },
+      {
+        "type": "PERFORM",
+        "target": "maps04",
+        "thru": null,
+        "condition": null,
+        "line": 755
+      },
+      {
+        "type": "PERFORM",
+        "target": "maps04",
+        "thru": null,
+        "condition": null,
+        "line": 769
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "ba999-Exit",
+        "line": 369,
+        "conditional": false
+      },
+      {
+        "target": "zz030-Terminate",
+        "line": 462,
+        "conditional": false
+      },
+      {
+        "target": "zz030-Terminate",
+        "line": 470,
+        "conditional": false
+      },
+      {
+        "target": "zz030-Close",
+        "line": 475,
+        "conditional": false
+      },
+      {
+        "target": "zz030-Read",
+        "line": 477,
+        "conditional": false
+      },
+      {
+        "target": "zz030-Exit",
+        "line": 480,
+        "conditional": false
+      },
+      {
+        "target": "zz045-Exit",
+        "line": 645,
+        "conditional": false
+      },
+      {
+        "target": "zz045-Exit",
+        "line": 647,
+        "conditional": false
+      },
+      {
+        "target": "zz050-Test-Date",
+        "line": 736,
+        "conditional": false
+      },
+      {
+        "target": "zz050-Test-Date",
+        "line": 742,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 772,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 778,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 783,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 808,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 813,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 36,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 66,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 95,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 99,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 172,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 174,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 247,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 276,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 291,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 311,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 322,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 324,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 331,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 333,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 335,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 340,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 347,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 349,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 355,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 357,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 361,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 363,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 372,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 384,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 387,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 390,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 390,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 393,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 399,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 403,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 410,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 414,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 417,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 419,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 422,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 426,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 428,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 436,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 461,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 469,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 474,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 476,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 484,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 484,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 525,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 526,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 529,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 531,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 535,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 537,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 539,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 548,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 552,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "J",
+        "line": 559,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 561,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 566,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 569,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 578,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 580,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 583,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 586,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 587,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 590,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 593,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 594,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 599,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 601,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "(",
+        "line": 606,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 611,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 614,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 617,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 618,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 619,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 620,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 621,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 626,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 638,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 644,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 646,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 663,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 667,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 670,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 675,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 678,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 679,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 681,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 681,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 684,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 688,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 692,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 697,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 705,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 708,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 712,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 714,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "v",
+        "line": 728,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 731,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 734,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 737,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 767,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 770,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 775,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 777,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 779,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 805,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 807,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 809,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "Audit-Stock-Value-Change",
+        "formula": "Audit-Transaction-Qty * Stock-Cost * -1\n              subtract Audit-Transaction-Qty from Stock-Held\n*>\n              if       Stock-Held < zero\n                       multiply -1 by Stock-Held\n                       add Stock-Held to Stock-Pre-Sales\n                       move zero to Stock-Held\n              end-if\n              if       Stock-Held > zero\n                       multiply Stock-Held by Stock-Cost giving Stock-Value\n              else\n                       move zero to Stock-Value\n              end-if\n*>\n*>    Similar for sl920 (amend) and sl940 (Delete) invoices but reversed",
+        "line": 685,
+        "rounding": null
+      },
+      {
+        "target": "Bin-To-Date",
+        "formula": "Add      CC-Max-Date to   Bin-To-Date",
+        "line": 308,
+        "rounding": null
+      },
+      {
+        "target": "J",
+        "formula": "add      1 to J",
+        "line": 358,
+        "rounding": null
+      },
+      {
+        "target": "Next-Invoice",
+        "formula": "add      1 to Next-Invoice",
+        "line": 492,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-YYYY",
+        "formula": "add      1 to WS-Autogen-YYYY",
+        "line": 579,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "add      1 to WS-Autogen-MM",
+        "line": 582,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-YYYY",
+        "formula": "add      1 to WS-Autogen-YYYY",
+        "line": 585,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "add      3 to WS-Autogen-MM",
+        "line": 589,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-YYYY",
+        "formula": "add      1  to   WS-Autogen-YYYY",
+        "line": 592,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-DD",
+        "formula": "add      1 to WS-Autogen-DD",
+        "line": 600,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "add      1 to WS-Autogen-MM",
+        "line": 604,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "add      1 to WS-Autogen-MM",
+        "line": 609,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "add      1 to WS-Autogen-MM",
+        "line": 613,
+        "rounding": null
+      },
+      {
+        "target": "Stock-Pre-Sales",
+        "formula": "add Stock-Held to Stock-Pre-Sales",
+        "line": 690,
+        "rounding": null
+      },
+      {
+        "target": "Stock-Deducts",
+        "formula": "add Audit-Transaction-Qty to Stock-Deducts",
+        "line": 706,
+        "rounding": null
+      },
+      {
+        "target": "Stock-TD-Deds",
+        "formula": "add Audit-Transaction-Qty to Stock-TD-Deds",
+        "line": 707,
+        "rounding": null
+      },
+      {
+        "target": "Bin-To-Date",
+        "formula": "subtract CC-Min-Date from Bin-To-Date",
+        "line": 307,
+        "rounding": null
+      },
+      {
+        "target": "sih-Repeat",
+        "formula": "subtract 1 from sih-Repeat",
+        "line": 541,
+        "rounding": null
+      },
+      {
+        "target": "WS-Autogen-MM",
+        "formula": "subtract 12 from WS-Autogen-MM",
+        "line": 591,
+        "rounding": null
+      },
+      {
+        "target": "Stock-Held",
+        "formula": "subtract Audit-Transaction-Qty from Stock-Held",
+        "line": 686,
+        "rounding": null
+      },
+      {
+        "target": "Stock-Held",
+        "formula": "multiply -1 by Stock-Held",
+        "line": 689,
+        "rounding": null
+      },
+      {
+        "target": "Stock-Cost",
+        "formula": "multiply Stock-Held by Stock-Cost",
+        "line": 694,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "SL-Autogen",
+        "condition": "if       SL-Autogen not = \"Y\"",
+        "line": 276,
+        "errorHandling": null
+      },
+      {
+        "field": "WS-Invoice-Errors",
+        "condition": "if       WS-Invoice-Errors = \"Y\"",
+        "line": 291,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 325,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Item-Nos",
+        "condition": "if       Item-Nos = zero",
+        "line": 333,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Item-Nos",
+        "condition": "if       Item-Nos = zero",
+        "line": 349,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Item-Nos",
+        "condition": "if       Item-Nos not = zero",
+        "line": 357,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Invoice-Write-Error-Flag",
+        "condition": "if       WS-Invoice-Write-Error-Flag = \"Y\"",
+        "line": 372,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 384,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 393,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 403,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 414,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Stk-Audit-Used",
+        "condition": "if     Stk-Audit-Used = 1",
+        "line": 419,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 422,
+        "errorHandling": "perform Stock-Audit-"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply = zero",
+        "line": 436,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 21",
+        "line": 469,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 474,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Del-Inv-Nos",
+        "condition": "if       WS-Del-Inv-Nos = zero",
+        "line": 476,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sih-Repeat",
+        "condition": "if       sih-Repeat = zero",
+        "line": 526,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 529,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 535,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sih-Repeat",
+        "condition": "If       sih-Repeat not = zero",
+        "line": 540,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zeros",
+        "line": 552,
+        "errorHandling": "use Next-Invoice\n     move     WS-Active-Invoice-No to Invoice-Nos"
+      },
+      {
+        "field": "J",
+        "condition": "if      J > sih-Lines",
+        "line": 559,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zeros",
+        "line": 566,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Autogen-MM",
+        "condition": "if       WS-Autogen-MM > 12",
+        "line": 583,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Autogen-MM",
+        "condition": "if       WS-Autogen-MM > 12",
+        "line": 590,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Autogen-MM",
+        "condition": "if       WS-Autogen-MM = 2",
+        "line": 601,
+        "errorHandling": ""
+      },
+      {
+        "field": "WS-Autogen-DD",
+        "condition": "if     WS-Autogen-DD > 31",
+        "line": 611,
+        "errorHandling": "if     WS-Autogen-DD > 31\n                       move     1 to WS-Autogen-DD\n                       add      1 to WS-Autogen-MM\n                       if       WS-Autogen-MM > 12"
+      },
+      {
+        "field": "WS-Autogen-MM",
+        "condition": "if       WS-Autogen-MM > 12",
+        "line": 614,
+        "errorHandling": "if     WS-Autogen-DD > 31\n                       move     1 to WS-Autogen-DD\n                       add      1 to WS-Autogen-MM\n                       if       WS-Autogen-MM > 12\n                                move     1 to WS-Autogen-MM\n                                move     1 to WS-Autogen-DD\n                       end-if\n                end-if"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 626,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "SL-Stock-Link",
+        "condition": "if       SL-Stock-Link not = \"Y\"",
+        "line": 644,
+        "errorHandling": null
+      },
+      {
+        "field": "Sih-Type",
+        "condition": "if       Sih-Type not = 2",
+        "line": 646,
+        "errorHandling": null
+      },
+      {
+        "field": "WS-Stock-No-Long",
+        "condition": "if       WS-Stock-No-Long = spaces",
+        "line": 663,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if   FS-Reply = 21",
+        "line": 667,
+        "errorHandling": "move WS-"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if   FS-Reply = 21",
+        "line": 675,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Stock-Key",
+        "condition": "if       WS-Stock-Key not = spaces",
+        "line": 684,
+        "errorHandling": null
+      },
+      {
+        "field": "Stock-Held",
+        "condition": "if       Stock-Held < zero",
+        "line": 688,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Stock-Held",
+        "condition": "if       Stock-Held > zero",
+        "line": 693,
+        "errorHandling": "move zero to Stock-Value\n              end-if\n*>\n*>"
+      },
+      {
+        "field": "Stk-Audit-Used",
+        "condition": "if       Stk-Audit-Used = 1",
+        "line": 714,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 731,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-date",
+        "condition": "if       u-date = spaces",
+        "line": 770,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 775,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 805,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "a",
+        "line": 333,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "but",
+        "line": 508,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "Stock-File",
+        "line": 666,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "else",
+        "line": 670,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "Stock-File",
+        "line": 674,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "end-if",
+        "line": 678,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 99,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Autogen",
+        "line": 229,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Invoice",
+        "line": 231,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "errors",
+        "line": 320,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "autogen",
+        "line": 501,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "the",
+        "line": 521,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "if",
+        "line": 565,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "WS-Stock-Record",
+        "line": 711,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "Stock-Audit-Record",
+        "line": 716,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "REWRITE",
+        "file": "Autogen",
+        "line": 229,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "autogen",
+        "line": 501,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "the",
+        "line": 521,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "WS-Stock-Record",
+        "line": 711,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "DELETE",
+        "file": "Autogen",
+        "line": 230,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "if",
+        "line": 528,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "if",
+        "line": 534,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "Del-Inv-Nos-File",
+        "line": 468,
+        "errorHandling": "INVALID KEY"
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 494,
+    "linesOfComment": 349,
+    "cyclomaticComplexity": 129,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 20,
+    "numberOfCalls": 2,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 34
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

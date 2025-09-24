@@ -1,0 +1,1002 @@
+{
+  "metadata": {
+    "filename": "acasconvert3.cbl",
+    "filepath": "common/acasconvert3.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.784Z",
+    "fileSize": 10978,
+    "lastModified": "2024-12-26T16:43:19.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "acasconvert3",
+    "programType": "main",
+    "author": "Vincent B Coen, FBCS, FIDM, FIDPM. 02/05/09.",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": "Linux",
+    "objectComputer": "Linux",
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "Old-Invoice-File",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "fs-reply",
+          "picture": "99",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Rrn",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SY103",
+              "picture": "x(22)",
+              "usage": null,
+              "value": "SY103",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SY104",
+              "picture": "x(26)",
+              "usage": null,
+              "value": "SY104",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "SInvoice-Header",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "02",
+              "name": "sih-prime",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "03",
+                  "name": "WS-Invoice-Key",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "05",
+                      "name": "sih-invoice",
+                      "picture": "9(8)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-test",
+                      "picture": "99",
+                      "usage": null,
+                      "value": "zero",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "sih-customer",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "05",
+                      "name": "sih-nos",
+                      "picture": "x(6)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-check",
+                      "picture": "9",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "sih-date",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-order",
+                  "picture": "x(10)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-type",
+                  "picture": "9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-ref",
+                  "picture": "x(10)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "02",
+              "name": "Sih-Sub-Prime",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "03",
+                  "name": "sih-description",
+                  "picture": "x(32)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-fig",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "05",
+                      "name": "sih-p-c",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-net",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-extra",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-carriage",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-vat",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-discount",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-e-vat",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "05",
+                      "name": "sih-c-vat",
+                      "picture": "s9(7)v99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [],
+                  "conditions": [
+                    {
+                      "name": "pending",
+                      "value": "P"
+                    },
+                    {
+                      "name": "invoiced",
+                      "value": "I"
+                    },
+                    {
+                      "name": "sapplied",
+                      "value": "Z"
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status-P",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status-L",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status-C",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status-A",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-status-I",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-lines",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-deduct-days",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-deduct-amt",
+                  "picture": "999v99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-deduct-vat",
+                  "picture": "999v99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-days",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-cr",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "03",
+                  "name": "sih-day-book-flag",
+                  "picture": "x",
+                  "usage": null,
+                  "value": "space",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [],
+                  "conditions": [
+                    {
+                      "name": "day-booked",
+                      "value": "B"
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "sih-update",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [],
+                  "conditions": [
+                    {
+                      "name": "sih-analyised",
+                      "value": "Z"
+                    }
+                  ]
+                },
+                {
+                  "level": "03",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "SInvoice-Bodies",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "sil-Key",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "07",
+                  "name": "sil-invoice",
+                  "picture": "9(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "07",
+                  "name": "sil-line",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "05",
+              "name": "sil-product",
+              "picture": "x(13)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-pa",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-qty",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-type",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-description",
+              "picture": "x(32)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-net",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-unit",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-discount",
+              "picture": "99v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-vat",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-vat-code",
+              "picture": "9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "sil-update",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "sil-analyised",
+                  "value": "Z"
+                }
+              ]
+            },
+            {
+              "level": "05",
+              "name": "filler",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(18)",
+          "usage": null,
+          "value": "IRSconv3",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "rec-count",
+          "picture": "9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "A",
+          "picture": "s9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "B",
+          "picture": "s9(4)",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Display-Blk",
+          "picture": "x(78)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Old-File-16",
+          "picture": "x(16)",
+          "usage": null,
+          "value": "invoice",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Sinvoice-Line-Count",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "AA000-Start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "AA010-Read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "AA020-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Invoice-file",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 65,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [
+      {
+        "target": "AA020-End",
+        "line": 238,
+        "conditional": false
+      },
+      {
+        "target": "AA010-Read",
+        "line": 267,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 32,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 34,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 45,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 62,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 66,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 213,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 218,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 224,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 237,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 240,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "O",
+        "line": 247,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 259,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "g",
+        "line": 266,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "return-code",
+        "condition": "if       return-code not = zero",
+        "line": 218,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 224,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 237,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 240,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Old-Item-Nos",
+        "condition": "if       Old-Item-Nos not = zero",
+        "line": 247,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 260,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "Old-Invoice-file",
+        "line": 236,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "move",
+        "line": 247,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 66,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Err",
+        "line": 114,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Invoice-Line",
+        "line": 252,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "Invoice-Header",
+        "line": 258,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "Err",
+        "line": 114,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "invoice",
+        "line": 213,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 155,
+    "linesOfComment": 117,
+    "cyclomaticComplexity": 16,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 5,
+    "numberOfCalls": 0,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 3
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

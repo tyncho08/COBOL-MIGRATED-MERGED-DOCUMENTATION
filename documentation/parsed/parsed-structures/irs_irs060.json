@@ -1,0 +1,5697 @@
+{
+  "metadata": {
+    "filename": "irs060.cbl",
+    "filepath": "irs/irs060.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.945Z",
+    "fileSize": 63132,
+    "lastModified": "2024-12-26T17:02:50.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "irs060",
+    "programType": "sub",
+    "author": "Cobol conversion by Vincent B Coen, FIDPM FBCS 24/10/82",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "P&L and Balance Sheet."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "work-file",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "print-file",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "copy",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "w-date",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(6)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "w-year",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "total-1",
+              "picture": "s9(8)v99",
+              "usage": null,
+              "value": null,
+              "occurs": "26",
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "total-2",
+              "picture": "s9(8)v99",
+              "usage": null,
+              "value": null,
+              "occurs": "26",
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "level-11",
+              "picture": "s9(8)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "level-12",
+              "picture": "s9(8)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "level-21",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "level-22",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "net-1",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "net-2",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "PL-AC",
+              "picture": "9(5)",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "letters",
+              "picture": "x(26)",
+              "usage": null,
+              "value": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "letters",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ar0",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "26",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "j",
+              "picture": "9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "y",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "z",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "group-level",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "sub-total",
+                  "value": "T"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "work-1",
+              "picture": "s9(9)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-2",
+              "picture": "s9(9)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-3",
+              "picture": "s9(9)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "PL-Title",
+              "picture": "x(40)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "PL-Rep-Type",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "PL-Rep-Type2",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "NL-File",
+              "picture": "x(11)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Hypens",
+              "picture": "x(9)",
+              "usage": null,
+              "value": "---------",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Equals",
+              "picture": "x(9)",
+              "usage": null,
+              "value": "=========",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-AC",
+              "picture": "x",
+              "usage": null,
+              "value": "space",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-AC2",
+              "picture": "x",
+              "usage": null,
+              "value": "space",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "AC2",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "hdtime",
+              "picture": null,
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "hd-hh",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-mm",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-ss",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd-uu",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "HD2-Time",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd2-hh",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": ":",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "hd2-mm",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "line-1",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(28)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l1-client",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(13)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "p-date",
+                  "picture": "x(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "P-Time",
+                  "picture": "x(6)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-2",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(20)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l2-title",
+                  "picture": "x(40)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(19)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-3",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "line-3a",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "07",
+                      "name": "filler",
+                      "picture": "x(19)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3a-t1",
+                      "picture": "x(20)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3a-date1",
+                      "picture": "x(8)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3a-t2",
+                      "picture": "xxxx",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3a-date2",
+                      "picture": "x(8)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "filler",
+                      "picture": "x(20)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "05",
+                  "name": "line-3b",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": "line-3a",
+                  "children": [
+                    {
+                      "level": "07",
+                      "name": "filler",
+                      "picture": "x(25)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3b-t1",
+                      "picture": "x(19)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l3b-date",
+                      "picture": "x(8)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "filler",
+                      "picture": "x(27)",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-5",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(34)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l5-grp1b",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "07",
+                      "name": "l5-g1a",
+                      "picture": "x(10)",
+                      "usage": null,
+                      "value": "--------20",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l5-year1",
+                      "picture": "99",
+                      "usage": null,
+                      "value": "zero",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l5-g1c",
+                      "picture": "x(8)",
+                      "usage": null,
+                      "value": "all",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "05",
+                  "name": "l5-grp1",
+                  "picture": "x(20)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": "l5-grp1b",
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l5-grp2b",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": [
+                    {
+                      "level": "07",
+                      "name": "l5-g2a",
+                      "picture": "x(10)",
+                      "usage": null,
+                      "value": "--------20",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l5-year2",
+                      "picture": "99",
+                      "usage": null,
+                      "value": "zero",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "l5-g2c",
+                      "picture": "x(8)",
+                      "usage": null,
+                      "value": "all",
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "05",
+                  "name": "l5-grp2",
+                  "picture": "x(20)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": "l5-grp2b",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-7",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-name",
+                  "picture": "x(27)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign1",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-value1",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign2",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign3",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-value2",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign4",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign5",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-value3",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign6",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign7",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-value4",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l7-sign8",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-8",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(34)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l8-underline1",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(2)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l8-underline2",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l8-underline3",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(2)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l8-underline4",
+                  "picture": "x(9)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-9",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "l9-name",
+                  "picture": "x(34)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-sign1",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-value1",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-sign2",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(16)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-sign3",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-value2",
+                  "picture": "z(6)9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l9-sign4",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(11)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-10",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "l10-client",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(6)",
+                  "usage": null,
+                  "value": "spaces",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(23)",
+                  "usage": null,
+                  "value": "",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(18)",
+                  "usage": null,
+                  "value": "",
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l10-date",
+                  "picture": "x(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "line-11",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "l11-name",
+                  "picture": "x(24)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "l11-ratio",
+                  "picture": "zzz9",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "maps03-ws",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "u-date",
+              "picture": "x(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "u-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "u-days",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "u-month",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "u-year",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "u-bin",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "date-fields",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "q",
+              "picture": "s99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "days-in-month",
+              "picture": "x(24)",
+              "usage": null,
+              "value": "312831303130313130313031",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "days-in-month",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "days",
+                  "picture": "99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "12",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-work1",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-work2",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "save-date",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Dummies-For-Unused-FH-Calls",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "WS-IRS-Posting-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SY008",
+              "picture": "x(32)",
+              "usage": null,
+              "value": "SY008",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR911",
+              "picture": "x(47)",
+              "usage": null,
+              "value": "IR911",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR912",
+              "picture": "x(51)",
+              "usage": null,
+              "value": "IR912",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR913",
+              "picture": "x(48)",
+              "usage": null,
+              "value": "IR913",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR915",
+              "picture": "x(49)",
+              "usage": null,
+              "value": "IR915",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR916",
+              "picture": "x(50)",
+              "usage": null,
+              "value": "IR916",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR060",
+              "picture": "x(52)",
+              "usage": null,
+              "value": "IR060",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR061",
+              "picture": "x(36)",
+              "usage": null,
+              "value": "IR061",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR062",
+              "picture": "x(35)",
+              "usage": null,
+              "value": "IR062",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR063",
+              "picture": "x(41)",
+              "usage": null,
+              "value": "IR063",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR064",
+              "picture": "x(55)",
+              "usage": null,
+              "value": "IR064",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "IR065",
+              "picture": "x(62)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(16)",
+          "usage": null,
+          "value": "irs060",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "a",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "b",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "C",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "ws-client",
+          "picture": "x(24)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "Final-Acs-In-Use",
+          "picture": "9",
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "WS-Y2K-slide",
+          "picture": "99",
+          "usage": null,
+          "value": "70",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "WS-Listing-CC",
+          "picture": "99",
+          "usage": null,
+          "value": "19",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "IRS-System-Params",
+          "*>",
+          "IRS",
+          "sys",
+          "rec",
+          "WS-System-Record",
+          "*>",
+          "ACAS",
+          "sys",
+          "rec",
+          "File-Defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "File-Defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "screen-heads",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "sh-ends",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ml-b",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ml-1",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ml-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Read-Loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Read-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-1",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-1B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-2B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-3",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-3B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-4",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-4B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-5",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-5B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-6",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-6B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-8",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-8B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-9",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-9B",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "E-o-P-Option",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "e-o-p-comp",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "chk-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Get-PL",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "get-pl-rest",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-a",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "by-pass",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-b",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "e-o-p-fin",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "jump-back",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "update-pl",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "E-o-P-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-1",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "by-pass",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loop-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "cr-value",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "dr-value",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-print",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pack-loop-1",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pack-loop-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pack-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ws-unpack",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "unpack-loop-1",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "unpack-loop-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "unpack-loop-3",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "unpack-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pl-start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pl-a",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "pl-a-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-a",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-b",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-c",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-finalize",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "read-n",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 220,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      },
+      {
+        "copybook": "if",
+        "line": 1084,
+        "inDivision": "PROCEDURE",
+        "inSection": "input-output"
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "irsubn",
+        "type": "STATIC",
+        "line": 151,
+        "using": [],
+        "context": null
+      },
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 962,
+        "using": [
+          "Print-Report"
+        ],
+        "context": "loop-9B"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "acasirsubn",
+        "thru": null,
+        "condition": null,
+        "line": 152
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "y from 1 by 1 until y > 26\n              move zeros to total-1 (y) total-2 (y)\n     end-perform\n*>\n*>  Get the Final record for Finished Accounts printing if not space",
+        "line": 560
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub5",
+        "thru": null,
+        "condition": null,
+        "line": 567
+      },
+      {
+        "type": "PERFORM",
+        "target": "CR-Total",
+        "thru": null,
+        "condition": null,
+        "line": 668
+      },
+      {
+        "type": "PERFORM",
+        "target": "DR-Total",
+        "thru": null,
+        "condition": null,
+        "line": 671
+      },
+      {
+        "type": "PERFORM",
+        "target": "CR-Total",
+        "thru": null,
+        "condition": null,
+        "line": 674
+      },
+      {
+        "type": "PERFORM",
+        "target": "DR-Total",
+        "thru": null,
+        "condition": null,
+        "line": 677
+      },
+      {
+        "type": "PERFORM",
+        "target": "CR-Total",
+        "thru": null,
+        "condition": null,
+        "line": 680
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 732
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 736
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 752
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 756
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 768
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 780
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 784
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 800
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 804
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 816
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 842
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 846
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 860
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 864
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 876
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 887
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 891
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 904
+      },
+      {
+        "type": "PERFORM",
+        "target": "line-total",
+        "thru": null,
+        "condition": null,
+        "line": 921
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 925
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 936
+      },
+      {
+        "type": "PERFORM",
+        "target": "group-total",
+        "thru": null,
+        "condition": null,
+        "line": 949
+      },
+      {
+        "type": "PERFORM",
+        "target": "ratio",
+        "thru": null,
+        "condition": null,
+        "line": 960
+      },
+      {
+        "type": "PERFORM",
+        "target": "screen-heads",
+        "thru": null,
+        "condition": null,
+        "line": 966
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub3",
+        "thru": null,
+        "condition": null,
+        "line": 986
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 1033
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1039
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 1045
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1051
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1060
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1069
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open",
+        "thru": null,
+        "condition": null,
+        "line": 1070
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1075
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1091
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1096
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1108
+      },
+      {
+        "type": "PERFORM",
+        "target": "VAT-AC-TidyUp",
+        "thru": null,
+        "condition": null,
+        "line": 1114
+      },
+      {
+        "type": "PERFORM",
+        "target": "PL-Capital-AC-Tidyup",
+        "thru": null,
+        "condition": null,
+        "line": 1115
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 1123
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1129
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1144
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1145
+      },
+      {
+        "type": "PERFORM",
+        "target": "Reset-Postings",
+        "thru": null,
+        "condition": null,
+        "line": 1146
+      },
+      {
+        "type": "PERFORM",
+        "target": "write-out",
+        "thru": null,
+        "condition": null,
+        "line": 1235
+      },
+      {
+        "type": "PERFORM",
+        "target": "write-out",
+        "thru": null,
+        "condition": null,
+        "line": 1249
+      },
+      {
+        "type": "PERFORM",
+        "target": "cr-value",
+        "thru": null,
+        "condition": null,
+        "line": 1304
+      },
+      {
+        "type": "PERFORM",
+        "target": "dr-value",
+        "thru": null,
+        "condition": null,
+        "line": 1306
+      },
+      {
+        "type": "PERFORM",
+        "target": "cr-value",
+        "thru": null,
+        "condition": null,
+        "line": 1308
+      },
+      {
+        "type": "PERFORM",
+        "target": "dr-value",
+        "thru": null,
+        "condition": null,
+        "line": 1310
+      },
+      {
+        "type": "PERFORM",
+        "target": "cr-value",
+        "thru": null,
+        "condition": null,
+        "line": 1312
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1577
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open",
+        "thru": null,
+        "condition": null,
+        "line": 1578
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1583
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1598
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1603
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 1612
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1617
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1628
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1633
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1638
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 1655
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1662
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1671
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1687
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1701
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1706
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1715
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1720
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 1733
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub4",
+        "thru": null,
+        "condition": null,
+        "line": 1739
+      },
+      {
+        "type": "PERFORM",
+        "target": "date-validate",
+        "thru": null,
+        "condition": null,
+        "line": 1742
+      },
+      {
+        "type": "PERFORM",
+        "target": "date-validate",
+        "thru": null,
+        "condition": null,
+        "line": 1745
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 1750
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub4",
+        "thru": null,
+        "condition": null,
+        "line": 1792
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub1-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1796
+      },
+      {
+        "type": "PERFORM",
+        "target": "acasirsub4",
+        "thru": null,
+        "condition": null,
+        "line": 1798
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "e-o-p-end",
+        "line": 558,
+        "conditional": false
+      },
+      {
+        "target": "ml-b",
+        "line": 575,
+        "conditional": false
+      },
+      {
+        "target": "ml-1",
+        "line": 591,
+        "conditional": false
+      },
+      {
+        "target": "ml-2",
+        "line": 599,
+        "conditional": false
+      },
+      {
+        "target": "Read-End",
+        "line": 645,
+        "conditional": false
+      },
+      {
+        "target": "Accumulate",
+        "line": 652,
+        "conditional": false
+      },
+      {
+        "target": "Read-Loop",
+        "line": 669,
+        "conditional": false
+      },
+      {
+        "target": "Read-Loop",
+        "line": 672,
+        "conditional": false
+      },
+      {
+        "target": "Read-Loop",
+        "line": 675,
+        "conditional": false
+      },
+      {
+        "target": "Read-Loop",
+        "line": 678,
+        "conditional": false
+      },
+      {
+        "target": "Read-Loop",
+        "line": 681,
+        "conditional": false
+      },
+      {
+        "target": "loop-1B",
+        "line": 735,
+        "conditional": false
+      },
+      {
+        "target": "loop-2B",
+        "line": 755,
+        "conditional": false
+      },
+      {
+        "target": "loop-3B",
+        "line": 783,
+        "conditional": false
+      },
+      {
+        "target": "loop-4B",
+        "line": 803,
+        "conditional": false
+      },
+      {
+        "target": "loop-5B",
+        "line": 845,
+        "conditional": false
+      },
+      {
+        "target": "loop-6B",
+        "line": 863,
+        "conditional": false
+      },
+      {
+        "target": "loop-8B",
+        "line": 890,
+        "conditional": false
+      },
+      {
+        "target": "loop-9B",
+        "line": 924,
+        "conditional": false
+      },
+      {
+        "target": "E-o-P-End",
+        "line": 979,
+        "conditional": false
+      },
+      {
+        "target": "E-o-P-Option",
+        "line": 981,
+        "conditional": false
+      },
+      {
+        "target": "e-o-p-comp",
+        "line": 994,
+        "conditional": false
+      },
+      {
+        "target": "E-o-P-End",
+        "line": 1019,
+        "conditional": false
+      },
+      {
+        "target": "E-o-P-Option",
+        "line": 1031,
+        "conditional": false
+      },
+      {
+        "target": "E-O-P-End",
+        "line": 1040,
+        "conditional": false
+      },
+      {
+        "target": "get-pl",
+        "line": 1052,
+        "conditional": false
+      },
+      {
+        "target": "get-pl",
+        "line": 1061,
+        "conditional": false
+      },
+      {
+        "target": "e-o-p-fin",
+        "line": 1077,
+        "conditional": false
+      },
+      {
+        "target": "loop-a",
+        "line": 1086,
+        "conditional": false
+      },
+      {
+        "target": "e-o-p-fin",
+        "line": 1098,
+        "conditional": false
+      },
+      {
+        "target": "loop-b",
+        "line": 1100,
+        "conditional": false
+      },
+      {
+        "target": "by-pass",
+        "line": 1102,
+        "conditional": false
+      },
+      {
+        "target": "loop-b",
+        "line": 1109,
+        "conditional": false
+      },
+      {
+        "target": "update-pl",
+        "line": 1132,
+        "conditional": false
+      },
+      {
+        "target": "jump-back",
+        "line": 1135,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1158,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1170,
+        "conditional": false
+      },
+      {
+        "target": "by-pass",
+        "line": 1210,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1215,
+        "conditional": false
+      },
+      {
+        "target": "loop-1",
+        "line": 1223,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1225,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1232,
+        "conditional": false
+      },
+      {
+        "target": "by-pass",
+        "line": 1236,
+        "conditional": false
+      },
+      {
+        "target": "loop-2",
+        "line": 1241,
+        "conditional": false
+      },
+      {
+        "target": "loop-2",
+        "line": 1244,
+        "conditional": false
+      },
+      {
+        "target": "main-print",
+        "line": 1313,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1341,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1344,
+        "conditional": false
+      },
+      {
+        "target": "ws-unpack",
+        "line": 1419,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1432,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1435,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1442,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1446,
+        "conditional": false
+      },
+      {
+        "target": "pack-end",
+        "line": 1470,
+        "conditional": false
+      },
+      {
+        "target": "pack-loop-1",
+        "line": 1476,
+        "conditional": false
+      },
+      {
+        "target": "pack-end",
+        "line": 1485,
+        "conditional": false
+      },
+      {
+        "target": "pack-loop-2",
+        "line": 1489,
+        "conditional": false
+      },
+      {
+        "target": "pack-end",
+        "line": 1493,
+        "conditional": false
+      },
+      {
+        "target": "main-exit",
+        "line": 1502,
+        "conditional": false
+      },
+      {
+        "target": "unpack-loop-2",
+        "line": 1535,
+        "conditional": false
+      },
+      {
+        "target": "unpack-loop-2",
+        "line": 1545,
+        "conditional": false
+      },
+      {
+        "target": "unpack-loop-1",
+        "line": 1547,
+        "conditional": false
+      },
+      {
+        "target": "unpack-end",
+        "line": 1554,
+        "conditional": false
+      },
+      {
+        "target": "unpack-loop-3",
+        "line": 1563,
+        "conditional": false
+      },
+      {
+        "target": "pl-a-end",
+        "line": 1585,
+        "conditional": false
+      },
+      {
+        "target": "pl-a",
+        "line": 1588,
+        "conditional": false
+      },
+      {
+        "target": "pl-a",
+        "line": 1590,
+        "conditional": false
+      },
+      {
+        "target": "pl-a",
+        "line": 1605,
+        "conditional": false
+      },
+      {
+        "target": "pl-exit",
+        "line": 1640,
+        "conditional": false
+      },
+      {
+        "target": "vat-b",
+        "line": 1678,
+        "conditional": false
+      },
+      {
+        "target": "vat-finalize",
+        "line": 1689,
+        "conditional": false
+      },
+      {
+        "target": "vat-finalize",
+        "line": 1692,
+        "conditional": false
+      },
+      {
+        "target": "vat-c",
+        "line": 1695,
+        "conditional": false
+      },
+      {
+        "target": "vat-c",
+        "line": 1709,
+        "conditional": false
+      },
+      {
+        "target": "vat-exit",
+        "line": 1722,
+        "conditional": false
+      },
+      {
+        "target": "main-end",
+        "line": 1752,
+        "conditional": false
+      },
+      {
+        "target": "read-n",
+        "line": 1754,
+        "conditional": false
+      },
+      {
+        "target": "read-n",
+        "line": 1757,
+        "conditional": false
+      },
+      {
+        "target": "read-n",
+        "line": 1760,
+        "conditional": false
+      },
+      {
+        "target": "read-n",
+        "line": 1789,
+        "conditional": false
+      },
+      {
+        "target": "read-n",
+        "line": 1793,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 60,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 73,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 115,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 119,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "P",
+        "line": 137,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 178,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "Y",
+        "line": 180,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 188,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 217,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 221,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 267,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 269,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "h",
+        "line": 536,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 557,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 564,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 574,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 590,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 594,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 598,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 600,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 613,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 617,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 623,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 630,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 667,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 670,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 673,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 676,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 679,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 700,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 734,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 754,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 764,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 782,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 802,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 812,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 821,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 844,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 862,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 872,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 889,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 898,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 906,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "y",
+        "line": 923,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 945,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 953,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 978,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 980,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 993,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 1000,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "P",
+        "line": 1012,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 1014,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "p",
+        "line": 1018,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1030,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1034,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1046,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1054,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1076,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1085,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 1089,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1097,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1099,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1101,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1105,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1124,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1131,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1140,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1157,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1169,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "v",
+        "line": 1180,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 1184,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 1189,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1194,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1199,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1205,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 1219,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 1224,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1234,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1240,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1259,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1262,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1265,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1268,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 1271,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 1279,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1287,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1289,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1303,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1305,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1307,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1309,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1311,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1322,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1333,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1339,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 1343,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1346,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 1352,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 1359,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1418,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "q",
+        "line": 1426,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1434,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1439,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1444,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1465,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1468,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1473,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1478,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1483,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1486,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1491,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1494,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1531,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1537,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1542,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1551,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1560,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1584,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 1587,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1589,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1599,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1613,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1622,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1634,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1656,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1665,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1676,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1688,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 1691,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 1694,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1702,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1716,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1751,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 1753,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 1755,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 1759,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 1762,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 1777,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 1780,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 1784,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 1788,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "u-bin",
+        "formula": "u-year * 365",
+        "line": 1466,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 733,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 753,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 781,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "add      level-11  to  level-21",
+        "line": 785,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "add      level-12  to  level-22",
+        "line": 786,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 801,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 843,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 861,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "add      level-11  to  level-21",
+        "line": 865,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "add      level-12  to  level-22",
+        "line": 866,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 888,
+        "rounding": null
+      },
+      {
+        "target": "y",
+        "formula": "add      1  to  y",
+        "line": 922,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "add      level-11  to  level-21",
+        "line": 937,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "add      level-12  to  level-22",
+        "line": 938,
+        "rounding": null
+      },
+      {
+        "target": "cr",
+        "formula": "add  net-1  to  cr",
+        "line": 1141,
+        "rounding": null
+      },
+      {
+        "target": "dr",
+        "formula": "add  net-1  to  dr",
+        "line": 1143,
+        "rounding": null
+      },
+      {
+        "target": "total-1",
+        "formula": "add      cr  to    total-1",
+        "line": 1155,
+        "rounding": null
+      },
+      {
+        "target": "total-1",
+        "formula": "add      dr  to    total-1",
+        "line": 1167,
+        "rounding": null
+      },
+      {
+        "target": "nl-dr",
+        "formula": "add      dr  to  nl-dr",
+        "line": 1238,
+        "rounding": null
+      },
+      {
+        "target": "nl-cr",
+        "formula": "add      cr  to  nl-cr",
+        "line": 1239,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "add      nl-cr to   work-1",
+        "line": 1319,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "add      nl-dr to   work-1",
+        "line": 1330,
+        "rounding": null
+      },
+      {
+        "target": "u-bin",
+        "formula": "add  1  to  u-bin",
+        "line": 1474,
+        "rounding": null
+      },
+      {
+        "target": "ws-work2",
+        "formula": "add  4  to  ws-work2",
+        "line": 1475,
+        "rounding": null
+      },
+      {
+        "target": "u-bin",
+        "formula": "add  1  to  u-bin",
+        "line": 1480,
+        "rounding": null
+      },
+      {
+        "target": "ws-work1",
+        "formula": "add  1  to  ws-work1",
+        "line": 1488,
+        "rounding": null
+      },
+      {
+        "target": "u-bin",
+        "formula": "add  u-days  to  u-bin",
+        "line": 1492,
+        "rounding": null
+      },
+      {
+        "target": "u-bin",
+        "formula": "add  u-days  to   u-bin",
+        "line": 1497,
+        "rounding": null
+      },
+      {
+        "target": "u-year",
+        "formula": "add  1  to  u-year",
+        "line": 1532,
+        "rounding": null
+      },
+      {
+        "target": "save-date",
+        "formula": "add  365  to  save-date",
+        "line": 1534,
+        "rounding": null
+      },
+      {
+        "target": "ws-work2",
+        "formula": "add  4  to  ws-work2",
+        "line": 1539,
+        "rounding": null
+      },
+      {
+        "target": "ws-work1",
+        "formula": "add  1  to  ws-work1",
+        "line": 1561,
+        "rounding": null
+      },
+      {
+        "target": "u-month",
+        "formula": "add  1  to  u-month",
+        "line": 1562,
+        "rounding": null
+      },
+      {
+        "target": "nl-cr",
+        "formula": "add      cr to nl-cr",
+        "line": 1595,
+        "rounding": null
+      },
+      {
+        "target": "nl-dr",
+        "formula": "add      dr to nl-dr",
+        "line": 1596,
+        "rounding": null
+      },
+      {
+        "target": "nl-dr",
+        "formula": "add      dr   to nl-dr",
+        "line": 1697,
+        "rounding": null
+      },
+      {
+        "target": "nl-cr",
+        "formula": "add      cr   to nl-cr",
+        "line": 1698,
+        "rounding": null
+      },
+      {
+        "target": "u-bin",
+        "formula": "add      1 to u-bin",
+        "line": 1743,
+        "rounding": null
+      },
+      {
+        "target": "pl-ac",
+        "formula": "add      1 to pl-ac",
+        "line": 1771,
+        "rounding": null
+      },
+      {
+        "target": "l5-year2",
+        "formula": "subtract 1  from  l5-year2",
+        "line": 606,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "subtract level-11  from  level-21",
+        "line": 757,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "subtract level-12  from  level-22",
+        "line": 758,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "subtract level-11  from  level-21",
+        "line": 805,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "subtract level-12  from  level-22",
+        "line": 806,
+        "rounding": null
+      },
+      {
+        "target": "level-21",
+        "formula": "subtract level-11  from  level-21",
+        "line": 892,
+        "rounding": null
+      },
+      {
+        "target": "level-22",
+        "formula": "subtract level-12  from  level-22",
+        "line": 893,
+        "rounding": null
+      },
+      {
+        "target": "total-1",
+        "formula": "subtract dr  from  total-1",
+        "line": 1156,
+        "rounding": null
+      },
+      {
+        "target": "total-1",
+        "formula": "subtract cr  from  total-1",
+        "line": 1168,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "subtract nl-dr from work-1",
+        "line": 1320,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "subtract nl-cr from work-1",
+        "line": 1331,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "subtract work-2 from work-1",
+        "line": 1383,
+        "rounding": null
+      },
+      {
+        "target": "save-date",
+        "formula": "subtract 365  from  save-date",
+        "line": 1529,
+        "rounding": null
+      },
+      {
+        "target": "save-date",
+        "formula": "subtract  1   from  save-date",
+        "line": 1540,
+        "rounding": null
+      },
+      {
+        "target": "u-year",
+        "formula": "subtract  1  from  u-year",
+        "line": 1543,
+        "rounding": null
+      },
+      {
+        "target": "dr",
+        "formula": "subtract cr from dr",
+        "line": 1763,
+        "rounding": null
+      },
+      {
+        "target": "cr",
+        "formula": "subtract dr from cr",
+        "line": 1766,
+        "rounding": null
+      },
+      {
+        "target": "1",
+        "formula": "multiply level-11  by  1",
+        "line": 1258,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "1",
+        "formula": "multiply level-12 by 1",
+        "line": 1260,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "1",
+        "formula": "multiply  level-11  by  1",
+        "line": 1263,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "1",
+        "formula": "multiply  level-12  by  1",
+        "line": 1266,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "1",
+        "formula": "multiply work-1  by  1",
+        "line": 1358,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "1",
+        "formula": "multiply work-2 by 1",
+        "line": 1360,
+        "rounding": "ROUNDED"
+      },
+      {
+        "target": "4",
+        "formula": "multiply save-date by 4",
+        "line": 1438,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "PL-App-Created",
+        "condition": "if PL-App-Created = 1.",
+        "line": 137,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "YY",
+        "condition": "if YY < slide,",
+        "line": 180,
+        "errorHandling": "its 19nn"
+      },
+      {
+        "field": "hdtime",
+        "condition": "if       hdtime not = \"00000000\"",
+        "line": 536,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-pass",
+        "condition": "if       ws-pass not = pass-word",
+        "line": 557,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j  <  0",
+        "line": 574,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "pl-rep-type",
+        "condition": "if       pl-rep-type not = \"P\"",
+        "line": 590,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 598,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 600,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j = zero",
+        "line": 617,
+        "errorHandling": "21 after year 2069"
+      },
+      {
+        "field": "j",
+        "condition": "if       j not = zero",
+        "line": 623,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply  not = zero",
+        "line": 630,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  <  \"E\"",
+        "line": 667,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  >  \"D\"",
+        "line": 670,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  = \"I\"",
+        "line": 673,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  >  \"J\"",
+        "line": 676,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  >  \"T\"",
+        "line": 679,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "pl-rep-type",
+        "condition": "if       pl-rep-type = \"Y\"",
+        "line": 700,
+        "errorHandling": "move \"For the Period From \" to l3a-t1\n              move \""
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  5",
+        "line": 734,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  9",
+        "line": 754,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 764,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  11",
+        "line": 782,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  15",
+        "line": 802,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 812,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 821,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  18",
+        "line": 844,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  21",
+        "line": 862,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 872,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  23",
+        "line": 889,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 898,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 906,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "y",
+        "condition": "if       y  <  27",
+        "line": 923,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 945,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 953,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply  = \"N\"",
+        "line": 978,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 980,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j  <  1",
+        "line": 993,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WE-Error",
+        "condition": "if       WE-Error not = zero",
+        "line": 1000,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "PL-App-Created",
+        "condition": "if      PL-App-Created = \"1\"",
+        "line": 1012,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "pl-ac",
+        "condition": "if       pl-ac  = zero",
+        "line": 1018,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 1030,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1034,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1046,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1054,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 1076,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1085,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  <  \"O\"",
+        "line": 1089,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 1097,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1099,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sub-nominal",
+        "condition": "if       sub-nominal  = zero",
+        "line": 1101,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  <  \"O\"",
+        "line": 1105,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1124,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe  = \"O\"",
+        "line": 1131,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "net-1",
+        "condition": "if       net-1  >  zero",
+        "line": 1140,
+        "errorHandling": "add  net-1  to  dr"
+      },
+      {
+        "field": "j",
+        "condition": "if       j = zero",
+        "line": 1157,
+        "errorHandling": null
+      },
+      {
+        "field": "j",
+        "condition": "if       j = zero",
+        "line": 1169,
+        "errorHandling": null
+      },
+      {
+        "field": "Final-Acs-In-Use",
+        "condition": "if       Final-Acs-In-Use = 1",
+        "line": 1184,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1194,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac  <   ar0",
+        "line": 1219,
+        "errorHandling": "move  space  to  l7-sign5  l7-sign6"
+      },
+      {
+        "field": "ac",
+        "condition": "if       ac > ar0",
+        "line": 1224,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sub-nominal",
+        "condition": "if       sub-nominal  = zero",
+        "line": 1234,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j = zero",
+        "line": 1240,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1259,
+        "errorHandling": null
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1265,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "level-11",
+        "condition": "if       level-11  <  zero",
+        "line": 1271,
+        "errorHandling": ""
+      },
+      {
+        "field": "level-12",
+        "condition": "if       level-12  <  zero",
+        "line": 1279,
+        "errorHandling": "move  space  to  l7-sign3  l7-sign4"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1287,
+        "errorHandling": "move  space  to  l7-sign7  l7-sign8"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  <  \"E\"",
+        "line": 1303,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  >  \"D\"",
+        "line": 1305,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  = \"I\"",
+        "line": 1307,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  >  \"J\"",
+        "line": 1309,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "nl-ac",
+        "condition": "if       nl-ac  >  \"T\"",
+        "line": 1311,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1322,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1333,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1  = zero",
+        "line": 1339,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "l9-name",
+        "condition": "if       l9-name = spaces",
+        "line": 1343,
+        "errorHandling": "move  space"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1  <  zero",
+        "line": 1346,
+        "errorHandling": "move  space  to  l9-sign1  l9-sign2"
+      },
+      {
+        "field": "work-2",
+        "condition": "if       work-2  <  zero",
+        "line": 1352,
+        "errorHandling": "move  space  to  l9-sign1  l9-sign2"
+      },
+      {
+        "field": "j",
+        "condition": "if       j > zero",
+        "line": 1359,
+        "errorHandling": "move  space  to  l9-sign3  l9-sign4"
+      },
+      {
+        "field": "u-bin",
+        "condition": "if       u-bin  >  zero",
+        "line": 1418,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "q",
+        "condition": "if       q not = 2",
+        "line": 1426,
+        "errorHandling": null
+      },
+      {
+        "field": "u-days",
+        "condition": "if       u-days > 29",
+        "line": 1434,
+        "errorHandling": null
+      },
+      {
+        "field": "u-month",
+        "condition": "if       u-month = 2",
+        "line": 1439,
+        "errorHandling": null
+      },
+      {
+        "field": "u-days",
+        "condition": "if       u-days > days",
+        "line": 1444,
+        "errorHandling": null
+      },
+      {
+        "field": "u-year",
+        "condition": "if       u-year not = zero",
+        "line": 1465,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-bin",
+        "condition": "if       u-bin <   zero",
+        "line": 1468,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-year",
+        "condition": "if       u-year  >  ws-work2",
+        "line": 1473,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-year",
+        "condition": "if       u-year =  ws-work2",
+        "line": 1478,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-month",
+        "condition": "if       u-month  >  12",
+        "line": 1483,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-month",
+        "condition": "if       u-month  >  ws-work1",
+        "line": 1486,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-days",
+        "condition": "if       u-days   = 29",
+        "line": 1494,
+        "errorHandling": "move  zero  to u-bin"
+      },
+      {
+        "field": "save-date",
+        "condition": "if       save-date  >  zero",
+        "line": 1531,
+        "errorHandling": "add  365  to  save-date\n              go to  unpack-loop-2"
+      },
+      {
+        "field": "u-year",
+        "condition": "if       u-year = ws-work2",
+        "line": 1537,
+        "errorHandling": "add  365  to  save-date\n              go to  unpack-loop-2"
+      },
+      {
+        "field": "save-date",
+        "condition": "if       save-date  = zero",
+        "line": 1542,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "save-date",
+        "condition": "if       save-date  = 365",
+        "line": 1551,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "save-date",
+        "condition": "if       save-date  >  zero",
+        "line": 1560,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 1584,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ac2",
+        "condition": "if       ac2 not = ws-ac",
+        "line": 1587,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1589,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1599,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1613,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1622,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zeros",
+        "line": 1634,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1656,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1665,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1676,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 1688,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "owning",
+        "condition": "if       owning not = nl-owning",
+        "line": 1691,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "tipe",
+        "condition": "if       tipe = \"S\"",
+        "line": 1694,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1702,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1716,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 1751,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "cr",
+        "condition": "if       cr = zero",
+        "line": 1755,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "dr",
+        "condition": "if       dr = cr",
+        "line": 1759,
+        "errorHandling": "subtract dr from cr\n              move z"
+      },
+      {
+        "field": "dr",
+        "condition": "if       dr > cr",
+        "line": 1762,
+        "errorHandling": "subtract dr from cr\n              move zero to dr"
+      },
+      {
+        "field": "sub-nominal",
+        "condition": "if       sub-nominal not = zero",
+        "line": 1777,
+        "errorHandling": "if      c"
+      },
+      {
+        "field": "dr",
+        "condition": "if       dr > zero",
+        "line": 1780,
+        "errorHandling": "if      cr > zero\n              move owning to post-cr\n              move cr to post-amount"
+      },
+      {
+        "field": "cr",
+        "condition": "if      cr > zero",
+        "line": 1784,
+        "errorHandling": "if      cr > zero\n              move owning to post-cr\n              move cr to post-amount"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "in",
+        "line": 433,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 566,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "work-file",
+        "line": 644,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "work-file",
+        "line": 717,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "pointer",
+        "line": 1069,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "work-file",
+        "line": 1214,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "work-file",
+        "line": 1231,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "pointer",
+        "line": 1577,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record",
+        "line": 85,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record",
+        "line": 90,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record",
+        "line": 98,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "for",
+        "line": 99,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record",
+        "line": 101,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "date",
+        "line": 118,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 221,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 710,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 711,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 712,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 713,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 715,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 741,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 743,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 766,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 771,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 788,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 791,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 814,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 823,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 828,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 830,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 831,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 832,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 851,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 874,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 879,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 900,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 908,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 913,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 926,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 933,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 947,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 955,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1091,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1108,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1144,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1251,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1290,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1291,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1362,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1375,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1376,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1377,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1379,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1387,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 1392,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1598,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1633,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1701,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "record-1",
+        "line": 1715,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "for",
+        "line": 1717,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record",
+        "line": 85,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record",
+        "line": 90,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record",
+        "line": 98,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "for",
+        "line": 99,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record",
+        "line": 101,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "date",
+        "line": 118,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1091,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1108,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1144,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1598,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1633,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1701,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "record-1",
+        "line": 1715,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "for",
+        "line": 1717,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 1146,
+    "linesOfComment": 658,
+    "cyclomaticComplexity": 224,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 79,
+    "numberOfCalls": 2,
+    "numberOfFiles": 3,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 6
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

@@ -1,0 +1,1228 @@
+{
+  "metadata": {
+    "filename": "sl900.cbl",
+    "filepath": "sales/sl900.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.437Z",
+    "fileSize": 19089,
+    "lastModified": "2025-01-06T00:03:45.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "sl900",
+    "programType": "sub",
+    "author": "Cis Cobol Conversion By V B Coen FBCS, FIDM, FIDPM, 26/10/83",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Invoice Menu & Fixed"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "ws-data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "menu-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-next-invoice",
+              "picture": "9(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-extra-rate",
+              "picture": "99v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-pf-retention",
+              "picture": "999",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-extra-charge-ac",
+              "picture": "9(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-vat-ac",
+              "picture": "9(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-Test-Date",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "ws-date-formats",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-swap",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-Conv-Date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-UK",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-USA",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-usa-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-usa-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-Intl",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-intl-year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-intl-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-intl-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SL121",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "SL121",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "error-code",
+          "picture": "999",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "ws-discount-display",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-disca1",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-disca2",
+              "picture": "x",
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-disca3",
+              "picture": "v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-discount-accept",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "ws-discount-display",
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-discb1",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-discb3",
+              "picture": "v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-discount-work",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-disc-wka",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-disc-wkb",
+              "picture": "v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-discount",
+          "picture": "99v99",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "ws-discount-work",
+          "children": []
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(15)",
+          "usage": null,
+          "value": "SL900",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "to-day",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "ws-calling-data",
+          "system-record",
+          "to-day",
+          "file-defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "menu-return",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "menu-input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loadit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "file-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "menu-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "menu-ex",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Data-Entry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Extra-Type-Entry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Extra-Print-Entry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Entry-x",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Stock-Link-Check",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Audit-Check",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Extra-Chgs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Confirmation",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz070-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 99,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "zz070-Convert-Date",
+        "thru": null,
+        "condition": null,
+        "line": 195
+      },
+      {
+        "type": "PERFORM",
+        "target": "fixed-data",
+        "thru": null,
+        "condition": null,
+        "line": 199
+      },
+      {
+        "type": "PERFORM",
+        "target": "Fixed-Data",
+        "thru": null,
+        "condition": null,
+        "line": 239
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "menu-exit",
+        "line": 231,
+        "conditional": false
+      },
+      {
+        "target": "menu-input",
+        "line": 236,
+        "conditional": false
+      },
+      {
+        "target": "menu-return",
+        "line": 240,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 245,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 250,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 255,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 260,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 265,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 270,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 275,
+        "conditional": false
+      },
+      {
+        "target": "LoadIt",
+        "line": 280,
+        "conditional": false
+      },
+      {
+        "target": "menu-return",
+        "line": 282,
+        "conditional": false
+      },
+      {
+        "target": "menu-return",
+        "line": 291,
+        "conditional": false
+      },
+      {
+        "target": "data-entry",
+        "line": 379,
+        "conditional": false
+      },
+      {
+        "target": "entry-x",
+        "line": 385,
+        "conditional": false
+      },
+      {
+        "target": "extra-type-entry",
+        "line": 390,
+        "conditional": false
+      },
+      {
+        "target": "Extra-Print-Entry",
+        "line": 395,
+        "conditional": false
+      },
+      {
+        "target": "entry-x",
+        "line": 408,
+        "conditional": false
+      },
+      {
+        "target": "Stock-Link-Check",
+        "line": 415,
+        "conditional": false
+      },
+      {
+        "target": "Extra-Chgs",
+        "line": 419,
+        "conditional": false
+      },
+      {
+        "target": "Audit-Check",
+        "line": 430,
+        "conditional": false
+      },
+      {
+        "target": "data-entry",
+        "line": 449,
+        "conditional": false
+      },
+      {
+        "target": "confirmation",
+        "line": 452,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 469,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 474,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 47,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 53,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 54,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 66,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 96,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 100,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 198,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 210,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 230,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 233,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 238,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 242,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 247,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 252,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 257,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 262,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 267,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 272,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 277,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 343,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 348,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 378,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 382,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 389,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 394,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 404,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 407,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 409,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 414,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 416,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 424,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 429,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 433,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 448,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 451,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 466,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 468,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 470,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "next-invoice",
+        "condition": "if       next-invoice  = zero",
+        "line": 198,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = \"X\"",
+        "line": 230,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 1",
+        "line": 238,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 4",
+        "line": 242,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 5",
+        "line": 247,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 6",
+        "line": 252,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 7",
+        "line": 257,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 8",
+        "line": 262,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 2",
+        "line": 267,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-reply",
+        "condition": "if       menu-reply  = 9",
+        "line": 272,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Menu-Reply",
+        "condition": "if       Menu-Reply = \"A\"",
+        "line": 277,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "next-invoice",
+        "condition": "if       next-invoice  = zero",
+        "line": 378,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Extra-Desc",
+        "condition": "if       Extra-Desc = spaces",
+        "line": 382,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Extra-Type",
+        "condition": "if       Extra-Type not = \"C\"",
+        "line": 389,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Extra-Print",
+        "condition": "if       Extra-Print not = \"Y\"",
+        "line": 394,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Invoicer",
+        "condition": "if       Invoicer = zero",
+        "line": 404,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "invoicer",
+        "condition": "if       invoicer not = 1",
+        "line": 407,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Invoicer",
+        "condition": "if       Invoicer = 1",
+        "line": 409,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "SL-Stock-Link",
+        "condition": "if       SL-Stock-Link not = \"Y\"",
+        "line": 414,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "SL-Stock-Link",
+        "condition": "if       SL-Stock-Link = \"N\"",
+        "line": 416,
+        "errorHandling": "move"
+      },
+      {
+        "field": "SL-Stock-Audit",
+        "condition": "if       SL-Stock-Audit not = \"Y\"",
+        "line": 429,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"N\"",
+        "line": 448,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 451,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 466,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 100,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "Invoices",
+        "line": 219,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 262,
+    "linesOfComment": 222,
+    "cyclomaticComplexity": 64,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 17,
+    "numberOfCalls": 0,
+    "numberOfFiles": 2,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 2
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

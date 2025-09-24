@@ -1,0 +1,718 @@
+{
+  "metadata": {
+    "filename": "cobdump.cbl",
+    "filepath": "common/cobdump.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.737Z",
+    "fileSize": 5501,
+    "lastModified": "2024-01-21T21:32:05.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "cobdump",
+    "programType": "sub",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "Addr-Pointer",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Addr-Number",
+          "picture": null,
+          "usage": "BINARY-LONG",
+          "value": null,
+          "occurs": null,
+          "redefines": "Addr-Pointer",
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Addr-Sub",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Buffer-Length",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Buffer-Sub",
+          "picture": "9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Hex-Digits",
+          "picture": null,
+          "usage": null,
+          "value": "0123456789ABCDEF",
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "Hex-Digit",
+              "picture": "X",
+              "usage": null,
+              "value": null,
+              "occurs": "16",
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Left-Nibble",
+          "picture": "9",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Nibble",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "Left-Nibble",
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Output-Detail",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "OD-Addr",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "10",
+                  "name": "OD-Addr-Hex",
+                  "picture": "X",
+                  "usage": null,
+                  "value": null,
+                  "occurs": "8",
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "OD-Byte",
+              "picture": "Z(3)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "OD-Hex",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": "16",
+              "redefines": null,
+              "children": [
+                {
+                  "level": "10",
+                  "name": "OD-Hex-1",
+                  "picture": "X",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "10",
+                  "name": "OD-Hex-2",
+                  "picture": "X",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "10",
+                  "name": "FILLER",
+                  "picture": "X",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "05",
+              "name": "OD-ASCII",
+              "picture": "X",
+              "usage": null,
+              "value": null,
+              "occurs": "16",
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Output-Sub",
+          "picture": "9(2)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Output-Header-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X(80)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Output-Header-2",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X(80)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "PIC-XX",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X",
+              "usage": null,
+              "value": "LOW-VALUES",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "PIC-X",
+              "picture": "X",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "PIC-Halfword",
+          "picture": "9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "PIC-XX",
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "PIC-X10",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "FILLER",
+              "picture": "X(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "PIC-X8",
+              "picture": "X(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Right-Nibble",
+          "picture": "9",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [
+        {
+          "level": "01",
+          "name": "Addr-Value",
+          "picture": null,
+          "usage": null,
+          "value": "BINARY-LONG",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "Buffer",
+          "picture": "X",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Buffer-Len",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "Buffer,",
+          "OPTIONAL",
+          "Buffer-Len"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "name": "CONFIGURATION",
+        "paragraphs": [
+          {
+            "name": "REPOSITORY",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "WORKING-STORAGE",
+        "paragraphs": [
+          {
+            "name": "000-COBDUMP",
+            "statements": [
+              "MOVE",
+              "PERFORM",
+              "IF",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": [
+              "100-Generate-Address",
+              "VARYING",
+              "IF"
+            ]
+          },
+          {
+            "name": "100-Generate-Address",
+            "statements": [
+              "MOVE",
+              "PERFORM"
+            ],
+            "performedBy": [],
+            "performs": [
+              "WITH"
+            ]
+          },
+          {
+            "name": "END-PERFORM",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "LINKAGE",
+        "paragraphs": [
+          {
+            "name": "000-COBDUMP",
+            "statements": [
+              "MOVE",
+              "PERFORM",
+              "IF",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": [
+              "100-Generate-Address",
+              "VARYING",
+              "IF"
+            ]
+          },
+          {
+            "name": "100-Generate-Address",
+            "statements": [
+              "MOVE",
+              "PERFORM"
+            ],
+            "performedBy": [],
+            "performs": [
+              "WITH"
+            ]
+          },
+          {
+            "name": "END-PERFORM",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      }
+    ],
+    "paragraphs": []
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [
+      {
+        "program": "COBDUMP",
+        "type": "STATIC",
+        "line": 9,
+        "using": [
+          "<data-item>",
+          "**",
+          "*>",
+          "[",
+          "<length>"
+        ],
+        "context": null
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM VARYING",
+        "target": "100-Generate-Address",
+        "thru": null,
+        "condition": null,
+        "line": 85
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "VARYING",
+        "thru": null,
+        "condition": "Buffer-Sub FROM 1 BY 1\n                   UNTIL Buffer-Sub > Buffer-Length\n              ADD    1 TO Output-Sub\n              END-ADD\n              IF     Output-Sub = 1",
+        "line": 91
+      },
+      {
+        "type": "PERFORM",
+        "target": "100-Generate-Address",
+        "thru": null,
+        "condition": null,
+        "line": 116
+      },
+      {
+        "type": "PERFORM",
+        "target": "IF",
+        "thru": null,
+        "condition": null,
+        "line": 118
+      },
+      {
+        "type": "PERFORM",
+        "target": "WITH",
+        "thru": null,
+        "condition": null,
+        "line": 129
+      }
+    ],
+    "goToStatements": [],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 12,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 13,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 78,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 82,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "O",
+        "line": 95,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 97,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "(",
+        "line": 99,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 104,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "O",
+        "line": 111,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 117,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "O",
+        "line": 119,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 122,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "Output-Sub",
+        "formula": "ADD    1 TO Output-Sub",
+        "line": 93,
+        "rounding": null
+      },
+      {
+        "target": "Left-Nibble",
+        "formula": "ADD    1 TO Left-Nibble",
+        "line": 107,
+        "rounding": null
+      },
+      {
+        "target": "Nibble",
+        "formula": "ADD 1 TO Nibble",
+        "line": 131,
+        "rounding": null
+      },
+      {
+        "target": "Addr-Sub",
+        "formula": "SUBTRACT 1 FROM Addr-Sub",
+        "line": 133,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "NUMBER-OF-CALL-PARAMETERS",
+        "condition": "IF       NUMBER-OF-CALL-PARAMETERS = 1",
+        "line": 78,
+        "errorHandling": "MOVE Buffer-Len TO Buffer-Length\n     END-IF\n     MOVE     SPACES TO Output-Detail"
+      },
+      {
+        "field": "Output-Sub",
+        "condition": "IF     Output-Sub = 1",
+        "line": 95,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Output-Sub",
+        "condition": "IF     Output-Sub = 16",
+        "line": 111,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Output-Sub",
+        "condition": "IF       Output-Sub > 0",
+        "line": 119,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": []
+  },
+  "metrics": {
+    "linesOfCode": 111,
+    "linesOfComment": 23,
+    "cyclomaticComplexity": 15,
+    "numberOfSections": 3,
+    "numberOfParagraphs": 7,
+    "numberOfCalls": 1,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 9
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

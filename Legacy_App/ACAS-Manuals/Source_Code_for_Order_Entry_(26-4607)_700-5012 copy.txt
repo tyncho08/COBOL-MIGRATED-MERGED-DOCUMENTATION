@@ -1,0 +1,1018 @@
+﻿T A B L E 0 F C O N T E N T S
+
+Version: GnuCobol	System: O/E	Release: 1
+
+SECTION	PAGE
+    1. O/E System Components
+This section contains general data regarding the types of file associated with the O/E System.
+I	( ) O/E System Components
+    2. Common Routines and Documentation
+This section contains general technical data common to all GnuCobol Systems.
+,. 1.1
+
+) Screen Utility Program Specifications
+2.
+1 . 1
+) Print Utility Program Specifications
+2.
+2. 1
+) Standard File Maintenance Module
+2.
+3. 1
+) Standard Transaction Maintenance Module
+2
+.4. 1
+
+    3. O/E System Notes
+( ) O/E File Usage Map
+    4. File Definitions
+This section contains the File Definitions for all file used in the system.
+Company File
+Accounts Receivable Control File Valid G/L Account File
+Accounts Receivable Codes File ( ) Salesman File
+( ) Customer File
+( ) Sales Transaction File ( ) Sales Distribution File ( ) Inventory Item File
+( ) Receivings Transaction File
+( ) Order Header File
+( ) Order Line Item File
+( ) Back Order by Item Selection Fl le ( ) Back Order by Item Work File
+( ) Back Order by Customer Selection File ( ) Back Order by Customer Work File
+( ) Order Entry control File ( ) Order Entry Codes File
+
+
+3. 1 . 1
+
+
+
+
+
+
+4. 1. 1
+4 .2. 1
+4. 3. 1
+4 .4. 1
+4. 5. 1
+4 .6. 1
+4. 7. 1
+4 .8. 1
+4. 9. 1
+4. 1 0. 1
+4. 11. 1
+4, 12. 1
+4 .13 .1
+4 .14.1
+4. 1 5. 1
+4 .16.1
+4.17.1
+4. 18. 1
+
+T A B L E  0 F	C O N T E N T S
+
+Version: GnuCobol	System: O/E
+
+SECTION
+    5. Order Entry Menu #1
+( ) Program Specifications ( ) Video Terminal Format
+    6. Order Processing
+Program Specifications Video Terminal Format Report Format
+    7. Print Picking Tickets
+Program Specifications Video Terminal Format Report Format
+    8. billing and Invoice Printing
+Program Specifications Video Terminal Format Report Formats
+    9. Order Inquiry
+Program Specifications Video Terminal Format
+
+    10. Order Entry Menu #2
+Program Specifications Video Terminal Format
+    11. Item File Maintenance
+Program Specifications Video Terminal Format Report Formats
+    12. Item Receivings Processing
+Program Specifications Video Terminal Format Report Format
+Release: 1
+
+PAGE
+
+
+5. 1. 1
+5 .2.  1
+
+
+
+6. 1 . 1
+6. 2. 1
+6. 3. 1
+
+
+
+7. 1. 1
+7 .2 .1
+7. 3. 1
+
+
+8. 1 . 1
+8 .2.  1
+8. 3. 1
+
+
+9. 1 . 1
+9. 2. 1
+
+
+
+
+10.1.1
+10 .2.  1
+
+
+
+11.1. 1
+11 . 2. 1
+11.3.1
+
+
+12.1. 1
+1 2. 2. 1
+12.3.1
+T A B L E  O F	C O N T E N T S
+
+Version: GnuCobol	System: O/E	Release: 1
+
+SECTION	PAGE
+    13. Print Price List
+
+Program Specifications Video Terminal Format Report Format
+    14. Print Purchasing Advice
+C ) Program Specifications C ) Video Terminal Format C ) Report Format
+
+    15. Print Item Stock Status Report
+Program Specifications Video Terminal Format Report Format
+    16. Print Back Orders by Item
+Program Specifications Video Terminal Format Report Format
+    17. Print Back Orders by Customer
+Program Specifications Video Terminal Format Report Format
+    18. Order Entry Menu #3
+Program Specifications Video Terminal Format
+    19. O/E Control File Maintenance
+Program Specifications Video Terminal Format
+13.1.1
+13.2.1
+13.3.1
+
+
+14.1. 1
+14 .2. 1
+14.3. 1
+
+
+
+15.1.1
+1 5 .2.  1
+15.3.1
+
+
+16.1.1
+16.2.1
+16.3.1
+
+
+17.1.1
+1 7. 2. 1
+17.3.1
+
+
+18.1.1
+1 8. 2. 1
+
+
+19.1.1
+19.2.1
+T A B L E	O F	C O N T E N T S
+
+Version: GnuCobol	System: O/E	Release: l
+
+SECTION	PAGE
+    20. Pricing Code File Maintenance
+
+Program Specifications Video Terminal Format Report Format
+    21. Commission Code File Maintenance
+Program Specifications Video Terminal Format Report Format
+    22. Period End Closing
+Program Specifications Video Terminal Format
+    23. Year End Closing
+Program-Specifications Video Terminal Format
+20.1 . 1
+20.2.1
+20.3.1
+
+
+21 . 1. 1
+21.2.1
+21 .3.1
+
+
+22.1 . 1
+22.2.1
+
+
+23. 1 . 1
+23. 2. 1
+Version: GnuCobol	System: O/E	Release: 1
+
+
+Introduction:
+This document describes the types of file associated with the O/E System and their uses.
+        1. 	COBOL source file. These include source code for all programs in the system and library of "copy" file which consist of COBOL source code which can be included in a program by the use of the COPY verb.
+        2. COBOL object file. These are the machine executable programs which constitues the working O/E System.
+        3. Data Files. These are the file which contain data entered into the O/E System.
+Each class of file is discussed separately below.
+
+Cobol Source Files: Program Source Files:
+Program source file names have the following format:
+OE(progname).CBL
+where:
+"OE"		is the system designator, all O/E System program names start with these two letters.
+"progname" is up to eight characters which uniquely identify a specific program file.
+NOTE: The Company File Maintenance and Valid G/L File Maintenance programs are not unique to the O/E System and thus do not carry the "OE" system designator.
+Generally, program names are a concatenation of abbreviations for the words that constitute a functional description of what the module does. For example, The "O/E Item File Maintenance" program is named:
+"OEITMMNT.CBL".
+Version: GnuCobol	System: O/E	Release: 1
+
+A source program may be broken up into one or more source modules to keep the individual source file size down to the point where It can be easily edited with Text editor. In this event, the first module is named as described above.
+For example, "O/E Item File Maintenance" actually consists of two modules named:
+"OE ITMMNT.CBL II  and "OE ITMMN2.CBL 11•
+embedded in the source code of the first module, OEITMMNT/CBL, is the compiler directing statement: COPY "OEITMMN2/CBL". Thus compiling this program will result in the generation of a single object module named: "OEITMMNT/COB".
+
+Cobol Source Copy Files:
+In order to facilitate PROGRAM modification and PROGRAM maintenance, COBOL source statements that are common to many programs have been extracted into separate file which can be included in a COBOL program at compile time by the use of the "COPY" verb. Copy Files are named with a function
+name of up to eight characters and a two character extension. For Example:
+function/xx
+where:
+"function"= A descriptive name of what the code contained in the copy file either does or relates to.
+"xx"	= The extension which identifies what DIVISION or SECTION of a COBOL program the copy file applies to.
+The extensions used are:
+SL= An Input/Output section SELECT statement.
+FD= A Data Division File Section File description (FD) entry.
+WS	A Data Division Working Storage Section entry.
+OS= A Procedure Division Declarative Section entry.
+PL= A Procedure Division entry, usually a frequently used subroutine.
+Version: GnuCobol	System: O/E	Release: 1
+
+Related Copy Files have the same function name with a different extension. For example, the Copy file that deal with the Valid G/L Account File are named as to follows:
+
+ACCTFILE,SL ACCTFILE,FD ACCTFILE,WS
+Contains the SELECT Statement for the file. Contains the File Description Entry.
+Contains Working Storage entries needed to process the file.
+ACCTFILE.DS Contains the Declarative Section entry which handles
+1/0 error conditions encountered in processing the file.
+all definitions, working storage entries and declaratives associated with all data file in the system are contained in copy file.
+As another example, a commonly used subroutine which retrieves, reformats and saves the system date consists of procedure division logic and associated working storage entries. The Copy file that contain this code are named:
+SYSDAT.WS Contains Working Storage entries needed to retrieve, reformat and store the System Date.
+SYSDAT.PL Contains the procedure logic necessary to accomplish this.
+
+Cobol Object Files:
+Cobol object file are named as fol lows: progname/COB
+Where:
+"progname" is the program name of the source module from which this object file was compiled. Or, if the source program was broken up into multiple modules, the program name of the first module.
+Version: GnuCobol	System: O/E	Release: 1
+
+Data Files:
+Data Files are named according to the following conventions:
+OE(File name).DAT
+Where:
+"OE"	is the system designator.
+"File name" is a six character name that is unique to that file.
+NOTE: The Company File and the Valid G/L Account File are not unique to the O/E System and thus do not have the "OE" system designator.
+File names are a concatenation of abbreviations of the words in the full English language name of the file. For example, the Inventory Item File is named:
+OEITMFIL.DTA
+
+CFOEFILS,CBL may be compiled and run to Initialize O/E Data Files. This program opens each file on Ifs specified device in output mode and then closes the file. Any data contained within a file will be destroyed.
+
+Version: GnuCobol		System: O/E Module Name: ORDER ENTRY MENU #1
+Release: 1
+Module Function: Order Entry Menu #1
+
+Input: COMPFILE	Files Updated: None	Output: None
+
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s)
+
+Enter Module From: OE1
+Programs in Module: OE, OEMENU1 Program Functions and Notes: OE
+When Done Return To: OE
+This is the O/E Driver program for the Order Entry Menu #1. If calls "OEMENU1" and afterwards calls all programs whose names are passed to If. Each program that OE1 calls, passes back to If the name or the next program to CALL.
+This program initializes the following system wide parameters.
+    1. Display Company Name - Obtained from the Company File.
+    2. Report Company Name - Obtained from the Company File.
+    3. Profit Centre Usage Flag - Obtained from the Company File.
+    4. System Date - Obtained by System Call.
+
+OEMENU1
+The Order Entry Menu #1 is the primary menu for the O/E System. If allows the selection of the most frequently used O/E applications (such a: Order Processing and billing and Invoice Printing) and calls the appropriate task with the use of OE1.
+Display the Order Entry Menu #1 screen and accept the entry of a menu selection. Verify that the proper Data File diskettes have_bee? mounted. When the END key is pressed, end oft on processing O/E applications.
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Release: 1
+Module Function: Order Processing: add, change, delete, list.
+
+Input: OEITMFIL
+OECTLFIL OEORDHDR OELINITM OECDSFIL ACCTFILE ARCTLFIL ARCDSFIL ARCUSFIL
+Files Updated: OEITMFIL
+OECTLFIL OEORDHDR OELINITM
+Output: Order Edit List
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+Report Format(s)
+Enter Module From: OEMENUl	When Done Return To: OEMENU1 Programs in Module: OEOPMENU, OEOEADD, OEITMADD, OEOECNG, OEITMCNG, OEOEMISC,
+OEOEDEL, OEORDEDT
+Program Functions and Notes:
+OEOPMENU
+This program displays the main Order Processing Menu and calls the appropriate program. See related screen layout.
+
+OEOEADD
+This program displays the first screen in adding orders and allows entry of the main order information which is recorded in the Order Header File.
+Data Entry Defaults, validity Checks and Special instructions:
+
+Field 0
+
+
+Field 1
+Order Number: Default is either the last order number entered plus one; or, the last Order Number from the O/E Control File plus one. Validate that the Order Number is not on file.
+Order Date: Default to System Date.
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Release: 1
+
+Field 2
+
+
+Field 3
+Order Type: Display Sub-Menu defining order types "O", "I" and "C", and accept entry. Default to "O" on first order entered, or the last type entered for subsequent orders.
+Customer Number: Validate against A/R Customer File and display either Customer Name and Address, if found; or an error message if not found.
+If the F1 Key was pressed in this field, accept entry of up to thirty characters of Customer Name and search the Customer File sequentially by Alternate Key. Display each Customer Name and Address read and ask "RIGHT CUSTOMER?" until the user responds "Y" or there is a break in Alternate Key.
+Field 8 Ship To: Default to customer's billing address.
+Field 12 Salesman: Default to Salesman field in customer record.
+Validate against Salesman File.
+Field 14 Ship Via: Default to value in customer record. Validate against A/R Codes File.
+Field 15 Ship Date: Defaults to "N/A" for credit Memos or "ASAP" for Orders and Invoices
+Field 16 Terms Code: Default to customer record value. Validate against A/R Codes File.
+Field 17 Tax Percent: Default to the percent specified by the customer record Terms Code. On Fl Key, accept entry or a percent figure.
+Field 18 Discount Percent: Default to value specified in the customer record. On Fl Key, accept entry or a value.
+Field 19 Profit Centre: Only displays If the A/R Control File specifies that profit centres are used. Default to Profit Centre previously entered; or, on Fl Key, accept new entry.
+After all fields have been entered ask "Field NUMBER TO CHANGE ? " and process any changes. Then the Order Header record is written after all the fields have been entered and any changes have been made. The
+Selection Code for the order is set as "incomplete".
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Release: 1
+This program then calls OEITMADD to enter the individual line Items for the order.
+After the Items have been added, if the order is a credit memo or invoice the program calls OEOEMISC to complete the billing information.
+The Order Header record is rewritten after all entries have been made.
+For credit Memos and Invoices the Selection Code is set as "selected"; for regular orders, If is set as "complete" and may be selected for billing in the Billing and Invoice Printing module.
+
+OEITMADD
+This program allows entry of the individual items for the order and updates the Quantity committed field in the Inventory Item File if Inventory Control is specified. See related screen layout and File Definitions.
+Valid Item numbers are entered. If the Item number is a miscellaneous Item, entry of the description is required, otherwise, the description is displayed from the Inventory Item File.
+If the Fl key is pressed for the Item number, the user is allowed to enter the Item description (or part thereof). The program searches and displays all Items matching that description using the Alternate Key in the Inventory Item File. If the right one is not found, another Item number is entered.
+After the Quantity ordered field is entered, for regular orders and invoices, a check- is made to see If there is inventory control and whether the Item is back-orderable or not.
+If there is no inventory control for the system (or none for the Item),
+the Quantity ordered becomes the Quantity to ship. There is no updating of Inventory done in the Inventory File.
+
+If there is inventory control and the Quantity available (Quantity on hand
+- Quantity committed in the Inventory File) is less than the Quantity ordered, the Quantity available is displayed and the user is allowed to select one of the options.
+For a nonback-orderable Item, the options are to cancel the Item, order what's in stock or override. After the selection has been made, if the Item was not cancelled, the inventory Item qty committed is updated by adding to If the amount to be shipped and rewriting the record.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Re I ease: ·1
+For a back-orderable Item, the options are to cancel the Item, back order the balance, back order the tul I Quantity, or override the inventory.
+After the selection has been made, If the Item was not cancelled, the inventory Item Quantity committed field is updated by adding to If the Quantity ordered and rewriting the inventory Item record.
+The remaining fields for the Item are entered. If the order is a credit memo, entry of Quantity to be returned to inventory is allowed. If the Item is a miscellaneous Item, entry or the unit cost is allowed.
+The unit price is calculated using the price code associated with the inventory Item. The O/E Codes File is read and the price is calculated taking into account any discount on the price as set up in the O/E Codes File
+After the Item is entered, changes are allowed by way or the "ANY CHANGE" question. The user is allowed to re-enter, If he wishes, any field previously entered by the cursor being displayed at the end or the field and allowing the Restart Key to be pressed to enter a new amount.
+The total cost for the Item is calculated and added on to the totals in the Order Header record. The commission amount is calculated, based on
+the Commission Code for the Item, and added to the Order Commission amount.
+The Items entered are displayed by scrolling down the screen in the order that they are entered. This is done by setting up a screen table and storing the data as If is entered into the table elements. The lines of the table are moved down, and the table is displayed.
+
+OEOEMISC
+This program is called from OEOEADD and OEOECNG after the Items have been added and/or changed for all credit memos and invoices. This module completes the Order Header information. See related screen layout and File Definition.
+After the miscellaneous charges amount is entered, If the amount was not zero, the A/R Control File is checked to see If multiple accounts exist for miscellaneous charges. If they do, a valid account is entered,
+The sales tax is calculated using the customer's tax percent and the order taxable amount. The tax is displayed and may be overridden by pressing the Restart key and entering a new amount.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Release: ·1
+The freight amount is entered. If the amount entered was not zero and multiple account exist for freight charges in the A/R Control File, a valid account is entered.
+If the Commission Amount calculated and accumulated for all Items on the order is zero, the Commission Percent is entered and the commission amount is calculated and displayed.
+If the accumulated commission amount is not zero, then the percent is not entered, and the commission amount is displayed.
+Any subsequent entry of the commission percent will result in a recalculation of the commission amount based on the entered percent.
+After the fields have been entered, the record is passed back to OEOEADD and the Order Header record is rewritten.
+
+OEOECNG
+This program allows changes to the main order information or any order that has not been invoiced (as long as the order is flagged as "complete" and has not been selected for billing). The order number is entered and the contents of the Order Header record are displayed.
+Changes are made and the Order Header record is rewritten. The program then calls OE ITMCNG to make any changes to the individual new Items.
+If the order is a credit memo or invoice, the Order Header record is passed to OEOEMISC for any changes in the billing information.
+After all changes have been made, the Order Header record is rewritten.
+OEITMCNG
+This program allows changes to the line Items of an order and updates the inventory Quantity committed accordingly.
+A valid Item number is entered. If the Item is not on the order a message is displayed and the Item may be added to the order If the user wishes.
+If the F1 key is pressed, the program will bring up the next Item on file for the order.
+Version: GnuCobol		System: O/E Module Name: ORDER PROCESSING
+Release: 1
+
+The fields are displayed and any needed changes are entered. If the user changes the Quantity Ordered, entry of the Quantity To Ship field is required. The Quantity available is displayed at the bottom of the screen. If the Quantity to ship entered is less than the Quantity ordered, then the remaining amount is designated as either out of stock or back ordered. The Inventory Item record is updated taking into account the Quantity to ship and Quantity back ordered (if any).
+The END key pressed for the Item number will terminate this portion of Order Entry.
+
+OEOEDEL
+This program deletes selected orders and updates the Inventory File as needed.
+A valid order number is entered. The order fields are displayed. If the user wishes to delete the order, he answers "Y" to the question "OKAY TO DELETE ORDER?". The Order Header record is deleted.
+The corresponding Line Items for the order are then read. If there is Inventory Control in the system and the Item has inventory control, the Inventory record is updated. If the Item is back-orderable, the Line Item Quantity ordered is subtracted from the Inventory Quantity Committed. If the Item is nonback-orderable, the Line Item Quantity to ship is subtracted from the Inventory Quantity Committed. The Inventory record is then rewritten.
+The Line Items for the order are deleted.
+
+OEORDEDT
+A screen is displayed to ask what the starting and ending range should be.
+
+After the user enters the screen data, the order header information and corresponding line Items are printed per the report format. If "ALL" orders were selected, control returns to the Order Processing Menu, otherwise, the screen is re-displayed and a new starting and ending range is obtained. Control returns to the Order Processing Menu after "ALL" orders are selected or after the END key has been pressed.
+Version: GnuCobol	System: O/E
+Module Name: Print PICKING TICKETS
+Release: 1
+Module Function: Print picking tickets for all orders and invoices on file. Input: OEORDHDR	Files Updated: None	Output: Picking Tickets
+OELINITM
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+Report Format(s)
+
+Enter Module From: OEMENU1 Programs in Module: OEPIKTIK Program Functions and Notes: OEPIKTIK
+When Done Return To: OEMENU1
+This is a program to allow the user to print picking tickets for all or selected order and invoices on file.
+See related screen layout and Report Format for the printing or picking tickets.
+Display the screen and allow entry of the starting and ending order numbers. If the RETURN key is pressed for the starting number, If defaults to "ALL".
+Read the Order Header File sequentially. For each Order Header Record, read the line Items sequentially for that order using the Line sequentially Picking Sequence key. Reading the Line Item File with the alternate key will automatically put the line Items in picking sequence order. Print each picking ticket per the report layout.
+If the user selected a specific range to print, allow entry or other ranges. If the user selected "ALL", return to OEMENU1 after printing.
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+Release: 1
+
+Module Function: Select orders, unselect orders, print edit list, print invoices and post to A/R.
+
+Input: OEORDHDR
+OELINITM OEITMFIL COMPFILE ACCTFILE ARCTLFIL OECTLFIL OECDSFIL ARCDSFIL
+Files Updated: OEORDHDR
+OELINITM OEITMFIL OECTLFIL
+Output: billing Edit List Invoices
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+Report Format(s)
+Enter Module From: OEMENU1	When Done Return To: OEMENU1
+Programs in Module: OEBLMENU, OEBLOSEL, OEBLLSEL, OEBLMISC, OEBLOUNS, OEORDEDT, OEMNTINV, OEINVOIC, OEPSTINV
+Program Functions and Notes:
+OEBLMENU
+This program is the menu for billing. The billing menu is displayed and an entry accepted. Then the appropriate program is called.
+If calls the programs OEBLOSEL, OEBLOUNS, and OEMNTINV respectively to select orders, unselect orders, and print invoices. If Print billing Edit List is selected, the Passing Flag is set to "B" and OEORDEDT is called to print the report.
+
+OEBLOSEL
+This program allows selection or orders. If is called by OEBLMENU and calls OEBLLSEL and OEBLMISC respectively to select line Items and process order totals.
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+Release: 1
+
+The order selection screen is displayed and an order number entered. If the Fl key is pressed, the first, or next unselected order on file is found and displayed. If the end of the file is reached, an error message is displayed and the file starts over from the beginning.
+If an order number is entered the record is read and displayed. If the order is not found or incomplete or is an invoice or credit memo an error message is displayed and a new order number accepted.
+When a valid order has been found, changes are allowed to If. Then the Line Item billing menu is displayed. This menu allows three selections:
+1 - BILL ALL Items
+    2 - BILL SELECTED Items
+    3 - BILL ALL Items EXCEPT X
+If number 1 is selected: 1) all line Items on file for the order are read, their selection codes are set to "selected" (S), and the records are rewritten. 2) The total order amount, total taxable amount, and total cost are recalculated by reading through the line Items. 3) OEBLMISC is
+called. 4) The order selection code is set to "selected" (S). 5) The Order Header Record is rewritten.
+If number 2 is selected: 1) If the order is already selected all of the Ii new Items for the order are set to "unselected" (space). 2) OEBLLSEL is called. 3) The total order amount, total taxable amount, and total I cost are recalculated figuring in only those Items which have been selected in OEBLLSEL. 4) OEBLMISC is called. 5) The order selection code is set to "selected" (S). 6) The Order Header Record is rewritten.
+If number 3 is selected: 1 ) A II line Items for the order are set to "selected" (S). 2) OEBLLSEL is called. 3) The total order amount, total taxable amount, and total cost are recalculated figuring in only those Items which are flagged as "selected" (S). 4) OEBLMISC is called. 5) The order selection code is set to "selected" (S). 6) The Order Header Record is rewritten.
+The recalculation of order header fields as mentioned in 1, 2 and 3 above is done on the total taxable amount, total sale amount, total cost, tax amount and commission amount.
+The commission is calculated for each line Item according to the Commission Code specified.
+The above is repeated until the END key is pressed.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+Release: ·1
+
+OEBLLSEL
+This program allows selection of particular Items on an order. The line selection screen is displayed and an inventory Item number is entered.
+If the Fl key is pressed, the first or next line Item on file for that order is found and displayed. If there are no more line Items for the order, an error message is displayed and the file starts over at the first line Item of the order.
+If an inventory Item number is entered the first line Item for the order with that Item number is found and displayed (there may be more than one line Item with the same Item number). The question "RIGHT Item?" is displayed and if If is not the right Item, the next line Item for the order with the same Item number is found and displayed and so on until the right Item is found or there are no more Items on file for the order. If there are no more line Items on file for the order and the right Item has not been found, the message "LINE Item NOT ON FILE'' is displayed and a new inventory Item number is accepted.
+Once the correct Item is found the question "BILL THIS Item ?11 is asked. If the answer is "no" the Item selection code is set to "unselected" (space) and the record is rewritten. If the answer is "yes" changes are allowed, the Item selection code is set to "selected" (S) and the record is rewritten.
+If the Item is not backorderable and the Quantity to ship is changed, the Quantity committed field in the Inventory File is changed to reflect this.
+If the unit price is changed a test is made to see which commission percent now applies. If the new price entered is the same as price 1, 2 or 3 of the Inventory Item File the commission percentage associated with
+this price in the Commission Code File is used (this commission percent is moved to the commission percent field in the Line Item File). If none or these prices match the new price entered, the price override commission percent is used.
+The above is repeated until the END key is pressed.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+Re I ease: 1
+
+OEBLMISC
+This program allows entry of the miscellaneous charges, freight amount, tax amount etc. (see related Data Entry Specifications) for the Order Header Record. The third order screen is displayed and fields entered. The END key is nor allowed and the Restart Key just clears the screen and allows re-entry of all of the fields. After all fields have been entered changes are allowed.
+For the freight amount and the miscellaneous charges amount an account number is also entered If A) The amount is not zero and B) If the A/R Control File indicates that freight or miscellaneous charges amounts are distributed.
+The sales tax is computed on the total taxable amount and the tax percent for the order.
+The order total amount is calculated and displayed right after the freight amount is entered and is the total of the order net amount, the
+miscellaneous charges, the tax amount and the freight amount. If any of these amounts are changed, the total order amount is recalculated and redisplayed.
+If the total commission amount for the order is not zero, If is not manually entered but is displayed and can be changed through the Item number to change logic. If a commission percent is entered the commission is calculated based on this percentage and the total sale amount. This wipes out the previously calculated commission amount.
+
+OEBLOUNS
+This program allows un-selection of selected orders. The order un-selection screen is displayed and an order number is entered.
+If the F1 key is pressed, the first, or next selected order on file is found and displayed. If the end of the file is reached, a message is displayed and the file starts over from the beginning.
+If an order number is entered, the record is read and displayed. If the record is not on file or incomplete or if If is an invoice or credit memo, an error message is displayed and a new order number is entered.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+
+
+Release: 1
+
+When a valid order has been found, the question "CANCEL SELECTION OF THIS ORDER ?" is asked. If  the answer is "yes" the line Items for the order must all be unselected. Then the order selection code in the order Header record is set to unselected and rewritten.
+The above is repeated until the END key is pressed.
+
+OEORDEDT
+See Order Processing Program Specifications.
+
+OEMNTINV / OEINVOIC
+This program prints invoices for all selected orders and credit memos. After printing the invoices if the printing is "OK", sales transaction records are created, and the Inventory and Order file are updated appropriately.
+The invoice date and default comments are entered per the VDT layout. The order range to be printed is entered per the VDT layout.
+The Order Header File is started at the starting order number. Before printing the invoice, the program checks to ensure the order has been selected. The line Items are read for that order. The invoice is printed using the Order Header Record and the selected line Items for that order.
+After printing the invoice, the Order Header Record is rewritten, setting the Order Selection Code to Order Invoiced but not OK.
+After the selected invoices have been printed, the question "ARE INVOICES JUST PRINTED OK ?" is asked. If they are not OK., the selected orders are rewritten setting the Order Selection Code to Order Selected. If  they are okay, the orders are rewritten with the selection code of Order Invoiced.
+The order range screen is redisplayed and new range or orders is entered
+and processing proceeds as above.
+If the END key was pressed for the order range, OEPSTINV is called to post invoices.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: BILLING AND INVOICE PRINTING
+Release: ·1
+
+OEPSTINV
+This program reads the Order Header File and Order Line Item File and writes A/R Sales Transaction File and A/R Sales Distribution Transaction File records for subsequent posting to A/R master file.
+A sales transaction is written out for each invoice flagged as Order Invoiced.
+If multiple distribution accounts exist for sales, freight, or miscellaneous charges, a sales distribution transaction record is written for each amount using the miscellaneous charges and freight accounts entered in order selection, and the sales account specified in the Inventory Item File for each line Item. The profit centre entered at order entry time is used as the last three digits of	the account number.
+Each selected line Item record is read and the inventory Item file is updated. The Quantity to Ship is subtracted from the Quantity on hand.
+If there is Inventory Control, the Quantity to Ship is subtracted from the Quantity Committed. The Period-to-date and Year-to-date fields are updated using the Quantity Shipped, Line Item Unit Price and Discount fields.
+Each line Item is checked to see if there is a Quantity Back Ordered. If there is, the Quantity Back Ordered is moved to the Quantity Ordered, the Quantity to Ship is set to zero, the Item is unselected and the record is rewritten. Otherwise, the Line Item Record is deleted.
+After the above is done for each order, the order is checked to see If If has any line Items remaining. If If does not, the Order Header Record is deleted. Otherwise, the order amounts are set to zero, the order is unselected and the Order Header Record is rewritten. If the order was an invoice order, If is changed to a regular order and the Order Header Record is rewritten for future selection or the remaining back-ordered Items.
+After posting is complete the program returns to the billing menu.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: ORDER INQUIRY
+Release: ·1
+Module Function: Display a specified order on the screen screen.
+
+Input: OEORDHDR
+OELINITM ARCUSFIL ARCDSFIL
+Files Updated: None	Output: None
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+
+Enter Module From: OEMENU1 Programs in Module: OEORDINQ Program Functions and Notes: OEORDINQ
+When Done Return To: OEMENU1
+This program displays all pertinent data regarding an order on the screen. The user selects an order by entering either Customer Number or F1 Key and Customer Name; and either an Order Number or a sequential search of orders for that customer.
+Accept entry of either a valid Customer Number or the Fl Key in the Customer Number field. If a number was entered, validate If against the Customer File. If the Fl Key was pressed, accept entry of up to twenty five characters of customer name. Read the Customer File by Alternate Key using the Customer Name entered, display each Customer Name read and ask "RIGHT CUSTOMER?" until either the user answers "Y" or there is a break in Customer Name.
+Accept entry of an Order Number and, If a number was entered, validate If against the Order Header File. If a number was not entered, read the Order Header File sequentially displaying each order for the entered customer and asking "RIGHT ORDER?" until either the user answers "Y" or there is a Customer Number break.
+Once the correct order has been found, read and display the associated line Items from the Order Line Item File. The Fl Key controls paging through line Items. The F2 Key causes order totals to be displayed.
+The Restart Key aborts display of this order.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: ORDER ENTRY MENU #2
+Release: 1
+Module Function: Order Entry Menu #2
+
+Input: COMPFILE	Files Updated: None	Output: None
+
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s)
+
+Enter Module From: OE2
+Programs in Module: OE2, OE Program Functions and Notes:
+OE2
+When Done Return To: OE2
+This is the O/E Driver program for the Order Entry Menu #2. If calls "OE" and afterwards calls all programs whose names are passed to If. Each program that OE2 calls, passes back to If the name of the next program to CALL.
+This program initializes the following system wide parameters.
+    1. Display Company Name - Obtained from the Company File.
+    2. Report Company Name - Obtained from the Company File.
+    3. Profit Centre Usage Flag - Obtained from the Company File.
+    4. System Date - Obtained by System Call.
+
+OE
+The Order Entry Menu #2 allows the selection of O/E applications and calls the appropriate task with the use of OE2.
+Display the Order Entry Menu #2 screen and accept the entry of a menu selection. Verify that the proper Data File diskettes have been mounted. When the END key is pressed, end oft on processing O/E applications.
+PROGRAM  SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: Item FILE MAINTENANCE
+Release: 1
+
+Module Function: Adds, changes, deletes, and prints out Items in the Inventory File.
+
+Input: OEITMFIL
+OECDSFIL
+Files Updated: OEITMFIL
+Output: Item File print out
+Alphabetical ltem List
+Also See Related: User1s Manual user Instructions
+Video Display Terminal Format(s) File Det in If ion( s)
+Report Format(s)
+Enter Module From: OE	When Done Return To: OE
+Programs in Module: OEITMMNT, OENUMITM, OEALPITM Program Functions and Notes:
+OEITMMNT
+This is a Standard Maintenance Module which allows entry and editing or the Inventory Item File. Use related screen layouts, File Definitions, etc.
+If the key entered is numeric, right justify If, padded with leading zeros, and redisplay.
+Validate the Price Code and Commission Code entered against the O/E Codes File. Display the code description If found. If not found, display an error message and force re-entry of the code.
+
+OENUMITM
+This program prints the Inventory Item File within selected ranges.
+A screen is displayed to ask for the range or Inventory Items to be printed on the report.
+After the user enters the screen data, the Inventory Item File is read within the selected range. Each Inventory Item's data is printed per the report layout. If "ALL" Items were selected by the user, the program returns to OEITMMNT; otherwise, additional ltem ranges are obtained
+PROGRAM	SPECIFICATIONS
+
+Version: RS C080L	System: O/E
+Module Name: Item FILE MAINTENANCE
+Release: 1
+
+and the program prints a report for each new range. The program returns to OEITMMNT after ''ALL'' Items have been selected or after the user has pressed the END key at the range screen.
+
+OEALPITM
+
+This module prints the Inventory Item File in alphabetical order by Item Description within selected range.
+
+The Inventory Item File is read in order by Ifs alternate key or Item Description printing each Inventory Item's data according to the report layout. The program returns to OEITMMNT upon completion of the print out.
+
+PROGRAM
+\
+'I
+SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: Item RECEIVINGS PROCESSING
+Release: 1
+
+Module Function: Item Receivings Processing: add, change, delete, list, post.
+
+Input: OERECTRX
+
+Also See Related:
+Files Updated: OERECTRX
+OEITMFIL
+User's Manual user Video Display Terminal File Definition(s) Report Format(s)
+Output: Receivings Edit List Receivings Register
+Instructions Format(s)
+
+Enter Module From: OE
+Programs in Module: OERECENT, OERECREG Program Functions and Notes:
+OERECENT
+When Done Return To: OE
+This is a Standard Transaction module which allows entry, editing and posting of receivings transactions. If displays the Receivings Menu and, if the Edit List is to be printed or Posting is to be done, calls OERECREG. See Video display Formats, File Definitions, Report Formats etc.
+Data Entry Defaults, validity Checks and Special instructions:
+
+Field Field 2
+Field 4
+
+Field 5
+Item Number: Validate against Item File.
+Date Received: Default to System Date; or if a Date Received was previously entered, default to If.
+Qty Received: Add amount entered to Old Qty on Hand and display New Qty-on-Hand.
+New Unit-Cost: Default to Old Unit-Cost. On Fl Key, accept entry of a new value. If the Old Qty-on-Hand is negative or zero, move the New Unit-Cost to Average Cost; otherwise calculate New Average Cost as fol lows:
+New Average Cost=
+(Old Avg-Cost* Old Qty-on-Hand+ New Avg-Cost* Qty-Received)
+/ (Old Qty-on-Hand+ Qty-Received)
+and display the result.
+Fields 6-9 Default to values currently on the Item File. Changes are made
+via the "Field NUMBER TO CHANGE 7"  facility.
+
+PROGRAM
+t)
+SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: Item RECEIVINGS PROCESSING
+Release: 1
+
+OERECREG
+This program prints both the Item Receivings Edit List and the Item Receivings Register. If also posts the receivings transactions to the Inventory Item File if posting was selected from the Item Receivings Processing menu.
+To post transactions read the Inventory Record for the transaction being posted and modify the fields for price-1, price-2, price-3, average cost, last cost, Quantity on hand and picking sequence. Also move ???a s ac to the Stock Status field. This resets the reorder flag so that this Item will appear on the Purchasing Advice Report when the Quantity goes below the reorder level.
+
+PROGRAM
+'\..
+SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: PRINT PRICE LIST
+Re I ease: ·1
+Module Function: Prints Price List by Inventory Item.
+
+Input: OEITMFIL	Files Updated: None
+Output: Price List
+Also See Related: User's Manual user Instruction
+Video Display Terminal Format(s) Report Format{s)
+
+Enter Module From: OE Programs in Module: OEPRCLST Program Functions and Notes: OEPRCLST
+When Done Return To: OE
+A screen is displayed to ask what the starting and ending range should be.
+After the user enters the screen data, the Inventory Item File is read within the selected range. Each Inventory Item's data is printed as per the report layout. Control is returned to OE after the report has been printed if "ALL" was selected for the range to print. Otherwise, a new range or END may be entered.
+PROGRAM  SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT PURCHASING ADVICE
+Release: 1
+
+Module Function: Prints Purchasing Advice Report for all inventory Items and updates Inventory Item file.
+
+Input: OEITMFIL
+OECTLFIL
+Files Updated: OEITMFIL
+Output: Purchasing Advice Report
+Also See Related: User's Manual users Instructions
+Video display Terminal Format(s) Report Format(s)
+
+Enter Module From: OE Programs in Module: OEPURADV Program Functions and Notes: OEPURADV
+When Done Return To: OEMEN1J2
+This program prints the Purchasing Advice Report and updates the inventory Item File at the discretion of the user.
+The Inventory Item File is read. A test is made to determine if the Item is at reorder level. If the Item is at reorder level, a test is made to determine If the Item was at reorder level on the previous report. If the Item was not at reorder level on the previous report, a test is made to determine if the Item has reached zero Quantity on hand. The data of the Item Is printed per the report layout. If the Item was at reorder level on the previous report, a: test is made to determine if the Item reached zero Quantity on hand since the last report. If the Item has reached zero Quantity on hand since the last report, the data of the Item is printed; otherwise, the Item is bypassed.
+When the report printing is complete, a screen is displayed asking If the
+report is OK. If the user answers "Y11  the Inventory Item File is read and updated. all Items which were printed on the report according to the above tests have their Stock Status updated to reflect the fact that they have either reached reorder level or have gone out of stock and that they have been printed on a purchasing advice report.
+If the answer to the above screen is "N11 (report not OK.), the Inventory Item File is not updated.
+PROGRAM  SP.EC I F I CAT	I ON	S
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT Item STOCK STATUS REPORT
+Release: ·1
+
+Module Function: Prints Item Stock Status Report within selected ranges.
+
+Input: COMPFILE
+OEITMFIL OECTLFIL
+Files Updated: None
+Output: Stock Status Report
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) Report Format(s)
+
+Enter Module From: OE Programs in Module: OESTKSTA Program Functions and Notes: OESTKSTA
+When Done Return To: OE
+This program prints the Item Stock Status Report by Inventory Item number.
+A screen is displayed to ask what the starting and ending range or the report should be.
+After the user enters the screen data, the Inventory Item File is read within the selected range. Each Inventory Item's data is printed per the report layout. If the user had selected "ALL" Inventory Item's to print, control returns to OE; otherwise, the screen is redisplayed and a new starting and ending range is obtained. The new range is then printed. Control returns to OE after the user has selected "ALL" Items to print or after the END key has been pressed.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT BACK ORDERS BY Item
+Release: 1
+
+Module Function: Prints Back Orders by Item in Item number order.
+
+Input: OEBOIFIL
+COMPFILE ARCUSFIL OEBOISEL OEORDHDR OELINITM
+Files Updated: OEBOIFIL
+OEBOISEL
+Output: Back Orders by Item
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) Report Format(s)
+
+Enter Module From: OE Programs in Module: OEBOITEM Program Functions and Notes: OEBOITEM
+When Done Return To: OE
+This program prints the Back Orders by Item List either for "ALL" Items or for selected Items. Items which are not currently on file may be selected.
+The program creates two new file at the start or program execution: the Back-Order Item File, and the Item Select File.
+A screen is displayed to ask what Item numbers the report should be printed tor. The user can enter specific Item number selections or default to "ALL" Items.
+If the user has entered specific Item number selections, a selection file is built containing those specific selections. If the user has entered "ALL" Items to print, no selection file is built.
+The Order Line Item File is read. Each line Item record with a Quantity back ordered greater than zero is then written out into the Back Order Work File, with additional data from the Order Header File.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT BACK ORDERS BY Item
+Release: 1
+
+The Back Order Work File is then read sequentially.	If the user has selected "ALL" Items to print, all records are printed as per the report layout. If the user selected specific Items, each record in the Back Order Work File is checked against the selection file to determine If the Item was selected. If the Item was selected, the Back Order Work record is printed as per the report layout.
+Upon completion of the report a total line is printed and program control  returns to OE.
+
+PROGRAM  SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT BACK ORDERS BY CUSTOMER
+Release: ·1
+
+Module Function: Prints Back Orders by Customer in customer number order.
+
+Input: OEBOCFIL
+COMPFILE ARCUSFIL OEBOCSEL OEORDHDR OELINITM
+Files Updated: OEBOCFIL
+OEBOCSEL
+Output: Back Orders by Customer
+Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) Report Format(s)
+Enter Module From: OE Programs in Module: OEBOCUST Program Functions and Notes: OEBOCUST
+When Done Return To: OE
+This program prints the Back Orders by Customer List either for "ALL" customers or for selected customers. Customers which are not currently on file may be selected.
+The program creates two new files at the start of program execution: the Back-Order Customer File and the Customer Select File.
+A screen is displayed to ask what customer numbers the report should be printed tor. The user can enter specific customer number selections or default to "ALL" customers.
+If the user has entered specific customer number selections, a selection file is built containing those specific selections. If the user has entered "ALL" customers to print, no selection file is built.
+The Order Line Item File is read. Each line Item record with a Quantity back ordered greater than zero is then written out into the Back Order Work File, with additional data from the Order Header File.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRINT BACK ORDERS BY CUSTOMER
+Release: 1
+
+The Back Order Work File is then read sequentially. If the user has selected "ALL" customers to print, all records are printed as per the report layout. If the user had selected specific customers, each record in the Back Order Work File is checked against the selection file to determine If the customer was selected. If the customer was selected, the Back Order Work Record is printed as per the report layout.
+
+Upon completion of the report a total line is printed and program control returns to OE.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: ORDER ENTRY MENU #3
+Release: ·1
+Module Function: Order Entry Menu #3
+Input: COMPFILE	Fi!es Updated: None	Output: None Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s)
+Enter Module From: OE3	When Done Return To: OE3 Programs in Module: OE3, OEMENU3
+Program Functions and Notes: OE3
+This is the O/E Driver program for the Order Entry Menu #3. If calls "OEMENU3" and afterwards calls all programs whose names are passed to If. Each program that OE3 calls, passes back to If the name of the next program to CALL.
+This program initializes the following system wide parameters.
+    1. Display Company Name - Obtained from the Company File,
+    2. Report Company Name - Obtained from the Company File.
+    3. Profit Centre Usage Flag - Obtained from the Company File.
+    4. System Date - Obtained by System Call.
+
+OEMENU3
+The Order Entry Menu #3 allows the select ion of O/E applications and calls the appropriate task with the use of OE3.
+Display the Order Entry Menu #3 screen and accept the entry of a menu selection. Verify that the proper Data File diskettes have been mounted. When the END key i s pressed, en d or t on processing O/E applications .
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: O/E CONTROL FILE MAINTENANCE
+Re I ease: 1
+
+Module Function: O/E Control File Maintenance
+
+Input: COMPFILE,
+OECTLFIL
+Files Updated: OECTLFIL	Output: None
+Also See Related: User's Manual Operator Instructions
+Video Display Terminal Format(s) Fi I e Det in If ion(s)
+
+Enter Module From: OEMENU3 Programs in Module: OECTLMNT Program Functions and Notes: OECTLMNT
+When Done Return To: OEMENU3
+This program is to  allow entry and editing of the O/E Control Record.
+
+Open the O/E Control File and attempt to read the record. record on file, accept entry or fields per the VDT Format. changes and write the record.
+If	there is no
+all ow any
+If the record exists. display the total??  contents and allow any changes to be made and rewrite the record,
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRICING CODE FILE MAINTENANCE
+Release: ·1
+
+Module Function: Add price codes, change price codes, delete price codes, print price codes.
+Input: OECDSFIL	Files Updated: OECDSFIL	Output: Price Code List Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+Report Format(s)
+
+Enter Module From: OEMENU3
+Programs in Module: OEPCDMNT, OEPCDLST Program Functions and Notes:
+When Done Return To: OEMENU3
+OEPCDMNT
+This program is the File Maintenance module for the Price Code File. The Price Code File is actually part of the O/E Codes File (see related File Definition).
+Since there are many places in this program where very similar entries are made repeditively and since this data is stored for the most part in matrices, loops have been utilised wherever possible in place of the regular screen display, field display, field entry and change paragraphs.
+The loops are logically structured per the Warnier Orr method of structuring. The first field is inspected, then a loop is entered. In the loop a field is processed then the next field is inspected. This is performed until all fields have been processed.
+For screen displays there is a paragraph that displays one "tag" or one set of "tags". This paragraph is performed a certain number of times. E.g., if a screen consists of five "tags'' or five sets of two "tags", a paragraph that displays one tag or set would be performed five times.
+For field displays there is a paragraph that displays one field or one set of two fields. This paragraph is displayed a certain number of times.
+For pricing code types two and five there are matrices containing up to five customer types. These are displayed one at a time by a loop as above until a field containing only spaces is found. In other words the paragraph would be performed 1 to 5 times.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRICING CODE FILE MAINTENANCE
+Release: 1
+
+For field entry there is a paragraph that enters one field, Usually this is performed until as many fields as can be entered have been or the Restart Key is pressed. When a matrix of customer types is being entered, the paragraph is performed until a null entry (spaces) has been made or the matrix is full. If the Restart Key is pressed after the first type has been entered, the matrix of customer types is cleared and entry is started over.
+For entry of changes a loop is not required except when changing a matrix of customer types. Normally the screen row and column are just calculated from the Item number to change and the field is re-entered, For a matrix of customer types, changes are allowed to one customer type at a time much as in the entry logic until the first null field (spaces) is reached or the Restart Key pressed. If along the way a customer type is cleared by the user, the rest of the fields in that matrix must be moved back to ????ti 11	the space.
+In add mode, the key is not checked against the file until after the entire record has been entered. This is because what is put into the key depends on data entered later in the program. i.e., the price code customer type is part or the key, but is not entered until number 4 on the screen and then only If the price code type is 3,
+Price code type 3 sometimes requires many records to define one price code. For any other type only one record per code is allowed. Therefore, a "Header Record" is stored in the file along with any group of price code type 3 records. This "Header Record" is just a dummy record with the price code in the key, but no customer type (spaces) in the customer type field. How this works is illustrated below.
+EXAMPLE OF WHAT WOULD HAPPEN IF THE "HEADER RECORD" WERE NOT USED.
+As an example, suppose the following records are on file:
+
+RECORD 1
+I •  I  I I  I I I I  I I  I I  I I I I I  I I I
+.KEY
+.PRICE-CODE:AA
+,CUST-TYPE:BBBBB
+
+.RECORD
+.TYPE:3
+..(.other fields.).......
+RECORD 2
+.KEY
+.PRICE-CODE:AA
+.CUST-TYPE:CCCCC
+.RECORD
+.TYPE:3
+.(other fields)
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRICING CODE FILE MAINTENANCE
+Release: 1
+
+R.E.C.O.R.D..3..............
+,KEY
+.PRICE-CODE:DD
+.CUST-TYPE:(spaces).
+,RECORD
+.TYPE:1
+.(other fields)
+R.E.C.O.R.D...4.............
+.KEY
+,PRICE-CODE:EE
+.CUST-TYPE:(spaces).
+.RECORD
+.TYPE:2
+.(other tie! ds)
+
+Price code "AA" is a "type 3"	code. Notice that price code "AA" is defined by 2 records ( records 1 and 2). Notice also that price codes "DD" and "EE" are defined by only one record and that an attempt to enter another type 1,2,4 or 5 record with the same price code would cause a duplicate key condition. This is OK., but what If someone were to enter the following record.
+RECORDS
+
+    • ♦ ♦ I I I ♦ ♦  I I I I  I I  I I I  I I I  I
+.KEY
+,PRICE-CODE:AA
+.CUST-TYPE:(spaces)
+.RECORD
+,TYPE:4
+.( other fields)
+This record has a unique key because If is nor a type 3 record and so has spaces for a customer type.
+But this record should not be allowed on the file along with records 1 and 2.
+Price code "AA" is supposed to be type 3.
+The solution is that when record 1 is first entered a "Header Record" is written out that "reserves" that price code for type 3 records. For this example here is what the "Header Record" would look like.
+H.E.A.D.E.R..R.E.C.O.R.D.........
+.KEY
+,PRICE-CODE:AA
+.CUST-TYPE:(spaces) .
+.RECORD
+.TYPE:3
+..(.o.t.h.e.r..f.i.e.l.d.s.).......
+This record is not used to store any data relating to pricing. If is just used to reserve price code type "AA" for type 3 records.
+If records 1 and 2 were both deleted, the "Header Record" would also be deleted.
+PROGRAM	SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PRICING CODE FILE MAINTENANCE
+Release: 1
+
+OEPCDLST
+This program prints the Price Code List from the O/E Codes File.
+The program prints a separate report layout for each price type 1, 2, 3, 4 or 5. The program will only print a specific report Layout If there are records on file for that specific pricing type.
+For pricing type 3, each pricing code has a Header Record on file. These Header Records are bypassed during the printing of the report and are not included with the report data.
+Data for each pricing type is printed as per the report layout for that pricing type.
+After printing the report(s), control returns to OEPCDMNT.
+PROGRAM SPECIFICATIONS
+
+
+Version: GnuCobol	System: O/E
+Module Name: COMMISSION CODE FILE MAINTENANCE
+
+
+Release: 1
+
+Module Function: Commission Code File Maintenance: Add, Change, Delete, List
+
+Input: OECDSFIL	Files Updated: OECDSFIL	Output: Commission Codes List Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+Report Format(s)
+
+Enter Module From: OEMENU3
+Programs in Module: OECOMMNT, OECOMLST Program Functions and Notes:
+OECOMMNT
+When Done Return To: OEMENU3
+This is a standard maintenance module to allow maintenance to the Commission Code File.
+
+OECOMLST
+This is a standard print out module to print the contents of the Commission Code File.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol	System: O/E
+Module Name: PERIOD END CLOSING
+Re I ease: 1
+
+Module Function: Clears the Period-to-Date Accumulators
+
+Input: OEITMFIL	Files Updated: OEITMFIL	Output: None Also See Related: User's Manual user Instructions
+Video Display Terminal Format(s) File Definition(s)
+
+Enter Module From: OEMENU3 Programs in Module: OEPCLOSE Program Functions and Notes: OEPCLOSE
+When Done Return To: OEMENU3
+This program clears the Period-to-Date Accumulators in the Inventory Item
+File.
+Ask the question "ARE YOU SURE YOU WANT TO DO THIS ? " on the screen. If the answer is 11Y11,  read through the Inventory Item File and move zeros to the Sales, Cost and Quantity Sold Period-to-Date fields.
+PROGRAM SPECIFICATIONS
+
+Version: GnuCobol		System: O/E Module Name: YEAR END CLOSING
+Release: 1
+Module Function: Clears the Year-to-Date Accumulators
+
+Input: OEITMFIL	Files Updated: OEITMFIL	Output: None
+Also See Related: User's Manual Operating Instructions
+Video Display Terminal Format(s) File Definition(s)
+
+Enter Module From: OEMENU3 Programs in Module: OEYCLOSE Program Functions and Notes: OEYCLOSE
+When Done Return To: OEMENU3
+This program clears the Year-to-Date and Period-to-Date Accumulators in the Inventory Item File.
+Ask the question "ARE YOU SURE YOU WANT TO DO THIS ?" on the screen. If the answer is "Yes", read through the Inventory Item File and move zeros to the Sales, Cost and Quantity Sold Period-to-Date and Year-to-Date fields.

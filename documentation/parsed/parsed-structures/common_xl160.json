@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "filename": "xl160.cbl",
+    "filepath": "common/xl160.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.179Z",
+    "fileSize": 6445,
+    "lastModified": "2024-12-26T16:16:37.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "xl160",
+    "programType": "main",
+    "author": "Vincent B Coen FBCS, FIDM, FIDPM,",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Back all ISAM files to sequential and/or reload all"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "Final-File",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "Posting-File",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "Default-File",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "nominal-ledger",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 66,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 63,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 67,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 67,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 86,
+    "linesOfComment": 118,
+    "cyclomaticComplexity": 3,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 1,
+    "numberOfCalls": 0,
+    "numberOfFiles": 4,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 1
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

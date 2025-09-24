@@ -1,0 +1,1203 @@
+{
+  "metadata": {
+    "filename": "auditLD2.cbl",
+    "filepath": "common/auditLD2.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.750Z",
+    "fileSize": 16424,
+    "lastModified": "2024-12-26T16:40:31.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "auditLD",
+    "programType": "main",
+    "author": "V.B.Coen FBCS.",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Stock RDB Table load from the Stock File"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "work-fields",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-Rec-Cnt-In",
+              "picture": "9(4)",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-Rec-Cnt-Out",
+              "picture": "9(4)",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Ten-Cnt",
+              "picture": "99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-Start-date",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "Start-Time",
+                  "picture": "9(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "X(5)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-End-Date",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "End-Time",
+                  "picture": "9(8)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "Lap-Time",
+                  "picture": null,
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": "End-Time",
+                  "children": [
+                    {
+                      "level": "07",
+                      "name": "TT-HH",
+                      "picture": "99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "TT-MM",
+                      "picture": "99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "TT-SS",
+                      "picture": "99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    },
+                    {
+                      "level": "07",
+                      "name": "TT-MS",
+                      "picture": "99",
+                      "usage": null,
+                      "value": null,
+                      "occurs": null,
+                      "redefines": null,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(5)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ACAS-DAL-Common-data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SW-Testing",
+              "picture": "9",
+              "usage": null,
+              "value": "1",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "Testing-1",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "SW-Testing-2",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "Testing-2",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "Log-file-rec-written",
+              "picture": "9(6)",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ST001",
+              "picture": "x(26)",
+              "usage": null,
+              "value": "SL001",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ST004",
+              "picture": "x(59)",
+              "usage": null,
+              "value": "SL004",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ST008",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "SL008",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ST009",
+              "picture": "x(53)",
+              "usage": null,
+              "value": "SL009",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL010",
+              "picture": "x(30)",
+              "usage": null,
+              "value": "SL010",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL011",
+              "picture": "x(33)",
+              "usage": null,
+              "value": "SL011",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL012",
+              "picture": "x(33)",
+              "usage": null,
+              "value": "SL012",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL013",
+              "picture": "x(30)",
+              "usage": null,
+              "value": "SL013",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL014",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "SL014",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL015",
+              "picture": "x(34)",
+              "usage": null,
+              "value": "SL015",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL099",
+              "picture": "x(15)",
+              "usage": null,
+              "value": "SL099",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(17)",
+          "usage": null,
+          "value": "auditLD",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "z",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "OS-Delimiter",
+          "picture": "x",
+          "usage": null,
+          "value": "/",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "ACAS",
+          "picture": "x(512)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "ACAS",
+          "picture": "x(500)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "ACAS",
+          "picture": "x(500)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Arg-Test",
+          "picture": "x(525)",
+          "usage": null,
+          "value": "spaces",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa000-main-start",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010-Open-Input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010-Read-Next",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas010-Write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa010-Read",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "FA-File-System-Used",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa020-Rollback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa030-Commit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa100-Check-4-Errors",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa999-Finish",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "FA-File-System-Used",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "FA-File-System-Used",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz010-GESF-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz020-Set-the-Paths",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz020-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 97,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "acas010",
+        "type": "STATIC",
+        "line": 253,
+        "using": [
+          "System-Record",
+          "WS-Stock-Audit-Record"
+        ],
+        "context": "acas010"
+      },
+      {
+        "program": "fhlogger",
+        "type": "STATIC",
+        "line": 388,
+        "using": [
+          "File-Access",
+          "ACAS-DAL-Common-data"
+        ],
+        "context": "FA-File-System-Used"
+      }
+    ],
+    "sqlStatements": [
+      {
+        "type": "OTHER",
+        "tables": [],
+        "line": 337,
+        "embedded": true
+      },
+      {
+        "type": "OTHER",
+        "tables": [],
+        "line": 347,
+        "embedded": true
+      }
+    ]
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "zz020-Get-Program-Args",
+        "thru": null,
+        "condition": null,
+        "line": 192
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-Open-Input",
+        "thru": null,
+        "condition": null,
+        "line": 233
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-Open",
+        "thru": null,
+        "condition": null,
+        "line": 243
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010",
+        "thru": null,
+        "condition": null,
+        "line": 262
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa100-Check-4-Errors",
+        "thru": null,
+        "condition": null,
+        "line": 263
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010",
+        "thru": null,
+        "condition": null,
+        "line": 268
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa100-Check-4-Errors",
+        "thru": null,
+        "condition": null,
+        "line": 269
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010",
+        "thru": null,
+        "condition": null,
+        "line": 273
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010",
+        "thru": null,
+        "condition": null,
+        "line": 277
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010",
+        "thru": null,
+        "condition": null,
+        "line": 281
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 289
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa020-Rollback",
+        "thru": null,
+        "condition": null,
+        "line": 299
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-Write",
+        "thru": null,
+        "condition": null,
+        "line": 312
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa020-Rollback",
+        "thru": null,
+        "condition": null,
+        "line": 326
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa020-Rollback",
+        "thru": null,
+        "condition": null,
+        "line": 363
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-Close",
+        "thru": null,
+        "condition": null,
+        "line": 380
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas010-close",
+        "thru": null,
+        "condition": null,
+        "line": 384
+      },
+      {
+        "type": "PERFORM",
+        "target": "aa030-Commit",
+        "thru": null,
+        "condition": null,
+        "line": 402
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz010-Get-Env-Set-Files",
+        "thru": null,
+        "condition": null,
+        "line": 436
+      },
+      {
+        "type": "PERFORM",
+        "target": "File-Defs-Count",
+        "thru": null,
+        "condition": null,
+        "line": 440
+      },
+      {
+        "type": "PERFORM",
+        "target": "move",
+        "thru": null,
+        "condition": null,
+        "line": 449
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "aa010-Read",
+        "line": 250,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Finish",
+        "line": 293,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Finish",
+        "line": 300,
+        "conditional": false
+      },
+      {
+        "target": "aa010-Read",
+        "line": 318,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Finish",
+        "line": 329,
+        "conditional": false
+      },
+      {
+        "target": "aa010-Read",
+        "line": 332,
+        "conditional": false
+      },
+      {
+        "target": "aa999-Finish",
+        "line": 366,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 94,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 98,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 201,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 206,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 209,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 213,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 235,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 244,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 290,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 294,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 296,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 301,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "T",
+        "line": 305,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 308,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 313,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 319,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 321,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 330,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 341,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 351,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 357,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 401,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 403,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 415,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 422,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 425,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "ws-Rec-Cnt-In",
+        "formula": "add      1 to ws-Rec-Cnt-In",
+        "line": 303,
+        "rounding": null
+      },
+      {
+        "target": "Ten-Cnt",
+        "formula": "add      1 to Ten-Cnt",
+        "line": 304,
+        "rounding": null
+      },
+      {
+        "target": "ws-Rec-Cnt-Out",
+        "formula": "add      1 to ws-Rec-Cnt-Out",
+        "line": 331,
+        "rounding": null
+      },
+      {
+        "target": "z",
+        "formula": "add 1 to z",
+        "line": 441,
+        "rounding": null
+      },
+      {
+        "target": "End-Time",
+        "formula": "subtract Start-Time from End-Time",
+        "line": 391,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 201,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 209,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if    fs-reply not = zero",
+        "line": 235,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 244,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-Reply",
+        "condition": "if       fs-Reply = 10",
+        "line": 290,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply not = zero",
+        "line": 296,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Ten-Cnt",
+        "condition": "if       Ten-Cnt = 10",
+        "line": 305,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 22",
+        "line": 313,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 321,
+        "errorHandling": "display SL014         at 2001 with foreground-color 2 highlight erase eol\n              display fs-reply      at 2032 with fore"
+      },
+      {
+        "field": "return-code",
+        "condition": "if       return-code not = zero",
+        "line": 341,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if       return-code not = zero",
+        "line": 351,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 357,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply = zero",
+        "line": 401,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "COBOL",
+        "line": 16,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "err",
+        "line": 175,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "system-file",
+        "line": 208,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "Stock-Audit",
+        "line": 291,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "end-if",
+        "line": 318,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 98,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 280,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 253,
+    "linesOfComment": 199,
+    "cyclomaticComplexity": 34,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 26,
+    "numberOfCalls": 2,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 2,
+    "deepestNesting": 4
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

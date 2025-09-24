@@ -1,0 +1,253 @@
+{
+  "metadata": {
+    "filename": "create-system-dat.cbl",
+    "filepath": "create-system-dat.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.056Z",
+    "fileSize": 1515,
+    "lastModified": "2025-09-10T15:05:29.068Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "create-system-dat",
+    "programType": "main",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": [
+      {
+        "fileName": "system-file",
+        "assignTo": "\"system.dat\"",
+        "organization": "RELATIVE",
+        "accessMode": "SEQUENTIAL",
+        "recordKey": null,
+        "alternateKeys": [],
+        "fileStatus": "fs-status"
+      }
+    ]
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "system-file",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "fs-status",
+          "picture": "XX",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "rel-key",
+          "picture": "9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "ws-system-rec",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "filler",
+              "picture": "X(2048)",
+              "usage": null,
+              "value": "ALL",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [
+      {
+        "name": "INPUT-OUTPUT",
+        "paragraphs": [
+          {
+            "name": "FILE-CONTROL",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "FILE",
+        "paragraphs": [
+          {
+            "name": "MAIN-PARA",
+            "statements": [
+              "PERFORM",
+              "IF",
+              "WRITE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": [
+              "4",
+              "CLOSE"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "WORKING-STORAGE",
+        "paragraphs": [
+          {
+            "name": "MAIN-PARA",
+            "statements": [
+              "PERFORM",
+              "IF",
+              "WRITE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": [
+              "4",
+              "CLOSE"
+            ]
+          }
+        ]
+      }
+    ],
+    "paragraphs": []
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "4",
+        "thru": null,
+        "condition": null,
+        "line": 38
+      },
+      {
+        "type": "PERFORM",
+        "target": "CLOSE",
+        "thru": null,
+        "condition": null,
+        "line": 40
+      }
+    ],
+    "goToStatements": [],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 32,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 35,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 44,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 48,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "fs-status",
+        "condition": "IF fs-status NOT = \"00\"",
+        "line": 32,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-status",
+        "condition": "IF fs-status = \"00\"",
+        "line": 44,
+        "errorHandling": "DISPLAY \"Error closing file: \" fs-status\n           END-IF"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "4",
+        "line": 37,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "system-record",
+        "line": 39,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 37,
+    "linesOfComment": 4,
+    "cyclomaticComplexity": 5,
+    "numberOfSections": 3,
+    "numberOfParagraphs": 3,
+    "numberOfCalls": 0,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 4
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

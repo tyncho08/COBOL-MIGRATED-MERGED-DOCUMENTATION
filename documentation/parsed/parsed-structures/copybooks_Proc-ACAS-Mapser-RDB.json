@@ -1,0 +1,601 @@
+{
+  "metadata": {
+    "filename": "Proc-ACAS-Mapser-RDB.cob",
+    "filepath": "copybooks/Proc-ACAS-Mapser-RDB.cob",
+    "parseTimestamp": "2025-09-19T16:22:55.011Z",
+    "fileSize": 11170,
+    "lastModified": "2025-08-31T17:01:26.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "PROC-ACAS-MAPSER-RDB",
+    "programType": "copybook",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "File-Duplicates-In-Use",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba010-Capture-Data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "SL-Charges",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Next-Post",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "PL-Delim",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "PL-Stock-Link",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "STK-Audit-No",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba999-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca001-Main",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca999-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ACAS-DAL-Common-data",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Open-Input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Open-Output",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Read-Indexed",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-Write",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "acas000-ReWrite",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [
+      {
+        "program": "maps01",
+        "type": "STATIC",
+        "line": 64,
+        "using": [
+          "maps01-ws"
+        ],
+        "context": "ba010-Capture-Data"
+      },
+      {
+        "program": "maps01",
+        "type": "STATIC",
+        "line": 69,
+        "using": [
+          "maps01-ws"
+        ],
+        "context": "ba010-Capture-Data"
+      },
+      {
+        "program": "maps04",
+        "type": "STATIC",
+        "line": 79,
+        "using": [
+          "maps03-ws"
+        ],
+        "context": "ba010-Capture-Data"
+      },
+      {
+        "program": "acas000",
+        "type": "STATIC",
+        "line": 267,
+        "using": [
+          "System-Record"
+        ],
+        "context": "acas000"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "acas000-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 35
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-level-setup",
+        "thru": null,
+        "condition": null,
+        "line": 114
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000-Write",
+        "thru": null,
+        "condition": null,
+        "line": 119
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000-Write",
+        "thru": null,
+        "condition": null,
+        "line": 125
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000-Write",
+        "thru": null,
+        "condition": null,
+        "line": 131
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000-Write",
+        "thru": null,
+        "condition": null,
+        "line": 137
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000-Close",
+        "thru": null,
+        "condition": null,
+        "line": 141
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 278
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 283
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 288
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 293
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 297
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 302
+      },
+      {
+        "type": "PERFORM",
+        "target": "acas000",
+        "thru": null,
+        "condition": null,
+        "line": 307
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "ba010-Capture-Data",
+        "line": 60,
+        "conditional": false
+      },
+      {
+        "target": "ca001-Main",
+        "line": 257,
+        "conditional": false
+      },
+      {
+        "target": "ca000-level-setup",
+        "line": 258,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 26,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 36,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 59,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 61,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 165,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 169,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 173,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 177,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 181,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 185,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 189,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 193,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 197,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 201,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 205,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 209,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 213,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 217,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 223,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "B",
+        "line": 226,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "B",
+        "line": 229,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "(",
+        "line": 232,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 236,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 239,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 242,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "I",
+        "line": 245,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "O",
+        "line": 248,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 256,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 36,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 59,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 165,
+        "errorHandling": "move zero to level-1\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 173,
+        "errorHandling": "move zero to level-1\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 181,
+        "errorHandling": "move zero to Level-5\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 189,
+        "errorHandling": "move zero to level-2\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 197,
+        "errorHandling": "move zero to Level-4\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 205,
+        "errorHandling": "move zero to level-3\n     end-if\n*>\n     move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"Y\"",
+        "line": 213,
+        "errorHandling": "move zero to full-invoicing\n     end-if\n*>\n *>    move     \"Y\" to ws-Reply"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply not = \"Y\"",
+        "line": 256,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 300,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 306,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "of",
+        "line": 8,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 204,
+    "linesOfComment": 104,
+    "cyclomaticComplexity": 32,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 20,
+    "numberOfCalls": 4,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 2
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

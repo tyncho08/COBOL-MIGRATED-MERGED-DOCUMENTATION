@@ -1,0 +1,713 @@
+{
+  "metadata": {
+    "filename": "cbl_oc_dump.cbl",
+    "filepath": "common/cbl_oc_dump.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.738Z",
+    "fileSize": 8336,
+    "lastModified": "2020-06-17T21:32:36.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "CBL",
+    "programType": "sub",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "77",
+          "name": "addr",
+          "picture": null,
+          "usage": "pointer",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "addr2addr",
+          "picture": null,
+          "usage": "pointer",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "counter",
+          "picture": "999999",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "byline",
+          "picture": "999",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "offset",
+          "picture": "999999",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "some",
+          "picture": "999",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "some-is-printable-iso88591",
+              "value": null
+            },
+            {
+              "name": "some-is-printable-ebcdic",
+              "value": null
+            }
+          ]
+        },
+        {
+          "level": "77",
+          "name": "high-var",
+          "picture": "99",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "low-var",
+          "picture": "99",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "char-set",
+          "picture": "x(06)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "is-ascii",
+              "value": "ASCII"
+            },
+            {
+              "name": "is-ebdic",
+              "value": "EBCDIC"
+            },
+            {
+              "name": "is-unknown",
+              "value": "?"
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "architecture",
+          "picture": "x(06)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "is-32-bit",
+              "value": "32-bit"
+            },
+            {
+              "name": "is-64-bit",
+              "value": "64-bit"
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "endian-order",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "is-big-endian-no",
+              "value": "Little-Big"
+            },
+            {
+              "name": "is-big-endian-yes",
+              "value": "Big-Little"
+            }
+          ]
+        },
+        {
+          "level": "77",
+          "name": "hex-line",
+          "picture": "x(48)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "show",
+          "picture": "x(16)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "dots",
+          "picture": "x",
+          "usage": null,
+          "value": "",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "dump-dots",
+          "picture": "x",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "extended-infos",
+          "picture": "x",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [],
+          "conditions": [
+            {
+              "name": "show-extended-infos",
+              "value": "'1', '2', 'Y', 'y'"
+            },
+            {
+              "name": "show-very-extended-infos",
+              "value": "'2', 'Y', 'y'"
+            }
+          ]
+        },
+        {
+          "level": "77",
+          "name": "len",
+          "picture": "999999",
+          "usage": "comp-",
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "len-display",
+          "picture": "999999",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "hex-line-pointer",
+          "picture": "9(02)",
+          "usage": null,
+          "value": "1",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "hex-digit",
+          "picture": "x(16)",
+          "usage": null,
+          "value": "0123456789abcdef",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "buffer",
+          "picture": "x",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "77",
+          "name": "byte",
+          "picture": "x",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "buffer"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "name": "CONFIGURATION",
+        "paragraphs": []
+      },
+      {
+        "name": "WORKING-STORAGE",
+        "paragraphs": []
+      },
+      {
+        "name": "LINKAGE",
+        "paragraphs": []
+      },
+      {
+        "name": "CALC-HEX-VALUE",
+        "paragraphs": []
+      },
+      {
+        "name": "STARTING-ADDRESS",
+        "paragraphs": []
+      },
+      {
+        "name": "TEST-ASCII",
+        "paragraphs": []
+      },
+      {
+        "name": "TEST-64BIT",
+        "paragraphs": []
+      },
+      {
+        "name": "TEST-ENDIAN",
+        "paragraphs": []
+      }
+    ],
+    "paragraphs": []
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM VARYING",
+        "target": "starting-address",
+        "thru": null,
+        "condition": "counter from 0 by 16\n             until   counter  >=   len\n        move counter to offset\n        move spaces  to hex-line, show\n        move '-'",
+        "line": 71
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "counter from 0 by 16\n             until   counter  >=   len\n        move counter to offset\n        move spaces  to hex-line, show\n        move '-'     to hex-line (24:01)\n        move",
+        "line": 73
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "byline from 1 by 1  until   byline  >  16\n           if (counter + byline) > len\n              if byline < 9\n                 move space to hex-line (24:01)\n              end-if",
+        "line": 79
+      },
+      {
+        "type": "PERFORM",
+        "target": "else",
+        "thru": null,
+        "condition": null,
+        "line": 85
+      },
+      {
+        "type": "PERFORM",
+        "target": "calc-hex-value",
+        "thru": null,
+        "condition": null,
+        "line": 88
+      },
+      {
+        "type": "PERFORM",
+        "target": "display",
+        "thru": null,
+        "condition": null,
+        "line": 96
+      },
+      {
+        "type": "PERFORM",
+        "target": "display",
+        "thru": null,
+        "condition": null,
+        "line": 99
+      },
+      {
+        "type": "PERFORM",
+        "target": "TEST-ASCII",
+        "thru": null,
+        "condition": null,
+        "line": 133
+      },
+      {
+        "type": "PERFORM",
+        "target": "TEST-ENDIAN",
+        "thru": null,
+        "condition": null,
+        "line": 134
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "varying",
+        "thru": null,
+        "condition": "byline from 1 by 1\n                until byline > LENGTH OF addr\n           set address of byte to addr2addr\n           perform calc-hex-value\n           if is-big-endian-yes",
+        "line": 145
+      },
+      {
+        "type": "PERFORM VARYING",
+        "target": "calc-hex-value",
+        "thru": null,
+        "condition": "byline from 1 by 1\n                until byline > LENGTH OF addr\n           set address of byte to addr2addr\n           perform calc-hex-value\n           if is-big-endian-yes\n              set addr2addr down by 1\n           else\n              set addr2addr up   by 1\n           end-if\n        end-perform\n     end-if\n*>",
+        "line": 148
+      },
+      {
+        "type": "PERFORM",
+        "target": "end-if",
+        "thru": null,
+        "condition": null,
+        "line": 154
+      },
+      {
+        "type": "PERFORM",
+        "target": "TEST-64bit",
+        "thru": null,
+        "condition": null,
+        "line": 173
+      }
+    ],
+    "goToStatements": [],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "(",
+        "line": 80,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "b",
+        "line": 81,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 83,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "(",
+        "line": 89,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 94,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 95,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 127,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 138,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "B",
+        "line": 139,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 140,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 143,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 149,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 153,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 155,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 160,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 163,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 168,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 172,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 182,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 183,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 186,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 187,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "d",
+        "line": 192,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 206,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 211,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 225,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 228,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 232,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 241,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 245,
+        "complexity": 1
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "space",
+        "line": 213,
+        "complexity": 3
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "function",
+        "formula": "subtract 1 from function",
+        "line": 107,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "byline",
+        "condition": "if byline < 9",
+        "line": 81,
+        "errorHandling": ""
+      },
+      {
+        "field": "len",
+        "condition": "if len > 0",
+        "line": 138,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "len",
+        "condition": "if len > 0",
+        "line": 163,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "len",
+        "condition": "if len > 0",
+        "line": 186,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "len",
+        "condition": "if len > 999998",
+        "line": 187,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": []
+  },
+  "metrics": {
+    "linesOfCode": 195,
+    "linesOfComment": 54,
+    "cyclomaticComplexity": 39,
+    "numberOfSections": 8,
+    "numberOfParagraphs": 0,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 20
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": false,
+    "hasDeadCode": false,
+    "followsNamingConventions": true
+  }
+}

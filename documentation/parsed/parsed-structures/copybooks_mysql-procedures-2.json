@@ -1,0 +1,646 @@
+{
+  "metadata": {
+    "filename": "mysql-procedures-2.cpy",
+    "filepath": "copybooks/mysql-procedures-2.cpy",
+    "parseTimestamp": "2025-09-19T16:22:54.912Z",
+    "fileSize": 11130,
+    "lastModified": "2019-06-08T14:50:45.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "MYSQL-PROCEDURES-2",
+    "programType": "copybook",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "Mysql-1000-Open",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "WS-SQL-Retry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Ws-Mysql-Socket",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1090-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1100-Db-Error",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1100-Db-Error-2",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1110-Report-Problem",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1190-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1200-Select",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1209-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1210-Command",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1220-Store-Result",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Ws-Mysql-Count-Rows",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1239-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1240-Switch-Db",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1249-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1300-DB-Error",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1390-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1980-Close",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Mysql-1999-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "code",
+        "line": 3,
+        "inDivision": "UNKNOWN",
+        "inSection": null
+      },
+      {
+        "copybook": "block",
+        "line": 6,
+        "inDivision": "UNKNOWN",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "DB-Error",
+        "thru": null,
+        "condition": null,
+        "line": 46
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 69
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 80
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 85
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 155
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1300-DB-Error",
+        "thru": "Mysql-1390-Exit",
+        "condition": null,
+        "line": 172
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error-2",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 180
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 181
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 195
+      },
+      {
+        "type": "PERFORM",
+        "target": "Mysql-1100-Db-Error",
+        "thru": "Mysql-1190-Exit",
+        "condition": null,
+        "line": 209
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "Mysql-1090-Exit",
+        "line": 70,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1090-Exit",
+        "line": 81,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1190-Exit",
+        "line": 104,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1219-Exit",
+        "line": 174,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1210-Command",
+        "line": 178,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1390-Exit",
+        "line": 226,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1390-Exit",
+        "line": 253,
+        "conditional": false
+      },
+      {
+        "target": "Mysql-1390-Exit",
+        "line": 260,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 47,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 67,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 78,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 83,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 99,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 105,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 109,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "S",
+        "line": 124,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 154,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 171,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 173,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 175,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 176,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 179,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 182,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 194,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "R",
+        "line": 208,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 223,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 228,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 232,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 238,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 244,
+        "complexity": 1
+      },
+      {
+        "type": "EVALUATE",
+        "condition": "Ws-Mysql-Command (1:6)",
+        "line": 100,
+        "complexity": 2
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 67,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 78,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 83,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Ws-Mysql-Error-Number",
+        "condition": "if       Ws-Mysql-Error-Number = \"1062\"",
+        "line": 99,
+        "errorHandling": null
+      },
+      {
+        "field": "SQL-State",
+        "condition": "if       SQL-State = \"02000\"",
+        "line": 124,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 154,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 171,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WE-Error",
+        "condition": "if      WE-Error = 910",
+        "line": 173,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-SQL-Retry",
+        "condition": "if      WS-SQL-Retry = 1",
+        "line": 176,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Ws-Mysql-Result",
+        "condition": "if       Ws-Mysql-Result = null",
+        "line": 194,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Return-Code",
+        "condition": "if       Return-Code not = zero",
+        "line": 208,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Mysql-Error-Number",
+        "condition": "if       WS-Mysql-Error-Number not = \"1027\"",
+        "line": 223,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Mysql-Time-Step",
+        "condition": "if       WS-Mysql-Time-Step = zero",
+        "line": 228,
+        "errorHandling": "if      WS-Mysql-Time-Step = 1"
+      },
+      {
+        "field": "WS-Mysql-Time-Step",
+        "condition": "if      WS-Mysql-Time-Step = 1",
+        "line": 232,
+        "errorHandling": "if      WS-Mysql-Time-Step = 1\n              move 2 to WS-Mysql-Time-Step\n              display \"Waiting < sec \"  *>  at line ws-lines col 1 blink\n              call \"CBL_OC_NANOSLEEP\" using 500000000"
+      },
+      {
+        "field": "WS-Mysql-Time-Step",
+        "condition": "if     WS-Mysql-Time-Step = 2",
+        "line": 238,
+        "errorHandling": "if     WS-Mysql-Time-Step = 2\n              move 4 to WS-Mysql-Time-Step\n              display \"Waiting 1 sec \"  *> at line ws-lines col 1 blink\n              call \"C$SLEEP\" using 1    *> 1 sec"
+      },
+      {
+        "field": "WS-Mysql-Time-Step",
+        "condition": "if    WS-Mysql-Time-Step = 4",
+        "line": 244,
+        "errorHandling": "if    WS-Mysql-Time-Step = 4\n              move 8 to WS-Mysql-Time-Step\n              display \"Waiting 5 secs\"  *> at line ws-lines col 1 blink\n              call \"C$SLEEP\" using 5    *> 5 sec"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "next",
+        "line": 118,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "Only",
+        "line": 224,
+        "errorHandling": null
+      },
+      {
+        "operation": "READ",
+        "file": "lock",
+        "line": 225,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "dup",
+        "line": 99,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "but",
+        "line": 34,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "1st",
+        "line": 118,
+        "errorHandling": "INVALID KEY"
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 119,
+    "linesOfComment": 152,
+    "cyclomaticComplexity": 33,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 28,
+    "numberOfCalls": 0,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 7
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

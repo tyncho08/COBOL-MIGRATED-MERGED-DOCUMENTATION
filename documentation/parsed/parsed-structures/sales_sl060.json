@@ -1,0 +1,4100 @@
+{
+  "metadata": {
+    "filename": "sl060.cbl",
+    "filepath": "sales/sl060.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.596Z",
+    "fileSize": 46727,
+    "lastModified": "2025-01-26T19:04:58.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "sl060",
+    "programType": "sub",
+    "author": "Cis Cobol Conversion By V B Coen FBCS, FIDM, FIDPM, 18/10/83",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Invoice Posting."
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "ws-data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-error",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "sales-missing",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "wx-reply",
+              "picture": "xxx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "xx",
+              "picture": "99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "c-check",
+              "picture": "9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "c-exists",
+                  "value": "1"
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-eval-msg",
+              "picture": "x(25)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-1",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-2",
+              "picture": "s9(14)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-a",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-b",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "first-pass",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "i",
+              "picture": "999",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "j",
+              "picture": "999",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "k",
+              "picture": "9(5)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "m",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "b",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "c",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-net",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-vat",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "work-goods",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "total-group",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": "3",
+              "redefines": null,
+              "children": [
+                {
+                  "level": "05",
+                  "name": "total-net",
+                  "picture": "s9(7)v99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "total-vat",
+                  "picture": "s9(7)v99",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "a",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "line-cnt",
+              "picture": "99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-deduction",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "total-deduct",
+              "picture": "s9(7)v99",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "total-mov-ded",
+              "picture": "s9(5)",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "save-level-1",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-env-lines",
+              "picture": "999",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-23-lines",
+              "picture": null,
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "File-18-status",
+              "picture": "9",
+              "usage": null,
+              "value": "zero",
+              "occurs": null,
+              "redefines": null,
+              "children": [],
+              "conditions": [
+                {
+                  "name": "File-18-Exists",
+                  "value": "0"
+                },
+                {
+                  "name": "File-18-Not-Exists",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "ws-Test-Date",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "ws-date-formats",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-swap",
+              "picture": "xx",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-Conv-Date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "ws-UK",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-USA",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-usa-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-usa-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "level": "03",
+              "name": "ws-Intl",
+              "picture": null,
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": "ws-date",
+              "children": [
+                {
+                  "level": "05",
+                  "name": "ws-intl-year",
+                  "picture": "x(4)",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-intl-month",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "filler",
+                  "picture": "x",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                },
+                {
+                  "level": "05",
+                  "name": "ws-intl-days",
+                  "picture": "xx",
+                  "usage": null,
+                  "value": null,
+                  "occurs": null,
+                  "redefines": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "Error-Messages",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "SL002",
+              "picture": "x(31)",
+              "usage": null,
+              "value": "SL002",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL003",
+              "picture": "x(28)",
+              "usage": null,
+              "value": "SL003",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL130",
+              "picture": "x(38)",
+              "usage": null,
+              "value": "SL130",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL131",
+              "picture": "x(38)",
+              "usage": null,
+              "value": "SL131",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL132",
+              "picture": "x(32)",
+              "usage": null,
+              "value": "SL132",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL133",
+              "picture": "x(44)",
+              "usage": null,
+              "value": "SL133",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "SL133T",
+              "picture": "x(45)",
+              "usage": null,
+              "value": "SL133",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "error-code",
+          "picture": "999",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "Dummies-4-Unused-ACAS-FH-Calls",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "Default-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "Final-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Ledger-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Stock-Audit-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Stock-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Delivery-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Analysis-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Del-Inv-Nos-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Purch-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Pay-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Invoice-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-PInvoice-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-OTM5-Record",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "File-Info",
+          "picture": null,
+          "usage": null,
+          "value": "zero",
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "05",
+              "name": "File-Size-Bytes",
+              "picture": "9(18)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-DD",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-MO",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-YYYY",
+              "picture": "9(4)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-HH",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-MM",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "Mod-SS",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "05",
+              "name": "filler",
+              "picture": "9(2)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "total-lits",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(17)",
+              "usage": null,
+              "value": "Receipts",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(17)",
+              "usage": null,
+              "value": "Invoices",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(17)",
+              "usage": null,
+              "value": "Credit",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "filler",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": "total-lits",
+          "children": [
+            {
+              "level": "03",
+              "name": "ws-lits",
+              "picture": "x(17)",
+              "usage": null,
+              "value": null,
+              "occurs": "3",
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-1",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "l1-name",
+              "picture": "x(54)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(70)",
+              "usage": null,
+              "value": "Invoice",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(5)",
+              "usage": null,
+              "value": "Page",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l3-page",
+              "picture": "zz9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-1a",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(56)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(18)",
+              "usage": null,
+              "value": "Un-Applied",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-2",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "l3-user",
+              "picture": "x(54)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(22)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(46)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l1-date",
+              "picture": "x(10)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-4",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(64)",
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(68)",
+              "usage": null,
+              "value": "",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-4a",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(82)",
+              "usage": null,
+              "value": "--Customer--",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-5",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "l5-nos",
+              "picture": "z(7)9b",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-date",
+              "picture": "x(11)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-cust",
+              "picture": "x(9)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-name",
+              "picture": "x(25)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(2)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-type",
+              "picture": "x(9)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-old-bal",
+              "picture": "z(6)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-new-bal",
+              "picture": "z(6)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-deduction",
+              "picture": "zzz9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-net",
+              "picture": "z(6)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-vat",
+              "picture": "z(6)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l5-gross",
+              "picture": "z(6)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-6",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(11)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(14)",
+              "usage": null,
+              "value": "Total",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l6-lit",
+              "picture": "x(18)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l6-net",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l6-vat",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l6-gross",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-7",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "l7-cust",
+              "picture": "x(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l7-trans",
+              "picture": "z(7)9bb",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(4)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l7-bal",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(4)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l7-appl",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(4)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l7-cr-note",
+              "picture": "z(7)9bb",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(4)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l7-type",
+              "picture": "x(12)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "level": "01",
+          "name": "line-8",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "filler",
+              "picture": "x(24)",
+              "usage": null,
+              "value": "spaces",
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l8-desc",
+              "picture": "x(32)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "l8-tot",
+              "picture": "z(7)9",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(15)",
+          "usage": null,
+          "value": "SL060",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "to-day",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "ws-calling-data",
+          "system-record",
+          "system-record-4",
+          "to-day",
+          "file-defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "file-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa020-Read-Loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa030-Main-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa040-End-Loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa050-End-Loop-End",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "aa999-Exit-Prog",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba010-read-loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba020-end-loop",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba030-main-end",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba040-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba000-Main-Rewrite",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba000-Clear-Invoice-Deduct",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba000-cid-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ba999-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "cleared-status",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca997-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "vat-amount",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca998-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "ca999-main-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz050-test-date",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz050-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz060-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz070-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "maps04-exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 155,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 715,
+        "using": [
+          "Print-Report"
+        ],
+        "context": "aa050-End-Loop-End"
+      },
+      {
+        "program": "maps04",
+        "type": "STATIC",
+        "line": 1289,
+        "using": [
+          "maps03-ws"
+        ],
+        "context": "zz070-Exit"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "zz070-Convert-Date",
+        "thru": null,
+        "condition": null,
+        "line": 416
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz070-Convert-Date",
+        "thru": null,
+        "condition": null,
+        "line": 425
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 446
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Close",
+        "thru": null,
+        "condition": null,
+        "line": 447
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-BL-Open",
+        "thru": null,
+        "condition": null,
+        "line": 472
+      },
+      {
+        "type": "PERFORM",
+        "target": "Sales-Open",
+        "thru": null,
+        "condition": null,
+        "line": 474
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Headings",
+        "thru": null,
+        "condition": null,
+        "line": 480
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Open",
+        "thru": null,
+        "condition": null,
+        "line": 486
+      },
+      {
+        "type": "PERFORM",
+        "target": "Sales-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 496
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz060-Convert-Date",
+        "thru": null,
+        "condition": null,
+        "line": 511
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-BL-Write",
+        "thru": null,
+        "condition": null,
+        "line": 541
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Sales-Comp",
+        "thru": null,
+        "condition": null,
+        "line": 545
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-CR-Notes",
+        "thru": null,
+        "condition": null,
+        "line": 566
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Credit-Comp",
+        "thru": null,
+        "condition": null,
+        "line": 567
+      },
+      {
+        "type": "PERFORM",
+        "target": "Sales-Write",
+        "thru": null,
+        "condition": null,
+        "line": 586
+      },
+      {
+        "type": "PERFORM",
+        "target": "Sales-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 588
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Write",
+        "thru": null,
+        "condition": null,
+        "line": 591
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz040-Evaluate-Message",
+        "thru": null,
+        "condition": null,
+        "line": 602
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 608
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Headings",
+        "thru": null,
+        "condition": null,
+        "line": 614
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Close",
+        "thru": null,
+        "condition": null,
+        "line": 619
+      },
+      {
+        "type": "PERFORM",
+        "target": "Sales-Close",
+        "thru": null,
+        "condition": null,
+        "line": 620
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Headings",
+        "thru": null,
+        "condition": null,
+        "line": 627
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Open",
+        "thru": null,
+        "condition": null,
+        "line": 649
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Analise-Deductions",
+        "thru": null,
+        "condition": null,
+        "line": 650
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Close",
+        "thru": null,
+        "condition": null,
+        "line": 651
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-BL-Close",
+        "thru": null,
+        "condition": null,
+        "line": 655
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Open",
+        "thru": null,
+        "condition": null,
+        "line": 661
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 667
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Cr-Swop",
+        "thru": null,
+        "condition": null,
+        "line": 677
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Close",
+        "thru": null,
+        "condition": null,
+        "line": 684
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-New-Heading",
+        "thru": null,
+        "condition": null,
+        "line": 698
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-New-Heading",
+        "thru": null,
+        "condition": null,
+        "line": 746
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-New-Heading",
+        "thru": null,
+        "condition": null,
+        "line": 760
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 766
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Start",
+        "thru": null,
+        "condition": null,
+        "line": 861
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Read-Next",
+        "thru": null,
+        "condition": null,
+        "line": 872
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Apportion",
+        "thru": null,
+        "condition": null,
+        "line": 895
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Start",
+        "thru": null,
+        "condition": null,
+        "line": 910
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Clear-Invoice-Deduct",
+        "thru": null,
+        "condition": null,
+        "line": 945
+      },
+      {
+        "type": "PERFORM",
+        "target": "ba000-Clear-Invoice-Deduct",
+        "thru": null,
+        "condition": null,
+        "line": 959
+      },
+      {
+        "type": "PERFORM",
+        "target": "OTM3-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 967
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 986
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 995
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Read-Indexed",
+        "thru": null,
+        "condition": null,
+        "line": 999
+      },
+      {
+        "type": "PERFORM",
+        "target": "Value-Rewrite",
+        "thru": null,
+        "condition": null,
+        "line": 1007
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Batch-Open",
+        "thru": null,
+        "condition": null,
+        "line": 1015
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Batch-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1017
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Batch-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 1018
+      },
+      {
+        "type": "PERFORM",
+        "target": "SPL-Posting-Open-Extend",
+        "thru": null,
+        "condition": null,
+        "line": 1042
+      },
+      {
+        "type": "PERFORM",
+        "target": "SPL-Posting-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1044
+      },
+      {
+        "type": "PERFORM",
+        "target": "SPL-Posting-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 1045
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Posting-Open",
+        "thru": null,
+        "condition": null,
+        "line": 1048
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Posting-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1050
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Posting-Open-Output",
+        "thru": null,
+        "condition": null,
+        "line": 1051
+      },
+      {
+        "type": "PERFORM",
+        "target": "SPL-Posting-Write",
+        "thru": null,
+        "condition": null,
+        "line": 1136
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Posting-Write",
+        "thru": null,
+        "condition": null,
+        "line": 1139
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-BL-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1145
+      },
+      {
+        "type": "PERFORM",
+        "target": "ca000-BL-Open",
+        "thru": null,
+        "condition": null,
+        "line": 1146
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Batch-Write",
+        "thru": null,
+        "condition": null,
+        "line": 1154
+      },
+      {
+        "type": "PERFORM",
+        "target": "zz040-Evaluate-Message",
+        "thru": null,
+        "condition": null,
+        "line": 1158
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Batch-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1167
+      },
+      {
+        "type": "PERFORM",
+        "target": "SPL-Posting-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1169
+      },
+      {
+        "type": "PERFORM",
+        "target": "GL-Posting-Close",
+        "thru": null,
+        "condition": null,
+        "line": 1171
+      },
+      {
+        "type": "PERFORM",
+        "target": "maps04",
+        "thru": null,
+        "condition": null,
+        "line": 1216
+      },
+      {
+        "type": "PERFORM",
+        "target": "maps04",
+        "thru": null,
+        "condition": null,
+        "line": 1230
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "aa999-Exit-Prog",
+        "line": 434,
+        "conditional": false
+      },
+      {
+        "target": "aa010-Acpt-Xrply",
+        "line": 436,
+        "conditional": false
+      },
+      {
+        "target": "aa030-Main-End",
+        "line": 490,
+        "conditional": false
+      },
+      {
+        "target": "aa020-Read-Loop",
+        "line": 615,
+        "conditional": false
+      },
+      {
+        "target": "aa050-End-Loop-End",
+        "line": 669,
+        "conditional": false
+      },
+      {
+        "target": "aa040-End-Loop",
+        "line": 674,
+        "conditional": false
+      },
+      {
+        "target": "aa040-End-Loop",
+        "line": 679,
+        "conditional": false
+      },
+      {
+        "target": "ba020-end-loop",
+        "line": 863,
+        "conditional": false
+      },
+      {
+        "target": "ba020-end-loop",
+        "line": 874,
+        "conditional": false
+      },
+      {
+        "target": "ba010-read-loop",
+        "line": 878,
+        "conditional": false
+      },
+      {
+        "target": "ba020-end-loop",
+        "line": 881,
+        "conditional": false
+      },
+      {
+        "target": "ba010-read-loop",
+        "line": 883,
+        "conditional": false
+      },
+      {
+        "target": "ba010-read-loop",
+        "line": 898,
+        "conditional": false
+      },
+      {
+        "target": "ba030-main-end",
+        "line": 905,
+        "conditional": false
+      },
+      {
+        "target": "ba030-main-end",
+        "line": 912,
+        "conditional": false
+      },
+      {
+        "target": "ba010-read-loop",
+        "line": 913,
+        "conditional": false
+      },
+      {
+        "target": "ba000-Main-Rewrite",
+        "line": 933,
+        "conditional": false
+      },
+      {
+        "target": "zz050-test-date",
+        "line": 1199,
+        "conditional": false
+      },
+      {
+        "target": "zz050-test-date",
+        "line": 1204,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 1233,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 1239,
+        "conditional": false
+      },
+      {
+        "target": "zz060-Exit",
+        "line": 1244,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 1269,
+        "conditional": false
+      },
+      {
+        "target": "zz070-Exit",
+        "line": 1274,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 88,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "C",
+        "line": 90,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 123,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 152,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 156,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 409,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 413,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 433,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 435,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 442,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 445,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 448,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 449,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 453,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 456,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 460,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 471,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 497,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 500,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 516,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 519,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 522,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 540,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 544,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 549,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 555,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 562,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 572,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 572,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 575,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 584,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 595,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 605,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 613,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 626,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "t",
+        "line": 648,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 652,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 654,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 668,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 673,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 676,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 686,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "r",
+        "line": 689,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 693,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 694,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 696,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 700,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 707,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 708,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 716,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 737,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 739,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 745,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 745,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "l",
+        "line": 759,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 778,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 788,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "j",
+        "line": 804,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 812,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 824,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "a",
+        "line": 829,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 840,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 845,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 862,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 865,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 873,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 877,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "o",
+        "line": 880,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 882,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "c",
+        "line": 885,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 890,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "s",
+        "line": 893,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 897,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 903,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 911,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 931,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 935,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 940,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 948,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 962,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 971,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 987,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "F",
+        "line": 1000,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1016,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 1019,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1041,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1043,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 1046,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1049,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 1052,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 1053,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1124,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1140,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1144,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 1155,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 1160,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 1163,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1164,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1168,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "v",
+        "line": 1193,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1196,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1198,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1200,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 1228,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "u",
+        "line": 1231,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1236,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1238,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1240,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1266,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1268,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "D",
+        "line": 1270,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "Value",
+        "formula": "Add Total-DeductS To Value",
+        "line": 94,
+        "rounding": null
+      },
+      {
+        "target": "total-vat",
+        "formula": "add      work-vat  to  total-vat",
+        "line": 531,
+        "rounding": null
+      },
+      {
+        "target": "total-net",
+        "formula": "add      work-net to  total-net",
+        "line": 532,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "add      work-vat to work-1",
+        "line": 535,
+        "rounding": null
+      },
+      {
+        "target": "STurnover-Q",
+        "formula": "add  work-goods to  STurnover-Q",
+        "line": 550,
+        "rounding": null
+      },
+      {
+        "target": "STurnover-Q",
+        "formula": "add work-goods to  STurnover-Q",
+        "line": 556,
+        "rounding": null
+      },
+      {
+        "target": "STurnover-Q",
+        "formula": "add work-goods to STurnover-Q",
+        "line": 563,
+        "rounding": null
+      },
+      {
+        "target": "total-deduct",
+        "formula": "add      ws-deduction to total-deduct",
+        "line": 570,
+        "rounding": null
+      },
+      {
+        "target": "sales-unapplied",
+        "formula": "add sales-current to sales-unapplied",
+        "line": 577,
+        "rounding": null
+      },
+      {
+        "target": "line-cnt",
+        "formula": "add      1 to line-cnt",
+        "line": 612,
+        "rounding": null
+      },
+      {
+        "target": "sl-credit-deductions",
+        "formula": "add      total-deduct to sl-credit-deductions",
+        "line": 646,
+        "rounding": null
+      },
+      {
+        "target": "sl-cn-unappl-this-month",
+        "formula": "add      work-b to sl-cn-unappl-this-month",
+        "line": 705,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "add      oi-paid   to   work-1",
+        "line": 736,
+        "rounding": null
+      },
+      {
+        "target": "line-cnt",
+        "formula": "add      1 to line-cnt",
+        "line": 758,
+        "rounding": null
+      },
+      {
+        "target": "work-b",
+        "formula": "add      work-1   to  work-b",
+        "line": 762,
+        "rounding": null
+      },
+      {
+        "target": "oi-paid",
+        "formula": "add      work-1 to oi-paid",
+        "line": 764,
+        "rounding": null
+      },
+      {
+        "target": "j",
+        "formula": "add      1  to  j",
+        "line": 774,
+        "rounding": null
+      },
+      {
+        "target": "j",
+        "formula": "add      1  to  j",
+        "line": 800,
+        "rounding": null
+      },
+      {
+        "target": "sales-activety",
+        "formula": "add      1 to sales-activety",
+        "line": 830,
+        "rounding": null
+      },
+      {
+        "target": "work-2",
+        "formula": "add      work-goods to work-2",
+        "line": 831,
+        "rounding": null
+      },
+      {
+        "target": "work-2",
+        "formula": "add work-goods to work-2",
+        "line": 847,
+        "rounding": null
+      },
+      {
+        "target": "oi-paid",
+        "formula": "add  work-1  to  oi-paid",
+        "line": 941,
+        "rounding": null
+      },
+      {
+        "target": "si-paid",
+        "formula": "add  work-1  to  si-paid",
+        "line": 942,
+        "rounding": null
+      },
+      {
+        "target": "oi-p-c",
+        "formula": "add  work-1 to oi-p-c",
+        "line": 943,
+        "rounding": null
+      },
+      {
+        "target": "oi-paid",
+        "formula": "add  work-1  to  oi-paid",
+        "line": 949,
+        "rounding": null
+      },
+      {
+        "target": "si-paid",
+        "formula": "add  work-1  to  si-paid",
+        "line": 950,
+        "rounding": null
+      },
+      {
+        "target": "oi-p-c",
+        "formula": "add  work-1 to oi-p-c",
+        "line": 951,
+        "rounding": null
+      },
+      {
+        "target": "oi-paid",
+        "formula": "add  work-a  to  oi-paid",
+        "line": 955,
+        "rounding": null
+      },
+      {
+        "target": "si-paid",
+        "formula": "add  work-a  to  si-paid",
+        "line": 956,
+        "rounding": null
+      },
+      {
+        "target": "oi-p-c",
+        "formula": "add  work-a to oi-p-c",
+        "line": 957,
+        "rounding": null
+      },
+      {
+        "target": "ws-deduction",
+        "formula": "add work-b to ws-deduction",
+        "line": 973,
+        "rounding": null
+      },
+      {
+        "target": "total-mov-ded",
+        "formula": "add 1 to total-mov-ded",
+        "line": 974,
+        "rounding": null
+      },
+      {
+        "target": "next-batch",
+        "formula": "add      1 to next-batch",
+        "line": 1023,
+        "rounding": null
+      },
+      {
+        "target": "items",
+        "formula": "add      1  to  items",
+        "line": 1075,
+        "rounding": null
+      },
+      {
+        "target": "b",
+        "formula": "add      1 to b",
+        "line": 1090,
+        "rounding": null
+      },
+      {
+        "target": "input-gross",
+        "formula": "add      post-amount  to  input-gross",
+        "line": 1119,
+        "rounding": null
+      },
+      {
+        "target": "actual-gross",
+        "formula": "add      post-amount  to  actual-gross",
+        "line": 1120,
+        "rounding": null
+      },
+      {
+        "target": "input-vat",
+        "formula": "add      vat-amount   to  input-vat",
+        "line": 1121,
+        "rounding": null
+      },
+      {
+        "target": "actual-vat",
+        "formula": "add      vat-amount   to  actual-vat",
+        "line": 1122,
+        "rounding": null
+      },
+      {
+        "target": "rrn",
+        "formula": "add      1  to  rrn",
+        "line": 1142,
+        "rounding": null
+      },
+      {
+        "target": "ws-lines",
+        "formula": "subtract 1 from ws-lines",
+        "line": 414,
+        "rounding": null
+      },
+      {
+        "target": "sales-current",
+        "formula": "subtract sales-unapplied from sales-current",
+        "line": 543,
+        "rounding": null
+      },
+      {
+        "target": "sales-current",
+        "formula": "subtract sales-unapplied from sales-current",
+        "line": 583,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "subtract si-paid from work-1",
+        "line": 867,
+        "rounding": null
+      },
+      {
+        "target": "work-a",
+        "formula": "subtract oi-paid  from  work-a",
+        "line": 929,
+        "rounding": null
+      },
+      {
+        "target": "work-a",
+        "formula": "subtract work-b from work-a",
+        "line": 938,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "subtract  work-a  from  work-1",
+        "line": 958,
+        "rounding": null
+      },
+      {
+        "target": "sales-current",
+        "formula": "subtract work-b from sales-current",
+        "line": 972,
+        "rounding": null
+      },
+      {
+        "target": "va-t-this",
+        "formula": "subtract total-mov-ded from va-t-this",
+        "line": 990,
+        "rounding": null
+      },
+      {
+        "target": "va-t-year",
+        "formula": "subtract total-mov-ded from va-t-year",
+        "line": 991,
+        "rounding": null
+      },
+      {
+        "target": "va-v-this",
+        "formula": "subtract total-deduct  from va-v-this",
+        "line": 992,
+        "rounding": null
+      },
+      {
+        "target": "va-v-year",
+        "formula": "subtract total-deduct  from va-v-year",
+        "line": 993,
+        "rounding": null
+      },
+      {
+        "target": "va-t-this",
+        "formula": "subtract total-mov-ded from va-t-this",
+        "line": 1003,
+        "rounding": null
+      },
+      {
+        "target": "va-t-year",
+        "formula": "subtract total-mov-ded from va-t-year",
+        "line": 1004,
+        "rounding": null
+      },
+      {
+        "target": "va-v-this",
+        "formula": "subtract total-deduct  from va-v-this",
+        "line": 1005,
+        "rounding": null
+      },
+      {
+        "target": "va-v-year",
+        "formula": "subtract total-deduct  from va-v-year",
+        "line": 1006,
+        "rounding": null
+      },
+      {
+        "target": "8",
+        "formula": "subtract b from 8",
+        "line": 1089,
+        "rounding": null
+      },
+      {
+        "target": "sales-current",
+        "formula": "multiply -1 by sales-current",
+        "line": 576,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "multiply -1 by work-1",
+        "line": 763,
+        "rounding": null
+      },
+      {
+        "target": "sales-average",
+        "formula": "multiply sales-activety by sales-average",
+        "line": 826,
+        "rounding": null
+      },
+      {
+        "target": "sales-average",
+        "formula": "multiply sales-activety by sales-average",
+        "line": 842,
+        "rounding": null
+      },
+      {
+        "target": "work-1",
+        "formula": "multiply -1 by work-1",
+        "line": 866,
+        "rounding": null
+      },
+      {
+        "target": "work-2",
+        "formula": "divide   sales-activety into work-2",
+        "line": 832,
+        "rounding": null
+      },
+      {
+        "target": "work-2",
+        "formula": "divide sales-activety into work-2",
+        "line": 848,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "ws-env-lines",
+        "condition": "if       ws-env-lines < 24",
+        "line": 409,
+        "errorHandling": "move  ws-env-lines   to ws-lines\n     end-if\n     subtract 1 from ws-lines giving ws-23-lines"
+      },
+      {
+        "field": "wx-reply",
+        "condition": "if       wx-reply = \"NO\"",
+        "line": 433,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "wx-reply",
+        "condition": "if       wx-reply not = \"YES\"",
+        "line": 435,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 445,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 456,
+        "errorHandling": "set File-18-Exists to true\n              e"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 21",
+        "line": 497,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"X\"",
+        "line": 500,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 2",
+        "line": 516,
+        "errorHandling": "if      oi-type = 3\n              move  \"CR"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if      oi-type = 3",
+        "line": 519,
+        "errorHandling": "if      oi-type = 3\n              move  \"CR"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if     oi-type = 1",
+        "line": 522,
+        "errorHandling": "if      oi-type = 3\n              move  \"CR"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 1",
+        "line": 544,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 1",
+        "line": 549,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 2",
+        "line": 555,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 3",
+        "line": 562,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "ws-reply",
+        "condition": "if       ws-reply = \"X\"",
+        "line": 584,
+        "errorHandling": "perform Sales-Rewrite"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 595,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Caller",
+        "condition": "if  WS-Caller not = \"xl150\"",
+        "line": 605,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "line-cnt",
+        "condition": "if       line-cnt > Page-Lines",
+        "line": 613,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "line-cnt",
+        "condition": "if       line-cnt > Page-Lines",
+        "line": 626,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "total-deduct",
+        "condition": "if       total-deduct not = zero",
+        "line": 648,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 668,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type = 3",
+        "line": 676,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "return-code",
+        "condition": "if    return-code not = zero",
+        "line": 689,
+        "errorHandling": "set  File-18-Exists to true"
+      },
+      {
+        "field": "line-cnt",
+        "condition": "if       line-cnt > Page-Lines",
+        "line": 696,
+        "errorHandling": "set  File-18-Exists to true\n              end-if\n     end-if\n*>\n     if       line-cnt > Page-Lines - 6 and\n              FS-Cobol-Files-Used and File-18-Exists  *> was file-status (18) = 1\n              perform ba000-New-Heading"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1 = zero",
+        "line": 737,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Caller",
+        "condition": "if    WS-Caller not = \"xl150\"",
+        "line": 739,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "line-cnt",
+        "condition": "if       line-cnt > Page-Lines",
+        "line": 759,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j not = 1",
+        "line": 778,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "j",
+        "condition": "if       j not = 1",
+        "line": 804,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sales-activety",
+        "condition": "if       sales-activety not = zero",
+        "line": 824,
+        "errorHandling": "move zero to work-2\n     end-if"
+      },
+      {
+        "field": "sales-activety",
+        "condition": "if       sales-activety not = zero",
+        "line": 840,
+        "errorHandling": "move zero to work-2\n     end-if"
+      },
+      {
+        "field": "work-2",
+        "condition": "if       work-2 not = zero",
+        "line": 846,
+        "errorHandling": "move zero to work-2\n     end-if\n     if       work-2 not = zero\n              add work-goods to work-2\n              divide sales-activety into work-2 giving sales-average"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 862,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1 < zero",
+        "line": 865,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply = 10",
+        "line": 873,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-type",
+        "condition": "if       oi-type not = 2",
+        "line": 877,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "oi-customer",
+        "condition": "if       oi-customer not = si-customer",
+        "line": 880,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "si-cr",
+        "condition": "if       si-cr = oi-invoice",
+        "line": 893,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1 not = zero",
+        "line": 897,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1 = zero",
+        "line": 903,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 911,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-a",
+        "condition": "if       work-a = zero",
+        "line": 931,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-a",
+        "condition": "if       work-a = work-1",
+        "line": 940,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-a",
+        "condition": "if      work-a  >  work-1",
+        "line": 948,
+        "errorHandling": "if      work-a  >  work-1\n              add  work-1  to  oi-paid\n              add  work-1  to  si-paid\n              add  work-1 to oi-p-c\n              move  zero  to  work-1\n              move  1"
+      },
+      {
+        "field": "work-1",
+        "condition": "if       work-1 = zero",
+        "line": 962,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "work-b",
+        "condition": "if       work-b > zero",
+        "line": 971,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply = 21",
+        "line": 987,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "FS-Reply",
+        "condition": "if       FS-Reply = 21",
+        "line": 1000,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1016,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if  fs-reply not = zero",
+        "line": 1043,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if  fs-reply not = zero",
+        "line": 1049,
+        "errorHandling": "perform GL-Posting-Open               *>    open i-o  posting-file\n              if  fs-reply not = zero               *> wont happen in FH\n                  perform GL-Posting-Close          *>   close posting-file\n                  perform GL-Posting-Open-Output    *>   open out"
+      },
+      {
+        "field": "items",
+        "condition": "if       items = 99",
+        "line": 1144,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "fs-reply",
+        "condition": "if       fs-reply not = zero",
+        "line": 1155,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Caller",
+        "condition": "if    WS-Caller not = \"xl150\"",
+        "line": 1160,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 1196,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "u-date",
+        "condition": "if       u-date = spaces",
+        "line": 1231,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 1236,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Date-Form",
+        "condition": "if       Date-Form = zero",
+        "line": 1266,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "sales-current",
+        "condition": "if       sales-current is negative",
+        "line": 575,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "open-item-file-2",
+        "line": 489,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "sales-file",
+        "line": 496,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "READ",
+        "file": "THIS",
+        "line": 1061,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 156,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "else",
+        "line": 586,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "open-item-record-3",
+        "line": 591,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "WRITE",
+        "file": "open-item-record-3",
+        "line": 608,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 611,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 629,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 635,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 641,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 645,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 703,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 712,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 756,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 779,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 780,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 781,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 783,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 785,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 786,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 787,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 789,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 791,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 805,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 806,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 808,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 810,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 811,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 813,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "print-record",
+        "line": 815,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "GL",
+        "line": 1041,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "section",
+        "line": 1059,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "a",
+        "line": 1063,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "irs-posting-record",
+        "line": 1136,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "posting-record",
+        "line": 1139,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "batch-record",
+        "line": 1154,
+        "errorHandling": null
+      },
+      {
+        "operation": "REWRITE",
+        "file": "open-item-record-3",
+        "line": 608,
+        "errorHandling": null
+      },
+      {
+        "operation": "START",
+        "file": "open-item-file-3",
+        "line": 861,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "open-item-file-3",
+        "line": 910,
+        "errorHandling": "INVALID KEY"
+      },
+      {
+        "operation": "START",
+        "file": "to",
+        "line": 1054,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 801,
+    "linesOfComment": 492,
+    "cyclomaticComplexity": 136,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 33,
+    "numberOfCalls": 2,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 9
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

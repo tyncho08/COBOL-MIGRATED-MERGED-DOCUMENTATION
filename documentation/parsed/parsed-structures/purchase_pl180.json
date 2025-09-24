@@ -1,0 +1,492 @@
+{
+  "metadata": {
+    "filename": "pl180.cbl",
+    "filepath": "purchase/pl180.cbl",
+    "parseTimestamp": "2025-09-19T16:22:53.778Z",
+    "fileSize": 8678,
+    "lastModified": "2025-08-24T13:59:29.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "pl180",
+    "programType": "sub",
+    "author": "S.J.Whine  Aidpm",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": [
+      "Invoice Menu & Fixed"
+    ]
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "WS-data",
+          "picture": null,
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": [
+            {
+              "level": "03",
+              "name": "menu-Reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Reply",
+              "picture": "x",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-Next-Folio",
+              "picture": "9(8)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            },
+            {
+              "level": "03",
+              "name": "WS-vat-ac",
+              "picture": "9(6)",
+              "usage": null,
+              "value": null,
+              "occurs": null,
+              "redefines": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "constants": [
+        {
+          "level": "77",
+          "name": "prog-name",
+          "picture": "x(15)",
+          "usage": null,
+          "value": "PL180",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": [
+        {
+          "level": "01",
+          "name": "to-day",
+          "picture": "x(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ]
+    }
+  },
+  "procedure": {
+    "divisions": [
+      {
+        "name": "PROCEDURE DIVISION",
+        "using": [
+          "WS-calling-data",
+          "system-record",
+          "to-day",
+          "file-defs"
+        ]
+      }
+    ],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "file-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "i-o-control",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "file-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Menu-Return",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Menu-Input",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "loadit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "file-defs",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Menu-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "menu-Ex",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "goback",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Data-Entry",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "Confirmation",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [
+      {
+        "copybook": "of",
+        "line": 71,
+        "inDivision": "IDENTIFICATION",
+        "inSection": null
+      }
+    ],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "Fixed-Data",
+        "thru": null,
+        "condition": null,
+        "line": 128
+      },
+      {
+        "type": "PERFORM",
+        "target": "Fixed-Data",
+        "thru": null,
+        "condition": null,
+        "line": 152
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "Menu-Exit",
+        "line": 150,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 155,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 158,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 161,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 164,
+        "conditional": false
+      },
+      {
+        "target": "loadit",
+        "line": 167,
+        "conditional": false
+      },
+      {
+        "target": "Menu-Return",
+        "line": 168,
+        "conditional": false
+      },
+      {
+        "target": "Menu-Return",
+        "line": 175,
+        "conditional": false
+      },
+      {
+        "target": "Data-Entry",
+        "line": 211,
+        "conditional": false
+      },
+      {
+        "target": "Confirmation",
+        "line": 214,
+        "conditional": false
+      },
+      {
+        "target": "Data-Entry",
+        "line": 227,
+        "conditional": false
+      },
+      {
+        "target": "Confirmation",
+        "line": 229,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 68,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 72,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 127,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 149,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 151,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 153,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 156,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 159,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 162,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "m",
+        "line": 165,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "G",
+        "line": 197,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "N",
+        "line": 210,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "n",
+        "line": 213,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 226,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 228,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [
+      {
+        "field": "Next-Folio",
+        "condition": "if       Next-Folio = zero",
+        "line": 127,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply = \"X\"",
+        "line": 149,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  =  1",
+        "line": 151,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  = 2",
+        "line": 153,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  = 3",
+        "line": 156,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  =  4",
+        "line": 159,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  =  5",
+        "line": 162,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "menu-Reply",
+        "condition": "if       menu-Reply  =  9",
+        "line": 165,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Next-Folio",
+        "condition": "if       Next-Folio = zero",
+        "line": 210,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Reply",
+        "condition": "if       WS-Reply = \"N\"",
+        "line": 226,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "WS-Reply",
+        "condition": "if       WS-Reply not = \"Y\"",
+        "line": 228,
+        "errorHandling": "ELSE clause"
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "WRITE",
+        "file": "to",
+        "line": 72,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "Invoices",
+        "line": 141,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 98,
+    "linesOfComment": 133,
+    "cyclomaticComplexity": 28,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 12,
+    "numberOfCalls": 0,
+    "numberOfFiles": 1,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 2
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

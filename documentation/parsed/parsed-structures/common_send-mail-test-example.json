@@ -1,0 +1,812 @@
+{
+  "metadata": {
+    "filename": "send-mail-test-example.cbl",
+    "filepath": "common/send-mail-test-example.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.434Z",
+    "fileSize": 19701,
+    "lastModified": "2025-09-01T20:15:35.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "SEND-MAIL-TEST-EXAMPLE",
+    "programType": "main",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "MAIL-INIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-HEADERS",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-ERROR-TEXT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-INIT-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-BODY-LINE",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-ERROR-TEXT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-BODY-LINE-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-COMMAND",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-CLEANUP",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-INIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-HEADERS",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-ERROR-TEXT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-INIT-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-BODY-LINE",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-ERROR-TEXT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-WRITE-BODY-LINE-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-COMMAND",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-CLEANUP",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "MAIL-SEND-EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "EXIT",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [
+      {
+        "program": "tmpnam",
+        "type": "STATIC",
+        "line": 94,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER"
+        ],
+        "context": "MAIL-INIT"
+      },
+      {
+        "program": "fopen",
+        "type": "STATIC",
+        "line": 97,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER",
+          "BY",
+          "VALUE",
+          "MAIL-POINTER"
+        ],
+        "context": "MAIL-INIT"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 113,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 128,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 142,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 166,
+        "using": [
+          "MAIL-OUTPUT-RECORD",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-"
+        ],
+        "context": "MAIL-WRITE-BODY-LINE"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 185,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-SEND"
+      },
+      {
+        "program": "fclose",
+        "type": "STATIC",
+        "line": 194,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POINTER",
+          "RETURNING",
+          "MAIL-RETU"
+        ],
+        "context": "MAIL-SEND"
+      },
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 214,
+        "using": [
+          "MAIL-COMMAND-LINE",
+          "RETURNING",
+          "MAIL-RETURN"
+        ],
+        "context": "MAIL-SEND-COMMAND"
+      },
+      {
+        "program": "remove",
+        "type": "STATIC",
+        "line": 224,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER",
+          "RETURNING",
+          "MAIL-RETURN"
+        ],
+        "context": "MAIL-SEND-CLEANUP"
+      },
+      {
+        "program": "tmpnam",
+        "type": "STATIC",
+        "line": 279,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER"
+        ],
+        "context": "MAIL-INIT"
+      },
+      {
+        "program": "fopen",
+        "type": "STATIC",
+        "line": 282,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER",
+          "BY",
+          "VALUE",
+          "MAIL-POINTER"
+        ],
+        "context": "MAIL-INIT"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 298,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 313,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 327,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-WRITE-HEADERS"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 351,
+        "using": [
+          "MAIL-OUTPUT-RECORD",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-"
+        ],
+        "context": "MAIL-WRITE-BODY-LINE"
+      },
+      {
+        "program": "fputs",
+        "type": "STATIC",
+        "line": 370,
+        "using": [
+          "MAIL-BODY-LINE",
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POIN"
+        ],
+        "context": "MAIL-SEND"
+      },
+      {
+        "program": "fclose",
+        "type": "STATIC",
+        "line": 379,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-TEMP-FILE-POINTER",
+          "RETURNING",
+          "MAIL-RETU"
+        ],
+        "context": "MAIL-SEND"
+      },
+      {
+        "program": "SYSTEM",
+        "type": "STATIC",
+        "line": 399,
+        "using": [
+          "MAIL-COMMAND-LINE",
+          "RETURNING",
+          "MAIL-RETURN"
+        ],
+        "context": "MAIL-SEND-COMMAND"
+      },
+      {
+        "program": "remove",
+        "type": "STATIC",
+        "line": 409,
+        "using": [
+          "BY",
+          "VALUE",
+          "MAIL-POINTER",
+          "RETURNING",
+          "MAIL-RETURN"
+        ],
+        "context": "MAIL-SEND-CLEANUP"
+      }
+    ],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [],
+    "goToStatements": [
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 85,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 88,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 91,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 105,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 120,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 135,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-WRITE-BODY-LINE-EXIT",
+        "line": 161,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 192,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 200,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 220,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 270,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 273,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 276,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 290,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 305,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-INIT-EXIT",
+        "line": 320,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-WRITE-BODY-LINE-EXIT",
+        "line": 346,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 377,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 385,
+        "conditional": false
+      },
+      {
+        "target": "MAIL-SEND-EXIT",
+        "line": 405,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 33,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 83,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 86,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 89,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 100,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 101,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 116,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 131,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 145,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 158,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 159,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 169,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 188,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 196,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 216,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 226,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 268,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 271,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 274,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 285,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 286,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 301,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 316,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 330,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 343,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 344,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 354,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 373,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 381,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 401,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "M",
+        "line": 411,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [],
+    "validations": [],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "purchase",
+        "line": 5,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "A",
+        "line": 153,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "A",
+        "line": 338,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "TEMP",
+        "line": 227,
+        "errorHandling": null
+      },
+      {
+        "operation": "DELETE",
+        "file": "TEMP",
+        "line": 412,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 282,
+    "linesOfComment": 120,
+    "cyclomaticComplexity": 52,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 28,
+    "numberOfCalls": 20,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 2
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

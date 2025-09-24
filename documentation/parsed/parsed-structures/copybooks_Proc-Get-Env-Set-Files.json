@@ -1,0 +1,308 @@
+{
+  "metadata": {
+    "filename": "Proc-Get-Env-Set-Files.cob",
+    "filepath": "copybooks/Proc-Get-Env-Set-Files.cob",
+    "parseTimestamp": "2025-09-19T16:22:55.006Z",
+    "fileSize": 6534,
+    "lastModified": "2023-05-31T19:41:37.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "PROC-GET-ENV-SET-FILES",
+    "programType": "copybook",
+    "author": null,
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": []
+  },
+  "data": {
+    "fileSection": [],
+    "workingStorage": {
+      "fields": [],
+      "constants": [],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [],
+    "paragraphs": [
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz010-GESF-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "end-if",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz020-Set-the-Paths",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      },
+      {
+        "name": "zz020-Exit",
+        "statements": [],
+        "performedBy": [],
+        "performs": []
+      }
+    ]
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "zz010-Get-Env-Set-Files",
+        "thru": null,
+        "condition": null,
+        "line": 40
+      },
+      {
+        "type": "PERFORM",
+        "target": "is",
+        "thru": null,
+        "condition": null,
+        "line": 115
+      },
+      {
+        "type": "PERFORM",
+        "target": "File-Defs-Count",
+        "thru": null,
+        "condition": null,
+        "line": 128
+      },
+      {
+        "type": "PERFORM",
+        "target": "move",
+        "thru": null,
+        "condition": null,
+        "line": 137
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "zz020-Set-the-Paths",
+        "line": 58,
+        "conditional": false
+      },
+      {
+        "target": "zz020-Set-the-Paths",
+        "line": 61,
+        "conditional": false
+      },
+      {
+        "target": "zz020-Exit",
+        "line": 120,
+        "conditional": false
+      },
+      {
+        "target": "zz020-Exit",
+        "line": 123,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 12,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 23,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 29,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "w",
+        "line": 42,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 57,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 60,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 63,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 73,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 83,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 86,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 98,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 99,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 103,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "e",
+        "line": 107,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "*",
+        "line": 108,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "A",
+        "line": 110,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "f",
+        "line": 119,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "i",
+        "line": 121,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "z",
+        "formula": "add 1 to z",
+        "line": 129,
+        "rounding": null
+      }
+    ],
+    "validations": [
+      {
+        "field": "Arg-Number",
+        "condition": "if       Arg-Number = zero",
+        "line": 57,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Arg-Number",
+        "condition": "if       Arg-Number > 2",
+        "line": 63,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "Arg-Number",
+        "condition": "if       Arg-Number = 2",
+        "line": 99,
+        "errorHandling": "ELSE clause"
+      },
+      {
+        "field": "File-Defs-os-Delimiter",
+        "condition": "if       File-Defs-os-Delimiter = \"\\\"",
+        "line": 122,
+        "errorHandling": null
+      }
+    ],
+    "fileOperations": [
+      {
+        "operation": "START",
+        "file": "with",
+        "line": 3,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 79,
+    "linesOfComment": 69,
+    "cyclomaticComplexity": 23,
+    "numberOfSections": 0,
+    "numberOfParagraphs": 5,
+    "numberOfCalls": 0,
+    "numberOfFiles": 0,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 5
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": false,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": false
+  }
+}

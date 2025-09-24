@@ -1,0 +1,1175 @@
+{
+  "metadata": {
+    "filename": "makesqltable-original.cbl",
+    "filepath": "common/makesqltable-original.cbl",
+    "parseTimestamp": "2025-09-19T16:22:54.594Z",
+    "fileSize": 12159,
+    "lastModified": "2020-06-17T21:36:30.000Z",
+    "parseVersion": "1.0",
+    "dialect": "GnuCOBOL"
+  },
+  "identification": {
+    "programId": "MAKESQLTABLE",
+    "programType": "main",
+    "author": "J C CURREY.",
+    "dateWritten": null,
+    "dateCompiled": null,
+    "remarks": []
+  },
+  "environment": {
+    "sourceComputer": null,
+    "objectComputer": null,
+    "fileControl": [
+      {
+        "fileName": "INPUT-FILE",
+        "assignTo": "WS-NAME-INPUT-FILE",
+        "organization": "LINE",
+        "accessMode": "SEQUENTIAL",
+        "recordKey": null,
+        "alternateKeys": [],
+        "fileStatus": "WS-INPUT-FILE-STATUS"
+      },
+      {
+        "fileName": "OUTPUT-FILE",
+        "assignTo": "WS-NAME-OUTPUT-FILE",
+        "organization": "LINE",
+        "accessMode": "SEQUENTIAL",
+        "recordKey": null,
+        "alternateKeys": [],
+        "fileStatus": "WS-OUTPUT-FILE-STATUS"
+      }
+    ]
+  },
+  "data": {
+    "fileSection": [
+      {
+        "fdName": "INPUT-FILE",
+        "recordName": null,
+        "fields": []
+      },
+      {
+        "fdName": "OUTPUT-FILE",
+        "recordName": null,
+        "fields": []
+      }
+    ],
+    "workingStorage": {
+      "fields": [
+        {
+          "level": "01",
+          "name": "WS-NAME-PROGRAM",
+          "picture": "X(18)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-NO-PARAGRAPH",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-I",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-J",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-K",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-POSITION-IN-OUTPUT",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-INPUT-FILE-STATUS",
+          "picture": "XX",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-OUTPUT-FILE-STATUS",
+          "picture": "XX",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-READ-AREA",
+          "picture": "X(80)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-NAME-DATA-BASE",
+          "picture": "X(30)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-REMOVE-PREFIX",
+          "picture": "X(10)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-TRIMMED-INPUT-RECORD",
+          "picture": "X(80)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-SECOND-TRIM",
+          "picture": "X(80)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-THIRD-TRIM",
+          "picture": "X(80)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-TABLE-NAME",
+          "picture": "X(64)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-COLUMN-NAME",
+          "picture": "X(64)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-CHARACTERS-WANTED",
+          "picture": "S9(4)",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-ED5",
+          "picture": "ZZZZ9",
+          "usage": null,
+          "value": null,
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "constants": [
+        {
+          "level": "01",
+          "name": "WS-NAME-INPUT-FILE",
+          "picture": "X(128)",
+          "usage": null,
+          "value": "SPACES",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        },
+        {
+          "level": "01",
+          "name": "WS-NAME-OUTPUT-FILE",
+          "picture": "X(128)",
+          "usage": null,
+          "value": "SPACES",
+          "occurs": null,
+          "redefines": null,
+          "children": []
+        }
+      ],
+      "tables": [],
+      "flags": [],
+      "counters": [],
+      "accumulators": []
+    },
+    "localStorage": {
+      "fields": []
+    },
+    "linkageSection": {
+      "parameters": []
+    }
+  },
+  "procedure": {
+    "divisions": [],
+    "sections": [
+      {
+        "name": "INPUT-OUTPUT",
+        "paragraphs": [
+          {
+            "name": "FILE-CONTROL",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "FILE",
+        "paragraphs": [
+          {
+            "name": "1000-INITIALIZATION",
+            "statements": [
+              "MOVE",
+              "IF",
+              "DISPLAY",
+              "ACCEPT"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "1990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2000-PROCESS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2010-READ",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "WRITE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2100-READ-COLUMNS",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2110-PREFIX-LOOP",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2200-CHARACTERS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2210-CHARACTER-LOOP",
+            "statements": [
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2215-BAD-PIC",
+            "statements": [
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2220-GET-REPITITIONS",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2240-GOT-COUNT",
+            "statements": [
+              "MOVE",
+              "IF",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2250-VARCHAR",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2900-EOF",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7980-CLOSE",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9000-END-OF-PROGRAM",
+            "statements": [
+              "MOVE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "WORKING-STORAGE",
+        "paragraphs": [
+          {
+            "name": "1000-INITIALIZATION",
+            "statements": [
+              "MOVE",
+              "IF",
+              "DISPLAY",
+              "ACCEPT"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "1990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2000-PROCESS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2010-READ",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "WRITE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2100-READ-COLUMNS",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2110-PREFIX-LOOP",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2200-CHARACTERS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2210-CHARACTER-LOOP",
+            "statements": [
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2215-BAD-PIC",
+            "statements": [
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2220-GET-REPITITIONS",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2240-GOT-COUNT",
+            "statements": [
+              "MOVE",
+              "IF",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2250-VARCHAR",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2900-EOF",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7980-CLOSE",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9000-END-OF-PROGRAM",
+            "statements": [
+              "MOVE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      },
+      {
+        "name": "0000-MAIN",
+        "paragraphs": [
+          {
+            "name": "1000-INITIALIZATION",
+            "statements": [
+              "MOVE",
+              "IF",
+              "DISPLAY",
+              "ACCEPT"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "1990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2000-PROCESS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2010-READ",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "WRITE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2100-READ-COLUMNS",
+            "statements": [
+              "MOVE",
+              "IF",
+              "READ",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2110-PREFIX-LOOP",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2200-CHARACTERS",
+            "statements": [
+              "MOVE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2210-CHARACTER-LOOP",
+            "statements": [
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "END-IF",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2215-BAD-PIC",
+            "statements": [
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2220-GET-REPITITIONS",
+            "statements": [
+              "MOVE",
+              "IF"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2240-GOT-COUNT",
+            "statements": [
+              "MOVE",
+              "IF",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2250-VARCHAR",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "2900-EOF",
+            "statements": [
+              "MOVE",
+              "WRITE"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7980-CLOSE",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "7990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9000-END-OF-PROGRAM",
+            "statements": [
+              "MOVE",
+              "DISPLAY"
+            ],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "9990-EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          },
+          {
+            "name": "EXIT",
+            "statements": [],
+            "performedBy": [],
+            "performs": []
+          }
+        ]
+      }
+    ],
+    "paragraphs": []
+  },
+  "dependencies": {
+    "copyStatements": [],
+    "callStatements": [],
+    "sqlStatements": []
+  },
+  "controlFlow": {
+    "performStatements": [
+      {
+        "type": "PERFORM",
+        "target": "1000-INITIALIZATION",
+        "thru": "1990-EXIT",
+        "condition": null,
+        "line": 68
+      },
+      {
+        "type": "PERFORM",
+        "target": "2000-PROCESS",
+        "thru": "7990-EXIT",
+        "condition": null,
+        "line": 69
+      },
+      {
+        "type": "PERFORM",
+        "target": "9000-END-OF-PROGRAM",
+        "thru": "9990-EXIT",
+        "condition": null,
+        "line": 70
+      }
+    ],
+    "goToStatements": [
+      {
+        "target": "7990-EXIT",
+        "line": 115,
+        "conditional": false
+      },
+      {
+        "target": "2010-READ",
+        "line": 120,
+        "conditional": false
+      },
+      {
+        "target": "2900-EOF",
+        "line": 163,
+        "conditional": false
+      },
+      {
+        "target": "2100-READ-COLUMNS",
+        "line": 167,
+        "conditional": false
+      },
+      {
+        "target": "7980-CLOSE",
+        "line": 170,
+        "conditional": false
+      },
+      {
+        "target": "7980-CLOSE",
+        "line": 174,
+        "conditional": false
+      },
+      {
+        "target": "2110-PREFIX-LOOP",
+        "line": 188,
+        "conditional": false
+      },
+      {
+        "target": "2200-CHARACTERS",
+        "line": 216,
+        "conditional": true
+      },
+      {
+        "target": "2215-BAD-PIC",
+        "line": 217,
+        "conditional": true
+      },
+      {
+        "target": "2240-GOT-COUNT",
+        "line": 226,
+        "conditional": true
+      },
+      {
+        "target": "2220-GET-REPITITIONS",
+        "line": 228,
+        "conditional": false
+      },
+      {
+        "target": "2210-CHARACTER-LOOP",
+        "line": 233,
+        "conditional": false
+      },
+      {
+        "target": "2900-EOF",
+        "line": 239,
+        "conditional": false
+      },
+      {
+        "target": "2215-BAD-PIC",
+        "line": 244,
+        "conditional": true
+      },
+      {
+        "target": "2250-VARCHAR",
+        "line": 252,
+        "conditional": false
+      },
+      {
+        "target": "2100-READ-COLUMNS",
+        "line": 262,
+        "conditional": false
+      },
+      {
+        "target": "2100-READ-COLUMNS",
+        "line": 274,
+        "conditional": false
+      }
+    ],
+    "conditionals": [
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 82,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 92,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 118,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 140,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 166,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 168,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 171,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 181,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 187,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 189,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "\"",
+        "line": 216,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 226,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 227,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 229,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 232,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "E",
+        "line": 234,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 244,
+        "complexity": 1
+      },
+      {
+        "type": "IF",
+        "condition": "W",
+        "line": 251,
+        "complexity": 1
+      }
+    ]
+  },
+  "businessLogic": {
+    "calculations": [
+      {
+        "target": "WS-J",
+        "formula": "ADD 1 TO WS-J",
+        "line": 186,
+        "rounding": null
+      },
+      {
+        "target": "WS-CHARACTERS-WANTED",
+        "formula": "ADD 1 TO WS-CHARACTERS-WANTED",
+        "line": 230,
+        "rounding": null
+      },
+      {
+        "target": "WS-I",
+        "formula": "ADD 1 TO WS-I",
+        "line": 231,
+        "rounding": null
+      }
+    ],
+    "validations": [],
+    "fileOperations": [
+      {
+        "operation": "READ",
+        "file": "INPUT-FILE",
+        "line": 113,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "READ",
+        "file": "INPUT-FILE",
+        "line": 162,
+        "errorHandling": "AT END"
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 136,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 144,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 151,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 156,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 260,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 272,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 280,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 283,
+        "errorHandling": null
+      },
+      {
+        "operation": "WRITE",
+        "file": "OUTPUT-RECORD",
+        "line": 286,
+        "errorHandling": null
+      }
+    ]
+  },
+  "metrics": {
+    "linesOfCode": 249,
+    "linesOfComment": 50,
+    "cyclomaticComplexity": 36,
+    "numberOfSections": 4,
+    "numberOfParagraphs": 67,
+    "numberOfCalls": 0,
+    "numberOfFiles": 2,
+    "numberOfSQLStatements": 0,
+    "deepestNesting": 3
+  },
+  "qualityIndicators": {
+    "hasErrorHandling": true,
+    "hasComments": true,
+    "usesGoTo": true,
+    "hasDeadCode": true,
+    "followsNamingConventions": true
+  }
+}
