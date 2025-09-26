@@ -2,9 +2,8 @@ from typing import Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
 from datetime import datetime
-from app.db.database import get_db
-from app.models.system_settings import SystemSettings
-from app.models.tax_code import TaxCode
+from app.core.database import get_db
+from app.models.system import SystemRec
 
 router = APIRouter()
 
@@ -15,18 +14,10 @@ async def get_system_settings(
     """Get all system settings"""
     
     try:
-        # Get company settings
-        company_settings = db.query(SystemSettings).filter(
-            SystemSettings.setting_group == 'company'
-        ).all()
-        
-        # Get financial settings
-        financial_settings = db.query(SystemSettings).filter(
-            SystemSettings.setting_group == 'financial'
-        ).all()
-        
-        # Get tax codes
-        tax_codes = db.query(TaxCode).all()
+        # Get system record (single record)
+        system_record = db.query(SystemRec).filter(
+            SystemRec.system_rec_key == 1
+        ).first()
         
         # Build response
         settings = {
@@ -91,14 +82,20 @@ async def get_system_settings(
             }
         }
         
-        # Add actual settings from database if available
-        for setting in company_settings:
-            if hasattr(settings["company"], setting.setting_key):
-                settings["company"][setting.setting_key] = setting.setting_value
-                
-        for setting in financial_settings:
-            if hasattr(settings["financial"], setting.setting_key):
-                settings["financial"][setting.setting_key] = setting.setting_value
+        # Update with actual system data if available
+        if system_record:
+            settings["company"].update({
+                "companyName": system_record.company_name,
+                "address": {
+                    "line1": system_record.company_address_1,
+                    "line2": system_record.company_address_2,
+                    "city": system_record.company_address_3,
+                    "postCode": system_record.company_address_5
+                }
+            })
+            settings["system"].update({
+                "version": system_record.version
+            })
         
         return settings
         

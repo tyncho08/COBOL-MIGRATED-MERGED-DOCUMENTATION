@@ -3,11 +3,11 @@ from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
 from sqlalchemy import func, and_, or_, desc
 from datetime import datetime, date, timedelta
-from app.db.database import get_db
-from app.models.payment import Payment
-from app.models.receipt import Receipt
-from app.models.sales_ledger import SalesLedgerRec
-from app.models.purchase_ledger import PurchaseLedgerRec
+from app.core.database import get_db
+from app.models.payments import PurchasePaymentRec, SalesPaymentRec
+from app.models.sales import SalesReceiptRec
+from app.models.customer import SalesLedgerRec
+from app.models.supplier import PurchaseLedgerRec
 
 router = APIRouter()
 
@@ -24,28 +24,28 @@ async def get_payments_summary(
         last_month_start = (current_month_start - timedelta(days=1)).replace(day=1)
         
         # Current month receipts
-        current_month_receipts = db.query(func.sum(Receipt.receipt_amount)).filter(
-            Receipt.receipt_date >= current_month_start
+        current_month_receipts = db.query(func.sum(SalesReceiptRec.receipt_amount)).filter(
+            SalesReceiptRec.receipt_date >= current_month_start
         ).scalar() or 0
         
         # Last month receipts
-        last_month_receipts = db.query(func.sum(Receipt.receipt_amount)).filter(
+        last_month_receipts = db.query(func.sum(SalesReceiptRec.receipt_amount)).filter(
             and_(
-                Receipt.receipt_date >= last_month_start,
-                Receipt.receipt_date < current_month_start
+                SalesReceiptRec.receipt_date >= last_month_start,
+                SalesReceiptRec.receipt_date < current_month_start
             )
         ).scalar() or 0
         
         # Current month payments
-        current_month_payments = db.query(func.sum(Payment.payment_amount)).filter(
-            Payment.payment_date >= current_month_start
+        current_month_payments = db.query(func.sum(PurchasePaymentRec.payment_amount)).filter(
+            PurchasePaymentRec.payment_date >= current_month_start
         ).scalar() or 0
         
         # Last month payments  
-        last_month_payments = db.query(func.sum(Payment.payment_amount)).filter(
+        last_month_payments = db.query(func.sum(PurchasePaymentRec.payment_amount)).filter(
             and_(
-                Payment.payment_date >= last_month_start,
-                Payment.payment_date < current_month_start
+                PurchasePaymentRec.payment_date >= last_month_start,
+                PurchasePaymentRec.payment_date < current_month_start
             )
         ).scalar() or 0
         
@@ -141,13 +141,13 @@ async def get_recent_transactions(
     
     try:
         # Get recent receipts
-        recent_receipts = db.query(Receipt).order_by(
-            desc(Receipt.receipt_date)
+        recent_receipts = db.query(SalesReceiptRec).order_by(
+            desc(SalesReceiptRec.receipt_date)
         ).limit(limit).all()
         
         # Get recent payments
-        recent_payments = db.query(Payment).order_by(
-            desc(Payment.payment_date)
+        recent_payments = db.query(PurchasePaymentRec).order_by(
+            desc(PurchasePaymentRec.payment_date)
         ).limit(limit).all()
         
         # Combine and format transactions
@@ -215,7 +215,7 @@ async def record_receipt(
     
     try:
         # Create new receipt
-        receipt = Receipt(
+        receipt = SalesReceiptRec(
             customer_code=customer_code,
             receipt_amount=amount,
             receipt_number=reference,
@@ -262,7 +262,7 @@ async def record_payment(
     
     try:
         # Create new payment
-        payment = Payment(
+        payment = PurchasePaymentRec(
             supplier_code=supplier_code,
             payment_amount=amount,
             payment_number=reference,

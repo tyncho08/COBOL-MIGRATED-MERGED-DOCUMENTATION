@@ -3,13 +3,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func, text
 from datetime import datetime, date, timedelta
-from app.db.database import get_db
-from app.models.sales_ledger import SalesLedgerRec
-from app.models.purchase_ledger import PurchaseLedgerRec
+from app.core.database import get_db
+from app.models.customer import SalesLedgerRec
+from app.models.supplier import PurchaseLedgerRec
 from app.models.stock import StockRec
-from app.models.gl_ledger import GLLedgerRec
-from app.models.payment import Payment
-from app.models.receipt import Receipt
+from app.models.gl_accounts import GLLedgerRec
 
 router = APIRouter()
 
