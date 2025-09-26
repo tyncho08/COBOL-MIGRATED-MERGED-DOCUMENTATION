@@ -3,7 +3,7 @@ ACAS Supplier (Purchase Ledger) Models
 SQLAlchemy models for supplier management and purchase processing
 """
 from sqlalchemy import (
-    Column, String, Integer, Numeric, Boolean, DateTime, 
+    Column, String, Integer, Numeric, DateTime, Text,
     ForeignKey, CheckConstraint, Index
 )
 from sqlalchemy.orm import relationship
@@ -15,186 +15,81 @@ class PurchaseLedgerRec(Base):
     Purchase Ledger Record - Supplier Master
     
     Represents supplier master data with complete financial history.
-    Mirrors COBOL PULEDGER_REC structure.
+    Matches the actual PostgreSQL schema structure.
     """
     __tablename__ = "puledger_rec"
+    __table_args__ = {'schema': 'acas'}
     
     # Primary Key - Supplier Code
-    purch_key = Column(
-        String(7), 
-        primary_key=True,
-        doc="Supplier code (7 characters)"
-    )
+    purch_key = Column(String(10), primary_key=True, doc="Supplier code")
     
     # Supplier Identity Information
-    purch_name = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Supplier name"
-    )
-    purch_address_1 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 1"
-    )
-    purch_address_2 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 2"
-    )
-    purch_address_3 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 3"
-    )
-    purch_address_4 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 4"
-    )
-    purch_address_5 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 5 (postcode)"
-    )
+    purch_name = Column(String(40), nullable=False, default='', doc="Supplier name")
+    purch_address_1 = Column(String(30), default='', doc="Address line 1")
+    purch_address_2 = Column(String(30), default='', doc="Address line 2")
+    purch_address_3 = Column(String(30), default='', doc="Address line 3")
+    purch_address_4 = Column(String(30), default='', doc="Address line 4")
+    purch_address_5 = Column(String(12), default='', doc="Address line 5 (postcode)")
+    purch_country = Column(String(24), default='', doc="Country")
     
     # Contact Information
-    purch_contact = Column(
-        String(25), 
-        nullable=False, 
-        default='',
-        doc="Primary contact person"
-    )
-    purch_phone = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Phone number"
-    )
-    purch_email = Column(
-        String(40), 
-        nullable=False, 
-        default='',
-        doc="Email address"
-    )
-    purch_fax = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Fax number"
-    )
+    purch_contact = Column(String(30), default='', doc="Primary contact person")
+    purch_phone = Column(String(20), default='', doc="Phone number")
+    purch_fax = Column(String(20), default='', doc="Fax number")
+    purch_email = Column(String(50), default='', doc="Email address")
+    purch_mobile = Column(String(20), default='', doc="Mobile number")
     
-    # Payment Terms and Configuration
-    purch_payment_terms = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Payment terms code"
-    )
-    purch_discount_rate = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Supplier discount rate percentage"
-    )
-    purch_tax_code = Column(
-        String(6), 
-        nullable=False, 
-        default='',
-        doc="Tax/VAT code"
-    )
+    # Financial Information
+    purch_balance = Column(Numeric(12, 2), default=0.00, doc="Current account balance")
+    purch_ytd_turnover = Column(Numeric(12, 2), default=0.00, doc="Year-to-date turnover")
+    purch_last_year_turnover = Column(Numeric(12, 2), default=0.00, doc="Last year turnover")
     
-    # Banking Details for Payments
-    purch_bank_name = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Bank name"
-    )
-    purch_bank_sort_code = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Bank sort code"
-    )
-    purch_bank_account = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Bank account number"
-    )
+    # Terms and Configuration
+    purch_payment_terms = Column(String(4), default='30', doc="Payment terms")
+    purch_settlement_disc = Column(Numeric(4, 2), default=0.00, doc="Settlement discount")
+    purch_tax_code = Column(String(4), default='VSTD', doc="Tax/VAT code")
+    purch_currency = Column(String(3), default='GBP', doc="Currency code")
     
-    # Account Status and Control
-    purch_account_status = Column(
-        String(1), 
-        nullable=False, 
-        default='A',
-        doc="Account status: A=Active, H=Hold, C=Closed"
-    )
-    purch_hold_flag = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Account on hold for payment reasons"
-    )
+    # Banking Information
+    purch_our_account_no = Column(String(20), default='', doc="Our account number with supplier")
+    purch_bank_name = Column(String(30), default='', doc="Supplier bank name")
+    purch_bank_address = Column(String(60), default='', doc="Supplier bank address")
+    purch_bank_account = Column(String(20), default='', doc="Supplier bank account")
+    purch_bank_sort_code = Column(String(10), default='', doc="Supplier bank sort code")
+    purch_bank_swift = Column(String(15), default='', doc="Supplier bank SWIFT code")
     
-    # Current Financial Position
-    purch_balance = Column(
-        Numeric(11, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Current account balance (credit balance)"
-    )
-    purch_ytd_turnover = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Year-to-date purchase turnover"
-    )
-    purch_last_invoice_date = Column(
-        Integer,
-        nullable=True,
-        doc="Last invoice date (YYYYMMDD format)"
-    )
-    purch_last_payment_date = Column(
-        Integer,
-        nullable=True,
-        doc="Last payment date (YYYYMMDD format)"
-    )
+    # Status and Control Flags
+    purch_account_status = Column(String(1), default='A', doc="Account status: A=Active, H=Hold, C=Closed")
+    purch_approval_required = Column(String(1), default='N', doc="Approval required flag")
+    purch_remittance_flag = Column(String(1), default='Y', doc="Send remittance flag")
+    purch_1099_required = Column(String(1), default='N', doc="1099 required flag")
     
-    # Monthly Purchase History (13 periods for year + adjustment)
-    purch_turn_01 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 1 purchases")
-    purch_turn_02 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 2 purchases")
-    purch_turn_03 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 3 purchases")
-    purch_turn_04 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 4 purchases")
-    purch_turn_05 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 5 purchases")
-    purch_turn_06 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 6 purchases")
-    purch_turn_07 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 7 purchases")
-    purch_turn_08 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 8 purchases")
-    purch_turn_09 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 9 purchases")
-    purch_turn_10 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 10 purchases")
-    purch_turn_11 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 11 purchases")
-    purch_turn_12 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 12 purchases")
-    purch_turn_13 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 13 purchases (adjustment)")
+    # Analysis Fields
+    purch_analysis_1 = Column(String(10), default='', doc="Analysis field 1")
+    purch_analysis_2 = Column(String(10), default='', doc="Analysis field 2")
+    purch_analysis_3 = Column(String(10), default='', doc="Analysis field 3")
+    purch_default_nominal = Column(Integer, default=0, doc="Default nominal account")
+    
+    # Date Fields (stored as integers in YYYYMMDD format)
+    purch_date_opened = Column(Integer, default=0, doc="Date opened (YYYYMMDD)")
+    purch_date_last_purchase = Column(Integer, default=0, doc="Last purchase date (YYYYMMDD)")
+    purch_date_last_payment = Column(Integer, default=0, doc="Last payment date (YYYYMMDD)")
+    
+    # Statistics
+    purch_transactions_mtd = Column(Integer, default=0, doc="Transactions month-to-date")
+    purch_transactions_ytd = Column(Integer, default=0, doc="Transactions year-to-date")
+    purch_invoices_mtd = Column(Integer, default=0, doc="Invoices month-to-date")
+    purch_invoices_ytd = Column(Integer, default=0, doc="Invoices year-to-date")
+    purch_average_days = Column(Integer, default=0, doc="Average payment days")
+    purch_oldest_item = Column(Integer, default=0, doc="Oldest item date (YYYYMMDD)")
+    
+    # Notes
+    purch_notes = Column(Text, doc="Supplier notes")
     
     # Audit Trail
-    created_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        doc="Record creation timestamp"
-    )
-    updated_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        onupdate=func.now(),
-        doc="Last update timestamp"
-    )
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), doc="Record creation timestamp")
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp(), doc="Last update timestamp")
+    updated_by = Column(String(30), server_default=func.current_user(), doc="Updated by user")
     
     # Relationships
     invoices = relationship("PurchaseInvoiceRec", back_populates="supplier")
@@ -202,466 +97,353 @@ class PurchaseLedgerRec(Base):
     
     # Table constraints
     __table_args__ = (
-        CheckConstraint(
-            "purch_account_status IN ('A', 'H', 'C')", 
-            name='ck_puledger_valid_status'
-        ),
-        CheckConstraint(
-            'purch_discount_rate >= 0 AND purch_discount_rate <= 100', 
-            name='ck_puledger_valid_discount_rate'
-        ),
-        Index('ix_puledger_name', 'purch_name'),
-        Index('ix_puledger_status', 'purch_account_status'),
-        {
-            'comment': 'Supplier master records with financial history'
-        }
+        CheckConstraint("purch_account_status IN ('A', 'H', 'C')", name='ck_puledger_valid_status'),
+        CheckConstraint("purch_approval_required IN ('Y', 'N')", name='ck_puledger_valid_approval'),
+        CheckConstraint("purch_remittance_flag IN ('Y', 'N')", name='ck_puledger_valid_remittance'),
+        CheckConstraint("purch_1099_required IN ('Y', 'N')", name='ck_puledger_valid_1099'),
+        Index('idx_puledger_name', 'purch_name'),
+        Index('idx_puledger_status', 'purch_account_status'),
+        Index('idx_puledger_balance', 'purch_balance'),
+        {'schema': 'acas'}
     )
-    
-    def __repr__(self):
-        return f"<PurchaseLedger(key='{self.purch_key}', name='{self.purch_name}')>"
-    
-    @property
-    def is_active(self) -> bool:
-        """Check if supplier account is active"""
-        return self.purch_account_status == 'A' and not self.purch_hold_flag
-    
-    def get_full_address(self) -> str:
-        """Get formatted full address"""
-        address_lines = [
-            self.purch_address_1, self.purch_address_2, self.purch_address_3,
-            self.purch_address_4, self.purch_address_5
-        ]
-        return '\n'.join(line for line in address_lines if line.strip())
-    
-    def get_period_purchases(self, period: int) -> float:
-        """Get purchases for specific period (1-13)"""
-        if period < 1 or period > 13:
-            return 0.0
-        return float(getattr(self, f'purch_turn_{period:02d}'))
 
 class PurchaseInvoiceRec(Base):
-    """
-    Purchase Invoice Header Record
-    
-    Represents purchase invoice headers with matching status.
-    """
+    """Purchase Invoice Record"""
     __tablename__ = "puinvoice_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    # Primary Key
-    invoice_key = Column(
-        String(15), 
-        primary_key=True,
-        doc="Internal invoice number/key"
-    )
-    
-    # Foreign Key to Supplier
-    purch_key = Column(
-        String(7), 
-        ForeignKey("puledger_rec.purch_key", ondelete="RESTRICT"),
-        nullable=False,
-        doc="Supplier code"
-    )
-    
-    # Supplier Invoice Information
-    supplier_invoice_no = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Supplier's invoice number"
-    )
-    invoice_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Invoice date (YYYYMMDD format)"
-    )
-    due_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Due date (YYYYMMDD format)"
-    )
-    
-    # Invoice Status and References
-    invoice_status = Column(
-        String(1), 
-        nullable=False, 
-        default='O',
-        doc="Invoice status: O=Open, P=Paid, C=Cancelled"
-    )
-    purchase_order_no = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Purchase order number"
-    )
-    
-    # Financial Totals
-    net_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Net amount before tax"
-    )
-    tax_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Total tax amount"
-    )
-    gross_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Gross amount including tax"
-    )
-    discount_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Total discount amount"
-    )
-    amount_outstanding = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Amount still outstanding"
-    )
-    
-    # Payment Terms
-    payment_terms = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Payment terms code"
-    )
-    discount_percent = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Settlement discount percentage"
-    )
-    
-    # Three-Way Matching Status
-    three_way_matched = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Three-way matching completed"
-    )
-    goods_received = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Goods receipt confirmed"
-    )
-    goods_receipt_ref = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Goods receipt reference"
-    )
-    
-    # General Ledger Integration
-    posted_to_gl = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Posted to General Ledger flag"
-    )
-    gl_batch_key = Column(
-        Integer,
-        nullable=True,
-        doc="GL batch key if posted"
-    )
+    invoice_key = Column(String(20), primary_key=True, doc="Invoice number")
+    purch_key = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="RESTRICT"), nullable=False, doc="Supplier code")
+    invoice_date = Column(Integer, nullable=False, doc="Invoice date (YYYYMMDD)")
+    invoice_amount = Column(Numeric(12, 2), default=0.00, doc="Invoice amount")
+    invoice_status = Column(String(1), default='O', doc="Invoice status")
     
     # Audit Trail
-    created_by = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Created by user ID"
-    )
-    created_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        doc="Record creation timestamp"
-    )
-    updated_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        onupdate=func.now(),
-        doc="Last update timestamp"
-    )
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
     
     # Relationships
     supplier = relationship("PurchaseLedgerRec", back_populates="invoices")
-    lines = relationship("PurchaseInvoiceLineRec", back_populates="invoice", cascade="all, delete-orphan")
-    
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            "invoice_status IN ('O', 'P', 'C')", 
-            name='ck_puinvoice_valid_status'
-        ),
-        CheckConstraint(
-            'gross_amount = net_amount + tax_amount', 
-            name='ck_puinvoice_valid_totals'
-        ),
-        Index('ix_puinvoice_supplier', 'purch_key'),
-        Index('ix_puinvoice_date', 'invoice_date'),
-        Index('ix_puinvoice_status', 'invoice_status'),
-        Index('ix_puinvoice_supplier_no', 'supplier_invoice_no'),
-        {
-            'comment': 'Purchase invoice headers with matching status'
-        }
-    )
-    
-    def __repr__(self):
-        return f"<PurchaseInvoice(key='{self.invoice_key}', supplier='{self.purch_key}', amount={self.gross_amount})>"
+    lines = relationship("PurchaseInvoiceLineRec", back_populates="invoice")
 
 class PurchaseInvoiceLineRec(Base):
-    """
-    Purchase Invoice Line Record
+    """Purchase Invoice Line Record"""
+    __tablename__ = "puinvoice_lines_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    Represents individual line items on purchase invoices with matching info.
-    """
-    __tablename__ = "puinv_lines_rec"
-    
-    # Composite Primary Key
-    invoice_key = Column(
-        String(15), 
-        ForeignKey("puinvoice_rec.invoice_key", ondelete="CASCADE"),
-        primary_key=True,
-        doc="Invoice number"
-    )
-    line_number = Column(
-        Integer, 
-        primary_key=True,
-        doc="Line number within invoice"
-    )
-    
-    # Stock Item Reference
-    stock_key = Column(
-        String(13), 
-        nullable=False, 
-        default='',
-        doc="Stock item code"
-    )
-    item_description = Column(
-        String(40), 
-        nullable=False, 
-        default='',
-        doc="Item description"
-    )
-    
-    # Quantity and Pricing
-    quantity = Column(
-        Numeric(12, 3), 
-        nullable=False, 
-        default=0.000,
-        doc="Quantity"
-    )
-    unit_cost = Column(
-        Numeric(10, 4), 
-        nullable=False, 
-        default=0.0000,
-        doc="Unit cost"
-    )
-    line_discount_percent = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line discount percentage"
-    )
-    
-    # Line Totals
-    line_net_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line net amount"
-    )
-    line_tax_code = Column(
-        String(6), 
-        nullable=False, 
-        default='',
-        doc="Line tax code"
-    )
-    line_tax_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line tax amount"
-    )
-    line_total_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line total amount"
-    )
-    
-    # Three-Way Matching Information
-    po_line_ref = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Purchase order line reference"
-    )
-    gr_line_ref = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Goods receipt line reference"
-    )
-    matched = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Line matched in three-way matching"
-    )
+    line_id = Column(Integer, primary_key=True, autoincrement=True, doc="Line ID")
+    invoice_key = Column(String(20), ForeignKey("acas.puinvoice_rec.invoice_key", ondelete="CASCADE"), nullable=False, doc="Invoice number")
+    line_number = Column(Integer, nullable=False, doc="Line number")
+    stock_key = Column(String(30), doc="Stock item code")
+    description = Column(String(40), doc="Line description")
+    quantity = Column(Numeric(15, 3), default=0.000, doc="Quantity")
+    unit_price = Column(Numeric(15, 4), default=0.0000, doc="Unit price")
+    line_total = Column(Numeric(12, 2), default=0.00, doc="Line total")
     
     # Relationships
     invoice = relationship("PurchaseInvoiceRec", back_populates="lines")
-    
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            'line_number > 0', 
-            name='ck_puinv_lines_valid_line_number'
-        ),
-        CheckConstraint(
-            'quantity >= 0', 
-            name='ck_puinv_lines_valid_quantity'
-        ),
-        CheckConstraint(
-            'unit_cost >= 0', 
-            name='ck_puinv_lines_valid_unit_cost'
-        ),
-        CheckConstraint(
-            'line_total_amount = line_net_amount + line_tax_amount', 
-            name='ck_puinv_lines_valid_totals'
-        ),
-        {
-            'comment': 'Purchase invoice line items with matching information'
-        }
-    )
-    
-    def __repr__(self):
-        return f"<PurchaseInvoiceLine(invoice='{self.invoice_key}', line={self.line_number}, item='{self.stock_key}')>"
 
 class PurchaseItemRec(Base):
-    """
-    Purchase Item Record (Open Items)
-    
-    Represents individual purchase transactions for aging and allocation.
-    Mirrors COBOL PUITM5_REC structure.
-    """
+    """Purchase Item Record - Historical purchase data"""
     __tablename__ = "puitm5_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    # Primary Key
-    item_key = Column(
-        String(20), 
-        primary_key=True,
-        doc="Unique item key"
-    )
-    
-    # Supplier Reference
-    purch_key = Column(
-        String(7), 
-        ForeignKey("puledger_rec.purch_key", ondelete="RESTRICT"),
-        nullable=False,
-        doc="Supplier code"
-    )
-    
-    # Item Type and Dates
-    item_type = Column(
-        String(2), 
-        nullable=False,
-        doc="Item type: IN=Invoice, PY=Payment, CM=Credit Memo, etc."
-    )
-    item_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Item date (YYYYMMDD format)"
-    )
-    due_date = Column(
-        Integer,
-        nullable=True,
-        doc="Due date (YYYYMMDD format)"
-    )
-    
-    # Financial Information
-    item_reference = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Reference number (invoice/payment)"
-    )
-    item_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Original item amount"
-    )
-    item_outstanding = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Outstanding amount"
-    )
-    
-    # Status and Allocation
-    item_status = Column(
-        String(1), 
-        nullable=False, 
-        default='O',
-        doc="Status: O=Open, C=Closed, P=Partially Paid"
-    )
-    allocation_key = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Allocation reference"
-    )
-    
-    # Aging Information
-    days_outstanding = Column(
-        Integer, 
-        nullable=False, 
-        default=0,
-        doc="Days outstanding"
-    )
-    aging_bucket = Column(
-        String(1), 
-        nullable=False, 
-        default='1',
-        doc="Aging bucket: 1=Current, 2=30 days, 3=60 days, 4=90+ days"
-    )
+    item_id = Column(Integer, primary_key=True, autoincrement=True, doc="Item ID")
+    purch_key = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="RESTRICT"), nullable=False, doc="Supplier code")
+    stock_key = Column(String(30), doc="Stock item code")
+    transaction_date = Column(Integer, doc="Transaction date (YYYYMMDD)")
+    quantity = Column(Numeric(15, 3), default=0.000, doc="Quantity")
+    value = Column(Numeric(12, 2), default=0.00, doc="Transaction value")
     
     # Relationships
     supplier = relationship("PurchaseLedgerRec", back_populates="items")
+
+
+class SupplierContactRec(Base):
+    """Supplier Contact Record - Multiple contacts per supplier"""
+    __tablename__ = "supplier_contacts"
+    __table_args__ = {'schema': 'acas'}
     
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            "item_type IN ('IN', 'PY', 'CM', 'DM', 'JN')", 
-            name='ck_puitm5_valid_item_type'
-        ),
-        CheckConstraint(
-            "item_status IN ('O', 'C', 'P')", 
-            name='ck_puitm5_valid_status'
-        ),
-        CheckConstraint(
-            "aging_bucket IN ('1', '2', '3', '4')", 
-            name='ck_puitm5_valid_aging_bucket'
-        ),
-        Index('ix_puitm5_supplier', 'purch_key'),
-        Index('ix_puitm5_type', 'item_type'),
-        Index('ix_puitm5_date', 'item_date'),
-        Index('ix_puitm5_aging', 'aging_bucket'),
-        {
-            'comment': 'Purchase open items for aging and allocation'
-        }
-    )
+    # Primary Key
+    contact_id = Column(Integer, primary_key=True, autoincrement=True, doc="Contact ID")
     
-    def __repr__(self):
-        return f"<PurchaseItem(key='{self.item_key}', supplier='{self.purch_key}', type='{self.item_type}')>"
+    # Supplier Reference
+    purch_key = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="CASCADE"), nullable=False, doc="Supplier code")
+    
+    # Contact Information
+    contact_type = Column(String(20), nullable=False, doc="Contact type (Primary, Accounts, Ordering, etc.)")
+    contact_name = Column(String(50), nullable=False, doc="Contact person name")
+    title = Column(String(20), doc="Contact title/position")
+    department = Column(String(30), doc="Department")
+    
+    # Communication Details
+    phone = Column(String(20), doc="Phone number")
+    mobile = Column(String(20), doc="Mobile number")
+    fax = Column(String(20), doc="Fax number")
+    email = Column(String(100), doc="Email address")
+    
+    # Address (if different from main supplier address)
+    address_1 = Column(String(30), doc="Address line 1")
+    address_2 = Column(String(30), doc="Address line 2")
+    address_3 = Column(String(30), doc="Address line 3")
+    city = Column(String(30), doc="City")
+    postcode = Column(String(12), doc="Postcode")
+    country = Column(String(24), doc="Country")
+    
+    # Status and Preferences
+    is_active = Column(String(1), default='Y', doc="Active contact flag")
+    is_primary = Column(String(1), default='N', doc="Primary contact flag")
+    preferred_contact_method = Column(String(10), default='EMAIL', doc="Preferred contact method")
+    
+    # Communication Preferences
+    send_orders = Column(String(1), default='Y', doc="Send purchase orders flag")
+    send_remittances = Column(String(1), default='Y', doc="Send remittance advices flag")
+    send_statements = Column(String(1), default='N', doc="Send statements flag")
+    
+    # Notes
+    notes = Column(Text, doc="Contact notes")
+    
+    # Audit Trail
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    supplier = relationship("PurchaseLedgerRec", foreign_keys=[purch_key])
+
+
+class SupplierBankRec(Base):
+    """Supplier Bank Record - Banking details for payments"""
+    __tablename__ = "supplier_banks"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    bank_id = Column(Integer, primary_key=True, autoincrement=True, doc="Bank record ID")
+    
+    # Supplier Reference
+    purch_key = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="CASCADE"), nullable=False, doc="Supplier code")
+    
+    # Bank Information
+    bank_name = Column(String(50), nullable=False, doc="Bank name")
+    bank_branch = Column(String(50), doc="Branch name")
+    
+    # Bank Address
+    bank_address_1 = Column(String(30), doc="Bank address line 1")
+    bank_address_2 = Column(String(30), doc="Bank address line 2")
+    bank_address_3 = Column(String(30), doc="Bank address line 3")
+    bank_city = Column(String(30), doc="Bank city")
+    bank_postcode = Column(String(12), doc="Bank postcode")
+    bank_country = Column(String(24), doc="Bank country")
+    
+    # Account Details
+    account_number = Column(String(30), nullable=False, doc="Bank account number")
+    account_name = Column(String(50), doc="Account holder name")
+    sort_code = Column(String(10), doc="Sort code")
+    iban = Column(String(34), doc="IBAN")
+    swift_code = Column(String(15), doc="SWIFT/BIC code")
+    
+    # Currency and Type
+    currency = Column(String(3), default='USD', doc="Account currency")
+    account_type = Column(String(20), default='CHECKING', doc="Account type")
+    
+    # Payment Information
+    is_default = Column(String(1), default='N', doc="Default payment account flag")
+    payment_method = Column(String(20), default='BANK_TRANSFER', doc="Preferred payment method")
+    payment_terms = Column(String(20), doc="Special payment terms")
+    minimum_payment = Column(Numeric(12, 2), default=0.00, doc="Minimum payment amount")
+    
+    # Status and Control
+    is_active = Column(String(1), default='Y', doc="Active account flag")
+    requires_authorization = Column(String(1), default='N', doc="Requires authorization flag")
+    
+    # Verification
+    bank_verified = Column(String(1), default='N', doc="Bank details verified flag")
+    verified_date = Column(Integer, doc="Verification date (YYYYMMDD)")
+    verified_by = Column(String(30), doc="Verified by user")
+    
+    # Additional Information
+    reference_code = Column(String(20), doc="Our reference for payments")
+    special_instructions = Column(Text, doc="Special payment instructions")
+    
+    # Audit Trail
+    created_by = Column(String(30), nullable=False, doc="Created by user")
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_by = Column(String(30), doc="Last updated by user")
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    supplier = relationship("PurchaseLedgerRec", foreign_keys=[purch_key])
+
+
+class PurchaseOpenItemRec(Base):
+    """Purchase Open Item Record - Outstanding purchase transactions"""
+    __tablename__ = "puoi_rec"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    oi_id = Column(Integer, primary_key=True, autoincrement=True, doc="Open item ID")
+    
+    # References
+    purch_oi_key = Column(String(20), nullable=False, doc="Open item key")
+    purch_oi_supplier = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="RESTRICT"), nullable=False, doc="Supplier code")
+    
+    # Transaction Details
+    purch_oi_type = Column(String(4), nullable=False, doc="Transaction type (INV, CRN, PAY)")
+    purch_oi_our_ref = Column(String(20), nullable=False, doc="Our reference")
+    purch_oi_their_ref = Column(String(20), default='', doc="Their reference")
+    purch_oi_date = Column(Integer, nullable=False, doc="Transaction date (YYYYMMDD)")
+    purch_oi_due_date = Column(Integer, nullable=False, doc="Due date (YYYYMMDD)")
+    
+    # Financial Values
+    purch_oi_goods = Column(Numeric(12, 2), default=0.00, doc="Goods value")
+    purch_oi_tax = Column(Numeric(12, 2), default=0.00, doc="Tax value")
+    purch_oi_gross = Column(Numeric(12, 2), default=0.00, doc="Gross value")
+    purch_oi_amount = Column(Numeric(12, 2), default=0.00, doc="Outstanding amount")
+    
+    # Currency and Exchange
+    purch_oi_currency = Column(String(3), default='USD', doc="Transaction currency")
+    purch_oi_exchange_rate = Column(Numeric(10, 6), default=1.000000, doc="Exchange rate")
+    
+    # Control Information
+    purch_oi_period = Column(Integer, nullable=False, doc="Accounting period")
+    purch_oi_posted = Column(String(1), default='Y', doc="Posted flag")
+    purch_oi_matched = Column(String(1), default='N', doc="Matched flag")
+    purch_oi_on_hold = Column(String(1), default='N', doc="On hold flag")
+    
+    # Payment Information
+    purch_oi_paid_date = Column(Integer, default=0, doc="Paid date (YYYYMMDD)")
+    purch_oi_discount_taken = Column(Numeric(12, 2), default=0.00, doc="Settlement discount taken")
+    purch_oi_payment_method = Column(String(10), default='', doc="Payment method")
+    
+    # Analysis
+    purch_oi_analysis_1 = Column(String(10), default='', doc="Analysis field 1")
+    purch_oi_analysis_2 = Column(String(10), default='', doc="Analysis field 2")
+    
+    # Aging (calculated fields)
+    purch_oi_days_outstanding = Column(Integer, default=0, doc="Days outstanding")
+    purch_oi_age_band = Column(String(10), default='', doc="Age band")
+    
+    # Notes
+    purch_oi_notes = Column(Text, doc="Open item notes")
+    
+    # Audit Trail
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    supplier = relationship("PurchaseLedgerRec", foreign_keys=[purch_oi_supplier])
+
+
+class PurchaseOrderRec(Base):
+    """Purchase Order Record - Purchase orders header"""
+    __tablename__ = "purchase_orders"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    order_id = Column(Integer, primary_key=True, autoincrement=True, doc="Order ID")
+    order_number = Column(String(20), unique=True, nullable=False, doc="Purchase order number")
+    
+    # Supplier Information
+    supplier_code = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="RESTRICT"), nullable=False, doc="Supplier code")
+    
+    # Order Details
+    order_date = Column(Integer, nullable=False, doc="Order date (YYYYMMDD)")
+    required_date = Column(Integer, doc="Required date (YYYYMMDD)")
+    delivery_date = Column(Integer, doc="Delivery date (YYYYMMDD)")
+    
+    # Financial Information
+    currency = Column(String(3), default='USD', doc="Order currency")
+    exchange_rate = Column(Numeric(10, 6), default=1.000000, doc="Exchange rate")
+    subtotal = Column(Numeric(15, 2), default=0.00, doc="Order subtotal")
+    tax_amount = Column(Numeric(15, 2), default=0.00, doc="Tax amount")
+    total_amount = Column(Numeric(15, 2), default=0.00, doc="Total order amount")
+    
+    # Delivery Information
+    delivery_address_1 = Column(String(30), doc="Delivery address line 1")
+    delivery_address_2 = Column(String(30), doc="Delivery address line 2")
+    delivery_address_3 = Column(String(30), doc="Delivery address line 3")
+    delivery_city = Column(String(30), doc="Delivery city")
+    delivery_postcode = Column(String(12), doc="Delivery postcode")
+    delivery_country = Column(String(24), doc="Delivery country")
+    
+    # Status and Control
+    order_status = Column(String(20), default='DRAFT', doc="Order status")
+    approved_by = Column(String(30), doc="Approved by user")
+    approved_date = Column(Integer, doc="Approval date (YYYYMMDD)")
+    
+    # Terms and Conditions
+    payment_terms = Column(String(20), doc="Payment terms")
+    delivery_terms = Column(String(20), doc="Delivery terms")
+    freight_terms = Column(String(20), doc="Freight terms")
+    
+    # References
+    requisition_number = Column(String(20), doc="Requisition number")
+    buyer_code = Column(String(10), doc="Buyer code")
+    department_code = Column(String(10), doc="Department code")
+    project_code = Column(String(15), doc="Project code")
+    
+    # Notes
+    notes = Column(Text, doc="Order notes")
+    special_instructions = Column(Text, doc="Special instructions")
+    
+    # Audit Trail
+    created_by = Column(String(30), nullable=False, doc="Created by user")
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    supplier = relationship("PurchaseLedgerRec", foreign_keys=[supplier_code])
+    lines = relationship("PurchaseOrderLineRec", back_populates="order", cascade="all, delete-orphan")
+
+
+class PurchaseOrderLineRec(Base):
+    """Purchase Order Line Record - Purchase order line items"""
+    __tablename__ = "purchase_order_lines"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    line_id = Column(Integer, primary_key=True, autoincrement=True, doc="Line ID")
+    
+    # Order Reference
+    order_id = Column(Integer, ForeignKey("acas.purchase_orders.order_id", ondelete="CASCADE"), nullable=False, doc="Purchase order ID")
+    line_number = Column(Integer, nullable=False, doc="Line number")
+    
+    # Item Information
+    stock_code = Column(String(30), doc="Stock item code")
+    supplier_part_number = Column(String(30), doc="Supplier part number")
+    description = Column(String(100), nullable=False, doc="Item description")
+    
+    # Quantity Information
+    quantity_ordered = Column(Numeric(15, 3), nullable=False, doc="Quantity ordered")
+    quantity_received = Column(Numeric(15, 3), default=0.000, doc="Quantity received")
+    quantity_invoiced = Column(Numeric(15, 3), default=0.000, doc="Quantity invoiced")
+    unit_of_measure = Column(String(6), default='EA', doc="Unit of measure")
+    
+    # Pricing Information
+    unit_price = Column(Numeric(15, 4), nullable=False, doc="Unit price")
+    discount_percent = Column(Numeric(5, 2), default=0.00, doc="Discount percentage")
+    discount_amount = Column(Numeric(15, 2), default=0.00, doc="Discount amount")
+    line_total = Column(Numeric(15, 2), nullable=False, doc="Line total")
+    
+    # Delivery Information
+    required_date = Column(Integer, doc="Required date (YYYYMMDD)")
+    promised_date = Column(Integer, doc="Promised date (YYYYMMDD)")
+    delivery_location = Column(String(10), doc="Delivery location")
+    
+    # Status and Control
+    line_status = Column(String(20), default='OPEN', doc="Line status")
+    closed_date = Column(Integer, doc="Line closed date (YYYYMMDD)")
+    
+    # GL and Cost Information
+    gl_account = Column(String(10), doc="GL account code")
+    cost_center = Column(String(10), doc="Cost center")
+    project_code = Column(String(15), doc="Project code")
+    
+    # Receipt Information
+    last_receipt_date = Column(Integer, doc="Last receipt date (YYYYMMDD)")
+    last_receipt_quantity = Column(Numeric(15, 3), default=0.000, doc="Last receipt quantity")
+    
+    # Notes
+    line_notes = Column(Text, doc="Line notes")
+    
+    # Relationships
+    order = relationship("PurchaseOrderRec", back_populates="lines")

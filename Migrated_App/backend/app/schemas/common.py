@@ -2,7 +2,7 @@
 ACAS Common Schemas
 Shared Pydantic models for common API structures
 """
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Any, Dict, List, Optional, Generic, TypeVar
 from decimal import Decimal
 from datetime import datetime
@@ -24,8 +24,8 @@ class PaginatedResponse(BaseModel, Generic[T]):
     has_next: bool = Field(..., description="Whether there is a next page")
     has_previous: bool = Field(..., description="Whether there is a previous page")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "items": [],
                 "total": 150,
@@ -35,6 +35,7 @@ class PaginatedResponse(BaseModel, Generic[T]):
                 "has_next": True,
                 "has_previous": False
             }
+    }
         }
 
 class ErrorResponse(BaseModel):
@@ -52,8 +53,8 @@ class ErrorResponse(BaseModel):
         description="Field-specific validation errors"
     )
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "error": "validation_error",
                 "message": "Invalid input data provided",
@@ -63,6 +64,7 @@ class ErrorResponse(BaseModel):
                     "sales_key": ["Must be exactly 7 characters"],
                     "sales_credit_limit": ["Must be a positive number"]
                 }
+    }
             }
         }
 
@@ -76,8 +78,8 @@ class SuccessResponse(BaseModel):
     message: str = Field(..., description="Success message")
     data: Optional[Dict[str, Any]] = Field(None, description="Additional response data")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "success": True,
                 "message": "Customer updated successfully",
@@ -85,6 +87,7 @@ class SuccessResponse(BaseModel):
                     "updated_at": "2024-12-01T10:30:00Z",
                     "affected_records": 1
                 }
+    }
             }
         }
 
@@ -107,19 +110,21 @@ class DateRange(BaseModel):
         le=29991231
     )
     
-    @validator('to_date')
+    @field_validator('to_date')
+    @classmethod
     def validate_date_range(cls, v, values):
         """Ensure to_date is not before from_date"""
         if v and values.get('from_date') and v < values['from_date']:
             raise ValueError('to_date must be greater than or equal to from_date')
         return v
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "from_date": 20240101,
                 "to_date": 20241231
             }
+    }
         }
 
 class AmountRange(BaseModel):
@@ -131,28 +136,28 @@ class AmountRange(BaseModel):
     min_amount: Optional[Decimal] = Field(
         None, 
         description="Minimum amount",
-        ge=0,
-        decimal_places=2
+        ge=0
     )
     max_amount: Optional[Decimal] = Field(
         None, 
-        description="Maximum amount",
-        decimal_places=2
+        description="Maximum amount"
     )
     
-    @validator('max_amount')
+    @field_validator('max_amount')
+    @classmethod
     def validate_amount_range(cls, v, values):
         """Ensure max_amount is not less than min_amount"""
         if v and values.get('min_amount') and v < values['min_amount']:
             raise ValueError('max_amount must be greater than or equal to min_amount')
         return v
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "min_amount": "0.00",
                 "max_amount": "10000.00"
             }
+    }
         }
 
 class StatusFilter(BaseModel):
@@ -172,13 +177,14 @@ class StatusFilter(BaseModel):
         description="Status values to exclude"
     )
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "active_only": True,
                 "status": "A",
                 "exclude_status": ["C", "H"]
             }
+    }
         }
 
 class SortOrder(BaseModel):
@@ -194,19 +200,21 @@ class SortOrder(BaseModel):
         description="Sort direction: asc or desc"
     )
     
-    @validator('sort_direction')
+    @field_validator('sort_direction')
+    @classmethod
     def validate_sort_direction(cls, v):
         """Ensure sort_direction is valid"""
         if v.lower() not in ['asc', 'desc']:
             raise ValueError('sort_direction must be either "asc" or "desc"')
         return v.lower()
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "sort_by": "sales_name",
                 "sort_direction": "asc"
             }
+    }
         }
 
 class SearchFilter(BaseModel):
@@ -228,13 +236,14 @@ class SearchFilter(BaseModel):
         description="Whether to perform exact match search"
     )
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "search_term": "ACME",
                 "search_fields": ["sales_name", "sales_key"],
                 "exact_match": False
             }
+    }
         }
 
 class BaseFilterParams(BaseModel):
@@ -251,15 +260,16 @@ class BaseFilterParams(BaseModel):
     sort_order: Optional[SortOrder] = Field(None, description="Sort parameters")
     search_filter: Optional[SearchFilter] = Field(None, description="Search parameters")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "page": 1,
                 "page_size": 25,
                 "date_range": {
                     "from_date": 20240101,
                     "to_date": 20241231
-                },
+                }
+    },
                 "status_filter": {
                     "active_only": True
                 },
@@ -279,14 +289,15 @@ class AuditInfo(BaseModel):
     created_by: Optional[str] = Field(None, description="User who created record")
     updated_by: Optional[str] = Field(None, description="User who last updated record")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "created_at": "2024-12-01T10:30:00Z",
                 "updated_at": "2024-12-01T14:15:30Z",
                 "created_by": "admin",
                 "updated_by": "manager"
             }
+    }
         }
 
 class ValidationErrorDetail(BaseModel):
@@ -298,12 +309,13 @@ class ValidationErrorDetail(BaseModel):
     rejected_value: Any = Field(..., description="Value that was rejected")
     constraint: Optional[str] = Field(None, description="Constraint that was violated")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "field": "sales_credit_limit",
                 "message": "Must be a positive number",
                 "rejected_value": -1000.00,
                 "constraint": "greater_than_zero"
             }
+    }
         }

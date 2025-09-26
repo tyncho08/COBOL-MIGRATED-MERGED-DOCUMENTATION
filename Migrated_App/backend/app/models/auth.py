@@ -138,6 +138,55 @@ class UserPreference(Base):
     user = relationship("User", back_populates="preferences")
 
 
+class Permission(Base):
+    """System permissions"""
+    __tablename__ = "permissions"
+    __table_args__ = {"schema": "acas"}
+    
+    permission_id = Column(Integer, primary_key=True)
+    name = Column(String(50), unique=True, nullable=False)
+    description = Column(String(200))
+    module = Column(String(20), nullable=False)  # GL, SL, PL, STOCK, etc.
+    action = Column(String(20), nullable=False)  # read, write, delete, etc.
+    resource = Column(String(50))  # specific resource if applicable
+    
+    # Timestamps
+    created_at = Column(TIMESTAMP(timezone=True), default=datetime.utcnow)
+    
+    # Relationships
+    role_permissions = relationship("RolePermission", back_populates="permission")
+
+
+class UserRole(Base):
+    """User-Role assignment table (many-to-many)"""
+    __tablename__ = "user_roles"
+    __table_args__ = {"schema": "acas"}
+    
+    user_id = Column(UUID(as_uuid=True), ForeignKey("acas.users.user_id"), primary_key=True)
+    role_id = Column(Integer, ForeignKey("acas.roles.role_id"), primary_key=True)
+    assigned_at = Column(TIMESTAMP(timezone=True), default=datetime.utcnow)
+    assigned_by = Column(String(30), nullable=False)
+    
+    # Relationships
+    user = relationship("User", backref="user_roles")
+    role = relationship("Role", backref="user_roles")
+
+
+class RolePermission(Base):
+    """Role-Permission assignment table (many-to-many)"""
+    __tablename__ = "role_permissions"
+    __table_args__ = {"schema": "acas"}
+    
+    role_id = Column(Integer, ForeignKey("acas.roles.role_id"), primary_key=True)
+    permission_id = Column(Integer, ForeignKey("acas.permissions.permission_id"), primary_key=True)
+    granted_at = Column(TIMESTAMP(timezone=True), default=datetime.utcnow)
+    granted_by = Column(String(30), nullable=False)
+    
+    # Relationships
+    role = relationship("Role", backref="role_permissions")
+    permission = relationship("Permission", back_populates="role_permissions")
+
+
 class SystemLock(Base):
     """Record locking for concurrent access control"""
     __tablename__ = "system_locks"

@@ -13,7 +13,7 @@ from app.services.file_handlers.system_handler import SystemFileHandler
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.open_items_handler import PurchaseOpenItemsHandler
 from app.models.supplier import PurchaseLedgerRec
-from app.models.purchase import PurchaseOpenItemRec, PurchaseInvoiceRec, PurchaseInvoiceLineRec
+from app.models.supplier import PurchaseInvoiceRec, PurchaseInvoiceLineRec, PurchaseOpenItemRec
 from app.models.stock import StockMasterRec
 from app.models.system import SystemRec
 from app.services.gl.journal_entry import JournalEntryService

@@ -2,7 +2,8 @@
 ACAS FastAPI Configuration
 Core settings for the ACAS migration application
 """
-from pydantic import BaseSettings, validator
+from pydantic import validator
+from pydantic_settings import BaseSettings
 from typing import Optional
 import os
 from pathlib import Path
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     
     # Database Configuration
-    DATABASE_URL: str = "postgresql://acas_user:acas_password@localhost:5432/acas_db"
+    DATABASE_URL: str = "postgresql://MartinGonella@localhost:5432/acas_db"
     DATABASE_POOL_SIZE: int = 10
     DATABASE_MAX_OVERFLOW: int = 20
     
@@ -41,7 +42,10 @@ class Settings(BaseSettings):
     
     # Logging
     LOG_LEVEL: str = "INFO"
-    LOG_FILE: Optional[str] = "acas.log"
+    LOG_DIR: Path = Path("../logs")  # Logs directory in project root
+    LOG_FILE: str = "app.log"
+    ERROR_LOG_FILE: str = "error.log"
+    ACCESS_LOG_FILE: str = "access.log"
     
     # Business Logic Settings
     DEFAULT_CURRENCY: str = "GBP"
@@ -91,6 +95,13 @@ class Settings(BaseSettings):
         """Ensure upload directory exists"""
         path = Path(v) if isinstance(v, str) else v
         path.mkdir(exist_ok=True)
+        return path
+    
+    @validator("LOG_DIR", pre=True)
+    def create_log_dir(cls, v):
+        """Ensure logs directory exists"""
+        path = Path(v) if isinstance(v, str) else v
+        path.mkdir(exist_ok=True, parents=True)
         return path
     
     class Config:

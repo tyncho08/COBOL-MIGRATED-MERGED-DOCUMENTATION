@@ -9,12 +9,12 @@ from .bank_reconciliation import IrsBankReconciliationService
 from .tax_calculations import IrsTaxCalculationService
 from .tax_tables import IrsTaxTableService
 from .tax_return import IrsTaxReturnService
-from .schedules import IrsScheduleService
-from .estimated_payments import IrsEstimatedPaymentService
+from .schedule_service import IrsScheduleService
+from .estimated_payment_service import IrsEstimatedPaymentService
 from .fiscal_close import IrsFiscalCloseService
-from .depreciation import IrsDepreciationService
-from .audit_trail import IrsAuditTrailService
-from .electronic_filing import IrsElectronicFilingService
+from .depreciation_service import IrsDepreciationService
+from .audit_trail_service import AuditTrailService
+from .electronic_filing_service import ElectronicFilingService
 
 __all__ = [
     'IrsCompanyConfigService',
@@ -22,11 +22,11 @@ __all__ = [
     'IrsBankReconciliationService',
     'IrsTaxCalculationService',
     'IrsTaxTableService',
-    'IrsTaxReturnService',
-    'IrsScheduleService',
-    'IrsEstimatedPaymentService',
+    'TaxReturnService',
+    'ScheduleService',
+    'EstimatedPaymentService',
     'IrsFiscalCloseService',
-    'IrsDepreciationService',
-    'IrsAuditTrailService',
-    'IrsElectronicFilingService'
+    'DepreciationService',
+    'AuditTrailService',
+    'ElectronicFilingService'
 ]

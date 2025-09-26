@@ -261,7 +261,8 @@ class SystemRec(Base):
             name='ck_system_rec_valid_backup_retention'
         ),
         {
-            'comment': 'System configuration table - single record containing all system parameters'
+            'comment': 'System configuration table - single record containing all system parameters',
+            'schema': 'acas'
         }
     )
     

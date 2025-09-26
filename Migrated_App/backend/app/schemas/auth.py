@@ -2,7 +2,7 @@
 Authentication schemas for request/response validation
 """
 from typing import Optional, Dict, Any
-from pydantic import BaseModel, EmailStr, Field, UUID4
+from pydantic import BaseModel, EmailStr, Field, UUID4, ConfigDict
 from datetime import datetime
 
 
@@ -31,13 +31,14 @@ class PasswordChange(BaseModel):
     new_password: str = Field(..., min_length=8)
     confirm_password: str = Field(..., min_length=8)
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "old_password": "current_password",
                 "new_password": "new_secure_password",
                 "confirm_password": "new_secure_password"
             }
+    }
         }
 
 
@@ -58,8 +59,8 @@ class UserCreate(UserBase):
     """User creation request"""
     password: str = Field(..., min_length=8)
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "username": "john_doe",
                 "email": "john.doe@example.com",
@@ -69,6 +70,7 @@ class UserCreate(UserBase):
                 "is_active": True,
                 "is_superuser": False
             }
+    }
         }
 
 
@@ -100,8 +102,7 @@ class UserResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RoleBase(BaseModel):
@@ -140,8 +141,7 @@ class RoleResponse(RoleBase):
     created_at: datetime
     updated_at: datetime
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SessionInfo(BaseModel):
@@ -153,5 +153,46 @@ class SessionInfo(BaseModel):
     expires_at: datetime
     ip_address: Optional[str] = None
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PermissionBase(BaseModel):
+    """Base permission properties"""
+    permission_name: str = Field(..., min_length=3, max_length=50)
+    permission_description: Optional[str] = Field(None, max_length=200)
+    resource: str = Field(..., min_length=1, max_length=50)
+    action: str = Field(..., min_length=1, max_length=50)
+    conditions: Dict[str, Any] = {}
+
+
+class PermissionCreate(PermissionBase):
+    """Permission creation request"""
+    pass
+
+
+class PermissionUpdate(BaseModel):
+    """Permission update request"""
+    permission_description: Optional[str] = None
+    conditions: Optional[Dict[str, Any]] = None
+
+
+class PermissionResponse(PermissionBase):
+    """Permission response"""
+    permission_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UserRoleAssignment(BaseModel):
+    """User role assignment request"""
+    role_id: int = Field(..., gt=0)
+    
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "role_id": 3
+            }
+        }
+    }

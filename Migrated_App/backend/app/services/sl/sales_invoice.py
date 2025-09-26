@@ -13,7 +13,8 @@ from app.services.file_handlers.system_handler import SystemFileHandler
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.open_items_handler import SalesOpenItemsHandler
 from app.models.customer import SalesLedgerRec
-from app.models.sales import SalesOpenItemRec, SalesInvoiceRec, SalesInvoiceLineRec
+from app.models.sales import SalesOpenItemRec
+from app.models.customer import SalesInvoiceRec, SalesInvoiceLineRec
 from app.models.stock import StockMasterRec
 from app.models.system import SystemRec
 from app.services.gl.journal_entry import JournalEntryService

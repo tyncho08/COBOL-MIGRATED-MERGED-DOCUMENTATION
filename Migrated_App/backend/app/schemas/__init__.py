@@ -16,8 +16,8 @@ from .supplier import (
     PurchaseInvoiceLineBase, PurchaseInvoiceLineCreate, PurchaseInvoiceLineResponse
 )
 from .stock import (
-    StockItemBase, StockItemCreate, StockItemUpdate, StockItemResponse,
-    StockMovementBase, StockMovementCreate, StockMovementResponse
+    StockItemBase, StockItemCreate, StockItemUpdate, StockItem,
+    StockMovementBase, StockMovementCreate, StockMovement
 )
 from .gl_accounts import (
     GLAccountBase, GLAccountCreate, GLAccountUpdate, GLAccountResponse,

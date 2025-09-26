@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { 
-  BuildingOfficeIcon,
   UsersIcon,
   TruckIcon,
   CubeIcon,
@@ -11,6 +10,8 @@ import {
   BanknotesIcon,
   ClipboardDocumentCheckIcon
 } from '@heroicons/react/24/outline'
+import { Card, StatsCard } from '@/components/UI/Card'
+import PageHeader from '@/components/Layout/PageHeader'
 
 interface SystemStatus {
   system_healthy: boolean
@@ -34,7 +35,7 @@ export default function Dashboard() {
     // Fetch system status
     const fetchStatus = async () => {
       try {
-        const response = await fetch('/api/health')
+        const response = await fetch('http://localhost:8000/health')
         if (response.ok) {
           const data = await response.json()
           setSystemStatus({
@@ -53,6 +54,20 @@ export default function Dashboard() {
         }
       } catch (error) {
         console.error('Failed to fetch system status:', error)
+        // Set default status on error
+        setSystemStatus({
+          system_healthy: false,
+          database_connected: false,
+          gl_balanced: false,
+          period_open: true,
+          modules_active: {
+            gl: false,
+            sl: false,
+            pl: false,
+            stock: false,
+            irs: false
+          }
+        })
       } finally {
         setLoading(false)
       }
@@ -132,105 +147,49 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <BuildingOfficeIcon className="h-8 w-8 text-primary-600 mr-3" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">ACAS</h1>
-                <p className="text-sm text-gray-500">Applewood Computers Accounting System</p>
-              </div>
-            </div>
-            
-            {/* System Status Indicator */}
-            <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${
-                systemStatus?.system_healthy ? 'bg-green-500' : 'bg-red-500'
-              }`} />
-              <span className="text-sm text-gray-600">
-                System {systemStatus?.system_healthy ? 'Healthy' : 'Issues Detected'}
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        title="Dashboard"
+        description="ACAS - Applewood Computers Accounting System Overview"
+      />
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* System Status Cards */}
         {systemStatus && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div className="card">
-              <div className="card-body">
-                <div className="flex items-center">
-                  <ClipboardDocumentCheckIcon className="h-8 w-8 text-blue-500 mr-3" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Database</p>
-                    <p className="text-lg font-semibold text-gray-900">
-                      {systemStatus.database_connected ? 'Connected' : 'Disconnected'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card">
-              <div className="card-body">
-                <div className="flex items-center">
-                  <DocumentTextIcon className="h-8 w-8 text-green-500 mr-3" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">GL Status</p>
-                    <p className="text-lg font-semibold text-gray-900">
-                      {systemStatus.gl_balanced ? 'Balanced' : 'Out of Balance'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card">
-              <div className="card-body">
-                <div className="flex items-center">
-                  <ChartBarIcon className="h-8 w-8 text-purple-500 mr-3" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Period Status</p>
-                    <p className="text-lg font-semibold text-gray-900">
-                      {systemStatus.period_open ? 'Open' : 'Locked'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="card">
-              <div className="card-body">
-                <div className="flex items-center">
-                  <BanknotesIcon className="h-8 w-8 text-yellow-500 mr-3" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Current Period</p>
-                    <p className="text-lg font-semibold text-gray-900">Period 1</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <StatsCard
+              title="Database"
+              value={systemStatus.database_connected ? 'Connected' : 'Disconnected'}
+              icon={<ClipboardDocumentCheckIcon className="h-6 w-6" />}
+            />
+            <StatsCard
+              title="GL Status"
+              value={systemStatus.gl_balanced ? 'Balanced' : 'Out of Balance'}
+              icon={<DocumentTextIcon className="h-6 w-6" />}
+            />
+            <StatsCard
+              title="Period Status"
+              value={systemStatus.period_open ? 'Open' : 'Locked'}
+              icon={<ChartBarIcon className="h-6 w-6" />}
+            />
+            <StatsCard
+              title="Current Period"
+              value="Period 1"
+              icon={<BanknotesIcon className="h-6 w-6" />}
+            />
           </div>
         )}
 
         {/* Welcome Message */}
-        <div className="card mb-8">
-          <div className="card-body">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              Welcome to ACAS Migration System
-            </h2>
-            <p className="text-gray-600">
-              Complete ERP system migrated from 49 years of legacy COBOL to a modern web application. 
-              This system provides comprehensive business management including accounting, inventory, 
-              customer relations, and financial reporting with exact business logic preservation.
-            </p>
-          </div>
-        </div>
+        <Card className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Welcome to ACAS Migration System
+          </h2>
+          <p className="text-gray-600">
+            Complete ERP system migrated from 49 years of legacy COBOL to a modern web application. 
+            This system provides comprehensive business management including accounting, inventory, 
+            customer relations, and financial reporting with exact business logic preservation.
+          </p>
+        </Card>
 
         {/* Module Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -238,9 +197,9 @@ export default function Dashboard() {
             <a
               key={module.title}
               href={module.href}
-              className="card hover:shadow-md transition-shadow cursor-pointer"
+              className="block hover:shadow-md transition-shadow"
             >
-              <div className="card-body">
+              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
                 <div className="flex items-start">
                   <div className={`p-3 rounded-lg ${module.color} text-white mr-4`}>
                     <module.icon className="h-6 w-6" />
@@ -262,18 +221,18 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </a>
           ))}
         </div>
 
         {/* System Information */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="card">
-            <div className="card-header">
+          <Card>
+            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
               <h3 className="text-lg font-medium text-gray-900">System Features</h3>
             </div>
-            <div className="card-body">
+            <div className="p-6">
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
@@ -301,13 +260,13 @@ export default function Dashboard() {
                 </li>
               </ul>
             </div>
-          </div>
+          </Card>
           
-          <div className="card">
-            <div className="card-header">
+          <Card>
+            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
               <h3 className="text-lg font-medium text-gray-900">Migration Information</h3>
             </div>
-            <div className="card-body">
+            <div className="p-6">
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <dt className="text-gray-500">Original System:</dt>
@@ -335,7 +294,7 @@ export default function Dashboard() {
                 </div>
               </dl>
             </div>
-          </div>
+          </Card>
         </div>
       </main>
     </div>

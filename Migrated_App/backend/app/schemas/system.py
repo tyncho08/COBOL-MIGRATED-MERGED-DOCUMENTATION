@@ -2,8 +2,8 @@
 ACAS System Configuration Schemas
 Pydantic models for system configuration API
 """
-from pydantic import BaseModel, Field, validator
-from typing import Optional
+from pydantic import BaseModel, Field, field_validator
+from typing import Optional, Annotated
 from decimal import Decimal
 from datetime import datetime
 
@@ -27,9 +27,9 @@ class SystemConfigBase(BaseModel):
     base_currency: str = Field("GBP", max_length=3, description="Base currency code (ISO 4217)")
     
     # VAT/Tax Configuration
-    vat_rate_1: Decimal = Field(Decimal('0.000'), ge=0, le=100, decimal_places=3, description="Primary VAT rate")
-    vat_rate_2: Decimal = Field(Decimal('0.000'), ge=0, le=100, decimal_places=3, description="Secondary VAT rate")
-    vat_rate_3: Decimal = Field(Decimal('0.000'), ge=0, le=100, decimal_places=3, description="Tertiary VAT rate")
+    vat_rate_1: Annotated[Decimal, Field(ge=0, le=100)] = Decimal('0.000')
+    vat_rate_2: Annotated[Decimal, Field(ge=0, le=100)] = Decimal('0.000')
+    vat_rate_3: Annotated[Decimal, Field(ge=0, le=100)] = Decimal('0.000')
     vat_code_1: str = Field("", max_length=6, description="Primary VAT code")
     vat_code_2: str = Field("", max_length=6, description="Secondary VAT code")
     vat_code_3: str = Field("", max_length=6, description="Tertiary VAT code")
@@ -47,14 +47,16 @@ class SystemConfigBase(BaseModel):
     auto_post_gl: bool = Field(True, description="Auto-post transactions to GL")
     period_locked: bool = Field(False, description="Current period locked")
     
-    @validator('base_currency')
+    @field_validator('base_currency')
+    @classmethod
     def validate_currency_code(cls, v):
         """Validate currency code format"""
         if len(v) != 3 or not v.isupper():
             raise ValueError('Currency code must be 3 uppercase letters')
         return v
     
-    @validator('year_end_date')
+    @field_validator('year_end_date')
+    @classmethod
     def validate_year_end_date(cls, v):
         """Validate year end date format"""
         date_str = str(v).zfill(8)
@@ -73,8 +75,8 @@ class SystemConfigBase(BaseModel):
         
         return v
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "company_name": "ACAS Demo Company Ltd",
                 "company_address_1": "123 Business Street",
@@ -98,6 +100,7 @@ class SystemConfigBase(BaseModel):
                 "period_locked": False
             }
         }
+    }
 
 class SystemConfigCreate(SystemConfigBase):
     """
@@ -127,9 +130,9 @@ class SystemConfigUpdate(BaseModel):
     base_currency: Optional[str] = Field(None, max_length=3, description="Base currency code")
     
     # VAT Configuration
-    vat_rate_1: Optional[Decimal] = Field(None, ge=0, le=100, decimal_places=3)
-    vat_rate_2: Optional[Decimal] = Field(None, ge=0, le=100, decimal_places=3)
-    vat_rate_3: Optional[Decimal] = Field(None, ge=0, le=100, decimal_places=3)
+    vat_rate_1: Optional[Annotated[Decimal, Field(ge=0, le=100)]] = None
+    vat_rate_2: Optional[Annotated[Decimal, Field(ge=0, le=100)]] = None
+    vat_rate_3: Optional[Annotated[Decimal, Field(ge=0, le=100)]] = None
     vat_code_1: Optional[str] = Field(None, max_length=6)
     vat_code_2: Optional[str] = Field(None, max_length=6)
     vat_code_3: Optional[str] = Field(None, max_length=6)
@@ -156,11 +159,11 @@ class SystemConfigResponse(SystemConfigBase):
     system_rec_key: int = Field(..., description="System record key (always 1)")
     
     # Control Totals (read-only)
-    gl_total_dr: Decimal = Field(..., decimal_places=2, description="GL total debits")
-    gl_total_cr: Decimal = Field(..., decimal_places=2, description="GL total credits")
-    sl_total_balance: Decimal = Field(..., decimal_places=2, description="Sales ledger total balance")
-    pl_total_balance: Decimal = Field(..., decimal_places=2, description="Purchase ledger total balance")
-    stock_total_value: Decimal = Field(..., decimal_places=2, description="Stock total value")
+    gl_total_dr: Annotated[Decimal, Field(description="GL total debits")]
+    gl_total_cr: Annotated[Decimal, Field(description="GL total credits")]
+    sl_total_balance: Annotated[Decimal, Field(description="Sales ledger total balance")]
+    pl_total_balance: Annotated[Decimal, Field(description="Purchase ledger total balance")]
+    stock_total_value: Annotated[Decimal, Field(description="Stock total value")]
     
     # Version Information
     version: str = Field(..., description="System version")
@@ -171,9 +174,9 @@ class SystemConfigResponse(SystemConfigBase):
     gl_in_balance: bool = Field(..., description="Whether GL debits equal credits")
     is_period_open: bool = Field(..., description="Whether current period is open")
     
-    class Config:
-        orm_mode = True
-        schema_extra = {
+    model_config = {
+        "from_attributes": True,
+        "json_schema_extra": {
             "example": {
                 "system_rec_key": 1,
                 "company_name": "ACAS Demo Company Ltd",
@@ -212,6 +215,7 @@ class SystemConfigResponse(SystemConfigBase):
                 "is_period_open": True
             }
         }
+    }
 
 class SystemStatus(BaseModel):
     """
@@ -227,8 +231,8 @@ class SystemStatus(BaseModel):
     last_backup: Optional[datetime] = Field(None, description="Last backup timestamp")
     system_load: dict = Field(..., description="System performance metrics")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "system_healthy": True,
                 "database_connected": True,
@@ -250,6 +254,7 @@ class SystemStatus(BaseModel):
                 }
             }
         }
+    }
 
 # System Configuration alias for backward compatibility
 SystemConfig = SystemConfigBase

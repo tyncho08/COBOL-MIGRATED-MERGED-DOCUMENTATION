@@ -2,7 +2,7 @@
 ACAS Database Configuration
 SQLAlchemy setup for PostgreSQL connection
 """
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import QueuePool
@@ -70,7 +70,7 @@ def init_db():
         # Import all models to ensure they are registered with Base
         from app.models import (
             system, customer, supplier, stock, 
-            gl_accounts, invoices, payments
+            gl_accounts, payments, sales, auth, audit, gl, irs, warehouse
         )
         
         # Create all tables
@@ -90,7 +90,7 @@ def check_db_connection() -> bool:
     """
     try:
         with engine.connect() as connection:
-            connection.execute("SELECT 1")
+            connection.execute(text("SELECT 1"))
         return True
     except Exception as e:
         logger.error(f"Database connection failed: {e}")

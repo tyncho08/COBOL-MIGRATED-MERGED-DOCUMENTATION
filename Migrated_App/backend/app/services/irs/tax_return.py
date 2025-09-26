@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func, desc
 
 from app.services.file_handlers.system_handler import SystemFileHandler
-from app.models.irs import (
+from app.models import (
     IrsTaxReturnRec, IrsTaxCalculationRec, IrsCompanyConfigRec,
     IrsTransactionRec, IrsScheduleRec
 )

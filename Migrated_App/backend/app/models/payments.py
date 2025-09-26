@@ -107,7 +107,8 @@ class PurchasePaymentRec(Base):
         Index('ix_plpay_cheque', 'pay_cheque'),
         Index('ix_plpay_account', 'pay_account'),
         {
-            'comment': 'Purchase payment batch headers'
+            'comment': 'Purchase payment batch headers',
+            'schema': 'acas'
         }
     )
     
@@ -154,7 +155,7 @@ class PurchasePaymentLineRec(Base):
     # Composite Primary Key
     pay_key = Column(
         String(9), 
-        ForeignKey("plpay_rec.pay_key", ondelete="CASCADE"),
+        ForeignKey("acas.plpay_rec.pay_key", ondelete="CASCADE"),
         primary_key=True,
         doc="Payment batch key"
     )
@@ -224,7 +225,8 @@ class PurchasePaymentLineRec(Base):
         Index('ix_plpay_lines_folio', 'pay_folio'),
         Index('ix_plpay_lines_invoice', 'pay_invoice'),
         {
-            'comment': 'Purchase payment line items with invoice allocation'
+            'comment': 'Purchase payment line items with invoice allocation',
+            'schema': 'acas'
         }
     )
     
@@ -273,7 +275,7 @@ class SalesPaymentRec(Base):
     # Customer Reference
     sales_key = Column(
         String(7), 
-        ForeignKey("saledger_rec.sales_key", ondelete="RESTRICT"),
+        ForeignKey("acas.saledger_rec.sales_key", ondelete="RESTRICT"),
         nullable=False,
         doc="Customer code"
     )
@@ -405,7 +407,8 @@ class SalesPaymentRec(Base):
         Index('ix_sales_payment_method', 'payment_method'),
         Index('ix_sales_payment_status', 'payment_status'),
         {
-            'comment': 'Customer payments received with allocation status'
+            'comment': 'Customer payments received with allocation status',
+            'schema': 'acas'
         }
     )
     

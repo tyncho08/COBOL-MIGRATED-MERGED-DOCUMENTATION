@@ -2,7 +2,7 @@
 ACAS Supplier (Purchase Ledger) Schemas
 Simplified schemas for supplier management
 """
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import Optional, List
 from decimal import Decimal
 from datetime import datetime
@@ -36,22 +36,21 @@ class SupplierUpdate(BaseModel):
 class SupplierResponse(SupplierBase):
     """Supplier response schema"""
     purch_key: str = Field(..., description="Supplier code")
-    purch_balance: Decimal = Field(..., decimal_places=2, description="Balance")
-    purch_ytd_turnover: Decimal = Field(..., decimal_places=2, description="YTD turnover")
+    purch_balance: Decimal = Field(..., description="Balance")
+    purch_ytd_turnover: Decimal = Field(..., description="YTD turnover")
     is_active: bool = Field(..., description="Is active")
     created_at: datetime
     updated_at: Optional[datetime] = None
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Purchase Invoice schemas (simplified)
 class PurchaseInvoiceLineBase(BaseModel):
     """Base purchase invoice line"""
     stock_key: str = Field("", max_length=13)
     item_description: str = Field(..., max_length=40)
-    quantity: Decimal = Field(..., ge=0, decimal_places=3)
-    unit_cost: Decimal = Field(..., ge=0, decimal_places=4)
+    quantity: Decimal = Field(..., ge=0)
+    unit_cost: Decimal = Field(..., ge=0)
     line_tax_code: str = Field("", max_length=6)
 
 class PurchaseInvoiceLineCreate(PurchaseInvoiceLineBase):
@@ -62,13 +61,12 @@ class PurchaseInvoiceLineResponse(PurchaseInvoiceLineBase):
     """Purchase invoice line response"""
     invoice_key: str
     line_number: int
-    line_net_amount: Decimal = Field(..., decimal_places=2)
-    line_tax_amount: Decimal = Field(..., decimal_places=2)
-    line_total_amount: Decimal = Field(..., decimal_places=2)
+    line_net_amount: Decimal = Field(...)
+    line_tax_amount: Decimal = Field(...)
+    line_total_amount: Decimal = Field(...)
     matched: bool = Field(..., description="Three-way matched")
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PurchaseInvoiceBase(BaseModel):
     """Base purchase invoice"""
@@ -88,14 +86,13 @@ class PurchaseInvoiceResponse(PurchaseInvoiceBase):
     invoice_key: str
     purch_key: str
     invoice_status: str
-    net_amount: Decimal = Field(..., decimal_places=2)
-    tax_amount: Decimal = Field(..., decimal_places=2)
-    gross_amount: Decimal = Field(..., decimal_places=2)
-    amount_outstanding: Decimal = Field(..., decimal_places=2)
+    net_amount: Decimal = Field(...)
+    tax_amount: Decimal = Field(...)
+    gross_amount: Decimal = Field(...)
+    amount_outstanding: Decimal = Field(...)
     three_way_matched: bool
     posted_to_gl: bool
     lines: List[PurchaseInvoiceLineResponse] = []
     created_at: datetime
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

@@ -1421,11 +1421,11 @@ CREATE TRIGGER trg_update_supplier_balance
 AFTER INSERT OR UPDATE OR DELETE ON puitm5_rec
 FOR EACH ROW EXECUTE FUNCTION update_supplier_balance();
 
--- Audit trigger function
-CREATE OR REPLACE FUNCTION audit_trigger_function()
+-- Audit trigger function (FINAL CORRECTED VERSION)
+CREATE OR REPLACE FUNCTION acas.audit_trigger_function()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO audit_log (
+    INSERT INTO acas.audit_log (
         audit_user,
         audit_action,
         audit_table,
@@ -1436,9 +1436,26 @@ BEGIN
         CURRENT_USER,
         TG_OP,
         TG_TABLE_NAME,
+        -- Use a generic approach that extracts primary key from JSON
         CASE 
-            WHEN TG_OP = 'DELETE' THEN OLD::TEXT
-            ELSE NEW::TEXT
+            WHEN TG_OP = 'DELETE' THEN 
+                CASE TG_TABLE_NAME
+                    WHEN 'saledger_rec' THEN (row_to_json(OLD)->>'sales_key')
+                    WHEN 'puledger_rec' THEN (row_to_json(OLD)->>'purch_key')
+                    WHEN 'stock_rec' THEN (row_to_json(OLD)->>'stock_key')
+                    WHEN 'glledger_rec' THEN (row_to_json(OLD)->>'ledger_key')
+                    WHEN 'users' THEN (row_to_json(OLD)->>'id')
+                    ELSE 'unknown'
+                END
+            ELSE 
+                CASE TG_TABLE_NAME
+                    WHEN 'saledger_rec' THEN (row_to_json(NEW)->>'sales_key')
+                    WHEN 'puledger_rec' THEN (row_to_json(NEW)->>'purch_key')
+                    WHEN 'stock_rec' THEN (row_to_json(NEW)->>'stock_key')
+                    WHEN 'glledger_rec' THEN (row_to_json(NEW)->>'ledger_key')
+                    WHEN 'users' THEN (row_to_json(NEW)->>'id')
+                    ELSE 'unknown'
+                END
         END,
         CASE 
             WHEN TG_OP IN ('UPDATE', 'DELETE') THEN row_to_json(OLD)
@@ -1459,16 +1476,16 @@ $$ LANGUAGE plpgsql;
 
 -- Apply audit triggers to key tables
 CREATE TRIGGER audit_saledger AFTER INSERT OR UPDATE OR DELETE ON saledger_rec
-FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+FOR EACH ROW EXECUTE FUNCTION acas.audit_trigger_function();
 
 CREATE TRIGGER audit_puledger AFTER INSERT OR UPDATE OR DELETE ON puledger_rec
-FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+FOR EACH ROW EXECUTE FUNCTION acas.audit_trigger_function();
 
 CREATE TRIGGER audit_stock AFTER INSERT OR UPDATE OR DELETE ON stock_rec
-FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+FOR EACH ROW EXECUTE FUNCTION acas.audit_trigger_function();
 
 CREATE TRIGGER audit_glledger AFTER INSERT OR UPDATE OR DELETE ON glledger_rec
-FOR EACH ROW EXECUTE FUNCTION audit_trigger_function();
+FOR EACH ROW EXECUTE FUNCTION acas.audit_trigger_function();
 
 -- =============================================
 -- INDEXES FOR PERFORMANCE

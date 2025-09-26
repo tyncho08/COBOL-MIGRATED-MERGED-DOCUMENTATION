@@ -15,19 +15,13 @@ sys.path.append(str(Path(__file__).parent))
 
 from core.config import settings
 from core.database import check_db_connection, init_db
+from core.logging import setup_logging, setup_uvicorn_logging, get_logger
 from datetime import datetime
 
-# Configure logging
-logging.basicConfig(
-    level=getattr(logging, settings.LOG_LEVEL),
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler(settings.LOG_FILE) if settings.LOG_FILE else logging.NullHandler()
-    ]
-)
-
-logger = logging.getLogger(__name__)
+# Setup centralized logging
+setup_logging()
+setup_uvicorn_logging()
+logger = get_logger("main")
 
 # Create FastAPI application
 app = FastAPI(
@@ -195,48 +189,13 @@ async def global_exception_handler(request, exc):
     )
 
 # Include API routers
-from api.v1 import auth
+from api.v1.api_router import api_router
 
+# Include all API v1 routes
 app.include_router(
-    auth.router,
-    prefix=f"{settings.API_V1_STR}",
-    tags=["Authentication"]
+    api_router,
+    prefix=settings.API_V1_STR
 )
-
-# Additional routers to be implemented
-"""
-from api.v1 import customers, suppliers, stock, invoices, reports
-
-app.include_router(
-    customers.router,
-    prefix=f"{settings.API_V1_STR}/customers",
-    tags=["Customers"]
-)
-
-app.include_router(
-    suppliers.router,
-    prefix=f"{settings.API_V1_STR}/suppliers",
-    tags=["Suppliers"]
-)
-
-app.include_router(
-    stock.router,
-    prefix=f"{settings.API_V1_STR}/stock",
-    tags=["Stock Control"]
-)
-
-app.include_router(
-    invoices.router,
-    prefix=f"{settings.API_V1_STR}/invoices",
-    tags=["Invoices"]
-)
-
-app.include_router(
-    reports.router,
-    prefix=f"{settings.API_V1_STR}/reports",
-    tags=["Reports"]
-)
-"""
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,0 +1,164 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - staging
+          - production
+      version:
+        description: 'Version tag to deploy'
+        required: true
+        default: 'latest'
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up environment variables
+      run: |
+        echo "DEPLOY_ENV=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+        echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+        
+        if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+          echo "DOMAIN=acas.company.com" >> $GITHUB_ENV
+          echo "DB_HOST=${{ secrets.PROD_DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.PROD_DB_NAME }}" >> $GITHUB_ENV
+        else
+          echo "DOMAIN=staging.acas.company.com" >> $GITHUB_ENV
+          echo "DB_HOST=${{ secrets.STAGING_DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.STAGING_DB_NAME }}" >> $GITHUB_ENV
+        fi
+    
+    - name: Deploy backend to server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          # Stop existing containers
+          docker-compose -f /opt/acas/docker-compose.yml down || true
+          
+          # Pull latest images
+          docker pull acas/backend:${{ env.VERSION }}
+          docker pull acas/frontend:${{ env.VERSION }}
+          
+          # Update environment file
+          cat > /opt/acas/.env << EOF
+          ENVIRONMENT=${{ env.DEPLOY_ENV }}
+          DATABASE_URL=postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ env.DB_HOST }}:5432/${{ env.DB_NAME }}
+          SECRET_KEY=${{ secrets.SECRET_KEY }}
+          ALGORITHM=HS256
+          ACCESS_TOKEN_EXPIRE_MINUTES=30
+          CORS_ORIGINS=https://${{ env.DOMAIN }}
+          VERSION=${{ env.VERSION }}
+          EOF
+          
+          # Start services
+          cd /opt/acas
+          docker-compose up -d
+          
+          # Wait for services to be ready
+          sleep 30
+          
+          # Run database migrations
+          docker-compose exec -T backend python -c "
+          from app.core.database import Base, engine
+          Base.metadata.create_all(bind=engine)
+          print('Database migrations completed')
+          "
+    
+    - name: Health check
+      run: |
+        max_attempts=30
+        attempt=1
+        
+        while [ $attempt -le $max_attempts ]; do
+          echo "Health check attempt $attempt..."
+          
+          if curl -f https://${{ env.DOMAIN }}/health; then
+            echo "Application is healthy!"
+            break
+          fi
+          
+          if [ $attempt -eq $max_attempts ]; then
+            echo "Health check failed after $max_attempts attempts"
+            exit 1
+          fi
+          
+          sleep 10
+          attempt=$((attempt + 1))
+        done
+    
+    - name: Run post-deployment tests
+      run: |
+        echo "Running post-deployment smoke tests..."
+        
+        # Test API endpoints
+        curl -f https://${{ env.DOMAIN }}/health
+        curl -f https://${{ env.DOMAIN }}/info
+        
+        echo "Post-deployment tests completed successfully"
+    
+    - name: Notify deployment status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" = "success" ]; then
+          echo "✅ Deployment to ${{ env.DEPLOY_ENV }} successful"
+          echo "🚀 Version ${{ env.VERSION }} is now live at https://${{ env.DOMAIN }}"
+        else
+          echo "❌ Deployment to ${{ env.DEPLOY_ENV }} failed"
+        fi
+
+  rollback:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [deploy]
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+    - name: Rollback deployment
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          echo "🔄 Rolling back deployment..."
+          
+          # Get previous version
+          PREVIOUS_VERSION=$(docker images acas/backend --format "table {{.Tag}}" | sed -n '2p')
+          
+          if [ -n "$PREVIOUS_VERSION" ] && [ "$PREVIOUS_VERSION" != "latest" ]; then
+            echo "Rolling back to version: $PREVIOUS_VERSION"
+            
+            # Update docker-compose to use previous version
+            sed -i "s/acas\/backend:.*/acas\/backend:$PREVIOUS_VERSION/g" /opt/acas/docker-compose.yml
+            sed -i "s/acas\/frontend:.*/acas\/frontend:$PREVIOUS_VERSION/g" /opt/acas/docker-compose.yml
+            
+            # Restart services
+            cd /opt/acas
+            docker-compose down
+            docker-compose up -d
+            
+            echo "✅ Rollback completed"
+          else
+            echo "❌ No previous version found for rollback"
+            exit 1
+          fi

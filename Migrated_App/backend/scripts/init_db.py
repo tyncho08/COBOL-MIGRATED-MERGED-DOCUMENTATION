@@ -21,40 +21,12 @@ logger = logging.getLogger(__name__)
 def init_database():
     """Initialize database with complete schema"""
     try:
-        # Parse database URL to get connection parameters
-        db_url = settings.DATABASE_URL
-        if db_url.startswith('postgresql://'):
-            db_url = db_url.replace('postgresql://', '')
-        elif db_url.startswith('postgresql+asyncpg://'):
-            db_url = db_url.replace('postgresql+asyncpg://', '')
-            
-        # Extract components
-        if '@' in db_url:
-            user_pass, host_db = db_url.split('@')
-            if ':' in user_pass:
-                user, password = user_pass.split(':')
-            else:
-                user = user_pass
-                password = ''
-            
-            if '/' in host_db:
-                host_port, dbname = host_db.split('/')
-                if ':' in host_port:
-                    host, port = host_port.split(':')
-                else:
-                    host = host_port
-                    port = '5432'
-            else:
-                host = host_db
-                port = '5432'
-                dbname = 'acas'
-        else:
-            # Default values for local development
-            user = 'postgres'
-            password = ''
-            host = 'localhost'
-            port = '5432'
-            dbname = 'acas'
+        # Use environment variables for PostgreSQL connection (set by run_app.sh)
+        user = os.environ.get('PGUSER', 'postgres')
+        password = os.environ.get('PGPASSWORD', '')
+        host = os.environ.get('PGHOST', 'localhost')
+        port = os.environ.get('PGPORT', '5432')
+        dbname = 'acas_db'  # Use the database name created by run_app.sh
             
         logger.info(f"Connecting to PostgreSQL at {host}:{port} as user {user}")
         
@@ -109,7 +81,7 @@ def init_database():
                 logger.info(f"Output: {result.stdout}")
         
         # Verify key tables exist
-        engine = create_engine(settings.DATABASE_URL)
+        engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{dbname}')
         with engine.connect() as conn:
             # Check system_rec
             result = conn.execute(text("SELECT COUNT(*) FROM acas.system_rec"))

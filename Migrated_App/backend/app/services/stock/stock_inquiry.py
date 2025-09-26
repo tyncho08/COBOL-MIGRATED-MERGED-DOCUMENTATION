@@ -16,7 +16,7 @@ from app.models.stock import (
     StockMovementRec, StockTransferRec
 )
 from app.models.sales import SalesOrderLineRec
-from app.models.purchase import PurchaseOrderLineRec
+from app.models.supplier import PurchaseOrderLineRec
 from app.models.auth import User
 
 

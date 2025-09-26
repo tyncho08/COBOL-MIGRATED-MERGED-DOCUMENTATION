@@ -3,7 +3,7 @@ ACAS Customer (Sales Ledger) Models
 SQLAlchemy models for customer management and sales processing
 """
 from sqlalchemy import (
-    Column, String, Integer, Numeric, Boolean, DateTime, 
+    Column, String, Integer, Numeric, DateTime, Text,
     ForeignKey, CheckConstraint, Index
 )
 from sqlalchemy.orm import relationship
@@ -15,215 +15,83 @@ class SalesLedgerRec(Base):
     Sales Ledger Record - Customer Master
     
     Represents customer master data with complete financial history.
-    Mirrors COBOL SALEDGER_REC structure with 47 fields.
+    Matches the actual PostgreSQL schema structure.
     """
     __tablename__ = "saledger_rec"
+    __table_args__ = {'schema': 'acas'}
     
     # Primary Key - Customer Code
-    sales_key = Column(
-        String(7), 
-        primary_key=True,
-        doc="Customer code (7 characters)"
-    )
+    sales_key = Column(String(10), primary_key=True, doc="Customer code")
     
     # Customer Identity Information
-    sales_name = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Customer name"
-    )
-    sales_address_1 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 1"
-    )
-    sales_address_2 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 2"
-    )
-    sales_address_3 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 3"
-    )
-    sales_address_4 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 4"
-    )
-    sales_address_5 = Column(
-        String(30), 
-        nullable=False, 
-        default='',
-        doc="Address line 5 (postcode)"
-    )
+    sales_name = Column(String(40), nullable=False, default='', doc="Customer name")
+    sales_address_1 = Column(String(30), default='', doc="Address line 1")
+    sales_address_2 = Column(String(30), default='', doc="Address line 2")
+    sales_address_3 = Column(String(30), default='', doc="Address line 3")
+    sales_address_4 = Column(String(30), default='', doc="Address line 4")
+    sales_address_5 = Column(String(12), default='', doc="Address line 5 (postcode)")
+    sales_country = Column(String(24), default='', doc="Country")
     
     # Contact Information
-    sales_contact = Column(
-        String(25), 
-        nullable=False, 
-        default='',
-        doc="Primary contact person"
-    )
-    sales_phone = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Phone number"
-    )
-    sales_email = Column(
-        String(40), 
-        nullable=False, 
-        default='',
-        doc="Email address"
-    )
-    sales_fax = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Fax number"
-    )
+    sales_contact = Column(String(30), default='', doc="Primary contact person")
+    sales_phone = Column(String(20), default='', doc="Phone number")
+    sales_fax = Column(String(20), default='', doc="Fax number")
+    sales_email = Column(String(50), default='', doc="Email address")
+    sales_mobile = Column(String(20), default='', doc="Mobile number")
     
-    # Financial Terms and Configuration
-    sales_credit_limit = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Customer credit limit"
-    )
-    sales_discount_rate = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Customer discount rate percentage"
-    )
-    sales_payment_terms = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Payment terms code"
-    )
-    sales_tax_code = Column(
-        String(6), 
-        nullable=False, 
-        default='',
-        doc="Tax/VAT code"
-    )
+    # Financial Information
+    sales_credit_limit = Column(Numeric(12, 2), default=0.00, doc="Customer credit limit")
+    sales_balance = Column(Numeric(12, 2), default=0.00, doc="Current account balance")
+    sales_ytd_turnover = Column(Numeric(12, 2), default=0.00, doc="Year-to-date turnover")
+    sales_last_year_turnover = Column(Numeric(12, 2), default=0.00, doc="Last year turnover")
     
-    # Account Status and Control
-    sales_account_status = Column(
-        String(1), 
-        nullable=False, 
-        default='A',
-        doc="Account status: A=Active, H=Hold, C=Closed"
-    )
-    sales_hold_flag = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Account on hold for credit reasons"
-    )
-    sales_credit_rating = Column(
-        String(1), 
-        nullable=False, 
-        default='B',
-        doc="Credit rating: A=Excellent, B=Good, C=Fair, D=Poor"
-    )
+    # Terms and Configuration
+    sales_payment_terms = Column(String(4), default='30', doc="Payment terms")
+    sales_discount_rate = Column(Numeric(4, 2), default=0.00, doc="Discount rate")
+    sales_settlement_disc = Column(Numeric(4, 2), default=0.00, doc="Settlement discount")
+    sales_price_level = Column(Integer, default=1, doc="Price level")
+    sales_tax_code = Column(String(4), default='VSTD', doc="Tax/VAT code")
+    sales_currency = Column(String(3), default='GBP', doc="Currency code")
     
-    # Current Financial Position
-    sales_balance = Column(
-        Numeric(11, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Current account balance"
-    )
-    sales_ytd_turnover = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Year-to-date turnover"
-    )
-    sales_last_invoice_date = Column(
-        Integer,
-        nullable=True,
-        doc="Last invoice date (YYYYMMDD format)"
-    )
-    sales_last_payment_date = Column(
-        Integer,
-        nullable=True,
-        doc="Last payment date (YYYYMMDD format)"
-    )
+    # Status and Control Flags
+    sales_account_status = Column(String(1), default='A', doc="Account status: A=Active, H=Hold, C=Closed")
+    sales_credit_status = Column(String(1), default='O', doc="Credit status")
+    sales_statement_flag = Column(String(1), default='Y', doc="Send statements flag")
+    sales_dunning_flag = Column(String(1), default='Y', doc="Send dunning letters flag")
+    sales_charge_interest = Column(String(1), default='N', doc="Charge interest flag")
     
-    # Monthly Turnover History (13 periods for year + adjustment)
-    sales_turn_01 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 1 turnover")
-    sales_turn_02 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 2 turnover")
-    sales_turn_03 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 3 turnover")
-    sales_turn_04 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 4 turnover")
-    sales_turn_05 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 5 turnover")
-    sales_turn_06 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 6 turnover")
-    sales_turn_07 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 7 turnover")
-    sales_turn_08 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 8 turnover")
-    sales_turn_09 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 9 turnover")
-    sales_turn_10 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 10 turnover")
-    sales_turn_11 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 11 turnover")
-    sales_turn_12 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 12 turnover")
-    sales_turn_13 = Column(Numeric(10, 2), nullable=False, default=0.00, doc="Period 13 turnover (adjustment)")
+    # Analysis Fields
+    sales_analysis_1 = Column(String(10), default='', doc="Analysis field 1")
+    sales_analysis_2 = Column(String(10), default='', doc="Analysis field 2")
+    sales_analysis_3 = Column(String(10), default='', doc="Analysis field 3")
+    sales_territory = Column(String(6), default='', doc="Sales territory")
+    sales_rep = Column(String(6), default='', doc="Sales representative")
+    
+    # Date Fields (stored as integers in YYYYMMDD format)
+    sales_date_opened = Column(Integer, default=0, doc="Date opened (YYYYMMDD)")
+    sales_date_last_sale = Column(Integer, default=0, doc="Last sale date (YYYYMMDD)")
+    sales_date_last_payment = Column(Integer, default=0, doc="Last payment date (YYYYMMDD)")
+    
+    # Statistics
+    sales_transactions_mtd = Column(Integer, default=0, doc="Transactions month-to-date")
+    sales_transactions_ytd = Column(Integer, default=0, doc="Transactions year-to-date")
+    sales_invoices_mtd = Column(Integer, default=0, doc="Invoices month-to-date")
+    sales_invoices_ytd = Column(Integer, default=0, doc="Invoices year-to-date")
+    sales_average_days = Column(Integer, default=0, doc="Average payment days")
+    sales_oldest_item = Column(Integer, default=0, doc="Oldest item date (YYYYMMDD)")
+    
+    # Notes
+    sales_notes = Column(Text, doc="Customer notes")
     
     # Audit Trail
-    created_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        doc="Record creation timestamp"
-    )
-    updated_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        onupdate=func.now(),
-        doc="Last update timestamp"
-    )
-    
-    # Relationships
-    invoices = relationship("SalesInvoiceRec", back_populates="customer")
-    items = relationship("SalesItemRec", back_populates="customer")
-    
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            "sales_account_status IN ('A', 'H', 'C')", 
-            name='ck_saledger_valid_status'
-        ),
-        CheckConstraint(
-            "sales_credit_rating IN ('A', 'B', 'C', 'D')", 
-            name='ck_saledger_valid_rating'
-        ),
-        CheckConstraint(
-            'sales_credit_limit >= 0', 
-            name='ck_saledger_valid_credit_limit'
-        ),
-        CheckConstraint(
-            'sales_discount_rate >= 0 AND sales_discount_rate <= 100', 
-            name='ck_saledger_valid_discount_rate'
-        ),
-        Index('ix_saledger_name', 'sales_name'),
-        Index('ix_saledger_status', 'sales_account_status'),
-        {
-            'comment': 'Customer master records with financial history'
-        }
-    )
-    
-    def __repr__(self):
-        return f"<SalesLedger(key='{self.sales_key}', name='{self.sales_name}')>"
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), doc="Record creation timestamp")
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp(), doc="Last update timestamp")
+    updated_by = Column(String(30), server_default=func.current_user(), doc="Updated by user")
     
     @property
     def is_active(self) -> bool:
-        """Check if customer account is active"""
-        return self.sales_account_status == 'A' and not self.sales_hold_flag
+        """Return True if account is active"""
+        return self.sales_account_status == 'A'
     
     @property
     def available_credit(self) -> float:
@@ -232,418 +100,196 @@ class SalesLedgerRec(Base):
     
     @property
     def is_over_limit(self) -> bool:
-        """Check if customer is over credit limit"""
+        """Check if account is over credit limit"""
         return self.sales_balance > self.sales_credit_limit
     
-    def get_full_address(self) -> str:
-        """Get formatted full address"""
-        address_lines = [
-            self.sales_address_1, self.sales_address_2, self.sales_address_3,
-            self.sales_address_4, self.sales_address_5
-        ]
-        return '\n'.join(line for line in address_lines if line.strip())
+    # Relationships
+    invoices = relationship("SalesInvoiceRec", back_populates="customer")
+    items = relationship("SalesItemRec", back_populates="customer")
+    # Sales module relationships (imported to avoid circular imports)
+    open_items = relationship("SalesOpenItemRec", back_populates="customer", foreign_keys="SalesOpenItemRec.sales_key")
+    orders = relationship("SalesOrderRec", back_populates="customer", foreign_keys="SalesOrderRec.sales_key")
+    receipts = relationship("SalesReceiptRec", back_populates="customer", foreign_keys="SalesReceiptRec.sales_key")
+    history = relationship("SalesHistoryRec", back_populates="customer", foreign_keys="SalesHistoryRec.sales_key")
     
-    def get_period_turnover(self, period: int) -> float:
-        """Get turnover for specific period (1-13)"""
-        if period < 1 or period > 13:
-            return 0.0
-        return float(getattr(self, f'sales_turn_{period:02d}'))
+    # Table constraints
+    __table_args__ = (
+        CheckConstraint("sales_account_status IN ('A', 'H', 'C')", name='ck_saledger_valid_status'),
+        CheckConstraint("sales_credit_status IN ('O', 'H', 'S')", name='ck_saledger_valid_credit'),
+        CheckConstraint("sales_statement_flag IN ('Y', 'N')", name='ck_saledger_valid_statement'),
+        CheckConstraint("sales_dunning_flag IN ('Y', 'N')", name='ck_saledger_valid_dunning'),
+        CheckConstraint("sales_charge_interest IN ('Y', 'N')", name='ck_saledger_valid_interest'),
+        Index('idx_saledger_name', 'sales_name'),
+        Index('idx_saledger_status', 'sales_account_status'),
+        Index('idx_saledger_balance', 'sales_balance'),
+        {'schema': 'acas'}
+    )
 
 class SalesInvoiceRec(Base):
-    """
-    Sales Invoice Header Record
-    
-    Represents sales invoice headers with financial totals.
-    """
+    """Sales Invoice Record"""
     __tablename__ = "sainvoice_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    # Primary Key
-    invoice_key = Column(
-        String(15), 
-        primary_key=True,
-        doc="Invoice number/key"
-    )
-    
-    # Foreign Key to Customer
-    sales_key = Column(
-        String(7), 
-        ForeignKey("saledger_rec.sales_key", ondelete="RESTRICT"),
-        nullable=False,
-        doc="Customer code"
-    )
-    
-    # Invoice Dates
-    invoice_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Invoice date (YYYYMMDD format)"
-    )
-    due_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Due date (YYYYMMDD format)"
-    )
-    
-    # Invoice Status and References
-    invoice_status = Column(
-        String(1), 
-        nullable=False, 
-        default='O',
-        doc="Invoice status: O=Open, P=Paid, C=Cancelled"
-    )
-    order_number = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Original order number"
-    )
-    customer_po = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Customer purchase order number"
-    )
-    
-    # Financial Totals
-    net_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Net amount before tax"
-    )
-    tax_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Total tax amount"
-    )
-    gross_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Gross amount including tax"
-    )
-    discount_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Total discount amount"
-    )
-    amount_outstanding = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Amount still outstanding"
-    )
-    
-    # Payment Terms
-    payment_terms = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Payment terms code"
-    )
-    discount_percent = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Settlement discount percentage"
-    )
-    
-    # Delivery Information
-    delivery_address = Column(
-        String(150), 
-        nullable=False, 
-        default='',
-        doc="Delivery address"
-    )
-    delivery_date = Column(
-        Integer,
-        nullable=True,
-        doc="Delivery date (YYYYMMDD format)"
-    )
-    
-    # General Ledger Integration
-    posted_to_gl = Column(
-        Boolean, 
-        nullable=False, 
-        default=False,
-        doc="Posted to General Ledger flag"
-    )
-    gl_batch_key = Column(
-        Integer,
-        nullable=True,
-        doc="GL batch key if posted"
-    )
+    invoice_key = Column(String(20), primary_key=True, doc="Invoice number")
+    sales_key = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="RESTRICT"), nullable=False, doc="Customer code")
+    invoice_date = Column(Integer, nullable=False, doc="Invoice date (YYYYMMDD)")
+    invoice_amount = Column(Numeric(12, 2), default=0.00, doc="Invoice amount")
+    invoice_status = Column(String(1), default='O', doc="Invoice status")
     
     # Audit Trail
-    created_by = Column(
-        String(10), 
-        nullable=False, 
-        default='',
-        doc="Created by user ID"
-    )
-    created_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        doc="Record creation timestamp"
-    )
-    updated_at = Column(
-        DateTime(timezone=True), 
-        server_default=func.now(),
-        onupdate=func.now(),
-        doc="Last update timestamp"
-    )
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
     
     # Relationships
     customer = relationship("SalesLedgerRec", back_populates="invoices")
-    lines = relationship("SalesInvoiceLineRec", back_populates="invoice", cascade="all, delete-orphan")
-    
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            "invoice_status IN ('O', 'P', 'C')", 
-            name='ck_sainvoice_valid_status'
-        ),
-        CheckConstraint(
-            'gross_amount = net_amount + tax_amount', 
-            name='ck_sainvoice_valid_totals'
-        ),
-        Index('ix_sainvoice_customer', 'sales_key'),
-        Index('ix_sainvoice_date', 'invoice_date'),
-        Index('ix_sainvoice_status', 'invoice_status'),
-        {
-            'comment': 'Sales invoice headers with financial totals'
-        }
-    )
-    
-    def __repr__(self):
-        return f"<SalesInvoice(key='{self.invoice_key}', customer='{self.sales_key}', amount={self.gross_amount})>"
+    lines = relationship("SalesInvoiceLineRec", back_populates="invoice")
 
 class SalesInvoiceLineRec(Base):
-    """
-    Sales Invoice Line Record
+    """Sales Invoice Line Record"""
+    __tablename__ = "sainvoice_lines_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    Represents individual line items on sales invoices.
-    """
-    __tablename__ = "sainv_lines_rec"
-    
-    # Composite Primary Key
-    invoice_key = Column(
-        String(15), 
-        ForeignKey("sainvoice_rec.invoice_key", ondelete="CASCADE"),
-        primary_key=True,
-        doc="Invoice number"
-    )
-    line_number = Column(
-        Integer, 
-        primary_key=True,
-        doc="Line number within invoice"
-    )
-    
-    # Stock Item Reference
-    stock_key = Column(
-        String(13), 
-        nullable=False, 
-        default='',
-        doc="Stock item code"
-    )
-    item_description = Column(
-        String(40), 
-        nullable=False, 
-        default='',
-        doc="Item description"
-    )
-    
-    # Quantity and Pricing
-    quantity = Column(
-        Numeric(12, 3), 
-        nullable=False, 
-        default=0.000,
-        doc="Quantity"
-    )
-    unit_price = Column(
-        Numeric(10, 4), 
-        nullable=False, 
-        default=0.0000,
-        doc="Unit price"
-    )
-    line_discount_percent = Column(
-        Numeric(5, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line discount percentage"
-    )
-    
-    # Line Totals
-    line_net_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line net amount"
-    )
-    line_tax_code = Column(
-        String(6), 
-        nullable=False, 
-        default='',
-        doc="Line tax code"
-    )
-    line_tax_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line tax amount"
-    )
-    line_total_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Line total amount"
-    )
+    line_id = Column(Integer, primary_key=True, autoincrement=True, doc="Line ID")
+    invoice_key = Column(String(20), ForeignKey("acas.sainvoice_rec.invoice_key", ondelete="CASCADE"), nullable=False, doc="Invoice number")
+    line_number = Column(Integer, nullable=False, doc="Line number")
+    stock_key = Column(String(30), doc="Stock item code")
+    description = Column(String(40), doc="Line description")
+    quantity = Column(Numeric(15, 3), default=0.000, doc="Quantity")
+    unit_price = Column(Numeric(15, 4), default=0.0000, doc="Unit price")
+    line_total = Column(Numeric(12, 2), default=0.00, doc="Line total")
     
     # Relationships
     invoice = relationship("SalesInvoiceRec", back_populates="lines")
-    
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            'line_number > 0', 
-            name='ck_sainv_lines_valid_line_number'
-        ),
-        CheckConstraint(
-            'quantity >= 0', 
-            name='ck_sainv_lines_valid_quantity'
-        ),
-        CheckConstraint(
-            'unit_price >= 0', 
-            name='ck_sainv_lines_valid_unit_price'
-        ),
-        CheckConstraint(
-            'line_total_amount = line_net_amount + line_tax_amount', 
-            name='ck_sainv_lines_valid_totals'
-        ),
-        {
-            'comment': 'Sales invoice line items'
-        }
-    )
-    
-    def __repr__(self):
-        return f"<SalesInvoiceLine(invoice='{self.invoice_key}', line={self.line_number}, item='{self.stock_key}')>"
 
 class SalesItemRec(Base):
-    """
-    Sales Item Record (Open Items)
-    
-    Represents individual sales transactions for aging and allocation.
-    Mirrors COBOL SAITM3_REC structure.
-    """
+    """Sales Item Record - Historical sales data"""
     __tablename__ = "saitm3_rec"
+    __table_args__ = {'schema': 'acas'}
     
-    # Primary Key
-    item_key = Column(
-        String(20), 
-        primary_key=True,
-        doc="Unique item key"
-    )
-    
-    # Customer Reference
-    sales_key = Column(
-        String(7), 
-        ForeignKey("saledger_rec.sales_key", ondelete="RESTRICT"),
-        nullable=False,
-        doc="Customer code"
-    )
-    
-    # Item Type and Dates
-    item_type = Column(
-        String(2), 
-        nullable=False,
-        doc="Item type: IN=Invoice, PY=Payment, CM=Credit Memo, etc."
-    )
-    item_date = Column(
-        Integer, 
-        nullable=False,
-        doc="Item date (YYYYMMDD format)"
-    )
-    due_date = Column(
-        Integer,
-        nullable=True,
-        doc="Due date (YYYYMMDD format)"
-    )
-    
-    # Financial Information
-    item_reference = Column(
-        String(15), 
-        nullable=False, 
-        default='',
-        doc="Reference number (invoice/payment)"
-    )
-    item_amount = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Original item amount"
-    )
-    item_outstanding = Column(
-        Numeric(12, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Outstanding amount"
-    )
-    
-    # Status and Allocation
-    item_status = Column(
-        String(1), 
-        nullable=False, 
-        default='O',
-        doc="Status: O=Open, C=Closed, P=Partially Paid"
-    )
-    allocation_key = Column(
-        String(20), 
-        nullable=False, 
-        default='',
-        doc="Allocation reference"
-    )
-    
-    # Aging Information
-    days_outstanding = Column(
-        Integer, 
-        nullable=False, 
-        default=0,
-        doc="Days outstanding"
-    )
-    aging_bucket = Column(
-        String(1), 
-        nullable=False, 
-        default='1',
-        doc="Aging bucket: 1=Current, 2=30 days, 3=60 days, 4=90+ days"
-    )
+    item_id = Column(Integer, primary_key=True, autoincrement=True, doc="Item ID")
+    sales_key = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="RESTRICT"), nullable=False, doc="Customer code")
+    stock_key = Column(String(30), doc="Stock item code")
+    transaction_date = Column(Integer, doc="Transaction date (YYYYMMDD)")
+    quantity = Column(Numeric(15, 3), default=0.000, doc="Quantity")
+    value = Column(Numeric(12, 2), default=0.00, doc="Transaction value")
     
     # Relationships
     customer = relationship("SalesLedgerRec", back_populates="items")
+
+
+class CustomerContactRec(Base):
+    """Customer Contact Record - Multiple contacts per customer"""
+    __tablename__ = "customer_contacts"
+    __table_args__ = {'schema': 'acas'}
     
-    # Table constraints
-    __table_args__ = (
-        CheckConstraint(
-            "item_type IN ('IN', 'PY', 'CM', 'DM', 'JN')", 
-            name='ck_saitm3_valid_item_type'
-        ),
-        CheckConstraint(
-            "item_status IN ('O', 'C', 'P')", 
-            name='ck_saitm3_valid_status'
-        ),
-        CheckConstraint(
-            "aging_bucket IN ('1', '2', '3', '4')", 
-            name='ck_saitm3_valid_aging_bucket'
-        ),
-        Index('ix_saitm3_customer', 'sales_key'),
-        Index('ix_saitm3_type', 'item_type'),
-        Index('ix_saitm3_date', 'item_date'),
-        Index('ix_saitm3_aging', 'aging_bucket'),
-        {
-            'comment': 'Sales open items for aging and allocation'
-        }
-    )
+    # Primary Key
+    contact_id = Column(Integer, primary_key=True, autoincrement=True, doc="Contact ID")
     
-    def __repr__(self):
-        return f"<SalesItem(key='{self.item_key}', customer='{self.sales_key}', type='{self.item_type}')>"
+    # Customer Reference
+    sales_key = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="CASCADE"), nullable=False, doc="Customer code")
+    
+    # Contact Information
+    contact_type = Column(String(20), nullable=False, doc="Contact type (Primary, Billing, Shipping, etc.)")
+    contact_name = Column(String(50), nullable=False, doc="Contact person name")
+    title = Column(String(20), doc="Contact title/position")
+    department = Column(String(30), doc="Department")
+    
+    # Communication Details
+    phone = Column(String(20), doc="Phone number")
+    mobile = Column(String(20), doc="Mobile number")
+    fax = Column(String(20), doc="Fax number")
+    email = Column(String(100), doc="Email address")
+    
+    # Address (if different from main customer address)
+    address_1 = Column(String(30), doc="Address line 1")
+    address_2 = Column(String(30), doc="Address line 2")
+    address_3 = Column(String(30), doc="Address line 3")
+    city = Column(String(30), doc="City")
+    postcode = Column(String(12), doc="Postcode")
+    country = Column(String(24), doc="Country")
+    
+    # Status and Preferences
+    is_active = Column(String(1), default='Y', doc="Active contact flag")
+    is_primary = Column(String(1), default='N', doc="Primary contact flag")
+    preferred_contact_method = Column(String(10), default='EMAIL', doc="Preferred contact method")
+    
+    # Communication Preferences
+    send_statements = Column(String(1), default='Y', doc="Send statements flag")
+    send_invoices = Column(String(1), default='Y', doc="Send invoices flag")
+    send_marketing = Column(String(1), default='N', doc="Send marketing material flag")
+    
+    # Notes
+    notes = Column(Text, doc="Contact notes")
+    
+    # Audit Trail
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    customer = relationship("SalesLedgerRec", foreign_keys=[sales_key])
+
+
+class CustomerCreditRec(Base):
+    """Customer Credit Record - Credit control and risk management"""
+    __tablename__ = "customer_credit"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    credit_id = Column(Integer, primary_key=True, autoincrement=True, doc="Credit record ID")
+    
+    # Customer Reference
+    sales_key = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="CASCADE"), nullable=False, doc="Customer code")
+    
+    # Credit Information
+    credit_limit = Column(Numeric(12, 2), nullable=False, doc="Current credit limit")
+    credit_limit_currency = Column(String(3), default='USD', doc="Credit limit currency")
+    temporary_limit = Column(Numeric(12, 2), default=0.00, doc="Temporary credit limit")
+    temporary_limit_expiry = Column(Integer, doc="Temporary limit expiry date (YYYYMMDD)")
+    
+    # Credit Terms
+    payment_terms_days = Column(Integer, default=30, doc="Payment terms in days")
+    discount_percent = Column(Numeric(5, 2), default=0.00, doc="Early payment discount %")
+    discount_days = Column(Integer, default=0, doc="Days for early payment discount")
+    
+    # Risk Assessment
+    credit_rating = Column(String(5), doc="Credit rating (AAA, AA, A, BBB, etc.)")
+    risk_category = Column(String(10), default='STANDARD', doc="Risk category")
+    credit_status = Column(String(20), default='APPROVED', doc="Credit status")
+    
+    # Insurance
+    credit_insurance = Column(String(1), default='N', doc="Credit insurance flag")
+    insurance_limit = Column(Numeric(12, 2), default=0.00, doc="Insurance coverage limit")
+    insurance_policy_number = Column(String(30), doc="Insurance policy number")
+    
+    # Hold/Block Flags
+    credit_hold = Column(String(1), default='N', doc="Credit hold flag")
+    shipping_hold = Column(String(1), default='N', doc="Shipping hold flag")
+    orders_hold = Column(String(1), default='N', doc="Orders hold flag")
+    
+    # Review Information
+    last_review_date = Column(Integer, doc="Last credit review date (YYYYMMDD)")
+    next_review_date = Column(Integer, doc="Next credit review date (YYYYMMDD)")
+    reviewed_by = Column(String(30), doc="Last reviewed by user")
+    
+    # Financial Ratios and Metrics
+    debt_to_equity_ratio = Column(Numeric(8, 4), doc="Debt to equity ratio")
+    current_ratio = Column(Numeric(8, 4), doc="Current ratio")
+    quick_ratio = Column(Numeric(8, 4), doc="Quick ratio")
+    
+    # Payment Behavior
+    average_days_to_pay = Column(Numeric(6, 1), doc="Average days to pay")
+    payment_trend = Column(String(10), doc="Payment trend (IMPROVING, STABLE, DECLINING)")
+    disputed_amount = Column(Numeric(12, 2), default=0.00, doc="Total disputed amount")
+    
+    # Comments and Notes
+    credit_comments = Column(Text, doc="Credit assessment comments")
+    internal_notes = Column(Text, doc="Internal credit notes")
+    
+    # Audit Trail
+    created_by = Column(String(30), nullable=False, doc="Created by user")
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_by = Column(String(30), doc="Last updated by user")
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+    
+    # Relationships
+    customer = relationship("SalesLedgerRec", foreign_keys=[sales_key])

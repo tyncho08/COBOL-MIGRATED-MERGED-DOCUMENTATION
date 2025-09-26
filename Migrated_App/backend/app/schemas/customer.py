@@ -2,7 +2,7 @@
 ACAS Customer (Sales Ledger) Schemas
 Pydantic models for customer management and sales processing API
 """
-from pydantic import BaseModel, Field, validator, EmailStr
+from pydantic import BaseModel, Field, field_validator, ConfigDict, EmailStr
 from typing import Optional, List
 from decimal import Decimal
 from datetime import datetime
@@ -30,14 +30,12 @@ class CustomerBase(BaseModel):
     sales_credit_limit: Decimal = Field(
         Decimal('0.00'), 
         ge=0, 
-        decimal_places=2, 
         description="Credit limit"
     )
     sales_discount_rate: Decimal = Field(
         Decimal('0.00'), 
         ge=0, 
         le=100, 
-        decimal_places=2, 
         description="Discount rate percentage"
     )
     sales_payment_terms: str = Field("", max_length=10, description="Payment terms code")
@@ -56,29 +54,32 @@ class CustomerBase(BaseModel):
         description="Credit rating: A=Excellent, B=Good, C=Fair, D=Poor"
     )
     
-    @validator('sales_account_status')
+    @field_validator('sales_account_status')
+    @classmethod
     def validate_account_status(cls, v):
         """Validate account status"""
         if v not in ['A', 'H', 'C']:
             raise ValueError('Account status must be A, H, or C')
         return v
     
-    @validator('sales_credit_rating')
+    @field_validator('sales_credit_rating')
+    @classmethod
     def validate_credit_rating(cls, v):
         """Validate credit rating"""
         if v not in ['A', 'B', 'C', 'D']:
             raise ValueError('Credit rating must be A, B, C, or D')
         return v
     
-    @validator('sales_email')
+    @field_validator('sales_email')
+    @classmethod
     def validate_email_format(cls, v):
         """Validate email format if provided"""
         if v and '@' not in v:
             raise ValueError('Invalid email format')
         return v
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "sales_name": "ACME Corporation Ltd",
                 "sales_address_1": "456 Customer Avenue",
@@ -98,6 +99,7 @@ class CustomerBase(BaseModel):
                 "sales_hold_flag": False,
                 "sales_credit_rating": "B"
             }
+    }
         }
 
 class CustomerCreate(CustomerBase):
@@ -111,7 +113,8 @@ class CustomerCreate(CustomerBase):
         description="Customer code (up to 7 characters)"
     )
     
-    @validator('sales_key')
+    @field_validator('sales_key')
+    @classmethod
     def validate_customer_code(cls, v):
         """Validate customer code format"""
         if not v.replace('-', '').replace('_', '').isalnum():
@@ -139,8 +142,8 @@ class CustomerUpdate(BaseModel):
     sales_fax: Optional[str] = Field(None, max_length=20)
     
     # Financial Terms
-    sales_credit_limit: Optional[Decimal] = Field(None, ge=0, decimal_places=2)
-    sales_discount_rate: Optional[Decimal] = Field(None, ge=0, le=100, decimal_places=2)
+    sales_credit_limit: Optional[Decimal] = Field(None, ge=0)
+    sales_discount_rate: Optional[Decimal] = Field(None, ge=0, le=100)
     sales_payment_terms: Optional[str] = Field(None, max_length=10)
     sales_tax_code: Optional[str] = Field(None, max_length=6)
     
@@ -158,13 +161,13 @@ class CustomerResponse(CustomerBase):
     sales_key: str = Field(..., description="Customer code")
     
     # Current Financial Position
-    sales_balance: Decimal = Field(..., decimal_places=2, description="Current balance")
-    sales_ytd_turnover: Decimal = Field(..., decimal_places=2, description="Year-to-date turnover")
+    sales_balance: Decimal = Field(..., description="Current balance")
+    sales_ytd_turnover: Decimal = Field(..., description="Year-to-date turnover")
     sales_last_invoice_date: Optional[int] = Field(None, description="Last invoice date (YYYYMMDD)")
     sales_last_payment_date: Optional[int] = Field(None, description="Last payment date (YYYYMMDD)")
     
     # Calculated Fields
-    available_credit: Decimal = Field(..., decimal_places=2, description="Available credit")
+    available_credit: Decimal = Field(..., description="Available credit")
     is_active: bool = Field(..., description="Account is active")
     is_over_limit: bool = Field(..., description="Account is over credit limit")
     
@@ -172,9 +175,9 @@ class CustomerResponse(CustomerBase):
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: Optional[datetime] = Field(None, description="Last update timestamp")
     
-    class Config:
-        orm_mode = True
-        schema_extra = {
+    model_config = {
+        "from_attributes": True,
+        "json_schema_extra": {
             "example": {
                 "sales_key": "CUST001",
                 "sales_name": "ACME Corporation Ltd",
@@ -203,6 +206,7 @@ class CustomerResponse(CustomerBase):
                 "created_at": "2024-01-15T09:00:00Z",
                 "updated_at": "2024-12-01T14:30:00Z"
             }
+    }
         }
 
 class CustomerSummary(BaseModel):
@@ -211,13 +215,12 @@ class CustomerSummary(BaseModel):
     """
     sales_key: str = Field(..., description="Customer code")
     sales_name: str = Field(..., description="Customer name")
-    sales_balance: Decimal = Field(..., decimal_places=2, description="Current balance")
-    sales_credit_limit: Decimal = Field(..., decimal_places=2, description="Credit limit")
+    sales_balance: Decimal = Field(..., description="Current balance")
+    sales_credit_limit: Decimal = Field(..., description="Credit limit")
     sales_account_status: str = Field(..., description="Account status")
     is_active: bool = Field(..., description="Account is active")
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Sales Invoice Schemas
 class SalesInvoiceLineBase(BaseModel):
@@ -226,19 +229,18 @@ class SalesInvoiceLineBase(BaseModel):
     """
     stock_key: str = Field("", max_length=13, description="Stock item code")
     item_description: str = Field(..., max_length=40, description="Item description")
-    quantity: Decimal = Field(..., ge=0, decimal_places=3, description="Quantity")
-    unit_price: Decimal = Field(..., ge=0, decimal_places=4, description="Unit price")
+    quantity: Decimal = Field(..., ge=0, description="Quantity")
+    unit_price: Decimal = Field(..., ge=0, description="Unit price")
     line_discount_percent: Decimal = Field(
         Decimal('0.00'), 
         ge=0, 
         le=100, 
-        decimal_places=2, 
         description="Line discount percentage"
     )
     line_tax_code: str = Field("", max_length=6, description="Tax code")
     
-    class Config:
-        schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "stock_key": "ITEM001",
                 "item_description": "Sample Product Item",
@@ -247,6 +249,7 @@ class SalesInvoiceLineBase(BaseModel):
                 "line_discount_percent": "0.00",
                 "line_tax_code": "VSTD"
             }
+    }
         }
 
 class SalesInvoiceLineCreate(SalesInvoiceLineBase):
@@ -261,12 +264,11 @@ class SalesInvoiceLineResponse(SalesInvoiceLineBase):
     """
     invoice_key: str = Field(..., description="Invoice number")
     line_number: int = Field(..., description="Line number")
-    line_net_amount: Decimal = Field(..., decimal_places=2, description="Line net amount")
-    line_tax_amount: Decimal = Field(..., decimal_places=2, description="Line tax amount")
-    line_total_amount: Decimal = Field(..., decimal_places=2, description="Line total amount")
+    line_net_amount: Decimal = Field(..., description="Line net amount")
+    line_tax_amount: Decimal = Field(..., description="Line tax amount")
+    line_total_amount: Decimal = Field(..., description="Line total amount")
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class SalesInvoiceBase(BaseModel):
     """
@@ -281,13 +283,13 @@ class SalesInvoiceBase(BaseModel):
         Decimal('0.00'), 
         ge=0, 
         le=100, 
-        decimal_places=2, 
         description="Settlement discount"
     )
     delivery_address: str = Field("", max_length=150, description="Delivery address")
     delivery_date: Optional[int] = Field(None, ge=19000101, le=29991231, description="Delivery date")
     
-    @validator('due_date')
+    @field_validator('due_date')
+    @classmethod
     def validate_due_date(cls, v, values):
         """Ensure due date is not before invoice date"""
         if 'invoice_date' in values and v < values['invoice_date']:
@@ -301,7 +303,8 @@ class SalesInvoiceCreate(SalesInvoiceBase):
     sales_key: str = Field(..., max_length=7, description="Customer code")
     lines: List[SalesInvoiceLineCreate] = Field(..., min_items=1, description="Invoice lines")
     
-    @validator('lines')
+    @field_validator('lines')
+    @classmethod
     def validate_line_numbers(cls, v):
         """Ensure line numbers are unique and sequential"""
         line_numbers = [line.line_number for line in v]
@@ -318,11 +321,11 @@ class SalesInvoiceResponse(SalesInvoiceBase):
     invoice_status: str = Field(..., description="Invoice status")
     
     # Financial Totals
-    net_amount: Decimal = Field(..., decimal_places=2, description="Net amount")
-    tax_amount: Decimal = Field(..., decimal_places=2, description="Tax amount")
-    gross_amount: Decimal = Field(..., decimal_places=2, description="Gross amount")
-    discount_amount: Decimal = Field(..., decimal_places=2, description="Discount amount")
-    amount_outstanding: Decimal = Field(..., decimal_places=2, description="Outstanding amount")
+    net_amount: Decimal = Field(..., description="Net amount")
+    tax_amount: Decimal = Field(..., description="Tax amount")
+    gross_amount: Decimal = Field(..., description="Gross amount")
+    discount_amount: Decimal = Field(..., description="Discount amount")
+    amount_outstanding: Decimal = Field(..., description="Outstanding amount")
     
     # Status Flags
     posted_to_gl: bool = Field(..., description="Posted to General Ledger")
@@ -335,9 +338,9 @@ class SalesInvoiceResponse(SalesInvoiceBase):
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: Optional[datetime] = Field(None, description="Update timestamp")
     
-    class Config:
-        orm_mode = True
-        schema_extra = {
+    model_config = {
+        "from_attributes": True,
+        "json_schema_extra": {
             "example": {
                 "invoice_key": "INV-2024-001",
                 "sales_key": "CUST001",
@@ -359,4 +362,5 @@ class SalesInvoiceResponse(SalesInvoiceBase):
                 "created_by": "admin",
                 "created_at": "2024-12-01T10:00:00Z"
             }
+    }
         }

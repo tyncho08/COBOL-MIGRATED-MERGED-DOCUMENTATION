@@ -36,6 +36,11 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
+def hash_password(password: str) -> str:
+    """Generate password hash (alias for get_password_hash)"""
+    return pwd_context.hash(password)
+
+
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create JWT access token"""
     to_encode = data.copy()
@@ -87,6 +92,13 @@ async def get_current_user(
     return user
 
 
+async def get_current_active_user(
+    current_user: User = Depends(get_current_user)
+) -> User:
+    """Get current active user (alias for get_current_user)"""
+    return current_user
+
+
 async def get_current_active_superuser(
     current_user: User = Depends(get_current_user)
 ) -> User:
@@ -95,6 +107,27 @@ async def get_current_active_superuser(
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="The user doesn't have enough privileges"
+        )
+    return current_user
+
+
+async def require_admin(
+    current_user: User = Depends(get_current_user)
+) -> User:
+    """Require admin privileges"""
+    if not hasattr(current_user, 'is_admin'):
+        # Check if user has admin role
+        if hasattr(current_user, 'roles') and current_user.roles:
+            is_admin = any(role.name.lower() in ['admin', 'administrator'] for role in current_user.roles)
+        else:
+            is_admin = getattr(current_user, 'is_superuser', False)
+    else:
+        is_admin = current_user.is_admin
+    
+    if not is_admin and not getattr(current_user, 'is_superuser', False):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required"
         )
     return current_user
 

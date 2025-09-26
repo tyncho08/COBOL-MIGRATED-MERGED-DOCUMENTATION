@@ -50,39 +50,63 @@ This project represents a **complete migration** of the ACAS (Applewood Computer
 - **PostgreSQL 15+** (database server must be running)
 - **Git** (for cloning repository)
 
-### One-Command Deployment
+### One-Command Local Execution
 
 ```bash
-# Clone and enter directory
-git clone <repository-url>
-cd Migrated_App
-
-# Run the complete deployment
+# Simply run the application locally
 ./run_app.sh
 ```
 
-The deployment script will:
-1. ✅ Check all system dependencies
-2. ✅ Clean up existing processes  
-3. ✅ Create and initialize PostgreSQL database
-4. ✅ Set up Python virtual environment
-5. ✅ Install all backend dependencies
-6. ✅ Apply database schema (34 tables)
-7. ✅ Populate realistic demo data
-8. ✅ Start FastAPI backend server (port 8000)
-9. ✅ Install frontend dependencies
-10. ✅ Build and start Next.js frontend (port 3000)
-11. ✅ Perform system health checks
-12. ✅ Display access URLs and status
+El script de inicio local hace todo automáticamente:
+1. ✅ Verifica todas las dependencias del sistema
+2. ✅ Limpia procesos existentes en puertos 8000 y 3000
+3. ✅ Crea e inicializa la base de datos PostgreSQL
+4. ✅ Configura el entorno virtual de Python
+5. ✅ Instala todas las dependencias del backend
+6. ✅ Aplica el esquema de base de datos (43 tablas)
+7. ✅ Carga datos de demostración realistas
+8. ✅ Inicia el servidor FastAPI backend (puerto 8000)
+9. ✅ Instala dependencias del frontend
+10. ✅ Construye e inicia Next.js frontend (puerto 3000)
+11. ✅ Realiza verificaciones de salud del sistema
+12. ✅ Muestra URLs de acceso y estado del sistema
 
-### Access Points
+### Puntos de Acceso
 
-After successful deployment:
+Una vez iniciado exitosamente:
 
-- 🌐 **Frontend Application**: http://localhost:3000
-- 🔧 **Backend API**: http://localhost:8000  
-- 📚 **API Documentation**: http://localhost:8000/docs
-- 🔍 **System Health**: http://localhost:8000/health
+- 🌐 **Aplicación Frontend**: http://localhost:3000
+- 🔧 **API Backend**: http://localhost:8000  
+- 📚 **Documentación API**: http://localhost:8000/docs
+- 🔍 **Estado del Sistema**: http://localhost:8000/health
+- ℹ️ **Información del Sistema**: http://localhost:8000/info
+
+### Credenciales de Demo
+
+- **👤 Admin**: `admin` / `admin123`
+- **👤 Usuario de Prueba**: `testuser` / `test123`
+
+### 📁 Sistema de Logs
+
+Todos los logs se guardan automáticamente en la carpeta `/logs`:
+
+- **`app.log`** - Log principal de la aplicación
+- **`backend.log`** - Logs del servidor FastAPI
+- **`frontend.log`** - Logs del servidor Next.js
+- **`error.log`** - Solo errores críticos
+- **`security.log`** - Eventos de seguridad
+
+**Comandos útiles para logs:**
+```bash
+# Ver logs en tiempo real
+tail -f logs/app.log
+
+# Utilidad de gestión de logs
+./scripts/logs.sh list          # Listar todos los logs
+./scripts/logs.sh view app       # Ver app.log
+./scripts/logs.sh follow backend # Seguir backend.log
+./scripts/logs.sh errors         # Resumen de errores
+```
 
 ## 📊 Business Modules
 
