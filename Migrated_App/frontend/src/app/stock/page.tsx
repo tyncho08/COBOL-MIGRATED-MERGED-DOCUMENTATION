@@ -75,21 +75,14 @@ export default function StockControlPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simulate API calls
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        
-        setSummary({
-          total_items: 432,
-          total_value: 78450.50,
-          total_quantity: 15678.00,
-          low_stock_items: 23,
-          negative_stock_items: 3,
-          slow_moving_items: 45,
-          categories_count: 12,
-          locations_count: 8
-        })
-
-        // Data is now fetched from API above
+        // Fetch real data from API
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/stock/summary')
+        if (summaryResponse.ok) {
+          const summaryData = await summaryResponse.json()
+          setSummary(summaryData.summary)
+          setLowStockItems(summaryData.lowStockItems || [])
+          setRecentMovements(summaryData.recentMovements || [])
+        }
       } catch (error) {
         console.error('Failed to fetch stock data:', error)
       } finally {
