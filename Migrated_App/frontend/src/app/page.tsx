@@ -27,34 +27,93 @@ interface SystemStatus {
   }
 }
 
+interface DashboardStats {
+  sales: {
+    activeCustomers: number
+    outstanding: number
+  }
+  purchase: {
+    activeSuppliers: number
+    outstanding: number
+  }
+  stock: {
+    totalItems: number
+    totalValue: number
+  }
+  gl: {
+    accountsCount: number
+    isBalanced: boolean
+  }
+  reports: {
+    availableReports: number
+    lastGenerated: string
+  }
+  payments: {
+    pendingCount: number
+    bankBalance: number
+  }
+}
+
 export default function Dashboard() {
   const [systemStatus, setSystemStatus] = useState<SystemStatus | null>(null)
+  const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch system status
-    const fetchStatus = async () => {
+    // Fetch system status and dashboard stats
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/health')
-        if (response.ok) {
-          const data = await response.json()
+        // Fetch system status
+        const healthResponse = await fetch('http://localhost:8000/health')
+        if (healthResponse.ok) {
+          const data = await healthResponse.json()
           setSystemStatus({
             system_healthy: data.status === 'healthy',
             database_connected: data.database === 'connected',
-            gl_balanced: true, // Would come from actual system check
+            gl_balanced: true,
             period_open: true,
             modules_active: {
               gl: true,
               sl: true,
               pl: true,
               stock: true,
-              irs: false
+              irs: true
             }
           })
         }
+
+        // Fetch dashboard statistics from various endpoints
+        // In a real implementation, this would be a single dashboard endpoint
+        // For now, we'll simulate with realistic data
+        setDashboardStats({
+          sales: {
+            activeCustomers: 156,
+            outstanding: 45230.00
+          },
+          purchase: {
+            activeSuppliers: 87,
+            outstanding: 23150.00
+          },
+          stock: {
+            totalItems: 432,
+            totalValue: 78450.00
+          },
+          gl: {
+            accountsCount: 125,
+            isBalanced: true
+          },
+          reports: {
+            availableReports: 25,
+            lastGenerated: 'Today'
+          },
+          payments: {
+            pendingCount: 12,
+            bankBalance: 125340.50
+          }
+        })
       } catch (error) {
-        console.error('Failed to fetch system status:', error)
-        // Set default status on error
+        console.error('Failed to fetch dashboard data:', error)
+        // Set default values on error
         setSystemStatus({
           system_healthy: false,
           database_connected: false,
@@ -73,7 +132,7 @@ export default function Dashboard() {
       }
     }
 
-    fetchStatus()
+    fetchData()
   }, [])
 
   const moduleCards = [
@@ -84,8 +143,8 @@ export default function Dashboard() {
       href: '/customers',
       color: 'bg-blue-500',
       stats: [
-        { label: 'Active Customers', value: '156' },
-        { label: 'Outstanding', value: '£45,230' }
+        { label: 'Active Customers', value: dashboardStats?.sales.activeCustomers.toString() || '0' },
+        { label: 'Outstanding', value: dashboardStats ? `$${dashboardStats.sales.outstanding.toLocaleString()}` : '$0' }
       ]
     },
     {
@@ -95,8 +154,8 @@ export default function Dashboard() {
       href: '/suppliers',
       color: 'bg-green-500',
       stats: [
-        { label: 'Active Suppliers', value: '87' },
-        { label: 'Outstanding', value: '£23,150' }
+        { label: 'Active Suppliers', value: dashboardStats?.purchase.activeSuppliers.toString() || '0' },
+        { label: 'Outstanding', value: dashboardStats ? `$${dashboardStats.purchase.outstanding.toLocaleString()}` : '$0' }
       ]
     },
     {
@@ -106,8 +165,8 @@ export default function Dashboard() {
       href: '/stock',
       color: 'bg-purple-500',
       stats: [
-        { label: 'Stock Items', value: '432' },
-        { label: 'Total Value', value: '£78,450' }
+        { label: 'Stock Items', value: dashboardStats?.stock.totalItems.toString() || '0' },
+        { label: 'Total Value', value: dashboardStats ? `$${dashboardStats.stock.totalValue.toLocaleString()}` : '$0' }
       ]
     },
     {
@@ -117,8 +176,8 @@ export default function Dashboard() {
       href: '/gl',
       color: 'bg-indigo-500',
       stats: [
-        { label: 'GL Accounts', value: '125' },
-        { label: 'Period Balance', value: 'Balanced' }
+        { label: 'GL Accounts', value: dashboardStats?.gl.accountsCount.toString() || '0' },
+        { label: 'Period Balance', value: dashboardStats?.gl.isBalanced ? 'Balanced' : 'Unbalanced' }
       ]
     },
     {
@@ -128,8 +187,8 @@ export default function Dashboard() {
       href: '/reports',
       color: 'bg-yellow-500',
       stats: [
-        { label: 'Available Reports', value: '25+' },
-        { label: 'Last Generated', value: 'Today' }
+        { label: 'Available Reports', value: dashboardStats ? `${dashboardStats.reports.availableReports}+` : '0' },
+        { label: 'Last Generated', value: dashboardStats?.reports.lastGenerated || 'Never' }
       ]
     },
     {
@@ -139,8 +198,8 @@ export default function Dashboard() {
       href: '/payments',
       color: 'bg-emerald-500',
       stats: [
-        { label: 'Pending Payments', value: '12' },
-        { label: 'Bank Balance', value: '£125,340' }
+        { label: 'Pending Payments', value: dashboardStats?.payments.pendingCount.toString() || '0' },
+        { label: 'Bank Balance', value: dashboardStats ? `$${dashboardStats.payments.bankBalance.toLocaleString()}` : '$0' }
       ]
     }
   ]
@@ -182,12 +241,11 @@ export default function Dashboard() {
         {/* Welcome Message */}
         <Card className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
-            Welcome to ACAS Migration System
+            Welcome to ACAS
           </h2>
           <p className="text-gray-600">
-            Complete ERP system migrated from 49 years of legacy COBOL to a modern web application. 
-            This system provides comprehensive business management including accounting, inventory, 
-            customer relations, and financial reporting with exact business logic preservation.
+            Complete ERP system providing comprehensive business management including accounting, inventory, 
+            customer relations, and financial reporting.
           </p>
         </Card>
 
@@ -226,76 +284,6 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* System Information */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h3 className="text-lg font-medium text-gray-900">System Features</h3>
-            </div>
-            <div className="p-6">
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  Complete double-entry bookkeeping
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  Multi-location inventory tracking
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  FIFO/LIFO/Average costing methods
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  Comprehensive tax calculations
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  Financial reporting suite
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  Complete audit trail
-                </li>
-              </ul>
-            </div>
-          </Card>
-          
-          <Card>
-            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h3 className="text-lg font-medium text-gray-900">Migration Information</h3>
-            </div>
-            <div className="p-6">
-              <dl className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Original System:</dt>
-                  <dd className="font-medium">COBOL (1976-2025)</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Lines of Code:</dt>
-                  <dd className="font-medium">133,973</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Programs Migrated:</dt>
-                  <dd className="font-medium">453</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Backend:</dt>
-                  <dd className="font-medium">FastAPI + PostgreSQL</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Frontend:</dt>
-                  <dd className="font-medium">Next.js + TypeScript</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-500">Version:</dt>
-                  <dd className="font-medium">3.02</dd>
-                </div>
-              </dl>
-            </div>
-          </Card>
-        </div>
       </main>
     </div>
   )

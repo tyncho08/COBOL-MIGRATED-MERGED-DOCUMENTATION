@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { 
   UsersIcon,
   MagnifyingGlassIcon,
@@ -16,8 +17,10 @@ import Input from '@/components/UI/Input'
 import Table from '@/components/UI/Table'
 import PageHeader from '@/components/Layout/PageHeader'
 import { customerApi, type CustomerSummary } from '@/lib/api'
+import { formatCurrency } from '@/lib/utils'
 
 export default function CustomersPage() {
+  const router = useRouter()
   const [customers, setCustomers] = useState<CustomerSummary[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -57,12 +60,6 @@ export default function CustomersPage() {
     totalCreditLimit: customers.reduce((sum, c) => sum + parseFloat(c.sales_credit_limit), 0)
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(amount)
-  }
 
   const getStatusBadge = (customer: CustomerSummary) => {
     if (!customer.is_active) {
@@ -150,10 +147,10 @@ export default function CustomersPage() {
       header: 'Actions',
       render: (customer: CustomerSummary) => (
         <div className="flex space-x-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => router.push(`/customers/${customer.sales_key}`)}>
             View
           </Button>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={() => router.push(`/customers/${customer.sales_key}/edit`)}>
             Edit
           </Button>
         </div>
@@ -163,10 +160,10 @@ export default function CustomersPage() {
 
   const quickActions = (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => window.print()}>
         Export
       </Button>
-      <Button size="sm">
+      <Button size="sm" onClick={() => router.push('/customers/new')}>
         <PlusIcon className="h-4 w-4" />
         New Customer
       </Button>
@@ -240,8 +237,13 @@ export default function CustomersPage() {
                   leftIcon={<MagnifyingGlassIcon className="h-5 w-5" />}
                 />
               </div>
-              <Button variant="outline">
-                Filter
+              <Button variant="outline" onClick={() => {
+                // Clear filters
+                setSearchTerm('')
+                setSelectedCustomers([])
+              }}>
+                <XCircleIcon className="h-4 w-4" />
+                Clear
               </Button>
             </div>
           </div>

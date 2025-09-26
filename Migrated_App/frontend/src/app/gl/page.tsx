@@ -13,6 +13,7 @@ import {
 import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
+import { formatCurrency } from '@/lib/utils'
 
 interface GLSummary {
   total_accounts: number
@@ -131,12 +132,6 @@ export default function GeneralLedgerPage() {
     </div>
   )
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(amount)
-  }
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-GB', {

@@ -14,6 +14,7 @@ import {
 import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
+import { formatCurrency, formatDate } from '@/lib/utils'
 
 interface PLSummary {
   total_suppliers: number
@@ -158,20 +159,7 @@ export default function PurchaseLedgerPage() {
     </div>
   )
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(amount)
-  }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -454,7 +442,7 @@ export default function PurchaseLedgerPage() {
                     </div>
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Early Payment Discounts:</dt>
-                      <dd className="font-medium text-green-600">£2,450</dd>
+                      <dd className="font-medium text-green-600">$2,450</dd>
                     </div>
                   </dl>
                 </div>

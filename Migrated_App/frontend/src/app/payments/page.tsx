@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Modal from '@/components/UI/Modal'
+import Input from '@/components/UI/Input'
 import { 
   CurrencyDollarIcon,
   CreditCardIcon,
@@ -15,6 +18,7 @@ import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
 import Table from '@/components/UI/Table'
+import { formatCurrency, formatDate } from '@/lib/utils'
 
 interface PaymentSummary {
   total_receipts_today: number
@@ -38,9 +42,33 @@ interface RecentTransaction {
 }
 
 export default function PaymentsPage() {
+  const router = useRouter()
   const [summary, setSummary] = useState<PaymentSummary | null>(null)
   const [recentTransactions, setRecentTransactions] = useState<RecentTransaction[]>([])
   const [loading, setLoading] = useState(true)
+  
+  // Modal states
+  const [showReceiptModal, setShowReceiptModal] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [showReconciliationModal, setShowReconciliationModal] = useState(false)
+  const [showAllocationModal, setShowAllocationModal] = useState(false)
+  const [showImportModal, setShowImportModal] = useState(false)
+  
+  // Form states
+  const [receiptForm, setReceiptForm] = useState({
+    customer: '',
+    amount: '',
+    method: 'Bank Transfer',
+    reference: '',
+    date: new Date().toISOString().split('T')[0]
+  })
+  const [paymentForm, setPaymentForm] = useState({
+    supplier: '',
+    amount: '',
+    method: 'Bank Transfer',
+    reference: '',
+    date: new Date().toISOString().split('T')[0]
+  })
 
   useEffect(() => {
     // Simulate API calls
@@ -95,31 +123,18 @@ export default function PaymentsPage() {
 
   const quickActions = (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => setShowImportModal(true)}>
         <ArrowDownTrayIcon className="h-4 w-4" />
         Import Bank Statement
       </Button>
-      <Button size="sm">
+      <Button size="sm" onClick={() => setShowPaymentModal(true)}>
         <CreditCardIcon className="h-4 w-4" />
         New Payment
       </Button>
     </div>
   )
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(amount)
-  }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-  }
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -205,7 +220,7 @@ export default function PaymentsPage() {
         row.allocated ? (
           <CheckCircleIcon className="h-5 w-5 text-green-600" />
         ) : (
-          <Button variant="outline" size="sm">Allocate</Button>
+          <Button variant="outline" size="sm" onClick={() => setShowAllocationModal(true)}>Allocate</Button>
         )
       )
     }
@@ -273,7 +288,7 @@ export default function PaymentsPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Transactions</h3>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => router.push('/payments/transactions')}>
                     View All
                   </Button>
                 </div>
@@ -295,19 +310,19 @@ export default function PaymentsPage() {
                 <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
               </div>
               <div className="p-6 space-y-3">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowReceiptModal(true)}>
                   <CreditCardIcon className="h-4 w-4 mr-2" />
                   Record Customer Receipt
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowPaymentModal(true)}>
                   <BanknotesIcon className="h-4 w-4 mr-2" />
                   Make Supplier Payment
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowReconciliationModal(true)}>
                   <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
                   Bank Reconciliation
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowAllocationModal(true)}>
                   <CurrencyDollarIcon className="h-4 w-4 mr-2" />
                   Allocate Receipts
                 </Button>
@@ -345,6 +360,258 @@ export default function PaymentsPage() {
           </div>
         </div>
       </main>
+      
+      {/* Customer Receipt Modal */}
+      <Modal
+        isOpen={showReceiptModal}
+        onClose={() => setShowReceiptModal(false)}
+        title="Record Customer Receipt"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowReceiptModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={() => {
+                // Handle receipt creation
+                console.log('Creating receipt:', receiptForm)
+                setShowReceiptModal(false)
+                // Reset form
+                setReceiptForm({
+                  customer: '',
+                  amount: '',
+                  method: 'Bank Transfer',
+                  reference: '',
+                  date: new Date().toISOString().split('T')[0]
+                })
+              }}
+            >
+              Record Receipt
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Customer"
+            type="text"
+            value={receiptForm.customer}
+            onChange={(e) => setReceiptForm({...receiptForm, customer: e.target.value})}
+            placeholder="Select customer"
+            required
+          />
+          <Input
+            label="Amount"
+            type="number"
+            value={receiptForm.amount}
+            onChange={(e) => setReceiptForm({...receiptForm, amount: e.target.value})}
+            placeholder="0.00"
+            required
+          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Payment Method
+            </label>
+            <select 
+              className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+              value={receiptForm.method}
+              onChange={(e) => setReceiptForm({...receiptForm, method: e.target.value})}
+            >
+              <option>Bank Transfer</option>
+              <option>Check</option>
+              <option>Credit Card</option>
+              <option>Cash</option>
+            </select>
+          </div>
+          <Input
+            label="Reference"
+            type="text"
+            value={receiptForm.reference}
+            onChange={(e) => setReceiptForm({...receiptForm, reference: e.target.value})}
+            placeholder="Payment reference"
+          />
+          <Input
+            label="Date"
+            type="date"
+            value={receiptForm.date}
+            onChange={(e) => setReceiptForm({...receiptForm, date: e.target.value})}
+            required
+          />
+        </div>
+      </Modal>
+
+      {/* Supplier Payment Modal */}
+      <Modal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        title="Make Supplier Payment"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowPaymentModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={() => {
+                // Handle payment creation
+                console.log('Creating payment:', paymentForm)
+                setShowPaymentModal(false)
+                // Reset form
+                setPaymentForm({
+                  supplier: '',
+                  amount: '',
+                  method: 'Bank Transfer',
+                  reference: '',
+                  date: new Date().toISOString().split('T')[0]
+                })
+              }}
+            >
+              Process Payment
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Supplier"
+            type="text"
+            value={paymentForm.supplier}
+            onChange={(e) => setPaymentForm({...paymentForm, supplier: e.target.value})}
+            placeholder="Select supplier"
+            required
+          />
+          <Input
+            label="Amount"
+            type="number"
+            value={paymentForm.amount}
+            onChange={(e) => setPaymentForm({...paymentForm, amount: e.target.value})}
+            placeholder="0.00"
+            required
+          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Payment Method
+            </label>
+            <select 
+              className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+              value={paymentForm.method}
+              onChange={(e) => setPaymentForm({...paymentForm, method: e.target.value})}
+            >
+              <option>Bank Transfer</option>
+              <option>Check</option>
+              <option>Wire Transfer</option>
+              <option>ACH</option>
+            </select>
+          </div>
+          <Input
+            label="Reference"
+            type="text"
+            value={paymentForm.reference}
+            onChange={(e) => setPaymentForm({...paymentForm, reference: e.target.value})}
+            placeholder="Payment reference"
+          />
+          <Input
+            label="Date"
+            type="date"
+            value={paymentForm.date}
+            onChange={(e) => setPaymentForm({...paymentForm, date: e.target.value})}
+            required
+          />
+        </div>
+      </Modal>
+
+      {/* Bank Reconciliation Modal */}
+      <Modal
+        isOpen={showReconciliationModal}
+        onClose={() => setShowReconciliationModal(false)}
+        title="Bank Reconciliation"
+        size="lg"
+      >
+        <div className="text-center py-8">
+          <BanknotesIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Bank Reconciliation</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Match your bank statement with system transactions
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowReconciliationModal(false)
+              router.push('/payments/reconciliation')
+            }}>
+              Start Reconciliation
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Receipt Allocation Modal */}
+      <Modal
+        isOpen={showAllocationModal}
+        onClose={() => setShowAllocationModal(false)}
+        title="Allocate Receipts"
+        size="lg"
+      >
+        <div className="text-center py-8">
+          <CurrencyDollarIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Receipt Allocation</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            You have {summary?.unallocated_receipts || 0} unallocated receipts
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowAllocationModal(false)
+              router.push('/payments/allocation')
+            }}>
+              Start Allocation
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Import Bank Statement Modal */}
+      <Modal
+        isOpen={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        title="Import Bank Statement"
+        size="md"
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Bank Account
+            </label>
+            <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
+              <option>Main Operating Account (****1234)</option>
+              <option>Savings Account (****5678)</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Statement File
+            </label>
+            <input
+              type="file"
+              accept=".csv,.ofx,.qfx"
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+            />
+            <p className="mt-1 text-xs text-gray-500">Supported formats: CSV, OFX, QFX</p>
+          </div>
+          <div className="flex justify-end space-x-2 pt-4">
+            <Button variant="outline" onClick={() => setShowImportModal(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => {
+              // Handle import
+              setShowImportModal(false)
+            }}>
+              Import Statement
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

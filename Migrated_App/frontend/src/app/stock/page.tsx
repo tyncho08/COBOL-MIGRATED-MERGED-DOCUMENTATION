@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Modal from '@/components/UI/Modal'
+import Input from '@/components/UI/Input'
 import { 
   CubeIcon,
   TruckIcon,
@@ -12,6 +15,7 @@ import {
 import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
+import { formatCurrency } from '@/lib/utils'
 
 interface StockSummary {
   total_items: number
@@ -36,9 +40,37 @@ interface RecentMovement {
 }
 
 export default function StockControlPage() {
+  const router = useRouter()
   const [summary, setSummary] = useState<StockSummary | null>(null)
   const [recentMovements, setRecentMovements] = useState<RecentMovement[]>([])
   const [loading, setLoading] = useState(true)
+  
+  // Modal states
+  const [showStockTakeModal, setShowStockTakeModal] = useState(false)
+  const [showReceiveStockModal, setShowReceiveStockModal] = useState(false)
+  const [showNewItemModal, setShowNewItemModal] = useState(false)
+  const [showInquiryModal, setShowInquiryModal] = useState(false)
+  const [showGoodsReceiptModal, setShowGoodsReceiptModal] = useState(false)
+  const [showStockIssueModal, setShowStockIssueModal] = useState(false)
+  const [showTransferModal, setShowTransferModal] = useState(false)
+  const [showValuationModal, setShowValuationModal] = useState(false)
+  
+  // Form states
+  const [receiveForm, setReceiveForm] = useState({
+    itemCode: '',
+    quantity: '',
+    supplier: '',
+    poNumber: '',
+    cost: ''
+  })
+  const [newItemForm, setNewItemForm] = useState({
+    code: '',
+    description: '',
+    category: 'Raw Material',
+    unitOfMeasure: 'Each',
+    reorderPoint: '',
+    reorderQuantity: ''
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,27 +133,21 @@ export default function StockControlPage() {
 
   const quickActions = (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => setShowStockTakeModal(true)}>
         <ClipboardDocumentListIcon className="h-4 w-4" />
         Stock Take
       </Button>
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => setShowReceiveStockModal(true)}>
         <TruckIcon className="h-4 w-4" />
         Receive Stock
       </Button>
-      <Button size="sm">
+      <Button size="sm" onClick={() => setShowNewItemModal(true)}>
         <CubeIcon className="h-4 w-4" />
         New Item
       </Button>
     </div>
   )
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(amount)
-  }
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-GB', {
@@ -199,7 +225,7 @@ export default function StockControlPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Movements</h3>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => router.push('/stock/movements')}>
                     View All
                   </Button>
                 </div>
@@ -262,23 +288,23 @@ export default function StockControlPage() {
                 <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
               </div>
               <div className="p-6 space-y-3">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowInquiryModal(true)}>
                   <CubeIcon className="h-4 w-4 mr-2" />
                   Item Inquiry
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowGoodsReceiptModal(true)}>
                   <TruckIcon className="h-4 w-4 mr-2" />
                   Goods Receipt
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowStockIssueModal(true)}>
                   <ClipboardDocumentListIcon className="h-4 w-4 mr-2" />
                   Stock Issue
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowTransferModal(true)}>
                   <ChartBarIcon className="h-4 w-4 mr-2" />
                   Stock Transfer
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowValuationModal(true)}>
                   <CurrencyDollarIcon className="h-4 w-4 mr-2" />
                   Valuation Report
                 </Button>
@@ -340,7 +366,7 @@ export default function StockControlPage() {
                           </ul>
                         </div>
                         <div className="mt-4">
-                          <Button size="sm" variant="outline">
+                          <Button size="sm" variant="outline" onClick={() => router.push('/stock/alerts')}>
                             View Details
                           </Button>
                         </div>
@@ -353,6 +379,316 @@ export default function StockControlPage() {
           </div>
         </div>
       </main>
+      
+      {/* Stock Take Modal */}
+      <Modal
+        isOpen={showStockTakeModal}
+        onClose={() => setShowStockTakeModal(false)}
+        title="Stock Take"
+        size="lg"
+      >
+        <div className="text-center py-8">
+          <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Physical Stock Count</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Perform a physical count of your inventory
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowStockTakeModal(false)
+              router.push('/stock/stock-take')
+            }}>
+              Start Stock Take
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Receive Stock Modal */}
+      <Modal
+        isOpen={showReceiveStockModal}
+        onClose={() => setShowReceiveStockModal(false)}
+        title="Receive Stock"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowReceiveStockModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={() => {
+                console.log('Receiving stock:', receiveForm)
+                setShowReceiveStockModal(false)
+                // Reset form
+                setReceiveForm({
+                  itemCode: '',
+                  quantity: '',
+                  supplier: '',
+                  poNumber: '',
+                  cost: ''
+                })
+              }}
+            >
+              Receive Stock
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Item Code"
+            type="text"
+            value={receiveForm.itemCode}
+            onChange={(e) => setReceiveForm({...receiveForm, itemCode: e.target.value})}
+            placeholder="Enter item code"
+            required
+          />
+          <Input
+            label="Quantity"
+            type="number"
+            value={receiveForm.quantity}
+            onChange={(e) => setReceiveForm({...receiveForm, quantity: e.target.value})}
+            placeholder="0"
+            required
+          />
+          <Input
+            label="Supplier"
+            type="text"
+            value={receiveForm.supplier}
+            onChange={(e) => setReceiveForm({...receiveForm, supplier: e.target.value})}
+            placeholder="Select supplier"
+            required
+          />
+          <Input
+            label="PO Number"
+            type="text"
+            value={receiveForm.poNumber}
+            onChange={(e) => setReceiveForm({...receiveForm, poNumber: e.target.value})}
+            placeholder="Purchase order number"
+          />
+          <Input
+            label="Unit Cost"
+            type="number"
+            value={receiveForm.cost}
+            onChange={(e) => setReceiveForm({...receiveForm, cost: e.target.value})}
+            placeholder="0.00"
+            required
+          />
+        </div>
+      </Modal>
+
+      {/* New Item Modal */}
+      <Modal
+        isOpen={showNewItemModal}
+        onClose={() => setShowNewItemModal(false)}
+        title="Create New Stock Item"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowNewItemModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={() => {
+                console.log('Creating item:', newItemForm)
+                setShowNewItemModal(false)
+                // Reset form
+                setNewItemForm({
+                  code: '',
+                  description: '',
+                  category: 'Raw Material',
+                  unitOfMeasure: 'Each',
+                  reorderPoint: '',
+                  reorderQuantity: ''
+                })
+              }}
+            >
+              Create Item
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Item Code"
+            type="text"
+            value={newItemForm.code}
+            onChange={(e) => setNewItemForm({...newItemForm, code: e.target.value})}
+            placeholder="Enter unique item code"
+            required
+          />
+          <Input
+            label="Description"
+            type="text"
+            value={newItemForm.description}
+            onChange={(e) => setNewItemForm({...newItemForm, description: e.target.value})}
+            placeholder="Item description"
+            required
+          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Category
+            </label>
+            <select 
+              className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+              value={newItemForm.category}
+              onChange={(e) => setNewItemForm({...newItemForm, category: e.target.value})}
+            >
+              <option>Raw Material</option>
+              <option>Finished Product</option>
+              <option>Work in Progress</option>
+              <option>Consumable</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Unit of Measure
+            </label>
+            <select 
+              className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+              value={newItemForm.unitOfMeasure}
+              onChange={(e) => setNewItemForm({...newItemForm, unitOfMeasure: e.target.value})}
+            >
+              <option>Each</option>
+              <option>Box</option>
+              <option>Kilogram</option>
+              <option>Liter</option>
+              <option>Meter</option>
+            </select>
+          </div>
+          <Input
+            label="Reorder Point"
+            type="number"
+            value={newItemForm.reorderPoint}
+            onChange={(e) => setNewItemForm({...newItemForm, reorderPoint: e.target.value})}
+            placeholder="Minimum stock level"
+          />
+          <Input
+            label="Reorder Quantity"
+            type="number"
+            value={newItemForm.reorderQuantity}
+            onChange={(e) => setNewItemForm({...newItemForm, reorderQuantity: e.target.value})}
+            placeholder="Quantity to reorder"
+          />
+        </div>
+      </Modal>
+
+      {/* Item Inquiry Modal */}
+      <Modal
+        isOpen={showInquiryModal}
+        onClose={() => setShowInquiryModal(false)}
+        title="Item Inquiry"
+        size="md"
+      >
+        <div className="space-y-4">
+          <Input
+            label="Item Code or Description"
+            type="text"
+            placeholder="Search for an item"
+          />
+          <div className="text-center py-8">
+            <CubeIcon className="mx-auto h-12 w-12 text-gray-400" />
+            <p className="mt-2 text-sm text-gray-500">
+              Enter an item code or description to view details
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Other modals with simple navigation */}
+      <Modal
+        isOpen={showGoodsReceiptModal}
+        onClose={() => setShowGoodsReceiptModal(false)}
+        title="Goods Receipt"
+        size="md"
+      >
+        <div className="text-center py-8">
+          <TruckIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Goods Receipt</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Process receipt of goods from purchase orders
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowGoodsReceiptModal(false)
+              router.push('/stock/goods-receipt')
+            }}>
+              Go to Goods Receipt
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showStockIssueModal}
+        onClose={() => setShowStockIssueModal(false)}
+        title="Stock Issue"
+        size="md"
+      >
+        <div className="text-center py-8">
+          <ClipboardDocumentListIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Stock Issue</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Issue stock for production or sales
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowStockIssueModal(false)
+              router.push('/stock/issue')
+            }}>
+              Go to Stock Issue
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showTransferModal}
+        onClose={() => setShowTransferModal(false)}
+        title="Stock Transfer"
+        size="md"
+      >
+        <div className="text-center py-8">
+          <ChartBarIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Stock Transfer</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Transfer stock between locations
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowTransferModal(false)
+              router.push('/stock/transfer')
+            }}>
+              Go to Stock Transfer
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showValuationModal}
+        onClose={() => setShowValuationModal(false)}
+        title="Stock Valuation Report"
+        size="md"
+      >
+        <div className="text-center py-8">
+          <CurrencyDollarIcon className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">Stock Valuation</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            View current stock valuation by various methods
+          </p>
+          <div className="mt-6">
+            <Button onClick={() => {
+              setShowValuationModal(false)
+              router.push('/reports/stock-valuation')
+            }}>
+              Generate Report
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

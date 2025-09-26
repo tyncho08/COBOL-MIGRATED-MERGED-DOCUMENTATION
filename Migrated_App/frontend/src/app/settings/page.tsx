@@ -133,8 +133,8 @@ export default function SettingsPage() {
                   Default Currency
                 </label>
                 <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
-                  <option>GBP - British Pound</option>
                   <option>USD - US Dollar</option>
+                  <option>GBP - British Pound</option>
                   <option>EUR - Euro</option>
                 </select>
               </div>
