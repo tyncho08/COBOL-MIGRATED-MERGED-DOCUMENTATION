@@ -77,6 +77,13 @@ api_router.include_router(tax_returns_router, prefix="/irs/returns", tags=["irs-
 api_router.include_router(electronic_filing_router, prefix="/irs/efiling", tags=["irs-efiling"])
 api_router.include_router(audit_trail_router, prefix="/irs/audit", tags=["irs-audit"])
 
+# Sales Module routes (consolidated)
+from app.api.v1 import sales
+api_router.include_router(sales.customers.router, prefix="/sales/customers", tags=["sales-customers"])
+api_router.include_router(sales.outstanding.router, prefix="/sales/outstanding", tags=["sales-outstanding"])
+api_router.include_router(sales.reports.router, prefix="/sales/reports", tags=["sales-reports"])
+api_router.include_router(sales.analytics.router, prefix="/sales/analytics", tags=["sales-analytics"])
+
 # Reports routes
 from app.api.v1 import reports
 api_router.include_router(reports.router, prefix="/reports", tags=["reports"])

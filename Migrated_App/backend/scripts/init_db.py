@@ -93,9 +93,79 @@ def init_database():
             for table in tables:
                 result = conn.execute(text(f"SELECT COUNT(*) FROM acas.{table}"))
                 logger.info(f"Table acas.{table} exists with {result.scalar()} records")
+            
+            # Create sales_receipts table if it doesn't exist (critical for payments module)
+            logger.info("Ensuring sales_receipts table exists...")
+            
+            # Check if sales_receipts table exists
+            receipts_exists = conn.execute(text("""
+                SELECT table_name 
+                FROM information_schema.tables 
+                WHERE table_schema = 'acas' 
+                AND table_name = 'sales_receipts'
+            """)).fetchone()
+            
+            if not receipts_exists:
+                logger.info("Creating sales_receipts table...")
+                conn.execute(text("""
+                    CREATE TABLE acas.sales_receipts (
+                        receipt_id SERIAL PRIMARY KEY,
+                        receipt_number VARCHAR(20) UNIQUE NOT NULL,
+                        sales_key VARCHAR(10) NOT NULL,
+                        receipt_date INTEGER NOT NULL,
+                        payment_method VARCHAR(10) NOT NULL,
+                        amount DECIMAL(12,2) NOT NULL,
+                        bank_account VARCHAR(20),
+                        check_number VARCHAR(20),
+                        check_date INTEGER,
+                        status CHAR(1) DEFAULT 'U',
+                        currency VARCHAR(3) DEFAULT 'USD',
+                        exchange_rate DECIMAL(8,4) DEFAULT 1.0000,
+                        customer_ref VARCHAR(30),
+                        narrative VARCHAR(100),
+                        received_by VARCHAR(30) NOT NULL,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                    );
+                """))
+                
+                # Create indexes
+                conn.execute(text("CREATE INDEX idx_sales_receipts_customer ON acas.sales_receipts(sales_key);"))
+                conn.execute(text("CREATE INDEX idx_sales_receipts_date ON acas.sales_receipts(receipt_date);"))
+                conn.execute(text("CREATE INDEX idx_sales_receipts_status ON acas.sales_receipts(status);"))
+                
+                logger.info("✅ sales_receipts table created successfully")
+                
+                # Add sample data
+                conn.execute(text("""
+                    INSERT INTO acas.sales_receipts (
+                        receipt_number, sales_key, receipt_date, payment_method, 
+                        amount, received_by, narrative
+                    ) VALUES 
+                    ('REC001', 'CUST001', 20250915, 'TRANSFER', 2500.00, 'system', 'Payment received'),
+                    ('REC002', 'CUST002', 20250920, 'CHECK', 1200.00, 'system', 'Check payment'),
+                    ('REC003', 'CUST003', 20250922, 'TRANSFER', 750.00, 'system', 'Bank transfer')
+                """))
+                logger.info("✅ Sample receipt data added")
+            else:
+                # Check if we have data
+                count_result = conn.execute(text("SELECT COUNT(*) FROM acas.sales_receipts"))
+                count = count_result.scalar()
+                logger.info(f"sales_receipts table already exists with {count} records")
+            
+            # Fix missing company_name field in system_rec table
+            logger.info("Checking system_rec table structure...")
+            try:
+                # Try to access company_name field
+                conn.execute(text("SELECT company_name FROM acas.system_rec LIMIT 1"))
+                logger.info("system_rec.company_name field exists")
+            except Exception:
+                logger.info("Adding missing company_name field to system_rec...")
+                conn.execute(text("ALTER TABLE acas.system_rec ADD COLUMN IF NOT EXISTS company_name VARCHAR(40) DEFAULT '';"))
+                logger.info("✅ company_name field added to system_rec")
         
         logger.info("Database initialization completed successfully")
-        logger.info("Total tables created: 43")
+        logger.info("Total tables created: 43+ (including sales_receipts)")
         
     except Exception as e:
         logger.error(f"Database initialization failed: {e}")

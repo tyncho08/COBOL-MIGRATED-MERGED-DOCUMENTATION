@@ -13,7 +13,7 @@ from app.services.business_logic import CreditControlService
 
 router = APIRouter()
 
-@router.get("/", response_model=List[CustomerSummary])
+@router.get("", response_model=List[CustomerSummary])
 async def list_customers(
     skip: int = 0,
     limit: int = 100,

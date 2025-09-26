@@ -18,34 +18,38 @@ async def get_payments_summary(
     """Get payments and receipts summary"""
     
     try:
-        # Calculate date ranges
+        # Calculate date ranges - Convert to INTEGER YYYYMMDD format
         today = date.today()
         current_month_start = date(today.year, today.month, 1)
         last_month_start = (current_month_start - timedelta(days=1)).replace(day=1)
         
+        # Convert dates to INTEGER YYYYMMDD format for database comparison
+        current_month_start_int = int(current_month_start.strftime("%Y%m%d"))
+        last_month_start_int = int(last_month_start.strftime("%Y%m%d"))
+        
         # Current month receipts
-        current_month_receipts = db.query(func.sum(SalesReceiptRec.receipt_amount)).filter(
-            SalesReceiptRec.receipt_date >= current_month_start
+        current_month_receipts = db.query(func.sum(SalesReceiptRec.amount)).filter(
+            SalesReceiptRec.receipt_date >= current_month_start_int
         ).scalar() or 0
         
         # Last month receipts
-        last_month_receipts = db.query(func.sum(SalesReceiptRec.receipt_amount)).filter(
+        last_month_receipts = db.query(func.sum(SalesReceiptRec.amount)).filter(
             and_(
-                SalesReceiptRec.receipt_date >= last_month_start,
-                SalesReceiptRec.receipt_date < current_month_start
+                SalesReceiptRec.receipt_date >= last_month_start_int,
+                SalesReceiptRec.receipt_date < current_month_start_int
             )
         ).scalar() or 0
         
         # Current month payments
         current_month_payments = db.query(func.sum(PurchasePaymentRec.payment_amount)).filter(
-            PurchasePaymentRec.payment_date >= current_month_start
+            PurchasePaymentRec.payment_date >= current_month_start_int
         ).scalar() or 0
         
         # Last month payments  
         last_month_payments = db.query(func.sum(PurchasePaymentRec.payment_amount)).filter(
             and_(
-                PurchasePaymentRec.payment_date >= last_month_start,
-                PurchasePaymentRec.payment_date < current_month_start
+                PurchasePaymentRec.payment_date >= last_month_start_int,
+                PurchasePaymentRec.payment_date < current_month_start_int
             )
         ).scalar() or 0
         
@@ -156,15 +160,15 @@ async def get_recent_transactions(
         for receipt in recent_receipts:
             # Get customer name
             customer = db.query(SalesLedgerRec).filter(
-                SalesLedgerRec.sales_account_code == receipt.customer_code
+                SalesLedgerRec.sales_account_code == receipt.sales_key
             ).first()
             
             transactions.append({
                 "id": f"REC-{receipt.receipt_id}",
-                "type": "receipt",
+                "type": "receipt", 
                 "reference": receipt.receipt_number or f"REC{receipt.receipt_id}",
-                "description": f"Payment from {customer.sales_name if customer else receipt.customer_code}",
-                "amount": float(receipt.receipt_amount),
+                "description": f"Payment from {customer.sales_name if customer else receipt.sales_key}",
+                "amount": float(receipt.amount),
                 "date": receipt.receipt_date.isoformat(),
                 "account": "Main Operating Account",
                 "status": "completed",
@@ -216,12 +220,13 @@ async def record_receipt(
     try:
         # Create new receipt
         receipt = SalesReceiptRec(
-            customer_code=customer_code,
-            receipt_amount=amount,
+            sales_key=customer_code,
+            amount=amount,
             receipt_number=reference,
-            receipt_date=date.today(),
+            receipt_date=int(date.today().strftime("%Y%m%d")),
             payment_method=payment_method,
-            notes=notes
+            narrative=notes,
+            received_by="system"
         )
         db.add(receipt)
         

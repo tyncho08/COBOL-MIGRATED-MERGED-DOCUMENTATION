@@ -219,6 +219,7 @@ class SalesReceiptRec(Base):
     Sales Receipts - Customer payments and cash receipts
     """
     __tablename__ = "sales_receipts"
+    __table_args__ = {"schema": "acas"}
     
     # Primary Key
     receipt_id = Column(Integer, primary_key=True, autoincrement=True, doc="Receipt ID")
