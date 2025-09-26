@@ -149,30 +149,22 @@ export default function PurchaseLedgerPage() {
               <StatsCard
                 title="Total Suppliers"
                 value={summary?.total_suppliers.toString() || '0'}
-                subtitle={`${summary?.active_suppliers || 0} active`}
-                icon={TruckIcon}
-                color="indigo"
+                icon={<TruckIcon className="h-6 w-6" />}
               />
               <StatsCard
                 title="Total Payable"
                 value={formatCurrency(summary?.total_payable || 0)}
-                subtitle={`${formatCurrency(summary?.overdue_payments || 0)} overdue`}
-                icon={CurrencyDollarIcon}
-                color="red"
+                icon={<CurrencyDollarIcon className="h-6 w-6" />}
               />
               <StatsCard
                 title="Pending Orders"
                 value={summary?.pending_orders.toString() || '0'}
-                subtitle={`${summary?.pending_invoices || 0} pending invoices`}
-                icon={ShoppingCartIcon}
-                color="yellow"
+                icon={<ShoppingCartIcon className="h-6 w-6" />}
               />
               <StatsCard
                 title="Avg Payment Days"
                 value={summary?.average_payment_days.toString() || '0'}
-                subtitle={`${summary?.pending_approvals || 0} pending approvals`}
-                icon={ClockIcon}
-                color="green"
+                icon={<ClockIcon className="h-6 w-6" />}
               />
             </div>
 

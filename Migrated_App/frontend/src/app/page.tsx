@@ -153,7 +153,7 @@ export default function Dashboard() {
       title: 'Purchase Ledger', 
       description: 'Supplier management, purchase orders, and accounts payable',
       icon: TruckIcon,
-      href: '/suppliers',
+      href: '/purchase',
       color: 'bg-green-500',
       stats: [
         { label: 'Active Suppliers', value: dashboardStats?.purchase.activeSuppliers.toString() || '0' },

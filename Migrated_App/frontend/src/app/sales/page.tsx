@@ -242,7 +242,7 @@ export default function SalesLedgerPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Invoices</h3>
-                  <Button variant="outline" size="sm" onClick={() => router.push('/sales/invoices')}>
+                  <Button variant="outline" size="sm" onClick={() => setShowInvoiceModal(true)}>
                     View All
                   </Button>
                 </div>

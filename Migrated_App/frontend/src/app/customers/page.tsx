@@ -149,10 +149,10 @@ export default function CustomersPage() {
       header: 'Actions',
       render: (customer: CustomerSummary) => (
         <div className="flex space-x-2">
-          <Button variant="outline" size="sm" onClick={() => router.push(`/customers/${customer.sales_key}`)}>
+          <Button variant="outline" size="sm" onClick={() => alert(`View customer ${customer.sales_key} details coming soon!`)}>
             View
           </Button>
-          <Button variant="outline" size="sm" onClick={() => router.push(`/customers/${customer.sales_key}/edit`)}>
+          <Button variant="outline" size="sm" onClick={() => alert(`Edit customer ${customer.sales_key} coming soon!`)}>
             Edit
           </Button>
         </div>
@@ -165,7 +165,7 @@ export default function CustomersPage() {
       <Button variant="outline" size="sm" onClick={() => window.print()}>
         Export
       </Button>
-      <Button size="sm" onClick={() => router.push('/customers/new')}>
+      <Button size="sm" onClick={() => alert('New customer form coming soon!')}>
         <PlusIcon className="h-4 w-4" />
         New Customer
       </Button>

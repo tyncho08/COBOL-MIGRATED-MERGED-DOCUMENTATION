@@ -288,7 +288,7 @@ export default function PaymentsPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Transactions</h3>
-                  <Button variant="outline" size="sm" onClick={() => router.push('/payments/transactions')}>
+                  <Button variant="outline" size="sm" onClick={() => alert('Transaction history coming soon!')}>
                     View All
                   </Button>
                 </div>
@@ -539,7 +539,7 @@ export default function PaymentsPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowReconciliationModal(false)
-              router.push('/payments/reconciliation')
+              alert('Bank reconciliation functionality coming soon!')
             }}>
               Start Reconciliation
             </Button>
@@ -563,7 +563,7 @@ export default function PaymentsPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowAllocationModal(false)
-              router.push('/payments/allocation')
+              alert('Payment allocation functionality coming soon!')
             }}>
               Start Allocation
             </Button>

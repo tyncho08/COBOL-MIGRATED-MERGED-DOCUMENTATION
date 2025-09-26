@@ -194,7 +194,7 @@ export default function StockControlPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Movements</h3>
-                  <Button variant="outline" size="sm" onClick={() => router.push('/stock/movements')}>
+                  <Button variant="outline" size="sm" onClick={() => alert('Stock movements report coming soon!')}>
                     View All
                   </Button>
                 </div>
@@ -335,7 +335,7 @@ export default function StockControlPage() {
                           </ul>
                         </div>
                         <div className="mt-4">
-                          <Button size="sm" variant="outline" onClick={() => router.push('/stock/alerts')}>
+                          <Button size="sm" variant="outline" onClick={() => alert('Low stock alerts coming soon!')}>
                             View Details
                           </Button>
                         </div>
@@ -365,7 +365,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowStockTakeModal(false)
-              router.push('/stock/stock-take')
+              alert('Stock take functionality coming soon!')
             }}>
               Start Stock Take
             </Button>
@@ -582,7 +582,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowGoodsReceiptModal(false)
-              router.push('/stock/goods-receipt')
+              alert('Goods receipt functionality coming soon!')
             }}>
               Go to Goods Receipt
             </Button>
@@ -605,7 +605,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowStockIssueModal(false)
-              router.push('/stock/issue')
+              alert('Stock issue functionality coming soon!')
             }}>
               Go to Stock Issue
             </Button>
@@ -628,7 +628,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowTransferModal(false)
-              router.push('/stock/transfer')
+              alert('Stock transfer functionality coming soon!')
             }}>
               Go to Stock Transfer
             </Button>
@@ -651,7 +651,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowValuationModal(false)
-              router.push('/reports/stock-valuation')
+              alert('Stock valuation report coming soon!')
             }}>
               Generate Report
             </Button>
