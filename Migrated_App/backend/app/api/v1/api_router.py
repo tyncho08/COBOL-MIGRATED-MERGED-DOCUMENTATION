@@ -77,11 +77,16 @@ api_router.include_router(tax_returns_router, prefix="/irs/returns", tags=["irs-
 api_router.include_router(electronic_filing_router, prefix="/irs/efiling", tags=["irs-efiling"])
 api_router.include_router(audit_trail_router, prefix="/irs/audit", tags=["irs-audit"])
 
-# Reports routes - temporarily disabled due to import issues
-# api_router.include_router(reports.generate.router, prefix="/reports", tags=["reports"])
-# api_router.include_router(reports.scheduler.router, prefix="/reports/schedule", tags=["report-scheduler"])
+# Reports routes
+from app.api.v1 import reports
+api_router.include_router(reports.router, prefix="/reports", tags=["reports"])
+
+# Payments routes
+from app.api.v1 import payments
+api_router.include_router(payments.router, prefix="/payments", tags=["payments"])
 
 # Admin routes
 api_router.include_router(admin.users.router, prefix="/admin/users", tags=["admin-users"])
 api_router.include_router(admin.system.router, prefix="/admin/system", tags=["admin-system"])
 api_router.include_router(admin.backup.router, prefix="/admin/backup", tags=["admin-backup"])
+api_router.include_router(admin.settings.router, prefix="/admin", tags=["admin-settings"])

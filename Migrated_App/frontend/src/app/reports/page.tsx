@@ -10,41 +10,82 @@ import {
   UsersIcon,
   TruckIcon,
   CubeIcon,
-  ArrowDownTrayIcon
+  ArrowDownTrayIcon,
+  ShoppingCartIcon,
+  CalculatorIcon
 } from '@heroicons/react/24/outline'
 import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
 
 interface ReportCategory {
+  id: string
   name: string
   description: string
-  icon: any
+  icon: string
   reports: Report[]
-  color: string
+  reportCount: number
 }
 
 interface Report {
   id: string
   name: string
   description: string
-  last_run?: string
+  lastGenerated?: string
   frequency: string
   format: string[]
-  parameters?: string[]
+  category: string
 }
 
 export default function ReportsPage() {
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState<string>('financial')
+  const [reportCategories, setReportCategories] = useState<ReportCategory[]>([])
+  const [generating, setGenerating] = useState<string | null>(null)
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 1000)
-    return () => clearTimeout(timer)
+    const fetchReportsData = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/v1/reports/summary')
+        if (response.ok) {
+          const data = await response.json()
+          setReportCategories(data.categories || [])
+        }
+      } catch (error) {
+        console.error('Failed to fetch reports data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchReportsData()
   }, [])
 
-  const reportCategories: ReportCategory[] = [
+  const iconMap: Record<string, any> = {
+    'ChartBarIcon': ChartBarIcon,
+    'ShoppingCartIcon': UsersIcon,
+    'TruckIcon': TruckIcon,
+    'CubeIcon': CubeIcon,
+    'CalculatorIcon': CurrencyDollarIcon
+  }
+
+  const generateReport = async (reportId: string, format: string) => {
+    setGenerating(reportId)
+    try {
+      const response = await fetch(`http://localhost:8000/api/v1/reports/generate/${reportId}?format=${format}`)
+      if (response.ok) {
+        const data = await response.json()
+        alert(data.message || `Report generated! Download ${reportId}.${format}`)
+      }
+    } catch (error) {
+      console.error('Failed to generate report:', error)
+      alert('Failed to generate report')
+    } finally {
+      setGenerating(null)
+    }
+  }
+
+  const defaultReportCategories: ReportCategory[] = [
     {
       name: 'Financial Reports',
       description: 'P&L, Balance Sheet, Trial Balance, and financial statements',
@@ -313,10 +354,10 @@ export default function ReportsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-medium text-gray-900">
-                      {selectedCategoryData.name}
+                      {selectedCategoryData?.name || 'Reports'}
                     </h3>
                     <p className="text-sm text-gray-500">
-                      {selectedCategoryData.description}
+                      {selectedCategoryData?.description || 'Select a category to view reports'}
                     </p>
                   </div>
                   <Button variant="outline" size="sm">
@@ -347,7 +388,7 @@ export default function ReportsPage() {
                   </div>
                 ) : (
                   <div className="p-6 space-y-4">
-                    {selectedCategoryData.reports.map((report) => (
+                    {(selectedCategoryData?.reports || []).map((report) => (
                       <div key={report.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -380,14 +421,18 @@ export default function ReportsPage() {
                             )}
                           </div>
                           <div className="ml-4 flex flex-col space-y-2">
-                            <Button size="sm">
-                              <PrinterIcon className="h-4 w-4" />
-                              Run Report
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <CalendarIcon className="h-4 w-4" />
-                              Schedule
-                            </Button>
+                            {report.format.map((fmt) => (
+                              <Button
+                                key={fmt}
+                                size="sm"
+                                variant={fmt === report.format[0] ? 'default' : 'outline'}
+                                onClick={() => generateReport(report.id, fmt.toLowerCase())}
+                                disabled={generating === report.id}
+                              >
+                                <ArrowDownTrayIcon className="h-4 w-4" />
+                                {generating === report.id ? 'Generating...' : fmt}
+                              </Button>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -412,35 +457,15 @@ export default function ReportsPage() {
             </div>
             <div className="p-0">
               <div className="divide-y divide-gray-200">
-                {[
-                  { name: 'Trial Balance', date: '2024-01-15T09:30:00Z', format: 'PDF', size: '1.2 MB' },
-                  { name: 'Customer Aging', date: '2024-01-15T10:15:00Z', format: 'Excel', size: '856 KB' },
-                  { name: 'Stock Valuation', date: '2024-01-15T08:00:00Z', format: 'PDF', size: '2.1 MB' },
-                  { name: 'Sales Analysis', date: '2024-01-15T07:30:00Z', format: 'Excel', size: '1.8 MB' }
-                ].map((report, index) => (
-                  <div key={index} className="px-6 py-4 hover:bg-gray-50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <DocumentTextIcon className="h-8 w-8 text-gray-400" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">{report.name}</p>
-                          <p className="text-sm text-gray-500">
-                            Generated {formatDate(report.date)} • {report.format} • {report.size}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
-                          <ArrowDownTrayIcon className="h-4 w-4" />
-                          Download
-                        </Button>
-                        <Button size="sm" variant="ghost">
-                          <PrinterIcon className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
+                {reportCategories.length === 0 ? (
+                  <div className="px-6 py-12 text-center text-gray-500">
+                    <p>No recent reports available</p>
                   </div>
-                ))}
+                ) : (
+                  <div className="px-6 py-12 text-center text-gray-500">
+                    <p>No recently generated reports</p>
+                  </div>
+                )}
               </div>
             </div>
           </Card>

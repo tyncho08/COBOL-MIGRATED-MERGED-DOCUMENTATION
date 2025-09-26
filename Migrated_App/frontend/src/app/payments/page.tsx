@@ -21,24 +21,26 @@ import Table from '@/components/UI/Table'
 import { formatCurrency, formatDate } from '@/lib/utils'
 
 interface PaymentSummary {
-  total_receipts_today: number
-  total_payments_today: number
-  pending_receipts: number
-  pending_payments: number
-  unallocated_receipts: number
-  bank_balance: number
+  totalReceipts: number
+  receiptsChange: number
+  totalPayments: number
+  paymentsChange: number
+  pendingReceipts: number
+  pendingPayments: number
+  bankBalance: number
+  netCashFlow: number
 }
 
 interface RecentTransaction {
-  id: number
+  id: string
   type: 'receipt' | 'payment'
   reference: string
-  customer_supplier: string
+  description: string
   amount: number
   date: string
-  method: string
+  account: string
   status: 'completed' | 'pending' | 'failed'
-  allocated: boolean
+  category: string
 }
 
 export default function PaymentsPage() {
@@ -46,6 +48,7 @@ export default function PaymentsPage() {
   const [summary, setSummary] = useState<PaymentSummary | null>(null)
   const [recentTransactions, setRecentTransactions] = useState<RecentTransaction[]>([])
   const [loading, setLoading] = useState(true)
+  const [bankAccounts, setBankAccounts] = useState<any[]>([])
   
   // Modal states
   const [showReceiptModal, setShowReceiptModal] = useState(false)
@@ -56,69 +59,45 @@ export default function PaymentsPage() {
   
   // Form states
   const [receiptForm, setReceiptForm] = useState({
-    customer: '',
-    amount: '',
-    method: 'Bank Transfer',
+    customerCode: '',
+    amount: 0,
+    paymentMethod: 'bank_transfer',
     reference: '',
-    date: new Date().toISOString().split('T')[0]
+    notes: ''
   })
   const [paymentForm, setPaymentForm] = useState({
-    supplier: '',
-    amount: '',
-    method: 'Bank Transfer',
+    supplierCode: '',
+    amount: 0,
+    paymentMethod: 'bank_transfer',
     reference: '',
-    date: new Date().toISOString().split('T')[0]
+    notes: ''
   })
 
   useEffect(() => {
-    // Simulate API calls
-    setTimeout(() => {
-      setSummary({
-        total_receipts_today: 12450.00,
-        total_payments_today: 8950.00,
-        pending_receipts: 5,
-        pending_payments: 3,
-        unallocated_receipts: 7,
-        bank_balance: 125340.50
-      })
-
-      setRecentTransactions([
-        {
-          id: 1,
-          type: 'receipt',
-          reference: 'RCT-2024-0156',
-          customer_supplier: 'ABC Manufacturing Ltd',
-          amount: 2450.00,
-          date: '2024-02-20',
-          method: 'Bank Transfer',
-          status: 'completed',
-          allocated: true
-        },
-        {
-          id: 2,
-          type: 'payment',
-          reference: 'PAY-2024-0089',
-          customer_supplier: 'Supplier XYZ Ltd',
-          amount: 1850.00,
-          date: '2024-02-20',
-          method: 'Check',
-          status: 'pending',
-          allocated: false
-        },
-        {
-          id: 3,
-          type: 'receipt',
-          reference: 'RCT-2024-0155',
-          customer_supplier: 'Tech Solutions Inc',
-          amount: 5200.00,
-          date: '2024-02-19',
-          method: 'Credit Card',
-          status: 'completed',
-          allocated: false
+    const fetchPaymentsData = async () => {
+      try {
+        // Fetch summary data
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/payments/summary')
+        if (summaryResponse.ok) {
+          const summaryData = await summaryResponse.json()
+          setSummary(summaryData.summary)
+          setBankAccounts(summaryData.bankAccounts || [])
         }
-      ])
-      setLoading(false)
-    }, 1000)
+        
+        // Fetch recent transactions
+        const transResponse = await fetch('http://localhost:8000/api/v1/payments/transactions')
+        if (transResponse.ok) {
+          const transData = await transResponse.json()
+          setRecentTransactions(transData.transactions || [])
+        }
+      } catch (error) {
+        console.error('Failed to fetch payments data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchPaymentsData()
   }, [])
 
   const quickActions = (
@@ -185,7 +164,7 @@ export default function PaymentsPage() {
       render: (value: any, row: RecentTransaction) => (
         <div>
           <div className="font-medium text-gray-900">{row.reference}</div>
-          <div className="text-sm text-gray-500">{row.customer_supplier}</div>
+          <div className="text-sm text-gray-500">{row.description}</div>
         </div>
       )
     },
@@ -194,7 +173,7 @@ export default function PaymentsPage() {
       header: 'Amount',
       render: (value: any, row: RecentTransaction) => (
         <div className={`font-medium ${row.type === 'receipt' ? 'text-green-600' : 'text-red-600'}`}>
-          {row.type === 'receipt' ? '+' : '-'}{formatCurrency(row.amount)}
+          {row.type === 'receipt' ? '+' : '-'}{formatCurrency(Math.abs(row.amount))}
         </div>
       )
     },
@@ -204,9 +183,9 @@ export default function PaymentsPage() {
       render: (value: any, row: RecentTransaction) => formatDate(row.date)
     },
     {
-      key: 'method',
-      header: 'Method',
-      render: (value: any) => value
+      key: 'account',
+      header: 'Account',
+      render: (value: any, row: RecentTransaction) => row.account
     },
     {
       key: 'status',
@@ -214,14 +193,10 @@ export default function PaymentsPage() {
       render: (value: any, row: RecentTransaction) => getStatusBadge(row.status)
     },
     {
-      key: 'allocated',
-      header: 'Allocated',
+      key: 'actions',
+      header: 'Actions',
       render: (value: any, row: RecentTransaction) => (
-        row.allocated ? (
-          <CheckCircleIcon className="h-5 w-5 text-green-600" />
-        ) : (
-          <Button variant="outline" size="sm" onClick={() => setShowAllocationModal(true)}>Allocate</Button>
-        )
+        <Button variant="outline" size="sm">View</Button>
       )
     }
   ]
@@ -243,39 +218,39 @@ export default function PaymentsPage() {
         {summary && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <StatsCard
-              title="Receipts Today"
-              value={formatCurrency(summary.total_receipts_today)}
+              title="Total Receipts"
+              value={formatCurrency(summary.totalReceipts)}
               icon={<ArrowDownTrayIcon className="h-6 w-6" />}
               change={{ 
-                value: `${summary.pending_receipts} pending`, 
-                type: 'neutral' 
+                value: `${summary.receiptsChange > 0 ? '+' : ''}${summary.receiptsChange.toFixed(1)}%`, 
+                type: summary.receiptsChange > 0 ? 'increase' : 'decrease' 
               }}
             />
             <StatsCard
-              title="Payments Today"
-              value={formatCurrency(summary.total_payments_today)}
+              title="Total Payments"
+              value={formatCurrency(summary.totalPayments)}
               icon={<ArrowUpTrayIcon className="h-6 w-6" />}
               change={{ 
-                value: `${summary.pending_payments} pending`, 
-                type: 'neutral' 
+                value: `${summary.paymentsChange > 0 ? '+' : ''}${summary.paymentsChange.toFixed(1)}%`, 
+                type: summary.paymentsChange > 0 ? 'increase' : 'decrease' 
               }}
             />
             <StatsCard
-              title="Unallocated"
-              value={summary.unallocated_receipts.toString()}
+              title="Pending Receipts"
+              value={formatCurrency(summary.pendingReceipts)}
               icon={<ClockIcon className="h-6 w-6" />}
               change={{ 
-                value: 'Receipts to allocate', 
-                type: 'decrease' 
+                value: 'Outstanding from customers', 
+                type: 'neutral' 
               }}
             />
             <StatsCard
               title="Bank Balance"
-              value={formatCurrency(summary.bank_balance)}
+              value={formatCurrency(summary.bankBalance)}
               icon={<BanknotesIcon className="h-6 w-6" />}
               change={{ 
-                value: '+3.2% this month', 
-                type: 'increase' 
+                value: `Net: ${formatCurrency(summary.netCashFlow)}`, 
+                type: summary.netCashFlow > 0 ? 'increase' : 'decrease' 
               }}
             />
           </div>
@@ -335,26 +310,29 @@ export default function PaymentsPage() {
                 <h3 className="text-lg font-medium text-gray-900">Bank Accounts</h3>
               </div>
               <div className="p-6 space-y-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-medium text-gray-900">Main Operating Account</p>
-                    <p className="text-sm text-gray-500">****1234</p>
-                  </div>
-                  <p className="font-bold text-gray-900">{formatCurrency(125340.50)}</p>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-medium text-gray-900">Savings Account</p>
-                    <p className="text-sm text-gray-500">****5678</p>
-                  </div>
-                  <p className="font-bold text-gray-900">{formatCurrency(50000.00)}</p>
-                </div>
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="flex justify-between">
-                    <p className="font-bold text-gray-900">Total Balance:</p>
-                    <p className="font-bold text-indigo-600">{formatCurrency(175340.50)}</p>
-                  </div>
-                </div>
+                {bankAccounts.length === 0 ? (
+                  <p className="text-gray-500 text-sm">No bank accounts configured</p>
+                ) : (
+                  <>
+                    {bankAccounts.map((account) => (
+                      <div key={account.id} className="flex justify-between items-center">
+                        <div>
+                          <p className="font-medium text-gray-900">{account.name}</p>
+                          <p className="text-sm text-gray-500">{account.accountNumber}</p>
+                        </div>
+                        <p className="font-bold text-gray-900">{formatCurrency(account.balance)}</p>
+                      </div>
+                    ))}
+                    <div className="pt-4 border-t border-gray-200">
+                      <div className="flex justify-between">
+                        <p className="font-bold text-gray-900">Total Balance:</p>
+                        <p className="font-bold text-indigo-600">
+                          {formatCurrency(bankAccounts.reduce((sum, acc) => sum + acc.balance, 0))}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </Card>
           </div>
@@ -374,18 +352,39 @@ export default function PaymentsPage() {
             </Button>
             <Button 
               className="ml-2"
-              onClick={() => {
-                // Handle receipt creation
-                console.log('Creating receipt:', receiptForm)
-                setShowReceiptModal(false)
-                // Reset form
-                setReceiptForm({
-                  customer: '',
-                  amount: '',
-                  method: 'Bank Transfer',
-                  reference: '',
-                  date: new Date().toISOString().split('T')[0]
-                })
+              onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/payments/receipt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      customer_code: receiptForm.customerCode,
+                      amount: parseFloat(receiptForm.amount.toString()),
+                      reference: receiptForm.reference,
+                      payment_method: receiptForm.paymentMethod,
+                      notes: receiptForm.notes
+                    })
+                  })
+                  const data = await response.json()
+                  if (data.success) {
+                    alert(data.message || 'Receipt recorded successfully!')
+                    setShowReceiptModal(false)
+                    setReceiptForm({
+                      customerCode: '',
+                      amount: 0,
+                      paymentMethod: 'bank_transfer',
+                      reference: '',
+                      notes: ''
+                    })
+                    // Refresh data
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to record receipt')
+                  }
+                } catch (error) {
+                  console.error('Error submitting receipt:', error)
+                  alert('Failed to record receipt')
+                }
               }}
             >
               Record Receipt
@@ -397,8 +396,8 @@ export default function PaymentsPage() {
           <Input
             label="Customer"
             type="text"
-            value={receiptForm.customer}
-            onChange={(e) => setReceiptForm({...receiptForm, customer: e.target.value})}
+            value={receiptForm.customerCode}
+            onChange={(e) => setReceiptForm({...receiptForm, customerCode: e.target.value})}
             placeholder="Select customer"
             required
           />
@@ -406,7 +405,7 @@ export default function PaymentsPage() {
             label="Amount"
             type="number"
             value={receiptForm.amount}
-            onChange={(e) => setReceiptForm({...receiptForm, amount: e.target.value})}
+            onChange={(e) => setReceiptForm({...receiptForm, amount: parseFloat(e.target.value) || 0})}
             placeholder="0.00"
             required
           />
@@ -416,13 +415,13 @@ export default function PaymentsPage() {
             </label>
             <select 
               className="form-select block w-full rounded-md border-gray-300 shadow-sm"
-              value={receiptForm.method}
-              onChange={(e) => setReceiptForm({...receiptForm, method: e.target.value})}
+              value={receiptForm.paymentMethod}
+              onChange={(e) => setReceiptForm({...receiptForm, paymentMethod: e.target.value})}
             >
-              <option>Bank Transfer</option>
-              <option>Check</option>
-              <option>Credit Card</option>
-              <option>Cash</option>
+              <option value="bank_transfer">Bank Transfer</option>
+              <option value="check">Check</option>
+              <option value="credit_card">Credit Card</option>
+              <option value="cash">Cash</option>
             </select>
           </div>
           <Input
@@ -455,18 +454,39 @@ export default function PaymentsPage() {
             </Button>
             <Button 
               className="ml-2"
-              onClick={() => {
-                // Handle payment creation
-                console.log('Creating payment:', paymentForm)
-                setShowPaymentModal(false)
-                // Reset form
-                setPaymentForm({
-                  supplier: '',
-                  amount: '',
-                  method: 'Bank Transfer',
-                  reference: '',
-                  date: new Date().toISOString().split('T')[0]
-                })
+              onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/payments/payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      supplier_code: paymentForm.supplierCode,
+                      amount: parseFloat(paymentForm.amount.toString()),
+                      reference: paymentForm.reference,
+                      payment_method: paymentForm.paymentMethod,
+                      notes: paymentForm.notes
+                    })
+                  })
+                  const data = await response.json()
+                  if (data.success) {
+                    alert(data.message || 'Payment recorded successfully!')
+                    setShowPaymentModal(false)
+                    setPaymentForm({
+                      supplierCode: '',
+                      amount: 0,
+                      paymentMethod: 'bank_transfer',
+                      reference: '',
+                      notes: ''
+                    })
+                    // Refresh data
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to record payment')
+                  }
+                } catch (error) {
+                  console.error('Error submitting payment:', error)
+                  alert('Failed to record payment')
+                }
               }}
             >
               Process Payment
@@ -478,8 +498,8 @@ export default function PaymentsPage() {
           <Input
             label="Supplier"
             type="text"
-            value={paymentForm.supplier}
-            onChange={(e) => setPaymentForm({...paymentForm, supplier: e.target.value})}
+            value={paymentForm.supplierCode}
+            onChange={(e) => setPaymentForm({...paymentForm, supplierCode: e.target.value})}
             placeholder="Select supplier"
             required
           />
@@ -487,7 +507,7 @@ export default function PaymentsPage() {
             label="Amount"
             type="number"
             value={paymentForm.amount}
-            onChange={(e) => setPaymentForm({...paymentForm, amount: e.target.value})}
+            onChange={(e) => setPaymentForm({...paymentForm, amount: parseFloat(e.target.value) || 0})}
             placeholder="0.00"
             required
           />
@@ -497,13 +517,13 @@ export default function PaymentsPage() {
             </label>
             <select 
               className="form-select block w-full rounded-md border-gray-300 shadow-sm"
-              value={paymentForm.method}
-              onChange={(e) => setPaymentForm({...paymentForm, method: e.target.value})}
+              value={paymentForm.paymentMethod}
+              onChange={(e) => setPaymentForm({...paymentForm, paymentMethod: e.target.value})}
             >
-              <option>Bank Transfer</option>
-              <option>Check</option>
-              <option>Wire Transfer</option>
-              <option>ACH</option>
+              <option value="bank_transfer">Bank Transfer</option>
+              <option value="check">Check</option>
+              <option value="wire_transfer">Wire Transfer</option>
+              <option value="ach">ACH</option>
             </select>
           </div>
           <Input
@@ -514,11 +534,11 @@ export default function PaymentsPage() {
             placeholder="Payment reference"
           />
           <Input
-            label="Date"
-            type="date"
-            value={paymentForm.date}
-            onChange={(e) => setPaymentForm({...paymentForm, date: e.target.value})}
-            required
+            label="Notes"
+            type="text"
+            value={paymentForm.notes}
+            onChange={(e) => setPaymentForm({...paymentForm, notes: e.target.value})}
+            placeholder="Additional notes (optional)"
           />
         </div>
       </Modal>

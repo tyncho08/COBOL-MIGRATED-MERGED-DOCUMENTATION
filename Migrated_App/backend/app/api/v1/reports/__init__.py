@@ -1,5 +1,7 @@
 """Reports API Module"""
 
-from . import generate, scheduler
+from fastapi import APIRouter
+from .reports_summary import router as reports_summary_router
 
-__all__ = ["generate", "scheduler"]
+router = APIRouter()
+router.include_router(reports_summary_router, tags=["reports"])

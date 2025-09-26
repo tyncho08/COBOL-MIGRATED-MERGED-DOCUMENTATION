@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   CogIcon,
   UserIcon,
@@ -51,12 +51,49 @@ function TabNavigation({ tabs, activeTab, setActiveTab }: TabProps) {
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('Company')
   const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [settings, setSettings] = useState<any>(null)
+  const [hasChanges, setHasChanges] = useState(false)
 
   const tabs = ['Company', 'Financial', 'Tax', 'System', 'Notifications', 'Security', 'Backup']
 
-  const handleSave = () => {
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/v1/admin/settings')
+        if (response.ok) {
+          const data = await response.json()
+          setSettings(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch settings:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchSettings()
+  }, [])
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSaved(true)
+        setHasChanges(false)
+        setTimeout(() => setSaved(false), 3000)
+      } else {
+        alert(data.message || 'Failed to save settings')
+      }
+    } catch (error) {
+      console.error('Error saving settings:', error)
+      alert('Failed to save settings')
+    }
   }
 
   const renderTabContent = () => {
@@ -68,22 +105,50 @@ export default function SettingsPage() {
               <Input
                 label="Company Name"
                 type="text"
-                defaultValue="ACME Corporation Ltd"
+                value={settings?.company?.companyName || ''}
+                onChange={(e) => {
+                  setSettings({
+                    ...settings,
+                    company: { ...settings.company, companyName: e.target.value }
+                  })
+                  setHasChanges(true)
+                }}
               />
               <Input
                 label="Registration Number"
                 type="text"
-                defaultValue="12345678"
+                value={settings?.company?.registrationNumber || ''}
+                onChange={(e) => {
+                  setSettings({
+                    ...settings,
+                    company: { ...settings.company, registrationNumber: e.target.value }
+                  })
+                  setHasChanges(true)
+                }}
               />
               <Input
                 label="VAT Number"
                 type="text"
-                defaultValue="GB123456789"
+                value={settings?.company?.vatNumber || ''}
+                onChange={(e) => {
+                  setSettings({
+                    ...settings,
+                    company: { ...settings.company, vatNumber: e.target.value }
+                  })
+                  setHasChanges(true)
+                }}
               />
               <Input
                 label="Phone Number"
                 type="text"
-                defaultValue="+44 20 7123 4567"
+                value={settings?.company?.phoneNumber || ''}
+                onChange={(e) => {
+                  setSettings({
+                    ...settings,
+                    company: { ...settings.company, phoneNumber: e.target.value }
+                  })
+                  setHasChanges(true)
+                }}
               />
             </div>
             <div className="grid grid-cols-1 gap-6">
@@ -243,19 +308,19 @@ export default function SettingsPage() {
               <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="bg-gray-50 px-4 py-3 rounded-lg">
                   <dt className="text-sm font-medium text-gray-500">Version</dt>
-                  <dd className="mt-1 text-sm text-gray-900">3.02</dd>
+                  <dd className="mt-1 text-sm text-gray-900">{settings?.system?.version || 'N/A'}</dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 rounded-lg">
                   <dt className="text-sm font-medium text-gray-500">Database</dt>
-                  <dd className="mt-1 text-sm text-gray-900">PostgreSQL 15.2</dd>
+                  <dd className="mt-1 text-sm text-gray-900">{settings?.system?.database || 'N/A'}</dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 rounded-lg">
                   <dt className="text-sm font-medium text-gray-500">Last Migration</dt>
-                  <dd className="mt-1 text-sm text-gray-900">2024-02-20 14:30:00</dd>
+                  <dd className="mt-1 text-sm text-gray-900">{settings?.system?.lastMigration ? new Date(settings.system.lastMigration).toLocaleString() : 'N/A'}</dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 rounded-lg">
                   <dt className="text-sm font-medium text-gray-500">Total Records</dt>
-                  <dd className="mt-1 text-sm text-gray-900">245,678</dd>
+                  <dd className="mt-1 text-sm text-gray-900">{settings?.system?.totalRecords?.toLocaleString() || 'N/A'}</dd>
                 </div>
               </dl>
             </div>
@@ -308,15 +373,23 @@ export default function SettingsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Card>
           <div className="p-6">
-            <TabNavigation 
-              tabs={tabs} 
-              activeTab={activeTab} 
-              setActiveTab={setActiveTab} 
-            />
-            
-            <div className="mt-6">
-              {renderTabContent()}
-            </div>
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500">Loading settings...</p>
+              </div>
+            ) : (
+              <>
+                <TabNavigation 
+                  tabs={tabs} 
+                  activeTab={activeTab} 
+                  setActiveTab={setActiveTab} 
+                />
+                
+                <div className="mt-6">
+                  {renderTabContent()}
+                </div>
+              </>
+            )}
 
             <div className="mt-8 flex items-center justify-between border-t pt-6">
               <p className="text-sm text-gray-500">
