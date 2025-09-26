@@ -11,7 +11,8 @@ from app.api.v1 import (
     pl,
     stock,
     # reports,  # Temporarily disabled - has import issues
-    admin
+    admin,
+    dashboard
 )
 from app.api.v1.irs import (
     company_router,
@@ -24,6 +25,9 @@ from app.api.v1.irs import (
 )
 
 api_router = APIRouter()
+
+# Dashboard routes
+api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
 
 # Authentication routes
 api_router.include_router(auth.router, prefix="/auth", tags=["authentication"])
@@ -40,6 +44,9 @@ api_router.include_router(pl.suppliers.router, prefix="/suppliers", tags=["suppl
 api_router.include_router(pl.purchase_orders.router, prefix="/pl/orders", tags=["purchase-orders"])
 api_router.include_router(pl.purchase_invoices.router, prefix="/pl/invoices", tags=["purchase-invoices"])
 api_router.include_router(pl.purchase_payments.router, prefix="/pl/payments", tags=["purchase-payments"])
+# Simplified supplier routes without auth
+from app.api.v1.pl import suppliers_summary
+api_router.include_router(suppliers_summary.router, prefix="/pl", tags=["purchase-ledger"])
 
 # General Ledger routes
 api_router.include_router(gl.accounts.router, prefix="/gl/accounts", tags=["gl-accounts"])
@@ -47,6 +54,9 @@ api_router.include_router(gl.journals.router, prefix="/gl/journals", tags=["gl-j
 api_router.include_router(gl.postings.router, prefix="/gl/postings", tags=["gl-postings"])
 api_router.include_router(gl.periods.router, prefix="/gl/periods", tags=["gl-periods"])
 api_router.include_router(gl.budgets.router, prefix="/gl/budgets", tags=["gl-budgets"])
+# Simplified GL routes without auth
+from app.api.v1.gl import gl_summary
+api_router.include_router(gl_summary.router, prefix="/gl", tags=["general-ledger"])
 
 # Stock Control routes
 api_router.include_router(stock.items.router, prefix="/stock/items", tags=["stock-items"])
@@ -54,6 +64,9 @@ api_router.include_router(stock.movements.router, prefix="/stock/movements", tag
 api_router.include_router(stock.locations.router, prefix="/stock/locations", tags=["stock-locations"])
 api_router.include_router(stock.valuation.router, prefix="/stock/valuation", tags=["stock-valuation"])
 api_router.include_router(stock.orders.router, prefix="/stock/orders", tags=["stock-orders"])
+# Simplified stock routes without auth
+from app.api.v1.stock import stock_summary
+api_router.include_router(stock_summary.router, prefix="/stock", tags=["stock-control"])
 
 # IRS Module routes
 api_router.include_router(company_router, prefix="/irs/company", tags=["irs-company"])

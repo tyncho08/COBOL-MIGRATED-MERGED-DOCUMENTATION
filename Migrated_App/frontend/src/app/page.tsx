@@ -82,35 +82,37 @@ export default function Dashboard() {
           })
         }
 
-        // Fetch dashboard statistics from various endpoints
-        // In a real implementation, this would be a single dashboard endpoint
-        // For now, we'll simulate with realistic data
-        setDashboardStats({
-          sales: {
-            activeCustomers: 156,
-            outstanding: 45230.00
-          },
-          purchase: {
-            activeSuppliers: 87,
-            outstanding: 23150.00
-          },
-          stock: {
-            totalItems: 432,
-            totalValue: 78450.00
-          },
-          gl: {
-            accountsCount: 125,
-            isBalanced: true
-          },
-          reports: {
-            availableReports: 25,
-            lastGenerated: 'Today'
-          },
-          payments: {
-            pendingCount: 12,
-            bankBalance: 125340.50
-          }
-        })
+        // Fetch dashboard statistics from API
+        const dashboardResponse = await fetch('http://localhost:8000/api/v1/dashboard/stats')
+        if (dashboardResponse.ok) {
+          const data = await dashboardResponse.json()
+          setDashboardStats({
+            sales: {
+              activeCustomers: data.sales.activeCustomers,
+              outstanding: data.sales.outstanding
+            },
+            purchase: {
+              activeSuppliers: data.purchase.activeSuppliers,
+              outstanding: data.purchase.outstanding
+            },
+            stock: {
+              totalItems: data.stock.totalItems,
+              totalValue: data.stock.totalValue
+            },
+            gl: {
+              accountsCount: data.gl.accountsCount,
+              isBalanced: data.gl.isBalanced
+            },
+            reports: {
+              availableReports: data.reports.availableReports,
+              lastGenerated: data.reports.lastGenerated
+            },
+            payments: {
+              pendingCount: data.payments.pendingCount,
+              bankBalance: data.payments.bankBalance
+            }
+          })
+        }
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error)
         // Set default values on error

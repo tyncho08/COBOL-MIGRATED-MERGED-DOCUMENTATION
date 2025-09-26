@@ -32,7 +32,8 @@ export default function LoginPage() {
         localStorage.setItem('user', JSON.stringify(userData))
         // Set cookie for server-side authentication
         document.cookie = `user=${JSON.stringify(userData)}; path=/`
-        router.push('/')
+        // Force page reload to ensure middleware picks up the authentication
+        window.location.href = '/'
       } else {
         setError('Invalid username or password')
       }

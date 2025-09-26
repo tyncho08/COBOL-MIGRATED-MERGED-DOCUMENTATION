@@ -89,38 +89,7 @@ export default function StockControlPage() {
           locations_count: 8
         })
 
-        setRecentMovements([
-          {
-            id: 1,
-            item_code: 'ITM001',
-            description: 'Widget Assembly A1',
-            movement_type: 'RECEIPT',
-            quantity: 100,
-            location: 'WH-01',
-            date: '2024-01-15T10:30:00Z',
-            reference: 'PO-2024-001'
-          },
-          {
-            id: 2,
-            item_code: 'ITM002',
-            description: 'Bolt Kit Standard',
-            movement_type: 'ISSUE',
-            quantity: -25,
-            location: 'WH-01',
-            date: '2024-01-15T09:15:00Z',
-            reference: 'WO-2024-045'
-          },
-          {
-            id: 3,
-            item_code: 'ITM003',
-            description: 'Circuit Board XL',
-            movement_type: 'ADJUSTMENT',
-            quantity: 5,
-            location: 'WH-02',
-            date: '2024-01-15T08:45:00Z',
-            reference: 'ADJ-2024-012'
-          }
-        ])
+        // Data is now fetched from API above
       } catch (error) {
         console.error('Failed to fetch stock data:', error)
       } finally {

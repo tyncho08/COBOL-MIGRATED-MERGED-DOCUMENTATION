@@ -53,58 +53,26 @@ export default function GeneralLedgerPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simulate API calls
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        // Fetch real data from API
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/gl/summary')
+        if (summaryResponse.ok) {
+          const summaryData = await summaryResponse.json()
+          setSummary(summaryData)
+        }
         
-        setSummary({
-          total_accounts: 125,
-          trial_balance_status: 'balanced',
-          current_period: 'Period 1 - January 2024',
-          period_status: 'open',
-          total_debit: 156789.50,
-          total_credit: 156789.50,
-          variance: 0.00,
-          unposted_journals: 3,
-          pending_approvals: 5
-        })
+        const journalsResponse = await fetch('http://localhost:8000/api/v1/gl/recent-journals')
+        if (journalsResponse.ok) {
+          const journalsData = await journalsResponse.json()
+          setRecentJournals(journalsData)
+        }
+        
+        const trialBalanceResponse = await fetch('http://localhost:8000/api/v1/gl/trial-balance-preview')
+        if (trialBalanceResponse.ok) {
+          const trialBalanceData = await trialBalanceResponse.json()
+          setTrialBalancePreview(trialBalanceData)
+        }
 
-        setRecentJournals([
-          {
-            id: 1,
-            journal_number: 'JE-2024-001',
-            description: 'Sales Invoice Posting - Customer ABC Ltd',
-            total_amount: 2450.00,
-            entry_date: '2024-01-15T14:30:00Z',
-            status: 'posted',
-            created_by: 'user@acas.local'
-          },
-          {
-            id: 2,
-            journal_number: 'JE-2024-002',
-            description: 'Purchase Invoice - Supplier XYZ Corp',
-            total_amount: 1850.00,
-            entry_date: '2024-01-15T13:15:00Z',
-            status: 'pending',
-            created_by: 'user@acas.local'
-          },
-          {
-            id: 3,
-            journal_number: 'JE-2024-003',
-            description: 'Bank Payment - Office Supplies',
-            total_amount: 345.50,
-            entry_date: '2024-01-15T11:45:00Z',
-            status: 'posted',
-            created_by: 'admin@acas.local'
-          }
-        ])
-
-        setTrialBalancePreview([
-          { account_code: '1000', account_name: 'Cash at Bank', debit_balance: 25450.00, credit_balance: 0 },
-          { account_code: '1100', account_name: 'Accounts Receivable', debit_balance: 15670.50, credit_balance: 0 },
-          { account_code: '1300', account_name: 'Inventory', debit_balance: 78450.00, credit_balance: 0 },
-          { account_code: '2000', account_name: 'Accounts Payable', debit_balance: 0, credit_balance: 12340.00 },
-          { account_code: '4000', account_name: 'Sales Revenue', debit_balance: 0, credit_balance: 45230.00 }
-        ])
+        // Data is now fetched from API above
       } catch (error) {
         console.error('Failed to fetch GL data:', error)
       } finally {

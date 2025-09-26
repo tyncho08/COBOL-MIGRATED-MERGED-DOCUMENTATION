@@ -55,14 +55,14 @@ export default function CustomersPage() {
   // Calculate summary stats
   const stats = {
     totalCustomers: customers.length,
-    activeCustomers: customers.filter(c => c.is_active).length,
-    totalOutstanding: customers.reduce((sum, c) => sum + parseFloat(c.sales_balance), 0),
-    totalCreditLimit: customers.reduce((sum, c) => sum + parseFloat(c.sales_credit_limit), 0)
+    activeCustomers: customers.filter(c => c && c.is_active).length,
+    totalOutstanding: customers.reduce((sum, c) => sum + (c ? parseFloat(c.sales_balance || '0') : 0), 0),
+    totalCreditLimit: customers.reduce((sum, c) => sum + (c ? parseFloat(c.sales_credit_limit || '0') : 0), 0)
   }
 
 
   const getStatusBadge = (customer: CustomerSummary) => {
-    if (!customer.is_active) {
+    if (!customer || !customer.is_active) {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
           <XCircleIcon className="w-3 h-3 mr-1" />
@@ -96,7 +96,7 @@ export default function CustomersPage() {
       key: 'sales_key',
       header: 'Customer Code',
       render: (customer: CustomerSummary) => (
-        <div className="font-medium text-gray-900">{customer.sales_key}</div>
+        <div className="font-medium text-gray-900">{customer?.sales_key || ''}</div>
       )
     },
     {
@@ -104,8 +104,8 @@ export default function CustomersPage() {
       header: 'Customer Name',
       render: (customer: CustomerSummary) => (
         <div>
-          <div className="font-medium text-gray-900">{customer.sales_name}</div>
-          <div className="text-sm text-gray-500">Status: {customer.sales_account_status}</div>
+          <div className="font-medium text-gray-900">{customer?.sales_name || ''}</div>
+          <div className="text-sm text-gray-500">Status: {customer?.sales_account_status || 'Unknown'}</div>
         </div>
       )
     },
@@ -115,9 +115,9 @@ export default function CustomersPage() {
       render: (customer: CustomerSummary) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">
-            {formatCurrency(parseFloat(customer.sales_balance))}
+            {formatCurrency(parseFloat(customer?.sales_balance || '0'))}
           </div>
-          {parseFloat(customer.sales_balance) > 0 && (
+          {customer && parseFloat(customer.sales_balance) > 0 && (
             <div className="text-sm text-red-600">Outstanding</div>
           )}
         </div>
@@ -129,10 +129,12 @@ export default function CustomersPage() {
       render: (customer: CustomerSummary) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">
-            {formatCurrency(parseFloat(customer.sales_credit_limit))}
+            {formatCurrency(parseFloat(customer?.sales_credit_limit || '0'))}
           </div>
           <div className="text-sm text-gray-500">
-            Available: {formatCurrency(parseFloat(customer.sales_credit_limit) - parseFloat(customer.sales_balance))}
+            Available: {formatCurrency(
+              customer ? parseFloat(customer.sales_credit_limit || '0') - parseFloat(customer.sales_balance || '0') : 0
+            )}
           </div>
         </div>
       )
