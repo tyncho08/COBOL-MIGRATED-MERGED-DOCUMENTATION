@@ -241,3 +241,46 @@ class RecurringJournal(Base):
     
     # Timestamps
     created_at = Column(TIMESTAMP(timezone=True), default=datetime.utcnow)
+
+
+class GLPendingEntry(Base):
+    """Pending GL entries awaiting approval or posting"""
+    __tablename__ = "gl_pending_entries"
+    __table_args__ = {"schema": "acas"}
+    
+    entry_id = Column(Integer, primary_key=True)
+    reference = Column(String(50), nullable=False, unique=True)
+    entry_type = Column(String(20), nullable=False)  # JOURNAL, APPROVAL, RECONCILIATION, REVIEW
+    description = Column(Text, nullable=False)
+    
+    # Amount and account info
+    account_id = Column(Integer, ForeignKey("acas.accounts.account_id"), nullable=False)
+    amount = Column(DECIMAL(15, 2), nullable=False)
+    debit_credit = Column(String(10), nullable=False)  # DEBIT, CREDIT
+    
+    # Status and priority
+    status = Column(String(20), default="PENDING")  # PENDING, IN_REVIEW, APPROVED, REJECTED, POSTED
+    priority = Column(String(10), default="MEDIUM")  # HIGH, MEDIUM, LOW
+    
+    # Assignment and approval
+    created_by = Column(String(30), nullable=False)
+    assigned_to = Column(String(30))
+    approved_by = Column(String(30))
+    
+    # Dates
+    created_date = Column(TIMESTAMP(timezone=True), default=datetime.utcnow)
+    due_date = Column(TIMESTAMP(timezone=True))
+    approved_date = Column(TIMESTAMP(timezone=True))
+    posting_date = Column(Date)
+    
+    # Source information
+    source_module = Column(String(20))  # GL, AP, AR, STOCK, etc.
+    source_reference = Column(String(50))
+    period_id = Column(Integer, ForeignKey("acas.accounting_periods.period_id"))
+    
+    # Additional data (JSON for flexible data storage)
+    additional_data = Column(Text)  # JSON string for extra fields
+    
+    # Relationships
+    account = relationship("GLAccount")
+    period = relationship("AccountingPeriod")

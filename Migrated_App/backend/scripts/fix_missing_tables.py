@@ -23,7 +23,7 @@ def fix_missing_tables():
         # Import all models to ensure they are registered with Base
         from app.models import (
             system, customer, supplier, stock, 
-            gl_accounts, payments, sales, auth, audit, gl, irs, warehouse
+            gl_accounts, payments, sales, auth, audit, gl, irs, warehouse, gl_reports
         )
         
         logger.info("Creating missing tables...")

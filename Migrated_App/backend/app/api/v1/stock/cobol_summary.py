@@ -145,7 +145,9 @@ async def get_cobol_stock_summary(db: Session = Depends(get_db)) -> Dict[str, An
                     a.audit_qty_before,
                     a.audit_qty_after,
                     a.audit_user,
-                    s.stock_desc
+                    a.audit_reason,
+                    s.stock_desc,
+                    s.stock_location
                 FROM acas.stockaudit_rec a
                 LEFT JOIN acas.stock_rec s ON a.audit_stock_code = s.stock_key
                 ORDER BY a.audit_date DESC, a.audit_time DESC
@@ -153,30 +155,27 @@ async def get_cobol_stock_summary(db: Session = Depends(get_db)) -> Dict[str, An
             """)).fetchall()
             
             for movement in movements_query:
-                # Convert COBOL date (YYYYMMDD) and time (HHMMSS) to datetime
+                # Convert COBOL date (YYYYMMDD) to datetime
                 date_str = str(movement.audit_date)
-                time_str = str(movement.audit_time).zfill(6)
+                time_str = str(movement.audit_time).zfill(6) if movement.audit_time else "000000"
                 datetime_str = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]} {time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
                 
-                movement_type = {
-                    'R': 'Receipt',
-                    'I': 'Issue', 
-                    'A': 'Adjustment',
-                    'T': 'Transfer'
-                }.get(movement.audit_type, movement.audit_type)
+                # Calculate quantity change
+                qty_change = float(movement.audit_qty_after or 0) - float(movement.audit_qty_before or 0)
                 
                 recent_movements.append({
                     "id": movement.audit_id,
                     "date": datetime_str,
                     "item_code": movement.audit_stock_code,
                     "description": movement.stock_desc or '',
-                    "type": movement_type,
-                    "reference": movement.audit_reference,
-                    "source": movement.audit_source,
-                    "quantity": float(movement.audit_qty or 0),
+                    "movement_type": movement.audit_type or 'UNKNOWN',
+                    "reference": movement.audit_reference or '',
+                    "location": movement.stock_location or '',
+                    "quantity": qty_change,
                     "qty_before": float(movement.audit_qty_before or 0),
                     "qty_after": float(movement.audit_qty_after or 0),
-                    "user": movement.audit_user
+                    "user": movement.audit_user or '',
+                    "reason": movement.audit_reason or ''
                 })
         except Exception as e:
             print(f"Error fetching stock movements: {e}")

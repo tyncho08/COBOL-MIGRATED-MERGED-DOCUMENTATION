@@ -86,12 +86,16 @@ api_router.include_router(sales.reports.router, prefix="/sales/reports", tags=["
 api_router.include_router(sales.analytics.router, prefix="/sales/analytics", tags=["sales-analytics"])
 
 # COBOL-Compatible Sales routes (using real database structure)
-from app.api.v1.sales import cobol_summary
+from app.api.v1.sales import cobol_summary, cobol_outstanding, cobol_invoices, cobol_analytics
 api_router.include_router(cobol_summary.router, prefix="/sales/cobol", tags=["sales-cobol"])
+api_router.include_router(cobol_outstanding.router, prefix="/sales/cobol", tags=["sales-cobol-outstanding"])
+api_router.include_router(cobol_invoices.router, prefix="/sales/cobol", tags=["sales-cobol-invoices"])
+api_router.include_router(cobol_analytics.router, prefix="/sales/cobol", tags=["sales-cobol-analytics"])
 
 # COBOL-Compatible Stock routes (using real database structure)
-from app.api.v1.stock import cobol_summary as stock_cobol_summary
+from app.api.v1.stock import cobol_summary as stock_cobol_summary, cobol_audit
 api_router.include_router(stock_cobol_summary.router, prefix="/stock/cobol", tags=["stock-cobol"])
+api_router.include_router(cobol_audit.router, prefix="/stock/cobol", tags=["stock-cobol-audit"])
 
 # COBOL-Compatible GL routes (using real database structure)
 from app.api.v1.gl import cobol_summary as gl_cobol_summary  

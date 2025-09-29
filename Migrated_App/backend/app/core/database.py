@@ -70,12 +70,32 @@ def init_db():
         # Import all models to ensure they are registered with Base
         from app.models import (
             system, customer, supplier, stock, 
-            gl_accounts, payments, sales, auth, audit, gl, irs, warehouse
+            gl_accounts, payments, sales, auth, audit, gl, irs, warehouse, gl_reports
         )
         
         # Create all tables
         Base.metadata.create_all(bind=engine)
         logger.info("Database tables created successfully")
+        
+        # Check if demo data exists
+        db = SessionLocal()
+        try:
+            # Check if we have any customers
+            from app.models.customer import SalesLedgerRec
+            customer_count = db.query(SalesLedgerRec).count()
+            
+            if customer_count == 0:
+                logger.info("No demo data found, populating database...")
+                # Import and run the populate demo script
+                import sys
+                sys.path.append('/Users/MartinGonella/Desktop/Demos/COBOL-MIGRATED-MERGED-DOCUMENTATION/Migrated_App/backend')
+                from scripts.populate_demo import populate_demo_data
+                populate_demo_data()
+                logger.info("Demo data populated successfully")
+            else:
+                logger.info(f"Demo data already exists ({customer_count} customers found)")
+        finally:
+            db.close()
         
     except Exception as e:
         logger.error(f"Error initializing database: {e}")

@@ -51,44 +51,12 @@ class GLLedgerRec(Base):
         doc="Account name/description"
     )
     
-    # Current and Historical Balances
+    # Current Balance - matches actual database column
     ledger_balance = Column(
         Numeric(10, 2), 
         nullable=False, 
         default=0.00,
         doc="Current period balance"
-    )
-    ledger_last = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Previous period balance"
-    )
-    
-    # Quarterly Balances for Comparison
-    ledger_q1 = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Quarter 1 balance"
-    )
-    ledger_q2 = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Quarter 2 balance"
-    )
-    ledger_q3 = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Quarter 3 balance"
-    )
-    ledger_q4 = Column(
-        Numeric(10, 2), 
-        nullable=False, 
-        default=0.00,
-        doc="Quarter 4 balance"
     )
     
     # Relationships
@@ -168,9 +136,9 @@ class GLLedgerRec(Base):
     
     def get_quarterly_balance(self, quarter: int) -> Decimal:
         """Get balance for specific quarter (1-4)"""
-        if quarter < 1 or quarter > 4:
-            return Decimal('0.00')
-        return Decimal(str(getattr(self, f'ledger_q{quarter}')))
+        # Note: Quarterly balances are not stored in the actual database
+        # This would need to be calculated from transaction history
+        return Decimal('0.00')
     
     def update_balance(self, amount: Decimal, is_debit: bool) -> None:
         """Update account balance with posting"""

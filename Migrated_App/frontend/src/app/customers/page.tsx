@@ -95,14 +95,14 @@ export default function CustomersPage() {
     {
       key: 'sales_key',
       header: 'Customer Code',
-      render: (customer: CustomerSummary) => (
+      render: (value: any, customer: CustomerSummary) => (
         <div className="font-medium text-gray-900">{customer?.sales_key || ''}</div>
       )
     },
     {
       key: 'sales_name',
       header: 'Customer Name',
-      render: (customer: CustomerSummary) => (
+      render: (value: any, customer: CustomerSummary) => (
         <div>
           <div className="font-medium text-gray-900">{customer?.sales_name || ''}</div>
           <div className="text-sm text-gray-500">Status: {customer?.sales_account_status || 'Unknown'}</div>
@@ -112,7 +112,7 @@ export default function CustomersPage() {
     {
       key: 'sales_balance',
       header: 'Balance',
-      render: (customer: CustomerSummary) => (
+      render: (value: any, customer: CustomerSummary) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">
             {formatCurrency(parseFloat(customer?.sales_balance || '0'))}
@@ -126,7 +126,7 @@ export default function CustomersPage() {
     {
       key: 'sales_credit_limit',
       header: 'Credit Limit',
-      render: (customer: CustomerSummary) => (
+      render: (value: any, customer: CustomerSummary) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">
             {formatCurrency(parseFloat(customer?.sales_credit_limit || '0'))}
@@ -142,12 +142,12 @@ export default function CustomersPage() {
     {
       key: 'status',
       header: 'Status',
-      render: (customer: CustomerSummary) => getStatusBadge(customer)
+      render: (value: any, customer: CustomerSummary) => getStatusBadge(customer)
     },
     {
       key: 'actions',
       header: 'Actions',
-      render: (customer: CustomerSummary) => (
+      render: (value: any, customer: CustomerSummary) => (
         <div className="flex space-x-2">
           <Button variant="outline" size="sm" onClick={() => alert(`View customer ${customer.sales_key} details coming soon!`)}>
             View

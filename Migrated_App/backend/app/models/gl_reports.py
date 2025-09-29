@@ -310,3 +310,67 @@ class GLReportSecurityRec(Base):
     # Audit
     granted_by = Column(String(30), nullable=False)
     granted_date = Column(DateTime(timezone=True), nullable=False)
+
+
+class ReportCategoryRec(Base):
+    """Report categories for organization and navigation"""
+    __tablename__ = "report_categories"
+    
+    category_id = Column(Integer, primary_key=True, autoincrement=True)
+    category_name = Column(String(50), nullable=False, unique=True)
+    category_description = Column(Text)
+    
+    # Hierarchy
+    parent_category_id = Column(Integer, ForeignKey("report_categories.category_id"))
+    
+    # Display
+    display_order = Column(Integer, default=0)
+    icon_name = Column(String(50))  # Icon identifier
+    color_class = Column(String(20))  # CSS color class
+    
+    # Status
+    is_active = Column(Boolean, default=True)
+    
+    # Audit
+    created_by = Column(String(30), nullable=False)
+    created_date = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    modified_by = Column(String(30))
+    modified_date = Column(DateTime(timezone=True), onupdate=func.current_timestamp())
+    
+    # Relationships
+    parent_category = relationship("ReportCategoryRec", remote_side=[category_id])
+    child_categories = relationship("ReportCategoryRec", back_populates="parent_category")
+
+
+class ReportUsageStatsRec(Base):
+    """Report usage statistics for popularity tracking"""
+    __tablename__ = "report_usage_stats"
+    
+    stat_id = Column(Integer, primary_key=True, autoincrement=True)
+    report_id = Column(Integer, ForeignKey("gl_report_definitions.report_id"), nullable=False)
+    
+    # User and execution info
+    user_id = Column(String(30), nullable=False)
+    execution_date = Column(DateTime(timezone=True), nullable=False)
+    
+    # Performance metrics
+    execution_time = Column(Numeric(10, 2))  # Seconds
+    records_returned = Column(Integer)
+    file_size = Column(Integer)  # Bytes
+    
+    # Usage context
+    execution_type = Column(String(20))  # MANUAL, SCHEDULED, API
+    parameters_used = Column(JSON)  # Parameters passed to report
+    output_format = Column(String(10))  # PDF, EXCEL, CSV
+    
+    # Session info
+    session_id = Column(String(50))
+    ip_address = Column(String(45))  # IPv6 compatible
+    user_agent = Column(Text)
+    
+    # Status
+    status = Column(String(20), nullable=False)  # SUCCESS, FAILED, CANCELLED
+    error_message = Column(Text)
+    
+    # Relationships
+    report_definition = relationship("GLReportDefinitionRec")

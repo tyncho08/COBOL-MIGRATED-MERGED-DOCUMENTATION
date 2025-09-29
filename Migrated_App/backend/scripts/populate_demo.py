@@ -12,13 +12,16 @@ import random
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
 from app.models.customer import SalesLedgerRec
 from app.models.supplier import PurchaseLedgerRec
-from app.models.stock import StockRec
+from app.models.stock import StockRec, StockAuditRec
 from app.models.gl_accounts import GLLedgerRec
+from app.models.customer import SalesInvoiceRec
+from app.models.gl import GLPendingEntry, AccountingPeriod
+from app.models.gl_reports import ReportCategoryRec, ReportUsageStatsRec, GLReportDefinitionRec
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -301,27 +304,440 @@ def create_demo_gl_accounts(session):
     
     logger.info(f"Created {len(gl_accounts)} demo GL accounts")
 
+def create_demo_invoices(session):
+    """Create demo sales invoices with historical data"""
+    from datetime import datetime, timedelta
+    import random
+    
+    # Base date for generating historical invoices
+    base_date = datetime.now()
+    
+    # Customer list for random assignment (must match created customers)
+    customers = ['CUST001', 'CUST002', 'CUST003']
+    
+    # Use raw SQL to insert invoices with correct data types
+    insert_query = text("""
+        INSERT INTO acas.sainvoice_rec (
+            invoice_key,
+            invoice_customer,
+            invoice_date,
+            invoice_type,
+            invoice_status,
+            invoice_goods_amount,
+            invoice_vat_amount,
+            invoice_total_amount,
+            invoice_paid_amount,
+            invoice_balance,
+            invoice_discount_amount,
+            invoice_order_no,
+            invoice_terms,
+            invoice_printed,
+            invoice_emailed,
+            invoice_period
+        ) VALUES (
+            :invoice_key,
+            :invoice_customer,
+            :invoice_date,
+            :invoice_type,
+            :invoice_status,
+            :invoice_goods_amount,
+            :invoice_vat_amount,
+            :invoice_total_amount,
+            :invoice_paid_amount,
+            :invoice_balance,
+            :invoice_discount_amount,
+            :invoice_order_no,
+            :invoice_terms,
+            :invoice_printed,
+            :invoice_emailed,
+            :invoice_period
+        )
+    """)
+    
+    invoice_counter = 10001  # Start with a higher number
+    invoices_created = 0
+    
+    # Generate invoices for the last 12 months
+    for months_ago in range(12):
+        # Generate 5-8 invoices per month
+        num_invoices = random.randint(5, 8)
+        
+        for _ in range(num_invoices):
+            # Calculate invoice date
+            invoice_date = base_date - timedelta(days=months_ago * 30 + random.randint(0, 29))
+            
+            # Random invoice amount between 500 and 10000
+            invoice_amount = Decimal(str(round(random.uniform(500, 10000), 2)))
+            
+            # Random payment status
+            is_paid = random.random() > 0.3  # 70% chance of being paid
+            
+            if is_paid:
+                # Paid invoice
+                balance = Decimal('0.00')
+            else:
+                # Outstanding invoice  
+                balance = invoice_amount
+            
+            # Insert invoice
+            session.execute(insert_query, {
+                'invoice_key': invoice_counter,
+                'invoice_customer': random.choice(customers),
+                'invoice_date': int(invoice_date.strftime('%Y%m%d')),
+                'invoice_type': 'I',  # Invoice
+                'invoice_status': 'P' if is_paid else 'O',  # Paid or Outstanding
+                'invoice_goods_amount': float(invoice_amount * Decimal('0.80')),
+                'invoice_vat_amount': float(invoice_amount * Decimal('0.20')),
+                'invoice_total_amount': float(invoice_amount),
+                'invoice_paid_amount': float(invoice_amount - balance),
+                'invoice_balance': float(balance),
+                'invoice_discount_amount': 0.00,
+                'invoice_order_no': f'ORD-{invoice_counter}',
+                'invoice_terms': '30',
+                'invoice_printed': 'Y',
+                'invoice_emailed': 'N',
+                'invoice_period': invoice_date.month
+            })
+            
+            invoice_counter += 1
+            invoices_created += 1
+    
+    # Add recent outstanding invoices for testing
+    recent_date = datetime.now()
+    for i in range(5):  # Create 5 recent invoices
+        days_ago = random.randint(1, 15)
+        invoice_date = recent_date - timedelta(days=days_ago)
+        invoice_amount = Decimal(str(round(random.uniform(2000, 8000), 2)))
+        
+        session.execute(insert_query, {
+            'invoice_key': invoice_counter,
+            'invoice_customer': random.choice(customers),
+            'invoice_date': int(invoice_date.strftime('%Y%m%d')),
+            'invoice_type': 'I',
+            'invoice_status': 'O',  # All recent ones are outstanding
+            'invoice_goods_amount': float(invoice_amount * Decimal('0.80')),
+            'invoice_vat_amount': float(invoice_amount * Decimal('0.20')),
+            'invoice_total_amount': float(invoice_amount),
+            'invoice_paid_amount': 0.00,
+            'invoice_balance': float(invoice_amount),
+            'invoice_discount_amount': 0.00,
+            'invoice_order_no': f'ORD-{invoice_counter}',
+            'invoice_terms': '30',
+            'invoice_printed': 'Y' if random.random() > 0.5 else 'N',
+            'invoice_emailed': 'Y' if random.random() > 0.7 else 'N',
+            'invoice_period': invoice_date.month
+        })
+        
+        invoice_counter += 1
+        invoices_created += 1
+    
+    logger.info(f"Created {invoices_created} demo sales invoices")
+
+def create_demo_stock_movements(session):
+    """Create demo stock movements (audit records)"""
+    from datetime import datetime, timedelta
+    import random
+    
+    # Stock items we have
+    stock_items = ['ITEM001', 'ITEM002', 'ITEM003']
+    
+    # Movement types
+    movement_types = ['R', 'I', 'A', 'T', 'C']  # Receipt, Issue, Adjust, Transfer, Count
+    sources = ['PO', 'SO', 'ADJ', 'TRF', 'CNT', 'WO']
+    
+    # Generate movements for the last 30 days
+    base_date = datetime.now()
+    
+    for days_ago in range(30, 0, -1):
+        movement_date = base_date - timedelta(days=days_ago)
+        movement_time = random.randint(80000, 170000)  # 8am to 5pm in HHMMSS format
+        
+        # Generate 1-3 movements per day
+        num_movements = random.randint(1, 3)
+        
+        for _ in range(num_movements):
+            stock_item = random.choice(stock_items)
+            movement_type = random.choice(movement_types)
+            
+            # Set quantities based on movement type
+            if movement_type == 'R':  # Receipt
+                qty_before = random.uniform(10, 100)
+                qty_change = random.uniform(10, 50)
+                qty_after = qty_before + qty_change
+                source = 'PO'
+                reference = f'PO-{random.randint(1000, 9999)}'
+                reason = 'Goods receipt from purchase order'
+            elif movement_type == 'I':  # Issue
+                qty_before = random.uniform(50, 150)
+                qty_change = -random.uniform(5, 20)
+                qty_after = qty_before + qty_change
+                source = 'SO'
+                reference = f'SO-{random.randint(1000, 9999)}'
+                reason = 'Stock issue for sales order'
+            elif movement_type == 'A':  # Adjustment
+                qty_before = random.uniform(20, 100)
+                qty_change = random.uniform(-10, 10)
+                qty_after = qty_before + qty_change
+                source = 'ADJ'
+                reference = f'ADJ-{random.randint(100, 999)}'
+                reason = random.choice(['Stock count adjustment', 'Damaged goods', 'Quality inspection'])
+            elif movement_type == 'T':  # Transfer
+                qty_before = random.uniform(30, 80)
+                qty_change = 0  # Transfers don't change total qty
+                qty_after = qty_before
+                source = 'TRF'
+                reference = f'TRF-{random.randint(100, 999)}'
+                reason = 'Location transfer'
+            else:  # 'C' - Count
+                qty_before = random.uniform(40, 100)
+                qty_change = random.uniform(-5, 5)
+                qty_after = qty_before + qty_change
+                source = 'CNT'
+                reference = f'CNT-{movement_date.strftime("%Y%m")}'
+                reason = 'Physical stock count'
+            
+            # Use raw SQL to insert with correct column names
+            insert_query = text("""
+                INSERT INTO acas.stockaudit_rec (
+                    audit_date,
+                    audit_time,
+                    audit_stock_code,
+                    audit_type,
+                    audit_reference,
+                    audit_source,
+                    audit_qty,
+                    audit_qty_before,
+                    audit_qty_after,
+                    audit_cost,
+                    audit_value,
+                    audit_user,
+                    audit_reason
+                ) VALUES (
+                    :audit_date,
+                    :audit_time,
+                    :audit_stock_code,
+                    :audit_type,
+                    :audit_reference,
+                    :audit_source,
+                    :audit_qty,
+                    :audit_qty_before,
+                    :audit_qty_after,
+                    :audit_cost,
+                    :audit_value,
+                    :audit_user,
+                    :audit_reason
+                )
+            """)
+            
+            # Get cost from stock item (simplified)
+            cost = 100.00 if stock_item == 'ITEM001' else 750.00 if stock_item == 'ITEM002' else 3.50
+            
+            session.execute(insert_query, {
+                'audit_date': int(movement_date.strftime('%Y%m%d')),
+                'audit_time': movement_time,
+                'audit_stock_code': stock_item,
+                'audit_type': movement_type,
+                'audit_reference': reference,
+                'audit_source': source,
+                'audit_qty': abs(qty_change),
+                'audit_qty_before': round(qty_before, 3),
+                'audit_qty_after': round(qty_after, 3),
+                'audit_cost': cost,
+                'audit_value': round(abs(qty_change) * cost, 2),
+                'audit_user': random.choice(['ADMIN', 'WAREHOUSE', 'SALES01', 'PURCH01']),
+                'audit_reason': reason
+            })
+    
+    # Add recent movements for today
+    today = int(datetime.now().strftime('%Y%m%d'))
+    current_time = int(datetime.now().strftime('%H%M%S'))
+    
+    recent_movements = [
+        {
+            'audit_date': today,
+            'audit_time': current_time - 10000,
+            'audit_stock_code': 'ITEM001',
+            'audit_type': 'R',
+            'audit_reference': 'PO-2025-001',
+            'audit_source': 'PO',
+            'audit_qty': 50.000,
+            'audit_qty_before': 45.000,
+            'audit_qty_after': 95.000,
+            'audit_cost': 125.00,
+            'audit_value': 6250.00,
+            'audit_user': 'ADMIN',
+            'audit_reason': 'Purchase order receipt - Restock'
+        },
+        {
+            'audit_date': today,
+            'audit_time': current_time - 5000,
+            'audit_stock_code': 'ITEM002',
+            'audit_type': 'I',
+            'audit_reference': 'SO-2025-045',
+            'audit_source': 'SO',
+            'audit_qty': 5.000,
+            'audit_qty_before': 30.000,
+            'audit_qty_after': 25.000,
+            'audit_cost': 750.00,
+            'audit_value': 3750.00,
+            'audit_user': 'SALES01',
+            'audit_reason': 'Customer order shipment'
+        },
+        {
+            'audit_date': today,
+            'audit_time': current_time - 2000,
+            'audit_stock_code': 'ITEM003',
+            'audit_type': 'A',
+            'audit_reference': 'ADJ-2025-012',
+            'audit_source': 'ADJ',
+            'audit_qty': 2.000,
+            'audit_qty_before': 500.000,
+            'audit_qty_after': 498.000,
+            'audit_cost': 3.50,
+            'audit_value': 7.00,
+            'audit_user': 'WAREHOUSE',
+            'audit_reason': 'Damaged items written off'
+        }
+    ]
+    
+    # Insert recent movements
+    for movement in recent_movements:
+        session.execute(insert_query, movement)
+    
+    logger.info(f"Created {30*2 + len(recent_movements)} demo stock movements")
+
 def populate_demo_data():
     """Main function to populate all demo data"""
     try:
         engine = create_engine(settings.DATABASE_URL)
         SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         
-        session = SessionLocal()
-        
         logger.info("Starting demo data population...")
         
-        # Create demo data
-        create_demo_customers(session)
-        create_demo_suppliers(session)
-        create_demo_stock_items(session)
-        create_demo_gl_accounts(session)
+        # Create demo data with separate transactions for each type
+        session = SessionLocal()
+        try:
+            create_demo_customers(session)
+            session.commit()
+            logger.info("Customers committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create customers (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
         
-        # Commit all changes
-        session.commit()
-        session.close()
+        session = SessionLocal()
+        try:
+            create_demo_suppliers(session)
+            session.commit()
+            logger.info("Suppliers committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create suppliers (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
         
-        logger.info("Demo data population completed successfully")
+        session = SessionLocal()
+        try:
+            create_demo_stock_items(session)
+            session.commit()
+            logger.info("Stock items committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create stock items (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+        
+        session = SessionLocal()
+        try:
+            create_demo_gl_accounts(session)
+            session.commit()
+            logger.info("GL accounts committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create GL accounts (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+        
+        session = SessionLocal()
+        try:
+            create_demo_invoices(session)
+            session.commit()
+            logger.info("Invoices committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create invoices (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+        
+        session = SessionLocal()
+        try:
+            create_demo_stock_movements(session)
+            session.commit()
+            logger.info("Stock movements committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create stock movements: {e}")
+            session.rollback()
+        finally:
+            session.close()
+        
+        # Create new demo data for GL and Reports
+        session = SessionLocal()
+        try:
+            create_demo_accounting_periods(session)
+            session.commit()
+            logger.info("Accounting periods committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create accounting periods (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+            
+        session = SessionLocal()
+        try:
+            create_demo_report_categories(session)
+            session.commit()
+            logger.info("Report categories committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create report categories (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+            
+        session = SessionLocal()
+        try:
+            create_demo_gl_pending_entries(session)
+            session.commit()
+            logger.info("GL pending entries committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create GL pending entries (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+            
+        session = SessionLocal()
+        try:
+            create_demo_gl_reports(session)
+            session.commit()
+            logger.info("GL report definitions committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create GL report definitions (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+            
+        session = SessionLocal()
+        try:
+            create_demo_report_usage_stats(session)
+            session.commit()
+            logger.info("Report usage stats committed successfully")
+        except Exception as e:
+            logger.warning(f"Could not create report usage stats (may already exist): {e}")
+            session.rollback()
+        finally:
+            session.close()
+        
+        logger.info("Demo data population completed")
         
     except Exception as e:
         logger.error(f"Demo data population failed: {e}")
@@ -329,6 +745,194 @@ def populate_demo_data():
             session.rollback()
             session.close()
         raise
+
+
+def create_demo_accounting_periods(session):
+    """Create demo accounting periods for 2025"""
+    periods = [
+        {'period_number': 1, 'fiscal_year': 2025, 'start_date': date(2025, 1, 1), 'end_date': date(2025, 1, 31), 'period_name': 'January 2025', 'is_open': True},
+        {'period_number': 2, 'fiscal_year': 2025, 'start_date': date(2025, 2, 1), 'end_date': date(2025, 2, 28), 'period_name': 'February 2025', 'is_open': False},
+        {'period_number': 3, 'fiscal_year': 2025, 'start_date': date(2025, 3, 1), 'end_date': date(2025, 3, 31), 'period_name': 'March 2025', 'is_open': False},
+        {'period_number': 12, 'fiscal_year': 2024, 'start_date': date(2024, 12, 1), 'end_date': date(2024, 12, 31), 'period_name': 'December 2024', 'is_open': False, 'closed_date': datetime(2025, 1, 5), 'closed_by': 'ADMIN'},
+    ]
+    
+    for period_data in periods:
+        period = AccountingPeriod(**period_data)
+        session.add(period)
+    
+    logger.info(f"Created {len(periods)} accounting periods")
+
+
+def create_demo_report_categories(session):
+    """Create demo report categories"""
+    categories = [
+        {'category_name': 'Financial', 'category_description': 'P&L, Balance Sheet, Trial Balance, and financial statements', 'icon_name': 'CurrencyDollarIcon', 'color_class': 'bg-green-500', 'display_order': 1, 'created_by': 'SYSTEM'},
+        {'category_name': 'Sales', 'category_description': 'Customer analysis, aging reports, and sales performance', 'icon_name': 'UsersIcon', 'color_class': 'bg-blue-500', 'display_order': 2, 'created_by': 'SYSTEM'},
+        {'category_name': 'Purchase', 'category_description': 'Supplier analysis, AP aging, and purchase performance', 'icon_name': 'TruckIcon', 'color_class': 'bg-purple-500', 'display_order': 3, 'created_by': 'SYSTEM'},
+        {'category_name': 'Stock', 'category_description': 'Inventory valuation, movement reports, and stock analysis', 'icon_name': 'CubeIcon', 'color_class': 'bg-orange-500', 'display_order': 4, 'created_by': 'SYSTEM'},
+        {'category_name': 'Tax', 'category_description': 'VAT returns, tax calculations, and compliance reports', 'icon_name': 'CalculatorIcon', 'color_class': 'bg-red-500', 'display_order': 5, 'created_by': 'SYSTEM'},
+        {'category_name': 'Custom', 'category_description': 'User-defined and customized reports', 'icon_name': 'DocumentTextIcon', 'color_class': 'bg-gray-500', 'display_order': 6, 'created_by': 'SYSTEM'},
+    ]
+    
+    for cat_data in categories:
+        category = ReportCategoryRec(**cat_data)
+        session.add(category)
+    
+    logger.info(f"Created {len(categories)} report categories")
+
+
+def create_demo_gl_pending_entries(session):
+    """Create demo GL pending entries"""
+    pending_entries = [
+        {
+            'reference': 'JE-2025-001',
+            'entry_type': 'JOURNAL',
+            'description': 'Accrual for January utilities',
+            'account_id': 1,  # Assuming first account exists
+            'amount': Decimal('1250.00'),
+            'debit_credit': 'DEBIT',
+            'status': 'PENDING',
+            'priority': 'MEDIUM',
+            'created_by': 'ACCOUNTANT',
+            'assigned_to': 'MANAGER',
+            'due_date': datetime(2025, 1, 20, 17, 0),
+            'source_module': 'GL',
+            'period_id': 1
+        },
+        {
+            'reference': 'GL-APPROVE-001',
+            'entry_type': 'APPROVAL',
+            'description': 'Budget variance adjustment',
+            'account_id': 1,
+            'amount': Decimal('5000.00'),
+            'debit_credit': 'CREDIT',
+            'status': 'IN_REVIEW',
+            'priority': 'HIGH',
+            'created_by': 'ACCOUNTANT',
+            'assigned_to': 'CFO',
+            'source_module': 'GL',
+            'period_id': 1
+        },
+        {
+            'reference': 'BANK-REC-001',
+            'entry_type': 'RECONCILIATION',
+            'description': 'Bank reconciliation discrepancy',
+            'account_id': 1,
+            'amount': Decimal('150.00'),
+            'debit_credit': 'DEBIT',
+            'status': 'PENDING',
+            'priority': 'LOW',
+            'created_by': 'BOOKKEEPER',
+            'source_module': 'BANK',
+            'period_id': 1
+        }
+    ]
+    
+    for entry_data in pending_entries:
+        entry = GLPendingEntry(**entry_data)
+        session.add(entry)
+    
+    logger.info(f"Created {len(pending_entries)} GL pending entries")
+
+
+def create_demo_gl_reports(session):
+    """Create demo GL report definitions"""
+    reports = [
+        {
+            'report_code': 'TRIAL_BAL',
+            'report_name': 'Trial Balance',
+            'report_description': 'Complete trial balance with all GL accounts',
+            'report_type': 'STANDARD',
+            'report_category': 'BALANCE_SHEET',
+            'output_format': 'PDF',
+            'created_by': 'SYSTEM',
+            'active': True
+        },
+        {
+            'report_code': 'CUST_AGING',
+            'report_name': 'Customer Aging Report',
+            'report_description': 'Outstanding receivables by aging buckets',
+            'report_type': 'STANDARD', 
+            'report_category': 'SALES',
+            'output_format': 'EXCEL',
+            'created_by': 'SYSTEM',
+            'active': True
+        },
+        {
+            'report_code': 'STOCK_VAL',
+            'report_name': 'Stock Valuation Report',
+            'report_description': 'Inventory valuation by location and category',
+            'report_type': 'STANDARD',
+            'report_category': 'STOCK',
+            'output_format': 'PDF',
+            'created_by': 'SYSTEM',
+            'active': True
+        },
+        {
+            'report_code': 'P_AND_L',
+            'report_name': 'Profit & Loss Statement',
+            'report_description': 'Income statement showing revenue and expenses',
+            'report_type': 'STANDARD',
+            'report_category': 'P&L',
+            'output_format': 'PDF',
+            'created_by': 'SYSTEM',
+            'active': True
+        }
+    ]
+    
+    for report_data in reports:
+        report = GLReportDefinitionRec(**report_data)
+        session.add(report)
+    
+    logger.info(f"Created {len(reports)} GL report definitions")
+
+
+def create_demo_report_usage_stats(session):
+    """Create demo report usage statistics"""
+    # First get the report IDs that were just created
+    session.flush()  # Ensure reports are saved and have IDs
+    
+    stats = [
+        {
+            'report_id': 1,  # Trial Balance
+            'user_id': 'ACCOUNTANT',
+            'execution_date': datetime(2025, 1, 15, 9, 30),
+            'execution_time': Decimal('2.3'),
+            'records_returned': 150,
+            'file_size': 1228800,  # 1.2MB
+            'execution_type': 'MANUAL',
+            'output_format': 'PDF',
+            'status': 'SUCCESS'
+        },
+        {
+            'report_id': 2,  # Customer Aging
+            'user_id': 'SALES_MANAGER',
+            'execution_date': datetime(2025, 1, 15, 10, 15),
+            'execution_time': Decimal('1.8'),
+            'records_returned': 89,
+            'file_size': 2097152,  # 2MB
+            'execution_type': 'MANUAL',
+            'output_format': 'EXCEL',
+            'status': 'SUCCESS'
+        },
+        {
+            'report_id': 3,  # Stock Valuation
+            'user_id': 'WAREHOUSE_MANAGER',
+            'execution_date': datetime(2025, 1, 14, 16, 20),
+            'execution_time': Decimal('4.1'),
+            'records_returned': 267,
+            'file_size': 4194304,  # 4MB
+            'execution_type': 'SCHEDULED',
+            'output_format': 'PDF',
+            'status': 'SUCCESS'
+        }
+    ]
+    
+    for stat_data in stats:
+        stat = ReportUsageStatsRec(**stat_data)
+        session.add(stat)
+    
+    logger.info(f"Created {len(stats)} report usage statistics")
 
 if __name__ == "__main__":
     populate_demo_data()
