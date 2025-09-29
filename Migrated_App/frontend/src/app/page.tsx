@@ -18,6 +18,7 @@ interface SystemStatus {
   database_connected: boolean
   gl_balanced: boolean
   period_open: boolean
+  current_period: number
   modules_active: {
     gl: boolean
     sl: boolean
@@ -63,22 +64,21 @@ export default function Dashboard() {
     // Fetch system status and dashboard stats
     const fetchData = async () => {
       try {
-        // Fetch system status
+        // Fetch system health
         const healthResponse = await fetch('http://localhost:8000/health')
-        if (healthResponse.ok) {
-          const data = await healthResponse.json()
+        const healthData = await healthResponse.json()
+        
+        // Fetch system status
+        const statusResponse = await fetch('http://localhost:8000/api/v1/dashboard/system-status')
+        if (statusResponse.ok) {
+          const statusData = await statusResponse.json()
           setSystemStatus({
-            system_healthy: data.status === 'healthy',
-            database_connected: data.database === 'connected',
-            gl_balanced: true,
-            period_open: true,
-            modules_active: {
-              gl: true,
-              sl: true,
-              pl: true,
-              stock: true,
-              irs: true
-            }
+            system_healthy: healthData.status === 'healthy',
+            database_connected: healthData.database === 'connected',
+            gl_balanced: statusData.gl_balanced,
+            period_open: statusData.period_open,
+            current_period: statusData.current_period || 1,
+            modules_active: statusData.modules_active
           })
         }
 
@@ -121,6 +121,7 @@ export default function Dashboard() {
           database_connected: false,
           gl_balanced: false,
           period_open: true,
+          current_period: 1,
           modules_active: {
             gl: false,
             sl: false,
@@ -234,7 +235,7 @@ export default function Dashboard() {
             />
             <StatsCard
               title="Current Period"
-              value="Period 1"
+              value={`Period ${systemStatus.current_period}`}
               icon={<BanknotesIcon className="h-6 w-6" />}
             />
           </div>

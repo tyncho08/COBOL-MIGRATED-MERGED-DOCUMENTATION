@@ -49,10 +49,31 @@ export default function ReportsPage() {
         const response = await fetch('http://localhost:8000/api/v1/reports/summary')
         if (response.ok) {
           const data = await response.json()
-          setReportCategories(data.categories || [])
+          // Transform API data to match component structure
+          const categories = data.categories.map((cat: any) => ({
+            name: cat.name,
+            description: cat.description,
+            icon: iconMap[cat.icon] || DocumentTextIcon,
+            color: getColorByCategory(cat.id),
+            reports: cat.reports.map((report: any) => ({
+              id: report.id,
+              name: report.name,
+              description: report.description,
+              last_run: report.lastGenerated,
+              frequency: report.frequency,
+              format: report.format.map((f: string) => f.toUpperCase()),
+              parameters: getReportParameters(report.id)
+            }))
+          }))
+          setReportCategories(categories)
+        } else {
+          // Use default categories if API fails
+          setReportCategories(getDefaultCategories())
         }
       } catch (error) {
         console.error('Failed to fetch reports data:', error)
+        // Use default categories if API fails
+        setReportCategories(getDefaultCategories())
       } finally {
         setLoading(false)
       }
@@ -67,6 +88,31 @@ export default function ReportsPage() {
     'TruckIcon': TruckIcon,
     'CubeIcon': CubeIcon,
     'CalculatorIcon': CurrencyDollarIcon
+  }
+
+  const getColorByCategory = (categoryId: string) => {
+    const colors: Record<string, string> = {
+      'financial': 'bg-green-500',
+      'sales': 'bg-blue-500',
+      'purchase': 'bg-purple-500',
+      'stock': 'bg-yellow-500',
+      'tax': 'bg-red-500'
+    }
+    return colors[categoryId] || 'bg-gray-500'
+  }
+
+  const getReportParameters = (reportId: string) => {
+    const parametersMap: Record<string, string[]> = {
+      'trial-balance': ['Period', 'Date Range', 'Level of Detail'],
+      'profit-loss': ['Period', 'Comparative', 'Budget Comparison'],
+      'balance-sheet': ['As At Date', 'Comparative', 'Consolidation'],
+      'cash-flow': ['Period', 'Method (Direct/Indirect)'],
+      'sales-summary': ['Date Range', 'Customer Filter', 'Product Filter'],
+      'aged-receivables': ['As At Date', 'Customer Range', 'Age Buckets'],
+      'stock-valuation': ['As At Date', 'Location', 'Category'],
+      'vat-return': ['Period', 'Box Details']
+    }
+    return parametersMap[reportId] || ['Date Range']
   }
 
   const generateReport = async (reportId: string, format: string) => {
@@ -85,7 +131,7 @@ export default function ReportsPage() {
     }
   }
 
-  const defaultReportCategories: ReportCategory[] = [
+  const getDefaultCategories = (): ReportCategory[] => [
     {
       name: 'Financial Reports',
       description: 'P&L, Balance Sheet, Trial Balance, and financial statements',
@@ -235,6 +281,25 @@ export default function ReportsPage() {
     }
   ]
 
+  const getReportsGeneratedToday = () => {
+    if (!reportCategories.length) return 0
+    const today = new Date().toDateString()
+    let count = 0
+    reportCategories.forEach(cat => {
+      cat.reports.forEach(report => {
+        if (report.last_run && new Date(report.last_run).toDateString() === today) {
+          count++
+        }
+      })
+    })
+    return count
+  }
+
+  const getMostUsedReport = () => {
+    // In a real app, this would come from usage statistics
+    return "Trial Balance"
+  }
+
   const quickActions = (
     <div className="flex space-x-2">
       <Button variant="outline" size="sm">
@@ -283,27 +348,27 @@ export default function ReportsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatsCard
             title="Total Reports"
-            value="25+"
+            value={reportCategories.reduce((sum, cat) => sum + cat.reports.length, 0).toString()}
             icon={<DocumentTextIcon className="h-6 w-6" />}
             href="/reports/all"
           />
           <StatsCard
-            title="Scheduled Reports"
-            value="12"
+            title="Report Categories"
+            value={reportCategories.length.toString()}
             icon={<CalendarIcon className="h-6 w-6" />}
-            href="/reports/scheduled"
+            href="/reports/categories"
           />
           <StatsCard
-            title="Reports Run Today"
-            value="8"
+            title="Generated Today"
+            value={getReportsGeneratedToday().toString()}
             icon={<ChartBarIcon className="h-6 w-6" />}
             href="/reports/history"
           />
           <StatsCard
-            title="Custom Reports"
-            value="3"
+            title="Most Used"
+            value={getMostUsedReport()}
             icon={<PrinterIcon className="h-6 w-6" />}
-            href="/reports/custom"
+            href="/reports/popular"
           />
         </div>
 

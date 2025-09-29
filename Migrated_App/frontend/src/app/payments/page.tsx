@@ -76,19 +76,13 @@ export default function PaymentsPage() {
   useEffect(() => {
     const fetchPaymentsData = async () => {
       try {
-        // Fetch summary data
-        const summaryResponse = await fetch('http://localhost:8000/api/v1/payments/summary')
+        // Fetch summary data using COBOL endpoint
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/payments/cobol/summary')
         if (summaryResponse.ok) {
           const summaryData = await summaryResponse.json()
           setSummary(summaryData.summary)
           setBankAccounts(summaryData.bankAccounts || [])
-        }
-        
-        // Fetch recent transactions
-        const transResponse = await fetch('http://localhost:8000/api/v1/payments/transactions')
-        if (transResponse.ok) {
-          const transData = await transResponse.json()
-          setRecentTransactions(transData.transactions || [])
+          setRecentTransactions(summaryData.recentTransactions || [])
         }
       } catch (error) {
         console.error('Failed to fetch payments data:', error)

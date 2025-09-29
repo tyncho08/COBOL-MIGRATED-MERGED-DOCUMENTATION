@@ -85,6 +85,26 @@ api_router.include_router(sales.outstanding.router, prefix="/sales/outstanding",
 api_router.include_router(sales.reports.router, prefix="/sales/reports", tags=["sales-reports"])
 api_router.include_router(sales.analytics.router, prefix="/sales/analytics", tags=["sales-analytics"])
 
+# COBOL-Compatible Sales routes (using real database structure)
+from app.api.v1.sales import cobol_summary
+api_router.include_router(cobol_summary.router, prefix="/sales/cobol", tags=["sales-cobol"])
+
+# COBOL-Compatible Stock routes (using real database structure)
+from app.api.v1.stock import cobol_summary as stock_cobol_summary
+api_router.include_router(stock_cobol_summary.router, prefix="/stock/cobol", tags=["stock-cobol"])
+
+# COBOL-Compatible GL routes (using real database structure)
+from app.api.v1.gl import cobol_summary as gl_cobol_summary  
+api_router.include_router(gl_cobol_summary.router, prefix="/gl/cobol", tags=["gl-cobol"])
+
+# COBOL-Compatible Payments routes (using real database structure)
+from app.api.v1.payments import cobol_summary as payments_cobol_summary
+api_router.include_router(payments_cobol_summary.router, prefix="/payments/cobol", tags=["payments-cobol"])
+
+# COBOL-Compatible Admin/Settings routes (using real database structure)
+from app.api.v1.admin import cobol_settings as admin_cobol_settings
+api_router.include_router(admin_cobol_settings.router, prefix="/admin/cobol", tags=["admin-cobol"])
+
 # Reports routes
 from app.api.v1 import reports
 api_router.include_router(reports.router, prefix="/reports", tags=["reports"])

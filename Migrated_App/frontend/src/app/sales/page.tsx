@@ -19,31 +19,27 @@ import PageHeader from '@/components/Layout/PageHeader'
 import { formatCurrency, formatDate } from '@/lib/utils'
 
 interface SLSummary {
-  total_customers: number
-  active_customers: number
-  total_outstanding: number
-  overdue_amount: number
-  current_month_sales: number
-  invoices_pending: number
-  credit_notes_pending: number
-  average_payment_days: number
+  activeCustomers: number
+  totalOutstanding: number
+  overdueAmount: number
+  currentMonthSales: number
+  invoicesPending: number
+  creditNotesPending: number
+  averagePaymentDays: number
 }
 
 interface RecentInvoice {
-  id: number
   invoice_number: string
-  customer_code: string
   customer_name: string
+  date: string
   amount: number
-  due_date: string
+  outstanding: number
   status: 'paid' | 'outstanding' | 'overdue'
-  days_outstanding?: number
 }
 
 interface AgingBucket {
   period: string
   amount: number
-  count: number
 }
 
 export default function SalesLedgerPage() {
@@ -51,6 +47,7 @@ export default function SalesLedgerPage() {
   const [summary, setSummary] = useState<SLSummary | null>(null)
   const [recentInvoices, setRecentInvoices] = useState<RecentInvoice[]>([])
   const [agingData, setAgingData] = useState<AgingBucket[]>([])
+  const [metrics, setMetrics] = useState<{collectionRate: number, badDebtProvision: number} | null>(null)
   const [loading, setLoading] = useState(true)
   
   // Modal states
@@ -78,60 +75,15 @@ export default function SalesLedgerPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from API - use the customers endpoint as a proxy for sales data
-        const customersResponse = await fetch('http://localhost:8000/api/v1/customers')
-        if (customersResponse.ok) {
-          const customersData = await customersResponse.json()
+        // Fetch sales summary from the new endpoint
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/sales/cobol/summary')
+        if (summaryResponse.ok) {
+          const summaryData = await summaryResponse.json()
           
-          // Calculate summary from customer data
-          const activeCustomers = customersData.filter((c: any) => c.is_active).length
-          const totalOutstanding = customersData.reduce((sum: number, c: any) => sum + (c.sales_balance || 0), 0)
-          const overdueAmount = customersData
-            .filter((c: any) => c.payment_terms_days && c.sales_balance > 0)
-            .reduce((sum: number, c: any) => sum + c.sales_balance, 0) * 0.2 // Estimate 20% overdue
-          
-          setSummary({
-            total_customers: customersData.length,
-            active_customers: activeCustomers,
-            total_outstanding: totalOutstanding,
-            overdue_amount: overdueAmount,
-            current_month_sales: totalOutstanding * 1.5, // Estimate
-            invoices_pending: Math.floor(activeCustomers * 0.15),
-            credit_notes_pending: Math.floor(activeCustomers * 0.02),
-            average_payment_days: 30
-          })
-          
-          // Create recent invoices from customer data
-          const invoices = customersData
-            .filter((c: any) => c.sales_balance > 0)
-            .slice(0, 5)
-            .map((c: any, index: number) => ({
-              id: index + 1,
-              invoice_number: `INV-2025-${String(index + 1).padStart(4, '0')}`,
-              customer_code: c.sales_account_code,
-              customer_name: c.sales_name,
-              amount: c.sales_balance,
-              due_date: new Date(Date.now() + (c.payment_terms_days || 30) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-              status: index % 3 === 0 ? 'overdue' : 'outstanding',
-              days_outstanding: index % 3 === 0 ? 15 : 5
-            }))
-          
-          setRecentInvoices(invoices)
-
-          // Calculate aging data from customer balances
-          const currentAmount = totalOutstanding * 0.4
-          const days30Amount = totalOutstanding * 0.3
-          const days60Amount = totalOutstanding * 0.15
-          const days90Amount = totalOutstanding * 0.10
-          const days90PlusAmount = totalOutstanding * 0.05
-          
-          setAgingData([
-            { period: 'Current', amount: currentAmount, count: Math.floor(activeCustomers * 0.3) },
-            { period: '1-30 days', amount: days30Amount, count: Math.floor(activeCustomers * 0.25) },
-            { period: '31-60 days', amount: days60Amount, count: Math.floor(activeCustomers * 0.15) },
-            { period: '61-90 days', amount: days90Amount, count: Math.floor(activeCustomers * 0.08) },
-            { period: '90+ days', amount: days90PlusAmount, count: Math.floor(activeCustomers * 0.05) }
-          ])
+          setSummary(summaryData.summary)
+          setRecentInvoices(summaryData.recent_invoices || [])
+          setAgingData(summaryData.aging_analysis?.buckets || [])
+          setMetrics(summaryData.summary || {collectionRate: 0, badDebtProvision: 0})
         }
       } catch (error) {
         console.error('Failed to fetch sales ledger data:', error)
@@ -175,12 +127,6 @@ export default function SalesLedgerPage() {
     }
   }
 
-  const isDueSoon = (dueDate: string) => {
-    const due = new Date(dueDate)
-    const today = new Date()
-    const diffDays = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-    return diffDays <= 7 && diffDays >= 0
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -200,37 +146,33 @@ export default function SalesLedgerPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <StatsCard
               title="Active Customers"
-              value={summary.active_customers.toLocaleString()}
+              value={summary.activeCustomers.toLocaleString()}
               icon={<UsersIcon className="h-6 w-6" />}
-              change={{ 
-                value: `${summary.total_customers} total`, 
-                type: 'neutral' 
-              }}
-              href="/sales/customers"
+              href="/customers"
             />
             <StatsCard
               title="Outstanding Amount"
-              value={formatCurrency(summary.total_outstanding)}
+              value={formatCurrency(summary.totalOutstanding)}
               icon={<CurrencyDollarIcon className="h-6 w-6" />}
               change={{ 
-                value: formatCurrency(summary.overdue_amount) + ' overdue', 
-                type: summary.overdue_amount > 0 ? 'decrease' : 'neutral' 
+                value: formatCurrency(summary.overdueAmount) + ' overdue', 
+                type: summary.overdueAmount > 0 ? 'decrease' : 'neutral' 
               }}
               href="/sales/outstanding"
             />
             <StatsCard
               title="This Month Sales"
-              value={formatCurrency(summary.current_month_sales)}
+              value={formatCurrency(summary.currentMonthSales)}
               icon={<ChartBarIcon className="h-6 w-6" />}
               href="/sales/reports"
             />
             <StatsCard
               title="Avg Payment Days"
-              value={summary.average_payment_days}
+              value={summary.averagePaymentDays}
               icon={<ClockIcon className="h-6 w-6" />}
               change={{ 
-                value: `${summary.invoices_pending} pending`, 
-                type: summary.invoices_pending > 0 ? 'decrease' : 'neutral' 
+                value: `${summary.invoicesPending} pending`, 
+                type: summary.invoicesPending > 0 ? 'decrease' : 'neutral' 
               }}
               href="/sales/analytics"
             />
@@ -244,7 +186,7 @@ export default function SalesLedgerPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Invoices</h3>
-                  <Button variant="outline" size="sm" onClick={() => setShowInvoiceModal(true)}>
+                  <Button variant="outline" size="sm" onClick={() => router.push('/sales/invoices')}>
                     View All
                   </Button>
                 </div>
@@ -267,7 +209,7 @@ export default function SalesLedgerPage() {
                 ) : (
                   <div className="divide-y divide-gray-200">
                     {recentInvoices.map((invoice) => (
-                      <div key={invoice.id} className="p-6 hover:bg-gray-50">
+                      <div key={invoice.invoice_number} className="p-6 hover:bg-gray-50">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
                             <div className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(invoice.status)}`}>
@@ -278,28 +220,20 @@ export default function SalesLedgerPage() {
                                 {invoice.invoice_number}
                               </p>
                               <p className="text-sm text-gray-500">
-                                {invoice.customer_code} - {invoice.customer_name}
+                                {invoice.customer_name}
                               </p>
-                              <div className="flex items-center space-x-2 text-xs text-gray-400">
-                                <span>Due: {formatDate(invoice.due_date)}</span>
-                                {invoice.days_outstanding && (
-                                  <span className={`${
-                                    invoice.status === 'overdue' ? 'text-red-600' : 
-                                    isDueSoon(invoice.due_date) ? 'text-yellow-600' : 'text-gray-400'
-                                  }`}>
-                                    ({invoice.days_outstanding} days)
-                                  </span>
-                                )}
-                              </div>
+                              <p className="text-xs text-gray-400">
+                                Invoice Date: {formatDate(invoice.date)}
+                              </p>
                             </div>
                           </div>
                           <div className="text-right">
                             <p className="text-sm font-medium text-gray-900">
                               {formatCurrency(invoice.amount)}
                             </p>
-                            {isDueSoon(invoice.due_date) && invoice.status === 'outstanding' && (
-                              <p className="text-xs text-yellow-600 font-medium">
-                                Due Soon
+                            {invoice.outstanding > 0 && (
+                              <p className="text-xs text-gray-500">
+                                Outstanding: {formatCurrency(invoice.outstanding)}
                               </p>
                             )}
                           </div>
@@ -335,7 +269,6 @@ export default function SalesLedgerPage() {
                       <div key={bucket.period} className="flex justify-between items-center">
                         <div>
                           <p className="text-sm font-medium text-gray-900">{bucket.period}</p>
-                          <p className="text-xs text-gray-500">{bucket.count} invoices</p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-bold text-gray-900">
@@ -396,19 +329,19 @@ export default function SalesLedgerPage() {
                   <dl className="space-y-3 text-sm">
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Collection Rate:</dt>
-                      <dd className="font-medium text-gray-900">85.2%</dd>
+                      <dd className="font-medium text-gray-900">{metrics?.collectionRate?.toFixed(1) || '0.0'}%</dd>
                     </div>
                     <div className="flex justify-between">
                       <dt className="text-gray-500">DSO (Days Sales Outstanding):</dt>
-                      <dd className="font-medium text-gray-900">{summary.average_payment_days} days</dd>
+                      <dd className="font-medium text-gray-900">{summary.averagePaymentDays} days</dd>
                     </div>
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Bad Debt Provision:</dt>
-                      <dd className="font-medium text-gray-900">2.1%</dd>
+                      <dd className="font-medium text-gray-900">{metrics?.badDebtProvision?.toFixed(1) || '0.0'}%</dd>
                     </div>
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Credit Notes This Month:</dt>
-                      <dd className="font-medium text-gray-900">{summary.credit_notes_pending}</dd>
+                      <dd className="font-medium text-gray-900">{summary.creditNotesPending}</dd>
                     </div>
                   </dl>
                 </div>
@@ -433,13 +366,13 @@ export default function SalesLedgerPage() {
                       </h3>
                       <div className="mt-2 text-sm text-yellow-700">
                         <ul className="list-disc pl-5 space-y-1">
-                          {summary.overdue_amount > 0 && (
+                          {summary.overdueAmount > 0 && (
                             <li>
-                              {formatCurrency(summary.overdue_amount)} in overdue receivables requires attention
+                              {formatCurrency(summary.overdueAmount)} in overdue receivables requires attention
                             </li>
                           )}
-                          {summary.invoices_pending > 0 && (
-                            <li>{summary.invoices_pending} invoices awaiting approval or processing</li>
+                          {summary.invoicesPending > 0 && (
+                            <li>{summary.invoicesPending} invoices awaiting approval or processing</li>
                           )}
                           <li>Consider sending payment reminders to customers with outstanding balances</li>
                         </ul>

@@ -60,7 +60,7 @@ export default function SettingsPage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/admin/settings')
+        const response = await fetch('http://localhost:8000/api/v1/admin/cobol/settings')
         if (response.ok) {
           const data = await response.json()
           setSettings(data)
@@ -77,7 +77,7 @@ export default function SettingsPage() {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/admin/settings', {
+      const response = await fetch('http://localhost:8000/api/v1/admin/cobol/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(settings)
@@ -155,23 +155,75 @@ export default function SettingsPage() {
               <Input
                 label="Address Line 1"
                 type="text"
-                defaultValue="123 Business Street"
+                value={settings?.company?.address?.line1 || ''}
+                onChange={(e) => {
+                  setSettings(prev => ({
+                    ...prev,
+                    company: {
+                      ...prev?.company,
+                      address: {
+                        ...prev?.company?.address,
+                        line1: e.target.value
+                      }
+                    }
+                  }))
+                  setHasChanges(true)
+                }}
               />
               <Input
                 label="Address Line 2"
                 type="text"
-                defaultValue="Commercial District"
+                value={settings?.company?.address?.line2 || ''}
+                onChange={(e) => {
+                  setSettings(prev => ({
+                    ...prev,
+                    company: {
+                      ...prev?.company,
+                      address: {
+                        ...prev?.company?.address,
+                        line2: e.target.value
+                      }
+                    }
+                  }))
+                  setHasChanges(true)
+                }}
               />
               <div className="grid grid-cols-2 gap-6">
                 <Input
                   label="City"
                   type="text"
-                  defaultValue="London"
+                  value={settings?.company?.address?.city || ''}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      company: {
+                        ...prev?.company,
+                        address: {
+                          ...prev?.company?.address,
+                          city: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
                 <Input
                   label="Postcode"
                   type="text"
-                  defaultValue="SW1A 1AA"
+                  value={settings?.company?.address?.postCode || ''}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      company: {
+                        ...prev?.company,
+                        address: {
+                          ...prev?.company?.address,
+                          postCode: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
               </div>
             </div>
@@ -186,7 +238,20 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Financial Year Start
                 </label>
-                <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
+                <select 
+                  className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+                  value={settings?.financial?.yearStart || 'January'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        yearStart: e.target.value
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
+                >
                   <option>January</option>
                   <option>April</option>
                   <option>July</option>
@@ -197,7 +262,20 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Default Currency
                 </label>
-                <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
+                <select 
+                  className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+                  value={settings?.financial?.defaultCurrency || 'USD - US Dollar'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        defaultCurrency: e.target.value
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
+                >
                   <option>USD - US Dollar</option>
                   <option>GBP - British Pound</option>
                   <option>EUR - Euro</option>
@@ -206,12 +284,32 @@ export default function SettingsPage() {
               <Input
                 label="Default Payment Terms (Days)"
                 type="number"
-                defaultValue="30"
+                value={settings?.financial?.paymentTerms || '30'}
+                onChange={(e) => {
+                  setSettings(prev => ({
+                    ...prev,
+                    financial: {
+                      ...prev?.financial,
+                      paymentTerms: e.target.value
+                    }
+                  }))
+                  setHasChanges(true)
+                }}
               />
               <Input
                 label="Default Settlement Discount (%)"
                 type="number"
-                defaultValue="2.5"
+                value={settings?.financial?.settlementDiscount || '2.5'}
+                onChange={(e) => {
+                  setSettings(prev => ({
+                    ...prev,
+                    financial: {
+                      ...prev?.financial,
+                      settlementDiscount: e.target.value
+                    }
+                  }))
+                  setHasChanges(true)
+                }}
               />
             </div>
             <div className="space-y-4">
@@ -220,22 +318,74 @@ export default function SettingsPage() {
                 <Input
                   label="Next Invoice Number"
                   type="text"
-                  defaultValue="INV-2024-0157"
+                  value={settings?.financial?.numberSequences?.invoiceNumber || 'INV-2024-0157'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        numberSequences: {
+                          ...prev?.financial?.numberSequences,
+                          invoiceNumber: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
                 <Input
                   label="Next Credit Note Number"
                   type="text"
-                  defaultValue="CN-2024-0045"
+                  value={settings?.financial?.numberSequences?.creditNoteNumber || 'CN-2024-0045'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        numberSequences: {
+                          ...prev?.financial?.numberSequences,
+                          creditNoteNumber: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
                 <Input
                   label="Next Purchase Order Number"
                   type="text"
-                  defaultValue="PO-2024-0234"
+                  value={settings?.financial?.numberSequences?.purchaseOrderNumber || 'PO-2024-0234'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        numberSequences: {
+                          ...prev?.financial?.numberSequences,
+                          purchaseOrderNumber: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
                 <Input
                   label="Next Receipt Number"
                   type="text"
-                  defaultValue="RCT-2024-0156"
+                  value={settings?.financial?.numberSequences?.receiptNumber || 'RCT-2024-0156'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      financial: {
+                        ...prev?.financial,
+                        numberSequences: {
+                          ...prev?.financial?.numberSequences,
+                          receiptNumber: e.target.value
+                        }
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
                 />
               </div>
             </div>
@@ -250,7 +400,20 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Default Tax Rate
                 </label>
-                <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
+                <select 
+                  className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+                  value={settings?.tax?.defaultRate || '20% - Standard Rate'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      tax: {
+                        ...prev?.tax,
+                        defaultRate: e.target.value
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
+                >
                   <option>20% - Standard Rate</option>
                   <option>5% - Reduced Rate</option>
                   <option>0% - Zero Rate</option>
@@ -261,7 +424,20 @@ export default function SettingsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Tax Scheme
                 </label>
-                <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
+                <select 
+                  className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+                  value={settings?.tax?.scheme || 'Standard VAT'}
+                  onChange={(e) => {
+                    setSettings(prev => ({
+                      ...prev,
+                      tax: {
+                        ...prev?.tax,
+                        scheme: e.target.value
+                      }
+                    }))
+                    setHasChanges(true)
+                  }}
+                >
                   <option>Standard VAT</option>
                   <option>Cash Accounting</option>
                   <option>Flat Rate Scheme</option>
@@ -328,15 +504,57 @@ export default function SettingsPage() {
               <h4 className="text-sm font-medium text-gray-900">System Settings</h4>
               <div className="space-y-4">
                 <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300" defaultChecked />
+                  <input 
+                    type="checkbox" 
+                    className="rounded border-gray-300" 
+                    checked={settings?.system?.auditTrail || true}
+                    onChange={(e) => {
+                      setSettings(prev => ({
+                        ...prev,
+                        system: {
+                          ...prev?.system,
+                          auditTrail: e.target.checked
+                        }
+                      }))
+                      setHasChanges(true)
+                    }}
+                  />
                   <span className="ml-2 text-sm text-gray-900">Enable audit trail</span>
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300" defaultChecked />
+                  <input 
+                    type="checkbox" 
+                    className="rounded border-gray-300" 
+                    checked={settings?.system?.automaticBackups || true}
+                    onChange={(e) => {
+                      setSettings(prev => ({
+                        ...prev,
+                        system: {
+                          ...prev?.system,
+                          automaticBackups: e.target.checked
+                        }
+                      }))
+                      setHasChanges(true)
+                    }}
+                  />
                   <span className="ml-2 text-sm text-gray-900">Automatic backups</span>
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300" />
+                  <input 
+                    type="checkbox" 
+                    className="rounded border-gray-300" 
+                    checked={settings?.system?.debugMode || false}
+                    onChange={(e) => {
+                      setSettings(prev => ({
+                        ...prev,
+                        system: {
+                          ...prev?.system,
+                          debugMode: e.target.checked
+                        }
+                      }))
+                      setHasChanges(true)
+                    }}
+                  />
                   <span className="ml-2 text-sm text-gray-900">Debug mode</span>
                 </label>
               </div>
@@ -393,7 +611,7 @@ export default function SettingsPage() {
 
             <div className="mt-8 flex items-center justify-between border-t pt-6">
               <p className="text-sm text-gray-500">
-                Last updated: 2024-02-20 14:30:00
+                Last updated: {settings?.lastUpdated ? new Date(settings.lastUpdated).toLocaleString() : 'Never'}
               </p>
               <div className="flex space-x-3">
                 <Button variant="outline">Cancel</Button>

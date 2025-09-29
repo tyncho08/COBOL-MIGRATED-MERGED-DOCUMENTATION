@@ -87,7 +87,6 @@ class SalesLedgerRec(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), doc="Record creation timestamp")
     updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp(), doc="Last update timestamp")
     updated_by = Column(String(30), server_default=func.current_user(), doc="Updated by user")
-    date_deleted = Column(DateTime(timezone=True), nullable=True, doc="Date record was deleted")
     
     @property
     def is_active(self) -> bool:
@@ -132,9 +131,17 @@ class SalesInvoiceRec(Base):
     __table_args__ = {'schema': 'acas'}
     
     invoice_key = Column(String(20), primary_key=True, doc="Invoice number")
-    sales_key = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="RESTRICT"), nullable=False, doc="Customer code")
+    invoice_customer = Column(String(10), ForeignKey("acas.saledger_rec.sales_key", ondelete="RESTRICT"), nullable=False, doc="Customer code")
     invoice_date = Column(Integer, nullable=False, doc="Invoice date (YYYYMMDD)")
-    invoice_amount = Column(Numeric(12, 2), default=0.00, doc="Invoice amount")
+    
+    # Real COBOL field names from actual PostgreSQL schema
+    invoice_total_amount = Column(Numeric(12, 2), default=0.00, doc="Total invoice amount")
+    invoice_goods_amount = Column(Numeric(12, 2), default=0.00, doc="Goods amount")
+    invoice_vat_amount = Column(Numeric(12, 2), default=0.00, doc="VAT amount")
+    invoice_paid_amount = Column(Numeric(12, 2), default=0.00, doc="Paid amount")
+    invoice_balance = Column(Numeric(12, 2), default=0.00, doc="Outstanding balance")
+    invoice_discount_amount = Column(Numeric(12, 2), default=0.00, doc="Discount amount")
+    
     invoice_status = Column(String(1), default='O', doc="Invoice status")
     
     # Audit Trail

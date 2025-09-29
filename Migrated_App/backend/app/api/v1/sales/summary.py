@@ -39,88 +39,70 @@ async def get_sales_summary(
         
         # Get active customer count
         active_customers = db.query(func.count(SalesLedgerRec.sales_key)).filter(
-            SalesLedgerRec.date_deleted == 0
+            SalesLedgerRec.sales_account_status == 'A'
         ).scalar() or 0
         
-        # Get total outstanding from open items
+        # Get total outstanding from customer balances (COBOL approach)
         outstanding_query = db.query(
-            func.sum(SalesOpenItemRec.outstanding_amount)
-        ).filter(
-            SalesOpenItemRec.status.in_(['O', 'A'])
-        ).scalar() or Decimal('0.00')
-        
-        # Get overdue amount (past due date)
-        overdue_query = db.query(
-            func.sum(SalesOpenItemRec.outstanding_amount)
+            func.sum(SalesLedgerRec.sales_balance)
         ).filter(
             and_(
-                SalesOpenItemRec.status.in_(['O', 'A']),
-                SalesOpenItemRec.due_date < current_date_int
+                SalesLedgerRec.sales_account_status == 'A',
+                SalesLedgerRec.sales_balance > 0
             )
         ).scalar() or Decimal('0.00')
         
-        # Get current month sales from invoices
+        # Get overdue amount from invoice balances with real COBOL field
+        overdue_query = db.query(
+            func.sum(SalesInvoiceRec.invoice_balance)
+        ).filter(
+            SalesInvoiceRec.invoice_balance > 0
+        ).scalar() or Decimal('0.00')
+        
+        # Get current month sales from invoices (using real COBOL field)
         current_month_sales = db.query(
-            func.sum(SalesInvoiceRec.invoice_amount)
+            func.sum(SalesInvoiceRec.invoice_total_amount)
         ).filter(
             SalesInvoiceRec.invoice_date >= month_start
         ).scalar() or Decimal('0.00')
         
-        # Count pending invoices (created but not posted)
-        pending_invoices = db.query(
-            func.count(SalesInvoiceRec.invoice_key)
-        ).filter(
-            SalesInvoiceRec.invoice_status == 'O'
-        ).scalar() or 0
+        # Count pending invoices - simplified
+        pending_invoices = 0  # TODO: Define "pending" in COBOL context
         
-        # Count credit notes (negative open items)
-        credit_notes_pending = db.query(
-            func.count(SalesOpenItemRec.item_id)
-        ).filter(
-            and_(
-                SalesOpenItemRec.transaction_type == 'CN',
-                SalesOpenItemRec.status == 'O'
-            )
-        ).scalar() or 0
+        # Count credit notes - simplified for COBOL
+        credit_notes_pending = 0  # TODO: Identify credit notes in COBOL data
         
         # Calculate average payment days (simplified for now)
         # TODO: Implement proper calculation based on allocation date when available
         average_payment_days = 30
         
-        # Get recent invoices with customer details
+        # Get recent invoices with customer details (COBOL structure - no open items table)
         recent_invoices_query = db.query(
             SalesInvoiceRec.invoice_key,
             SalesInvoiceRec.invoice_date,
-            SalesInvoiceRec.invoice_amount,
+            SalesInvoiceRec.invoice_total_amount,
+            SalesInvoiceRec.invoice_balance,  # Use real balance field instead of open items
             SalesInvoiceRec.invoice_status,
-            SalesLedgerRec.sales_name,
-            SalesOpenItemRec.outstanding_amount,
-            SalesOpenItemRec.due_date
+            SalesLedgerRec.sales_name
         ).join(
             SalesLedgerRec, 
-            SalesInvoiceRec.sales_key == SalesLedgerRec.sales_key
-        ).outerjoin(
-            SalesOpenItemRec,
-            and_(
-                SalesOpenItemRec.document_number == SalesInvoiceRec.invoice_key,
-                SalesOpenItemRec.transaction_type == 'IN'
-            )
+            SalesInvoiceRec.invoice_customer == SalesLedgerRec.sales_key
         ).order_by(
             SalesInvoiceRec.invoice_date.desc()
         ).limit(20).all()
         
         recent_invoices = []
         for invoice in recent_invoices_query:
-            status = 'paid'
-            if invoice.outstanding_amount and invoice.outstanding_amount > 0:
-                status = 'overdue' if invoice.due_date and invoice.due_date < current_date_int else 'outstanding'
+            # Use invoice_balance from COBOL structure
+            outstanding_balance = invoice.invoice_balance or 0
+            status = 'paid' if outstanding_balance <= 0 else 'outstanding'
             
             recent_invoices.append({
                 "invoice_number": invoice.invoice_key,
                 "customer_name": invoice.sales_name,
                 "date": str(invoice.invoice_date),
-                "amount": float(invoice.invoice_amount),
-                "outstanding": float(invoice.outstanding_amount) if invoice.outstanding_amount else 0,
+                "amount": float(invoice.invoice_total_amount),
+                "outstanding": float(outstanding_balance),
                 "status": status
             })
         
@@ -174,7 +156,7 @@ async def get_sales_summary(
         # Get total invoiced in last 90 days
         ninety_days_ago = int((today - timedelta(days=90)).strftime("%Y%m%d"))
         total_invoiced_90days = db.query(
-            func.sum(SalesInvoiceRec.invoice_amount)
+            func.sum(SalesInvoiceRec.invoice_total_amount)
         ).filter(
             SalesInvoiceRec.invoice_date >= ninety_days_ago
         ).scalar() or Decimal('1')  # Avoid division by zero
@@ -235,7 +217,7 @@ async def get_sales_invoices(
             SalesOpenItemRec.due_date
         ).join(
             SalesLedgerRec,
-            SalesInvoiceRec.sales_key == SalesLedgerRec.sales_key
+            SalesInvoiceRec.invoice_customer == SalesLedgerRec.sales_key
         ).outerjoin(
             SalesOpenItemRec,
             and_(
@@ -275,10 +257,10 @@ async def get_sales_invoices(
             
             invoice_list.append({
                 "invoiceKey": invoice.invoice_key,
-                "customerCode": invoice.sales_key,
+                "customerCode": invoice.invoice_customer,
                 "customerName": customer_name,
                 "invoiceDate": str(invoice.invoice_date),
-                "invoiceAmount": float(invoice.invoice_amount),
+                "invoiceAmount": float(invoice.invoice_total_amount),
                 "outstandingAmount": float(outstanding) if outstanding else 0,
                 "dueDate": str(due_date) if due_date else None,
                 "status": status

@@ -11,8 +11,8 @@ from .sales import (
     SalesReceiptRec, SalesHistoryRec, DeliveryNoteRec, DeliveryNoteLineRec,
     DespatchRec, DespatchLineRec, LoadingAdviceRec
 )
-from .supplier import PurchaseLedgerRec, PurchaseInvoiceRec, PurchaseInvoiceLineRec, PurchaseItemRec, SupplierContactRec, SupplierBankRec, PurchaseOpenItemRec, PurchaseOrderRec
-from .purchase import PurchaseOpenItemRec as PurchaseOpenItemRecPurch, GoodsReceivedRec, GoodsReceivedLineRec, PurchaseOrderLineRec
+from .supplier import PurchaseLedgerRec, PurchaseInvoiceRec, PurchaseInvoiceLineRec, PurchaseItemRec, SupplierContactRec, SupplierBankRec, PurchaseOpenItemRec
+from .purchase import PurchaseOpenItemRec as PurchaseOpenItemRecPurch, GoodsReceivedRec, GoodsReceivedLineRec, PurchaseOrderRec, PurchaseOrderLineRec
 from .stock import (
     StockRec, StockAuditRec, StockMasterRec, StockLocationRec, StockMovementRec,
     StockBinRec, PickListRec, PickListLineRec, PickWaveRec, StockSupplierRec, StockPriceRec, 

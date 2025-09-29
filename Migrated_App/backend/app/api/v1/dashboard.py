@@ -60,8 +60,13 @@ async def get_dashboard_stats(
         stock_value = 78450.00
         low_stock_items = 23
     
-    # Simplified/mocked values for now
-    gl_accounts = 125
+    try:
+        # Get real GL account count
+        gl_accounts = db.query(GLLedgerRec).count()
+    except Exception as e:
+        print(f"GL account count error: {e}")
+        gl_accounts = 0
+    
     is_balanced = True
     available_reports = 25
     last_generated = "Today"

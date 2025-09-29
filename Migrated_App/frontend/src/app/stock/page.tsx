@@ -43,6 +43,7 @@ export default function StockControlPage() {
   const router = useRouter()
   const [summary, setSummary] = useState<StockSummary | null>(null)
   const [recentMovements, setRecentMovements] = useState<RecentMovement[]>([])
+  const [lowStockItems, setLowStockItems] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   
   // Modal states
@@ -76,11 +77,11 @@ export default function StockControlPage() {
     const fetchData = async () => {
       try {
         // Fetch real data from API
-        const summaryResponse = await fetch('http://localhost:8000/api/v1/stock/summary')
+        const summaryResponse = await fetch('http://localhost:8000/api/v1/stock/cobol/summary')
         if (summaryResponse.ok) {
           const summaryData = await summaryResponse.json()
           setSummary(summaryData.summary)
-          setLowStockItems(summaryData.lowStockItems || [])
+          setLowStockItems(summaryData.lowStockAlerts || [])
           setRecentMovements(summaryData.recentMovements || [])
         }
       } catch (error) {
