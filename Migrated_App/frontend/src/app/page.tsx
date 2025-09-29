@@ -143,7 +143,7 @@ export default function Dashboard() {
       title: 'Sales Ledger',
       description: 'Customer management, invoicing, and accounts receivable',
       icon: UsersIcon,
-      href: '/customers',
+      href: '/sales',
       color: 'bg-blue-500',
       stats: [
         { label: 'Active Customers', value: dashboardStats?.sales.activeCustomers.toString() || '0' },
