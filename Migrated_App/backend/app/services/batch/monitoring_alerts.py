@@ -15,7 +15,7 @@ import logging
 
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.batch import (
-    BatchJobRec, BatchExecutionRec, BatchLogRec, 
+    BatchJobRec, BatchScheduleRec, BatchExecutionRec, BatchLogRec, 
     BatchAlertRec, BatchMetricsRec, BatchThresholdRec
 )
 from app.core.security import log_user_action

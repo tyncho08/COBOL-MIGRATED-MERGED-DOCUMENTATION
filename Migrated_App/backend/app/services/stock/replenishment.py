@@ -11,9 +11,11 @@ from sqlalchemy import and_, or_, func, desc
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, StockLocationRec, StockMovementRec, 
+    StockRec, StockLocationRec, StockMovementRec, 
     ReplenishmentRec, ReplenishmentTaskRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.models.warehouse import BinLocationRec
 from app.core.security import log_user_action
 from app.models.auth import User

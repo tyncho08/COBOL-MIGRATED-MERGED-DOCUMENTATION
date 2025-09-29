@@ -11,9 +11,11 @@ from sqlalchemy import and_, or_, func, case, text
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, StockLocationRec, StockMovementRec,
+    StockRec, StockLocationRec, StockMovementRec,
     StockValuationRec, StockRevalRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.models.system import SystemRec
 from app.services.gl.journal_entry import JournalEntryService
 from app.core.security import log_user_action

@@ -447,3 +447,68 @@ class PurchaseOrderLineRec(Base):
     
     # Relationships
     order = relationship("PurchaseOrderRec", back_populates="lines")
+
+
+class PurchaseHistoryRec(Base):
+    """
+    Purchase History - Historical purchase transactions for analysis
+    
+    Stores historical data for purchase analysis and reporting.
+    Used for vendor performance, price history, and spend analysis.
+    """
+    __tablename__ = "purchase_history"
+    
+    # Primary Key
+    history_id = Column(Integer, primary_key=True, autoincrement=True, doc="History ID")
+    
+    # Transaction Information
+    purch_key = Column(String(10), ForeignKey("acas.puledger_rec.purch_key", ondelete="RESTRICT"), nullable=False, doc="Supplier code")
+    stock_key = Column(String(30), nullable=False, doc="Stock item code")
+    transaction_date = Column(Integer, nullable=False, doc="Transaction date (YYYYMMDD)")
+    
+    # Transaction Details
+    transaction_type = Column(String(2), nullable=False, doc="Transaction type: PO=Purchase Order, IN=Invoice, CR=Credit, RT=Return")
+    document_number = Column(String(20), nullable=False, doc="Document number")
+    reference = Column(String(30), doc="Supplier reference/invoice number")
+    
+    # Quantities and Values
+    quantity = Column(Numeric(15, 3), nullable=False, doc="Transaction quantity")
+    unit_price = Column(Numeric(15, 4), nullable=False, doc="Unit purchase price")
+    total_value = Column(Numeric(15, 2), nullable=False, doc="Total transaction value")
+    
+    # Additional Information
+    warehouse = Column(String(10), doc="Warehouse/location code")
+    buyer = Column(String(10), doc="Buyer code")
+    lead_time_days = Column(Integer, doc="Lead time in days")
+    
+    # Quality and Performance
+    on_time_delivery = Column(String(1), default='Y', doc="On-time delivery flag")
+    quality_rating = Column(Integer, doc="Quality rating (1-5)")
+    
+    # Cost Analysis
+    freight_amount = Column(Numeric(12, 2), default=0.00, doc="Freight/shipping cost")
+    other_charges = Column(Numeric(12, 2), default=0.00, doc="Other charges")
+    
+    # GL Information
+    gl_account = Column(String(10), doc="GL account code")
+    cost_center = Column(String(10), doc="Cost center")
+    
+    # Audit Trail
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    created_by = Column(String(30), doc="Created by user")
+    
+    # Relationships
+    supplier = relationship("PurchaseLedgerRec", foreign_keys=[purch_key])
+    
+    # Table constraints
+    __table_args__ = (
+        CheckConstraint("transaction_type IN ('PO', 'IN', 'CR', 'RT')", name='ck_purchase_history_type'),
+        CheckConstraint("on_time_delivery IN ('Y', 'N')", name='ck_purchase_history_otd'),
+        CheckConstraint("quality_rating BETWEEN 1 AND 5", name='ck_purchase_history_rating'),
+        CheckConstraint('quantity > 0', name='ck_purchase_history_qty'),
+        Index('ix_purchase_history_supplier', 'purch_key'),
+        Index('ix_purchase_history_stock', 'stock_key'),
+        Index('ix_purchase_history_date', 'transaction_date'),
+        Index('ix_purchase_history_type', 'transaction_type'),
+        {'schema': 'acas'}
+    )

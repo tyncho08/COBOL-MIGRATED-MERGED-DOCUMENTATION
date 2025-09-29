@@ -34,17 +34,21 @@ async def get_system_settings(
                 }
             },
             "financial": {
-                "defaultPaymentTerms": "30",
-                "defaultSettlementDiscount": "2.0",
-                "nextNumbers": {
-                    "invoiceNumber": "INV-2025-0001",
-                    "creditNoteNumber": "CN-2025-0001",
-                    "purchaseOrderNumber": "PO-2025-0001",
-                    "receiptNumber": "REC-2025-0001"
+                "yearStart": "January",
+                "defaultCurrency": "USD - US Dollar",
+                "paymentTerms": "30",
+                "settlementDiscount": "2.5",
+                "numberSequences": {
+                    "invoiceNumber": "INV-2024-0157",
+                    "creditNoteNumber": "CN-2024-0045",
+                    "purchaseOrderNumber": "PO-2024-0234",
+                    "receiptNumber": "RCT-2024-0156"
                 },
                 "fiscalYearEnd": "12/31"
             },
             "tax": {
+                "defaultRate": "20% - Standard Rate",
+                "scheme": "Standard VAT",
                 "taxCodes": [
                     {
                         "code": "STD",
@@ -78,8 +82,12 @@ async def get_system_settings(
                 "lastMigration": datetime.now().isoformat(),
                 "totalRecords": 125678,
                 "backupSchedule": "daily",
-                "retentionDays": 30
-            }
+                "retentionDays": 30,
+                "auditTrail": True,
+                "automaticBackups": True,
+                "debugMode": False
+            },
+            "lastUpdated": datetime.now().isoformat()
         }
         
         # Update with actual system data if available
@@ -116,9 +124,11 @@ async def get_system_settings(
                 }
             },
             "financial": {
-                "defaultPaymentTerms": "30",
-                "defaultSettlementDiscount": "0",
-                "nextNumbers": {
+                "yearStart": "January",
+                "defaultCurrency": "USD - US Dollar",
+                "paymentTerms": "30",
+                "settlementDiscount": "0",
+                "numberSequences": {
                     "invoiceNumber": "INV-0001",
                     "creditNoteNumber": "CN-0001", 
                     "purchaseOrderNumber": "PO-0001",
@@ -127,6 +137,8 @@ async def get_system_settings(
                 "fiscalYearEnd": "12/31"
             },
             "tax": {
+                "defaultRate": "20% - Standard Rate",
+                "scheme": "Standard VAT",
                 "taxCodes": []
             },
             "system": {
@@ -135,8 +147,12 @@ async def get_system_settings(
                 "lastMigration": "",
                 "totalRecords": 0,
                 "backupSchedule": "daily",
-                "retentionDays": 30
-            }
+                "retentionDays": 30,
+                "auditTrail": True,
+                "automaticBackups": True,
+                "debugMode": False
+            },
+            "lastUpdated": None
         }
 
 @router.put("/settings")

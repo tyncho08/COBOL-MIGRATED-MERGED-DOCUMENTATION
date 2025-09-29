@@ -87,6 +87,7 @@ class SalesLedgerRec(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), doc="Record creation timestamp")
     updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp(), doc="Last update timestamp")
     updated_by = Column(String(30), server_default=func.current_user(), doc="Updated by user")
+    date_deleted = Column(DateTime(timezone=True), nullable=True, doc="Date record was deleted")
     
     @property
     def is_active(self) -> bool:

@@ -11,10 +11,14 @@ from sqlalchemy import and_, or_, func, desc
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, StockLocationRec, StockMovementRec,
+    StockRec, StockLocationRec, StockMovementRec,
     StockTransferRec, StockAdjustmentRec, StockCountRec
 )
-from app.services.gl.journal_entry import JournalEntryService
+# Create alias for backward compatibility
+StockMasterRec = StockRec
+# Create alias for backward compatibility
+StockMasterRec = StockRec
+from app.services.gl.gl_integration import GLIntegrationService
 from app.core.security import log_user_action
 from app.models.auth import User
 
@@ -879,55 +883,26 @@ class StockMovementsService:
         
     def _post_adjustment_to_gl(self, adjustment: StockAdjustmentRec, stock: StockMasterRec):
         """Post adjustment to General Ledger"""
-        system_rec, _ = self.system_handler.read_system_params()
-        if not system_rec or system_rec.gl_interface != 'Y':
-            return
-            
-        je_service = JournalEntryService(self.db, self.current_user)
+        gl_service = GLIntegrationService(self.db)
         
-        # Create batch
-        batch = je_service.create_journal_batch(
-            description=f"Stock Adjustment {adjustment.adj_no}",
-            source="STOCK"
-        )
+        # Prepare adjustment data for GL posting
+        adjustment_data = {
+            'adjustment_number': adjustment.adj_no,
+            'item_description': f"{stock.stock_code} - {stock.stock_desc}",
+            'adjustment_date': datetime.strptime(str(adjustment.adj_date), "%Y%m%d").date(),
+            'quantity': adjustment.adj_quantity,
+            'unit_cost': adjustment.adj_unit_cost,
+            'adjustment_type': 'INCREASE' if adjustment.adj_quantity > 0 else 'DECREASE',
+            'stock_account': '1200',  # Default stock asset account
+            'adjustment_account': '5100'  # Default stock adjustment account
+        }
         
-        if adjustment.adj_quantity > 0:
-            # Positive adjustment: Dr Stock, Cr Stock Variance
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.bl_stock_ac,
-                'debit': float(abs(adjustment.adj_total_cost)),
-                'credit': 0,
-                'reference': adjustment.adj_reference,
-                'description': f"Stock Adj+ {stock.stock_code}"
-            })
-            
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.bl_stock_var_ac,
-                'debit': 0,
-                'credit': float(abs(adjustment.adj_total_cost)),
-                'reference': adjustment.adj_reference,
-                'description': f"Stock Adj+ {stock.stock_code}"
-            })
-        else:
-            # Negative adjustment: Dr Stock Variance, Cr Stock
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.bl_stock_var_ac,
-                'debit': float(abs(adjustment.adj_total_cost)),
-                'credit': 0,
-                'reference': adjustment.adj_reference,
-                'description': f"Stock Adj- {stock.stock_code}"
-            })
-            
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.bl_stock_ac,
-                'debit': 0,
-                'credit': float(abs(adjustment.adj_total_cost)),
-                'reference': adjustment.adj_reference,
-                'description': f"Stock Adj- {stock.stock_code}"
-            })
-            
-        # Post the batch
-        je_service.post_batch(batch.batch_no)
+        # Post to GL
+        batch_id = gl_service.post_stock_adjustment(adjustment_data)
+        
+        # Store GL batch ID reference if needed
+        if batch_id:
+            adjustment.gl_batch_id = batch_id
         
     def _get_next_transfer_number(self) -> str:
         """Generate next transfer number"""

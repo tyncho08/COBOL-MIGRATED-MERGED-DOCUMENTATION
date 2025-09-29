@@ -14,10 +14,11 @@ from sqlalchemy import text, and_, or_, func, case
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.database import get_db
-from app.models.gl import GLAccount, GLTransaction, GLJournalEntry, GLPeriod
-from app.models.sl import Customer, SalesInvoice, CashReceipt
-from app.models.pl import Supplier, PurchaseInvoice, PurchasePayment
-from app.models.stock import StockItem, StockMovement, StockLocation
+from app.models.gl_accounts import GLLedgerRec, GLPostingRec
+from app.models.customer import SalesLedgerRec, SalesInvoiceRec
+from app.models.supplier import PurchaseLedgerRec, PurchaseInvoiceRec
+from app.models.stock import StockRec, StockMovementRec
+from app.models.payments import PaymentHeaderRec
 from app.schemas.reports import (
     ReportRequest, ReportResponse, ReportParameter,
     TrialBalanceReport, ProfitLossReport, BalanceSheetReport

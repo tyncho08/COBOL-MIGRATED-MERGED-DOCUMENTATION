@@ -22,7 +22,8 @@ def init_database():
     """Initialize database with complete schema"""
     try:
         # Use environment variables for PostgreSQL connection (set by run_app.sh)
-        user = os.environ.get('PGUSER', 'postgres')
+        # If PGUSER is not set, try to detect the current user
+        user = os.environ.get('PGUSER', os.environ.get('USER', 'postgres'))
         password = os.environ.get('PGPASSWORD', '')
         host = os.environ.get('PGHOST', 'localhost')
         port = os.environ.get('PGPORT', '5432')

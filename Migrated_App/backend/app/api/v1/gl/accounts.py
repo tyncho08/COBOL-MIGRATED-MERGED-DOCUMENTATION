@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.api import deps
-from app.models.gl import GLAccount
+from app.models.gl_accounts import GLLedgerRec
 from app.schemas.gl import (
     GLAccountCreate,
     GLAccountUpdate,

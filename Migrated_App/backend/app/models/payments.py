@@ -3,7 +3,7 @@ ACAS Payment Models
 SQLAlchemy models for payment processing and allocation
 """
 from sqlalchemy import (
-    Column, String, Integer, Numeric, Boolean, DateTime, 
+    Column, String, Integer, Numeric, Boolean, DateTime, Text,
     ForeignKey, CheckConstraint, Index
 )
 from sqlalchemy.orm import relationship
@@ -450,3 +450,108 @@ class SalesPaymentRec(Base):
             day = date_str[6:8]
             return f"{day}/{month}/{year}"
         return ""
+
+
+class PaymentHeaderRec(Base):
+    """
+    Payment Header Record - General payment batch header
+    
+    Generic payment header for various payment types and batches
+    """
+    __tablename__ = "payment_headers"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    header_id = Column(Integer, primary_key=True, autoincrement=True, doc="Header ID")
+    payment_batch = Column(String(20), unique=True, nullable=False, doc="Payment batch number")
+    
+    # Batch Information
+    batch_type = Column(String(20), nullable=False, doc="Batch type: PURCHASE, SALES, PAYROLL, EXPENSES")
+    batch_description = Column(String(100), doc="Batch description")
+    
+    # Dates
+    batch_date = Column(Integer, nullable=False, doc="Batch date (YYYYMMDD)")
+    value_date = Column(Integer, doc="Value date (YYYYMMDD)")
+    process_date = Column(Integer, doc="Processing date (YYYYMMDD)")
+    
+    # Financial Information
+    batch_currency = Column(String(3), default='USD', doc="Batch currency")
+    total_amount = Column(Numeric(15, 2), default=0.00, doc="Total batch amount")
+    total_payments = Column(Integer, default=0, doc="Number of payments in batch")
+    
+    # Banking Information
+    bank_account = Column(String(20), doc="Bank account code")
+    bank_reference = Column(String(50), doc="Bank reference")
+    
+    # Status and Control
+    batch_status = Column(String(20), default='CREATED', doc="Batch status")
+    payment_method = Column(String(20), doc="Payment method: CHECK, EFT, ACH, WIRE")
+    
+    # Processing Information
+    exported_to_bank = Column(String(1), default='N', doc="Exported to bank flag")
+    export_date = Column(Integer, doc="Export date (YYYYMMDD)")
+    export_file = Column(String(100), doc="Export file name")
+    
+    # Reconciliation
+    reconciled = Column(String(1), default='N', doc="Reconciled flag")
+    reconciled_date = Column(Integer, doc="Reconciliation date (YYYYMMDD)")
+    reconciled_by = Column(String(30), doc="Reconciled by user")
+    
+    # Approval Workflow
+    requires_approval = Column(String(1), default='Y', doc="Requires approval flag")
+    approved_by = Column(String(30), doc="Approved by user")
+    approved_date = Column(Integer, doc="Approval date (YYYYMMDD)")
+    approval_limit = Column(Numeric(15, 2), doc="Approval limit")
+    
+    # Security and Control
+    control_total = Column(Numeric(15, 2), doc="Control total for validation")
+    hash_total = Column(String(100), doc="Hash total for integrity")
+    sequence_check = Column(String(1), default='Y', doc="Sequence check required")
+    
+    # Processing Details
+    created_by = Column(String(30), nullable=False, doc="Created by user")
+    created_date = Column(Integer, nullable=False, doc="Created date (YYYYMMDD)")
+    created_time = Column(Integer, doc="Created time (HHMMSS)")
+    
+    # Update Tracking
+    updated_by = Column(String(30), doc="Last updated by user")
+    updated_date = Column(Integer, doc="Last update date (YYYYMMDD)")
+    updated_time = Column(Integer, doc="Last update time (HHMMSS)")
+    
+    # Error Handling
+    error_count = Column(Integer, default=0, doc="Number of errors")
+    warning_count = Column(Integer, default=0, doc="Number of warnings")
+    last_error = Column(Text, doc="Last error message")
+    
+    # Notes and Comments
+    processing_notes = Column(Text, doc="Processing notes")
+    user_comments = Column(Text, doc="User comments")
+    
+    # System Integration
+    posted_to_gl = Column(String(1), default='N', doc="Posted to GL flag")
+    gl_batch_id = Column(Integer, doc="Related GL batch ID")
+    external_system_ref = Column(String(50), doc="External system reference")
+    
+    # Archive Information
+    archived = Column(String(1), default='N', doc="Archived flag")
+    archive_date = Column(Integer, doc="Archive date (YYYYMMDD)")
+    
+    # Table constraints
+    __table_args__ = (
+        CheckConstraint("batch_type IN ('PURCHASE', 'SALES', 'PAYROLL', 'EXPENSES', 'TRANSFERS')", name='ck_payment_header_batch_type'),
+        CheckConstraint("batch_status IN ('CREATED', 'VALIDATED', 'APPROVED', 'PROCESSED', 'EXPORTED', 'RECONCILED', 'CANCELLED')", name='ck_payment_header_status'),
+        CheckConstraint("payment_method IN ('CHECK', 'EFT', 'ACH', 'WIRE', 'CARD', 'CASH')", name='ck_payment_header_method'),
+        CheckConstraint("exported_to_bank IN ('Y', 'N')", name='ck_payment_header_exported'),
+        CheckConstraint("reconciled IN ('Y', 'N')", name='ck_payment_header_reconciled'),
+        CheckConstraint("requires_approval IN ('Y', 'N')", name='ck_payment_header_approval'),
+        CheckConstraint("posted_to_gl IN ('Y', 'N')", name='ck_payment_header_gl'),
+        CheckConstraint("archived IN ('Y', 'N')", name='ck_payment_header_archived'),
+        CheckConstraint('total_amount >= 0', name='ck_payment_header_amount'),
+        CheckConstraint('total_payments >= 0', name='ck_payment_header_count'),
+        Index('idx_payment_header_batch', 'payment_batch'),
+        Index('idx_payment_header_date', 'batch_date'),
+        Index('idx_payment_header_status', 'batch_status'),
+        Index('idx_payment_header_type', 'batch_type'),
+        Index('idx_payment_header_bank', 'bank_account'),
+        {'schema': 'acas'}
+    )

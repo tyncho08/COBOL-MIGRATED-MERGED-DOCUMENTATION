@@ -630,12 +630,12 @@ class JobSchedulerService:
             
     def _execute_gl_period_close(self, parameters: Dict) -> bool:
         """Execute GL period close"""
-        from app.services.gl.period_end_processing import PeriodEndProcessingService
+        from app.services.gl.period_close import PeriodCloseService
         
         period = parameters.get('period')
         warehouse = parameters.get('warehouse', 'ALL')
         
-        service = PeriodEndProcessingService(self.db)
+        service = PeriodCloseService(self.db)
         success, result = service.close_period({'period': period, 'warehouse': warehouse})
         
         return success

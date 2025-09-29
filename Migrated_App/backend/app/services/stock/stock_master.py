@@ -4,16 +4,20 @@ Handles stock item creation, maintenance, and configuration
 """
 from typing import List, Optional, Dict, Tuple
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func
 
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, StockLocationRec, StockBinRec,
+    StockRec, StockLocationRec, StockBinRec,
     StockSupplierRec, StockPriceRec, StockBarcodeRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.core.security import log_user_action
 from app.models.auth import User
 

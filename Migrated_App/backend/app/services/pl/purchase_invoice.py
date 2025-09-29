@@ -16,7 +16,7 @@ from app.models.supplier import PurchaseLedgerRec
 from app.models.supplier import PurchaseInvoiceRec, PurchaseInvoiceLineRec, PurchaseOpenItemRec
 from app.models.stock import StockMasterRec
 from app.models.system import SystemRec
-from app.services.gl.journal_entry import JournalEntryService
+from app.services.gl.gl_integration import GLIntegrationService
 from app.core.security import log_user_action
 from app.models.auth import User
 
@@ -571,61 +571,40 @@ class PurchaseInvoiceService:
                     
     def _post_invoice_to_gl(self, invoice: PurchaseInvoiceRec):
         """Post invoice to General Ledger"""
-        system_rec, _ = self.system_handler.read_system_params()
-        if not system_rec or system_rec.gl_interface != 'Y':
-            return
-            
-        je_service = JournalEntryService(self.db, self.current_user)
+        gl_service = GLIntegrationService(self.db)
         
-        # Create batch
-        batch = je_service.create_journal_batch(
-            description=f"Purchase Invoice {invoice.invoice_no}",
-            source="PL"
-        )
+        # Get supplier for name
+        supplier, _ = self.supplier_handler.process(4, key_value=invoice.invoice_supplier)
+        supplier_name = supplier.purch_name if supplier else invoice.invoice_supplier
         
-        # Credit: Supplier Control Account
-        je_service.add_journal_line(batch.batch_no, {
-            'account': system_rec.p_creditors,
-            'debit': 0,
-            'credit': float(invoice.invoice_total_val),
-            'reference': invoice.invoice_no,
-            'description': f"Invoice {invoice.invoice_supplier}"
-        })
-        
-        # Debit: Expense/Asset Account(s)
+        # Get primary expense account from first line or use default
         lines = self.db.query(PurchaseInvoiceLineRec).filter(
             PurchaseInvoiceLineRec.line_invoice_no == invoice.invoice_no
         ).all()
         
-        # Group by GL code
-        gl_totals = {}
-        for line in lines:
-            gl_code = line.line_gl_code or system_rec.bl_purch_ac
-            if gl_code not in gl_totals:
-                gl_totals[gl_code] = Decimal('0')
-            gl_totals[gl_code] += line.line_goods_val
-            
-        for gl_code, amount in gl_totals.items():
-            je_service.add_journal_line(batch.batch_no, {
-                'account': int(gl_code),
-                'debit': float(amount),
-                'credit': 0,
-                'reference': invoice.invoice_no,
-                'description': "Purchases"
-            })
-            
-        # Debit: VAT Account
-        if invoice.invoice_vat_val > 0:
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.gl_vat_ac,
-                'debit': float(invoice.invoice_vat_val),
-                'credit': 0,
-                'reference': invoice.invoice_no,
-                'description': "VAT"
-            })
-            
-        # Post the batch
-        je_service.post_batch(batch.batch_no)
+        expense_account = '5000'  # Default expense account
+        if lines and lines[0].line_gl_code:
+            expense_account = lines[0].line_gl_code
+        
+        # Prepare invoice data for GL posting
+        invoice_data = {
+            'invoice_number': invoice.invoice_no,
+            'supplier_name': supplier_name,
+            'invoice_date': datetime.strptime(str(invoice.invoice_date), "%Y%m%d").date(),
+            'total_amount': invoice.invoice_total_val,
+            'net_amount': invoice.invoice_goods_val,
+            'tax_amount': invoice.invoice_vat_val,
+            'expense_account': expense_account,
+            'ap_account': '2100',  # Default AP account
+            'input_tax_account': '1300'  # Default Input Tax account
+        }
+        
+        # Post to GL
+        batch_id = gl_service.post_purchase_invoice(invoice_data)
+        
+        # Store GL batch ID reference if needed
+        if batch_id:
+            invoice.gl_batch_id = batch_id
         
     def match_to_order(self, invoice_no: str, order_no: str) -> Tuple[bool, Optional[str]]:
         """Match invoice to purchase order"""

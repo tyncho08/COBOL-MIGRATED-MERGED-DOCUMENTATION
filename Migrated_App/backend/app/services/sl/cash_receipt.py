@@ -14,7 +14,7 @@ from app.services.file_handlers.open_items_handler import SalesOpenItemsHandler
 from app.models.customer import SalesLedgerRec
 from app.models.sales import SalesOpenItemRec, SalesReceiptRec, SalesAllocationRec
 from app.models.system import SystemRec
-from app.services.gl.journal_entry import JournalEntryService
+from app.services.gl.gl_integration import GLIntegrationService
 from app.core.security import log_user_action
 from app.models.auth import User
 
@@ -571,64 +571,37 @@ class CashReceiptService:
         
     def _post_receipt_to_gl(self, receipt: SalesReceiptRec):
         """Post receipt to General Ledger"""
-        system_rec, _ = self.system_handler.read_system_params()
-        if not system_rec or system_rec.gl_interface != 'Y':
-            return
-            
-        je_service = JournalEntryService(self.db, self.current_user)
+        gl_service = GLIntegrationService(self.db)
         
-        # Create batch
-        batch = je_service.create_journal_batch(
-            description=f"Customer Receipt {receipt.receipt_no}",
-            source="SL"
-        )
+        # Get customer for name
+        customer, _ = self.customer_handler.process(4, key_value=receipt.receipt_customer)
+        customer_name = customer.sales_name if customer else receipt.receipt_customer
         
-        # Debit: Bank Account
-        je_service.add_journal_line(batch.batch_no, {
-            'account': int(receipt.receipt_bank_code),
-            'debit': float(receipt.receipt_local_amount),
-            'credit': 0,
-            'reference': receipt.receipt_no,
-            'description': f"Receipt from {receipt.receipt_customer}"
-        })
-        
-        # Credit: Customer Control Account
-        je_service.add_journal_line(batch.batch_no, {
-            'account': system_rec.s_debtors,
-            'debit': 0,
-            'credit': float(receipt.receipt_local_amount),
-            'reference': receipt.receipt_no,
-            'description': f"Receipt {receipt.receipt_customer}"
-        })
-        
-        # Handle any settlement discount
+        # Get total discount amount from allocations
         total_discount = self.db.query(
             func.sum(SalesAllocationRec.alloc_discount)
         ).filter(
             SalesAllocationRec.alloc_receipt_no == receipt.receipt_no
         ).scalar() or Decimal('0')
         
-        if total_discount > 0:
-            # Debit: Discount Allowed Account
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.sl_discount_ac,
-                'debit': float(total_discount),
-                'credit': 0,
-                'reference': receipt.receipt_no,
-                'description': "Settlement discount"
-            })
-            
-            # Credit: Customer Control Account (additional)
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.s_debtors,
-                'debit': 0,
-                'credit': float(total_discount),
-                'reference': receipt.receipt_no,
-                'description': "Discount allowed"
-            })
-            
-        # Post the batch
-        je_service.post_batch(batch.batch_no)
+        # Prepare receipt data for GL posting
+        receipt_data = {
+            'receipt_number': receipt.receipt_no,
+            'customer_name': customer_name,
+            'receipt_date': datetime.strptime(str(receipt.receipt_date), "%Y%m%d").date(),
+            'amount': receipt.receipt_local_amount,
+            'discount_amount': total_discount,
+            'bank_account': receipt.receipt_bank_code or '1000',  # Default bank account
+            'ar_account': '1100',  # Default AR account
+            'discount_account': '4100'  # Default discount account
+        }
+        
+        # Post to GL
+        batch_id = gl_service.post_sales_receipt(receipt_data)
+        
+        # Store GL batch ID reference if needed
+        if batch_id:
+            receipt.gl_batch_id = batch_id
         
     def batch_allocate_receipts(self, customer_no: Optional[str] = None) -> Dict:
         """Batch allocate all unallocated receipts"""

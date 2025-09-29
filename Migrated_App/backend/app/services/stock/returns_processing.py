@@ -12,8 +12,10 @@ from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
     ReturnRec, ReturnLineRec, ReturnAuthorizationRec, ReturnDispositionRec,
-    StockMasterRec, StockLocationRec, SerialNumberRec, LotNumberRec
+    StockRec, StockLocationRec, SerialNumberRec, LotNumberRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.models.sales import SalesOrderRec, SalesOrderLineRec
 from app.services.stock.stock_movements import StockMovementsService
 from app.services.stock.quality_control import QualityControlService

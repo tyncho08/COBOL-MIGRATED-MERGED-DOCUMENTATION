@@ -18,7 +18,8 @@ from app.schemas.reports import (
     ScheduledReport, ScheduleFrequency, ReportRequest,
     ScheduledReportResponse, JobHistoryResponse
 )
-from app.services.reporting import ReportScheduler, ReportEngine
+from app.services.reporting.report_scheduler import ReportScheduler
+from app.services.reporting.report_engine import ReportEngine
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

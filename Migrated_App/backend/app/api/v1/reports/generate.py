@@ -19,7 +19,9 @@ from app.schemas.reports import (
     ReportRequest, ReportResponse, ReportListResponse, 
     ExportFormat, CustomReportRequest
 )
-from app.services.reporting import ReportEngine, ExportService, ReportBuilder
+from app.services.reporting.report_engine import ReportEngine
+from app.services.reporting.export_service import ExportService
+from app.services.reporting.report_builder import ReportBuilder
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -134,9 +136,6 @@ async def export_report(
         logger.info(f"Exporting report {report_id} as {format} for user: {current_user.username}")
         
         # Get the report data - first try to regenerate since we don't have cache yet
-        from app.services.reporting.report_engine import ReportEngine
-        from app.services.reporting.export_service import ExportService
-        from app.core.database import get_db
         
         # Create report request based on report_id
         report_request = {

@@ -13,9 +13,11 @@ import math
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, DemandForecastRec, ForecastModelRec, 
+    StockRec, DemandForecastRec, ForecastModelRec, 
     ForecastAccuracyRec, SeasonalPatternRec, StockMovementRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.models.sales import SalesOrderLineRec
 from app.core.security import log_user_action
 from app.models.auth import User

@@ -10,7 +10,7 @@ from app.api.v1 import (
     sl,
     pl,
     stock,
-    # reports,  # Temporarily disabled - has import issues
+    reports,
     admin,
     dashboard
 )
@@ -79,6 +79,7 @@ api_router.include_router(audit_trail_router, prefix="/irs/audit", tags=["irs-au
 
 # Sales Module routes (consolidated)
 from app.api.v1 import sales
+api_router.include_router(sales.summary.router, prefix="/sales/summary", tags=["sales-summary"])
 api_router.include_router(sales.customers.router, prefix="/sales/customers", tags=["sales-customers"])
 api_router.include_router(sales.outstanding.router, prefix="/sales/outstanding", tags=["sales-outstanding"])
 api_router.include_router(sales.reports.router, prefix="/sales/reports", tags=["sales-reports"])

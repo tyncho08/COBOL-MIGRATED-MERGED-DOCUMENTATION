@@ -923,3 +923,148 @@ class GLBudgetRec(Base):
     def is_approved(self) -> bool:
         """Check if budget is approved"""
         return self.approved_date > 0
+
+
+class GLTransactionRec(Base):
+    """
+    General Ledger Transaction Record
+    
+    Individual GL transactions created through integration service.
+    Used for posting from various modules (Sales, Purchase, Stock, etc.)
+    """
+    __tablename__ = "gltransaction_rec"
+    __table_args__ = {'schema': 'acas'}
+    
+    # Primary Key
+    transaction_id = Column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+        doc="Transaction identifier"
+    )
+    
+    # Batch Control
+    batch_id = Column(
+        Integer,
+        nullable=False,
+        doc="Integration batch ID"
+    )
+    
+    # Account Information
+    gl_account_key = Column(
+        String(10),
+        nullable=False,
+        doc="GL account code"
+    )
+    
+    # Transaction Details
+    transaction_date = Column(
+        Integer,
+        nullable=False,
+        doc="Transaction date (YYYYMMDD)"
+    )
+    period = Column(
+        Integer,
+        nullable=False,
+        doc="Accounting period"
+    )
+    fiscal_year = Column(
+        Integer,
+        nullable=False,
+        doc="Fiscal year"
+    )
+    
+    # Reference Information
+    source_module = Column(
+        String(20),
+        nullable=False,
+        doc="Source module (SALES, PURCHASE, STOCK, etc.)"
+    )
+    reference = Column(
+        String(50),
+        nullable=False,
+        doc="Transaction reference"
+    )
+    description = Column(
+        String(100),
+        nullable=False,
+        doc="Transaction description"
+    )
+    
+    # Amounts
+    debit_amount = Column(
+        Numeric(15, 2),
+        nullable=False,
+        default=0.00,
+        doc="Debit amount"
+    )
+    credit_amount = Column(
+        Numeric(15, 2),
+        nullable=False,
+        default=0.00,
+        doc="Credit amount"
+    )
+    
+    # Status
+    posted = Column(
+        String(1),
+        nullable=False,
+        default='N',
+        doc="Posted flag (Y/N)"
+    )
+    posted_date = Column(
+        Integer,
+        nullable=True,
+        doc="Date posted (YYYYMMDD)"
+    )
+    posted_by = Column(
+        String(30),
+        nullable=True,
+        doc="User who posted"
+    )
+    
+    # Audit Trail
+    created_at = Column(
+        DateTime(timezone=True),
+        server_default=func.current_timestamp(),
+        doc="Creation timestamp"
+    )
+    created_by = Column(
+        String(30),
+        nullable=False,
+        default='SYSTEM',
+        doc="Created by user"
+    )
+    
+    # Relationships
+    account = relationship(
+        "GLLedgerRec",
+        primaryjoin="foreign(GLTransactionRec.gl_account_key) == cast(GLLedgerRec.ledger_key, String)",
+        viewonly=True
+    )
+    
+    # Indexes
+    __table_args__ = (
+        CheckConstraint(
+            'debit_amount >= 0',
+            name='ck_gltrans_valid_debit'
+        ),
+        CheckConstraint(
+            'credit_amount >= 0',
+            name='ck_gltrans_valid_credit'
+        ),
+        CheckConstraint(
+            "posted IN ('Y', 'N')",
+            name='ck_gltrans_valid_posted'
+        ),
+        CheckConstraint(
+            '(debit_amount > 0 AND credit_amount = 0) OR (debit_amount = 0 AND credit_amount > 0)',
+            name='ck_gltrans_one_side_only'
+        ),
+        Index('ix_gltrans_batch', 'batch_id'),
+        Index('ix_gltrans_account', 'gl_account_key'),
+        Index('ix_gltrans_date', 'transaction_date'),
+        Index('ix_gltrans_posted', 'posted'),
+        Index('ix_gltrans_source', 'source_module'),
+        {'schema': 'acas'}
+    )

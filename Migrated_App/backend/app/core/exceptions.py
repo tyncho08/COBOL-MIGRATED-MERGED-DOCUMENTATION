@@ -26,3 +26,7 @@ class BusinessLogicError(ACASException):
 class IntegrationError(ACASException):
     """Raised when external system integration fails"""
     pass
+
+
+# Alias for compatibility
+BusinessError = BusinessLogicError

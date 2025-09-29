@@ -4,7 +4,7 @@ Handles sales invoice creation, validation, and posting
 """
 from typing import List, Optional, Dict, Tuple
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, func
 
@@ -17,7 +17,7 @@ from app.models.sales import SalesOpenItemRec
 from app.models.customer import SalesInvoiceRec, SalesInvoiceLineRec
 from app.models.stock import StockMasterRec
 from app.models.system import SystemRec
-from app.services.gl.journal_entry import JournalEntryService
+from app.services.gl.gl_integration import GLIntegrationService
 from app.core.security import log_user_action
 from app.models.auth import User
 
@@ -542,49 +542,31 @@ class SalesInvoiceService:
                     
     def _post_invoice_to_gl(self, invoice: SalesInvoiceRec):
         """Post invoice to General Ledger"""
-        system_rec, _ = self.system_handler.read_system_params()
-        if not system_rec or system_rec.gl_interface != 'Y':
-            return
-            
-        je_service = JournalEntryService(self.db, self.current_user)
+        gl_service = GLIntegrationService(self.db)
         
-        # Create batch
-        batch = je_service.create_journal_batch(
-            description=f"Sales Invoice {invoice.invoice_no}",
-            source="SL"
-        )
+        # Get customer for name
+        customer, _ = self.customer_handler.process(4, key_value=invoice.invoice_customer)
+        customer_name = customer.sales_name if customer else invoice.invoice_customer
         
-        # Debit: Customer Control Account
-        je_service.add_journal_line(batch.batch_no, {
-            'account': system_rec.s_debtors,
-            'debit': float(invoice.invoice_total_val),
-            'credit': 0,
-            'reference': invoice.invoice_no,
-            'description': f"Invoice {invoice.invoice_customer}"
-        })
+        # Prepare invoice data for GL posting
+        invoice_data = {
+            'invoice_number': invoice.invoice_no,
+            'customer_name': customer_name,
+            'invoice_date': datetime.strptime(str(invoice.invoice_date), "%Y%m%d").date(),
+            'total_amount': invoice.invoice_total_val,
+            'net_amount': invoice.invoice_goods_val - invoice.invoice_discount_val,
+            'tax_amount': invoice.invoice_vat_val,
+            'ar_account': '1100',  # Default AR account
+            'sales_account': '4000',  # Default Sales account
+            'tax_account': '2300'  # Default Tax account
+        }
         
-        # Credit: Sales Account(s)
-        # This would be more complex with multiple sales accounts per line
-        je_service.add_journal_line(batch.batch_no, {
-            'account': system_rec.sl_sales_ac,
-            'debit': 0,
-            'credit': float(invoice.invoice_goods_val),
-            'reference': invoice.invoice_no,
-            'description': "Sales"
-        })
+        # Post to GL
+        batch_id = gl_service.post_sales_invoice(invoice_data)
         
-        # Credit: VAT Account
-        if invoice.invoice_vat_val > 0:
-            je_service.add_journal_line(batch.batch_no, {
-                'account': system_rec.gl_vat_ac,
-                'debit': 0,
-                'credit': float(invoice.invoice_vat_val),
-                'reference': invoice.invoice_no,
-                'description': "VAT"
-            })
-            
-        # Post the batch
-        je_service.post_batch(batch.batch_no)
+        # Store GL batch ID reference if needed
+        if batch_id:
+            invoice.gl_batch_id = batch_id
         
     def generate_invoice_pdf(self, invoice_no: str) -> bytes:
         """Generate PDF for invoice"""

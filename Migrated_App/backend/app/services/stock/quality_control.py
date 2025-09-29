@@ -11,10 +11,12 @@ from sqlalchemy import and_, or_, func, desc
 from app.services.file_handlers.stock_handler import StockFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.stock import (
-    StockMasterRec, QualityControlRec, QualityTestRec, QualityResultRec,
+    StockRec, QualityControlRec, QualityTestRec, QualityResultRec,
     QuarantineRec, QualityInspectionRec, QualityDefectRec,
     StockLocationRec, LotNumberRec, SerialNumberRec
 )
+# Create alias for backward compatibility
+StockMasterRec = StockRec
 from app.services.stock.stock_movements import StockMovementsService
 from app.core.security import log_user_action
 from app.models.auth import User

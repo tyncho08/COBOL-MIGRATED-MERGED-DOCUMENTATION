@@ -4,7 +4,7 @@ Provides customizable GL reporting capabilities
 """
 from typing import List, Optional, Dict, Any, Tuple
 from decimal import Decimal
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func, case, extract
 import json
@@ -12,7 +12,7 @@ import json
 from app.services.file_handlers.gl_handler import GLFileHandler
 from app.services.file_handlers.system_handler import SystemFileHandler
 from app.models.gl_accounts import GLLedgerRec, GLPostingRec
-from app.models.gl_reports import GLReportDefinition, GLReportSchedule
+from app.models.gl_reports import GLReportDefinitionRec, GLReportParameterRec, GLReportScheduleRec
 from app.core.security import log_user_action
 from app.models.auth import User
 
@@ -29,7 +29,7 @@ class CustomReportsService:
         self.gl_handler = GLFileHandler(db)
         self.system_handler = SystemFileHandler(db)
         
-    def create_report_definition(self, report_data: Dict) -> Tuple[GLReportDefinition, Optional[str]]:
+    def create_report_definition(self, report_data: Dict) -> Tuple[GLReportDefinitionRec, Optional[str]]:
         """
         Create new custom report definition
         Returns (report_definition, error_message)
@@ -40,7 +40,7 @@ class CustomReportsService:
             return None, f"Invalid report type. Must be one of: {valid_types}"
             
         # Create report definition
-        report_def = GLReportDefinition(
+        report_def = GLReportDefinitionRec(
             report_code=report_data.get('report_code'),
             report_name=report_data.get('report_name'),
             report_type=report_data.get('report_type'),
@@ -92,8 +92,8 @@ class CustomReportsService:
     def generate_custom_report(self, report_code: str, parameters: Optional[Dict] = None) -> Dict:
         """Generate custom report based on definition"""
         # Get report definition
-        report_def = self.db.query(GLReportDefinition).filter(
-            GLReportDefinition.report_code == report_code
+        report_def = self.db.query(GLReportDefinitionRec).filter(
+            GLReportDefinitionRec.report_code == report_code
         ).first()
         
         if not report_def:
@@ -116,7 +116,7 @@ class CustomReportsService:
         else:
             return self._generate_custom_layout_report(report_def, parameters)
             
-    def _generate_detail_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_detail_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate detailed transaction report"""
         config = json.loads(report_def.report_config)
         selection = json.loads(report_def.account_selection)
@@ -203,7 +203,7 @@ class CustomReportsService:
             'config': config
         }
         
-    def _generate_summary_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_summary_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate summary report by account"""
         config = json.loads(report_def.report_config)
         selection = json.loads(report_def.account_selection)
@@ -278,7 +278,7 @@ class CustomReportsService:
             'config': config
         }
         
-    def _generate_comparison_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_comparison_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate comparison report (actual vs budget, period vs period, etc.)"""
         config = json.loads(report_def.report_config)
         comparison_type = config.get('comparison_type', 'PERIOD')
@@ -292,7 +292,7 @@ class CustomReportsService:
         else:
             return {"error": f"Unknown comparison type: {comparison_type}"}
             
-    def _generate_trend_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_trend_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate trend analysis report"""
         config = json.loads(report_def.report_config)
         selection = json.loads(report_def.account_selection)
@@ -340,7 +340,7 @@ class CustomReportsService:
             'config': config
         }
         
-    def _generate_matrix_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_matrix_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate matrix/pivot report"""
         config = json.loads(report_def.report_config)
         
@@ -357,7 +357,7 @@ class CustomReportsService:
         else:
             return {"error": f"Unsupported matrix dimensions: {row_dimension} x {column_dimension}"}
             
-    def _generate_custom_layout_report(self, report_def: GLReportDefinition, parameters: Dict) -> Dict:
+    def _generate_custom_layout_report(self, report_def: GLReportDefinitionRec, parameters: Dict) -> Dict:
         """Generate report with custom layout definition"""
         config = json.loads(report_def.report_config)
         layout = config.get('layout', {})
@@ -377,18 +377,18 @@ class CustomReportsService:
             'config': config
         }
         
-    def schedule_report(self, report_code: str, schedule_data: Dict) -> Tuple[GLReportSchedule, Optional[str]]:
+    def schedule_report(self, report_code: str, schedule_data: Dict) -> Tuple[GLReportScheduleRec, Optional[str]]:
         """Schedule report for automatic generation"""
         # Validate report exists
-        report_def = self.db.query(GLReportDefinition).filter(
-            GLReportDefinition.report_code == report_code
+        report_def = self.db.query(GLReportDefinitionRec).filter(
+            GLReportDefinitionRec.report_code == report_code
         ).first()
         
         if not report_def:
             return None, "Report definition not found"
             
         # Create schedule
-        schedule = GLReportSchedule(
+        schedule = GLReportScheduleRec(
             report_code=report_code,
             schedule_type=schedule_data.get('schedule_type', 'MONTHLY'),
             schedule_frequency=schedule_data.get('frequency', 1),
@@ -409,14 +409,14 @@ class CustomReportsService:
         
     def get_available_reports(self, category: Optional[str] = None) -> List[Dict]:
         """Get list of available custom reports"""
-        query = self.db.query(GLReportDefinition).filter(
-            GLReportDefinition.report_status == 'ACTIVE'
+        query = self.db.query(GLReportDefinitionRec).filter(
+            GLReportDefinitionRec.report_status == 'ACTIVE'
         )
         
         if category:
-            query = query.filter(GLReportDefinition.report_category == category)
+            query = query.filter(GLReportDefinitionRec.report_category == category)
             
-        reports = query.order_by(GLReportDefinition.report_category, GLReportDefinition.report_name).all()
+        reports = query.order_by(GLReportDefinitionRec.report_category, GLReportDefinitionRec.report_name).all()
         
         return [
             {
