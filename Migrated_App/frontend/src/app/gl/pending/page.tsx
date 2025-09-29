@@ -16,17 +16,19 @@ import Table from '@/components/UI/Table'
 import { formatCurrency, formatDate } from '@/lib/utils'
 
 interface PendingItem {
-  id: string
-  type: 'journal' | 'approval' | 'reconciliation' | 'review'
+  entry_id: number
+  entry_type: string
   reference: string
   description: string
   amount: number
-  created_date: string
+  debit_credit: string
+  status: string
+  priority: string
   created_by: string
-  priority: 'high' | 'medium' | 'low'
-  status: 'pending' | 'in_review' | 'rejected'
   assigned_to?: string
+  created_date: string
   due_date?: string
+  days_pending: number
 }
 
 export default function PendingItemsPage() {
@@ -41,48 +43,7 @@ export default function PendingItemsPage() {
         const response = await fetch('http://localhost:8000/api/v1/gl/pending')
         if (response.ok) {
           const data = await response.json()
-          setPendingItems(data.items || [])
-        } else {
-          // Fallback data
-          const fallbackData = [
-            {
-              id: 'JE001',
-              type: 'journal' as const,
-              reference: 'JE-2025-001',
-              description: 'Accrual for January utilities',
-              amount: 1250.00,
-              created_date: '2025-01-15T10:30:00Z',
-              created_by: 'ACCOUNTANT',
-              priority: 'medium' as const,
-              status: 'pending' as const,
-              assigned_to: 'MANAGER',
-              due_date: '2025-01-20T17:00:00Z'
-            },
-            {
-              id: 'AP001',
-              type: 'approval' as const,
-              reference: 'GL-APPROVE-001',
-              description: 'Budget variance adjustment',
-              amount: 5000.00,
-              created_date: '2025-01-14T14:20:00Z',
-              created_by: 'ACCOUNTANT',
-              priority: 'high' as const,
-              status: 'in_review' as const,
-              assigned_to: 'CFO'
-            },
-            {
-              id: 'REC001',
-              type: 'reconciliation' as const,
-              reference: 'BANK-REC-001',
-              description: 'Bank reconciliation discrepancy',
-              amount: 150.00,
-              created_date: '2025-01-13T09:15:00Z',
-              created_by: 'BOOKKEEPER',
-              priority: 'low' as const,
-              status: 'pending' as const
-            }
-          ]
-          setPendingItems(fallbackData)
+          setPendingItems(data.entries || [])
         }
       } catch (error) {
         console.error('Failed to fetch pending items:', error)
@@ -95,8 +56,8 @@ export default function PendingItemsPage() {
   }, [])
 
   const filteredItems = pendingItems.filter(item => {
-    const matchesType = filterType === 'all' || item.type === filterType
-    const matchesPriority = filterPriority === 'all' || item.priority === filterPriority
+    const matchesType = filterType === 'all' || item.entry_type?.toLowerCase() === filterType
+    const matchesPriority = filterPriority === 'all' || item.priority?.toLowerCase() === filterPriority
     return matchesType && matchesPriority
   })
 
@@ -115,12 +76,12 @@ export default function PendingItemsPage() {
 
   const getTypeBadge = (type: string) => {
     const badges = {
-      journal: { label: 'Journal Entry', class: 'bg-blue-100 text-blue-800' },
-      approval: { label: 'Approval', class: 'bg-orange-100 text-orange-800' },
-      reconciliation: { label: 'Reconciliation', class: 'bg-purple-100 text-purple-800' },
-      review: { label: 'Review', class: 'bg-gray-100 text-gray-800' }
+      JOURNAL: { label: 'Journal Entry', class: 'bg-blue-100 text-blue-800' },
+      APPROVAL: { label: 'Approval', class: 'bg-orange-100 text-orange-800' },
+      RECONCILIATION: { label: 'Reconciliation', class: 'bg-purple-100 text-purple-800' },
+      REVIEW: { label: 'Review', class: 'bg-gray-100 text-gray-800' }
     }
-    const badge = badges[type as keyof typeof badges] || badges.review
+    const badge = badges[type as keyof typeof badges] || badges.REVIEW
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.class}`}>
         {badge.label}
@@ -129,7 +90,7 @@ export default function PendingItemsPage() {
   }
 
   const getPriorityBadge = (priority: string) => {
-    switch (priority) {
+    switch (priority?.toLowerCase()) {
       case 'high':
         return (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
@@ -156,7 +117,7 @@ export default function PendingItemsPage() {
   }
 
   const getStatusBadge = (status: string) => {
-    switch (status) {
+    switch (status?.toLowerCase()) {
       case 'pending':
         return (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -196,7 +157,7 @@ export default function PendingItemsPage() {
       )
     },
     {
-      key: 'type',
+      key: 'entry_type',
       header: 'Type',
       className: 'w-32',
       render: (value: any) => getTypeBadge(value)
@@ -273,7 +234,7 @@ export default function PendingItemsPage() {
     }
   ]
 
-  const highPriorityCount = pendingItems.filter(item => item.priority === 'high').length
+  const highPriorityCount = pendingItems.filter(item => item.priority?.toLowerCase() === 'high').length
   const overdueCount = pendingItems.filter(item => 
     item.due_date && new Date(item.due_date) < new Date()
   ).length

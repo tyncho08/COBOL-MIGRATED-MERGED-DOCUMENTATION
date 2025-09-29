@@ -733,7 +733,28 @@ CREATE INDEX idx_glbatch_date ON glbatch_rec(batch_date);
 CREATE INDEX idx_glbatch_period ON glbatch_rec(batch_period);
 CREATE INDEX idx_glbatch_status ON glbatch_rec(batch_status);
 
--- 14. STOCKAUDIT_REC - Stock Movement Audit
+-- 14. ACCOUNTING_PERIODS - Accounting Period Management
+CREATE TABLE accounting_periods (
+    period_id SERIAL PRIMARY KEY,
+    period_number INTEGER NOT NULL CHECK (period_number >= 1 AND period_number <= 13),
+    fiscal_year INTEGER NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    period_name VARCHAR(50) NOT NULL,
+    -- Status
+    is_open BOOLEAN DEFAULT TRUE,
+    is_adjustment_period BOOLEAN DEFAULT FALSE,
+    closed_date TIMESTAMP WITH TIME ZONE,
+    closed_by VARCHAR(30),
+    -- Constraints
+    UNIQUE(fiscal_year, period_number)
+);
+
+CREATE INDEX idx_accounting_periods_year ON accounting_periods(fiscal_year);
+CREATE INDEX idx_accounting_periods_open ON accounting_periods(is_open);
+CREATE INDEX idx_accounting_periods_dates ON accounting_periods(start_date, end_date);
+
+-- 15. STOCKAUDIT_REC - Stock Movement Audit
 CREATE TABLE stockaudit_rec (
     audit_id SERIAL PRIMARY KEY,
     audit_date INTEGER NOT NULL,
@@ -1352,6 +1373,22 @@ INSERT INTO roles (role_name, role_description, gl_access, sl_access, pl_access,
 -- Insert admin user (password: admin123)
 INSERT INTO users (username, email, password_hash, full_name, role_id, is_superuser) VALUES
 ('admin', 'admin@acas.com', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN4LEXD3X0fRLI4cGBky', 'System Administrator', 1, true);
+
+-- Insert accounting periods for fiscal year 2025
+INSERT INTO accounting_periods (period_number, fiscal_year, start_date, end_date, period_name, is_open, is_adjustment_period) VALUES
+(1, 2025, '2025-01-01', '2025-01-31', 'January 2025', true, false),
+(2, 2025, '2025-02-01', '2025-02-28', 'February 2025', true, false),
+(3, 2025, '2025-03-01', '2025-03-31', 'March 2025', true, false),
+(4, 2025, '2025-04-01', '2025-04-30', 'April 2025', true, false),
+(5, 2025, '2025-05-01', '2025-05-31', 'May 2025', true, false),
+(6, 2025, '2025-06-01', '2025-06-30', 'June 2025', true, false),
+(7, 2025, '2025-07-01', '2025-07-31', 'July 2025', true, false),
+(8, 2025, '2025-08-01', '2025-08-31', 'August 2025', true, false),
+(9, 2025, '2025-09-01', '2025-09-30', 'September 2025', true, false),
+(10, 2025, '2025-10-01', '2025-10-31', 'October 2025', true, false),
+(11, 2025, '2025-11-01', '2025-11-30', 'November 2025', true, false),
+(12, 2025, '2025-12-01', '2025-12-31', 'December 2025', true, false),
+(13, 2025, '2025-12-31', '2025-12-31', 'Adjustments 2025', true, true);
 
 -- =============================================
 -- STORED PROCEDURES AND FUNCTIONS

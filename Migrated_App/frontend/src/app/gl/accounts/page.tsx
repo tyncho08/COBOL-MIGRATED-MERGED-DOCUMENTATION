@@ -16,14 +16,12 @@ import Input from '@/components/UI/Input'
 import { formatCurrency } from '@/lib/utils'
 
 interface GLAccount {
-  account_code: string
-  account_name: string
-  account_type: string
-  balance: number
-  debit_balance: number
-  credit_balance: number
-  level: number
-  active: boolean
+  ledger_key: number
+  ledger_name: string
+  ledger_type: number
+  ledger_place: string
+  ledger_level: number
+  ledger_balance: string
 }
 
 export default function GLAccountsPage() {
@@ -85,9 +83,9 @@ export default function GLAccountsPage() {
   }, [])
 
   const filteredAccounts = accounts.filter(account => {
-    const matchesSearch = account.account_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         account.account_name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter = filterType === 'all' || account.account_type.toLowerCase() === filterType.toLowerCase()
+    const matchesSearch = (account.ledger_key?.toString() || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (account.ledger_name || '').toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = filterType === 'all' || (account.ledger_type?.toString() || '') === filterType
     return matchesSearch && matchesFilter
   })
 
@@ -106,7 +104,7 @@ export default function GLAccountsPage() {
 
   const columns = [
     {
-      key: 'account_code',
+      key: 'ledger_key',
       header: 'Account Code',
       className: 'w-32 font-mono',
       render: (value: any) => (
@@ -114,27 +112,33 @@ export default function GLAccountsPage() {
       )
     },
     {
-      key: 'account_name',
+      key: 'ledger_name',
       header: 'Account Name',
       className: 'min-w-[200px]',
-      render: (value: any, row: GLAccount) => (
+      render: (value: any, row: any) => (
         <div>
           <div className="font-medium text-gray-900">{value}</div>
-          <div className="text-sm text-gray-500">{row.account_type}</div>
+          <div className="text-sm text-gray-500">
+            {row.ledger_type === 1 ? 'Asset' : 
+             row.ledger_type === 2 ? 'Liability' :
+             row.ledger_type === 3 ? 'Capital/Equity' :
+             row.ledger_type === 4 ? 'Income/Revenue' :
+             row.ledger_type === 5 ? 'Expense/Cost' : 'Unknown'}
+          </div>
         </div>
       )
     },
     {
-      key: 'balance',
+      key: 'ledger_balance',
       header: 'Balance',
       className: 'w-32 text-right',
-      render: (value: any, row: GLAccount) => (
+      render: (value: any, row: any) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">
-            {formatCurrency(Math.abs(row.balance))}
+            {formatCurrency(Math.abs(parseFloat(value || '0')))}
           </div>
           <div className="text-xs text-gray-500">
-            {row.debit_balance > 0 ? 'DR' : 'CR'}
+            {parseFloat(value || '0') >= 0 ? 'DR' : 'CR'}
           </div>
         </div>
       )
@@ -143,7 +147,7 @@ export default function GLAccountsPage() {
       key: 'actions',
       header: 'Actions',
       className: 'w-24',
-      render: (value: any, row: GLAccount) => (
+      render: (value: any, row: any) => (
         <div className="flex space-x-1">
           <Button variant="outline" size="xs">
             <PencilIcon className="h-3 w-3" />
@@ -188,11 +192,11 @@ export default function GLAccountsPage() {
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="all">All Types</option>
-              <option value="asset">Assets</option>
-              <option value="liability">Liabilities</option>
-              <option value="equity">Equity</option>
-              <option value="income">Income</option>
-              <option value="expense">Expenses</option>
+              <option value="1">Assets</option>
+              <option value="2">Liabilities</option>
+              <option value="3">Capital/Equity</option>
+              <option value="4">Income/Revenue</option>
+              <option value="5">Expenses/Costs</option>
             </select>
           </div>
         </div>

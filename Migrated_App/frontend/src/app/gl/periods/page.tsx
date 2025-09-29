@@ -16,17 +16,14 @@ import Table from '@/components/UI/Table'
 import { formatCurrency } from '@/lib/utils'
 
 interface GLPeriod {
-  period_key: string
+  period_id: number
   period_name: string
   start_date: string
   end_date: string
-  status: 'open' | 'closed' | 'archived'
+  is_open: boolean
+  is_adjustment_period: boolean
   fiscal_year: number
   period_number: number
-  transaction_count: number
-  total_debits: number
-  total_credits: number
-  variance: number
   closed_by?: string
   closed_date?: string
 }
@@ -42,42 +39,8 @@ export default function GLPeriodsPage() {
         const response = await fetch('http://localhost:8000/api/v1/gl/periods')
         if (response.ok) {
           const data = await response.json()
-          setPeriods(data.periods || [])
-          setCurrentPeriod(data.current_period)
-        } else {
-          // Fallback data
-          const fallbackPeriods = [
-            {
-              period_key: '202501',
-              period_name: 'January 2025',
-              start_date: '2025-01-01',
-              end_date: '2025-01-31',
-              status: 'open' as const,
-              fiscal_year: 2025,
-              period_number: 1,
-              transaction_count: 45,
-              total_debits: 125000.00,
-              total_credits: 125000.00,
-              variance: 0.00
-            },
-            {
-              period_key: '202412',
-              period_name: 'December 2024',
-              start_date: '2024-12-01',
-              end_date: '2024-12-31',
-              status: 'closed' as const,
-              fiscal_year: 2024,
-              period_number: 12,
-              transaction_count: 89,
-              total_debits: 234000.00,
-              total_credits: 234000.00,
-              variance: 0.00,
-              closed_by: 'ADMIN',
-              closed_date: '2025-01-05'
-            }
-          ]
-          setPeriods(fallbackPeriods)
-          setCurrentPeriod(fallbackPeriods[0])
+          setPeriods(data || [])
+          setCurrentPeriod(data.find((p: any) => p.is_open) || null)
         }
       } catch (error) {
         console.error('Failed to fetch periods:', error)
@@ -95,38 +58,28 @@ export default function GLPeriodsPage() {
         <CalendarIcon className="h-4 w-4" />
         New Period
       </Button>
-      <Button size="sm" disabled={!currentPeriod || currentPeriod.status !== 'open'}>
+      <Button size="sm" disabled={!currentPeriod || !currentPeriod.is_open}>
         <LockClosedIcon className="h-4 w-4" />
         Close Current Period
       </Button>
     </div>
   )
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'open':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            <LockOpenIcon className="w-3 h-3 mr-1" />
-            Open
-          </span>
-        )
-      case 'closed':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-            <LockClosedIcon className="w-3 h-3 mr-1" />
-            Closed
-          </span>
-        )
-      case 'archived':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            <CheckCircleIcon className="w-3 h-3 mr-1" />
-            Archived
-          </span>
-        )
-      default:
-        return null
+  const getStatusBadge = (isOpen: boolean) => {
+    if (isOpen) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <LockOpenIcon className="w-3 h-3 mr-1" />
+          Open
+        </span>
+      )
+    } else {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+          <LockClosedIcon className="w-3 h-3 mr-1" />
+          Closed
+        </span>
+      )
     }
   }
 
@@ -145,15 +98,15 @@ export default function GLPeriodsPage() {
       )
     },
     {
-      key: 'status',
+      key: 'is_open',
       header: 'Status',
       className: 'w-24',
       render: (value: any) => getStatusBadge(value)
     },
     {
-      key: 'transaction_count',
-      header: 'Transactions',
-      className: 'w-32 text-center',
+      key: 'fiscal_year',
+      header: 'Fiscal Year',
+      className: 'w-24 text-center',
       render: (value: any) => (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
           {value}
@@ -161,33 +114,13 @@ export default function GLPeriodsPage() {
       )
     },
     {
-      key: 'total_debits',
-      header: 'Total Debits',
-      className: 'w-32 text-right',
+      key: 'period_number',
+      header: 'Period #',
+      className: 'w-24 text-center',
       render: (value: any) => (
-        <div className="text-right font-mono">
-          {formatCurrency(value)}
-        </div>
-      )
-    },
-    {
-      key: 'total_credits',
-      header: 'Total Credits',
-      className: 'w-32 text-right',
-      render: (value: any) => (
-        <div className="text-right font-mono">
-          {formatCurrency(value)}
-        </div>
-      )
-    },
-    {
-      key: 'variance',
-      header: 'Variance',
-      className: 'w-32 text-right',
-      render: (value: any) => (
-        <div className={`text-right font-mono ${value === 0 ? 'text-green-600' : 'text-red-600'}`}>
-          {value === 0 ? 'Balanced' : formatCurrency(Math.abs(value))}
-        </div>
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+          {value}
+        </span>
       )
     },
     {
@@ -196,7 +129,7 @@ export default function GLPeriodsPage() {
       className: 'w-32',
       render: (value: any, row: GLPeriod) => (
         <div className="flex space-x-1">
-          {row.status === 'open' && (
+          {row.is_open && (
             <Button variant="outline" size="xs">
               Close
             </Button>
@@ -209,8 +142,7 @@ export default function GLPeriodsPage() {
     }
   ]
 
-  const openPeriods = periods.filter(p => p.status === 'open').length
-  const totalTransactions = periods.reduce((sum, p) => sum + p.transaction_count, 0)
+  const openPeriods = periods.filter(p => p.is_open).length
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -233,8 +165,8 @@ export default function GLPeriodsPage() {
             value={currentPeriod?.period_name || 'None'}
             icon={<CalendarIcon className="h-6 w-6" />}
             change={{ 
-              value: currentPeriod?.status === 'open' ? 'Open for posting' : 'Closed', 
-              type: currentPeriod?.status === 'open' ? 'increase' : 'neutral' 
+              value: currentPeriod?.is_open ? 'Open for posting' : 'Closed', 
+              type: currentPeriod?.is_open ? 'increase' : 'neutral' 
             }}
           />
           <StatsCard
@@ -247,60 +179,25 @@ export default function GLPeriodsPage() {
             }}
           />
           <StatsCard
-            title="Total Transactions"
-            value={totalTransactions.toString()}
+            title="Total Periods"
+            value={periods.length.toString()}
             icon={<ClockIcon className="h-6 w-6" />}
             change={{ 
-              value: 'All periods', 
+              value: 'All fiscal years', 
               type: 'neutral' 
             }}
           />
           <StatsCard
             title="Period Status"
-            value={currentPeriod?.variance === 0 ? 'Balanced' : 'Out of Balance'}
-            icon={currentPeriod?.variance === 0 ? 
-              <CheckCircleIcon className="h-6 w-6" /> : 
-              <ExclamationTriangleIcon className="h-6 w-6" />
-            }
+            value="Out of Balance"
+            icon={<ExclamationTriangleIcon className="h-6 w-6" />}
             change={{ 
-              value: currentPeriod ? formatCurrency(Math.abs(currentPeriod.variance)) : '£0.00', 
-              type: currentPeriod?.variance === 0 ? 'neutral' : 'decrease' 
+              value: '£0.00', 
+              type: 'decrease' 
             }}
           />
         </div>
 
-        {/* Current Period Alert */}
-        {currentPeriod && currentPeriod.variance !== 0 && (
-          <div className="mb-8">
-            <Card>
-              <div className="p-6">
-                <div className="rounded-md bg-yellow-50 p-4">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" />
-                    </div>
-                    <div className="ml-3">
-                      <h3 className="text-sm font-medium text-yellow-800">
-                        Period Out of Balance
-                      </h3>
-                      <div className="mt-2 text-sm text-yellow-700">
-                        <p>
-                          The current period has a variance of {formatCurrency(Math.abs(currentPeriod.variance))}.
-                          Please review transactions before closing the period.
-                        </p>
-                      </div>
-                      <div className="mt-4">
-                        <Button size="sm" variant="outline">
-                          Review Transactions
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        )}
 
         {/* Periods Table */}
         <Card>

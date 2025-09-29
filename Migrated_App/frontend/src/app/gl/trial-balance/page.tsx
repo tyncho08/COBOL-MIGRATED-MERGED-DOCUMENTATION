@@ -20,7 +20,7 @@ interface TrialBalanceItem {
   account_name: string
   debit_balance: number
   credit_balance: number
-  account_type: string
+  account_type: number
 }
 
 interface TrialBalanceSummary {
@@ -44,42 +44,8 @@ export default function TrialBalancePage() {
         const response = await fetch(`http://localhost:8000/api/v1/gl/trial-balance?period=${selectedPeriod}`)
         if (response.ok) {
           const data = await response.json()
-          setTrialBalance(data.items || [])
-          setSummary(data.summary)
-        } else {
-          // Fallback data
-          const fallbackData = [
-            {
-              account_code: '10010000',
-              account_name: 'Petty Cash',
-              debit_balance: 500.00,
-              credit_balance: 0.00,
-              account_type: 'Asset'
-            },
-            {
-              account_code: '10020000',
-              account_name: 'Bank Current Account',
-              debit_balance: 25000.00,
-              credit_balance: 0.00,
-              account_type: 'Asset'
-            },
-            {
-              account_code: '40010000',
-              account_name: 'Sales Revenue',
-              debit_balance: 0.00,
-              credit_balance: 82000.00,
-              account_type: 'Income'
-            }
-          ]
-          setTrialBalance(fallbackData)
-          setSummary({
-            total_debits: 25500.00,
-            total_credits: 82000.00,
-            variance: -56500.00,
-            is_balanced: false,
-            period: 'Current Period',
-            as_at_date: new Date().toISOString().split('T')[0]
-          })
+          setTrialBalance(data.accounts || [])
+          setSummary(data.totals)
         }
       } catch (error) {
         console.error('Failed to fetch trial balance:', error)

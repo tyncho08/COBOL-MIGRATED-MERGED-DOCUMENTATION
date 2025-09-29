@@ -6,44 +6,48 @@ from typing import List, Optional
 from datetime import date, datetime
 
 from app.api import deps
-from app.services.gl import period_close as period_service
+from app.models.gl import AccountingPeriod as AccountingPeriodModel
 from app.schemas.gl import (
-    AccountingPeriod, AccountingPeriodCreate,
+    AccountingPeriod, AccountingPeriodSimple, AccountingPeriodCreate,
     TrialBalance, IncomeStatement, BalanceSheet
 )
 
 router = APIRouter()
 
 
-@router.get("", response_model=List[AccountingPeriod])
+@router.get("", response_model=List[AccountingPeriodSimple])
 async def list_periods(
     fiscal_year: Optional[int] = Query(None, description="Filter by fiscal year"),
     is_open: Optional[bool] = Query(None, description="Filter by open/closed status"),
     include_adjustment: bool = Query(True, description="Include adjustment periods"),
-    db: Session = Depends(deps.get_db),
-    current_user=Depends(deps.get_current_active_user),
+    db: Session = Depends(deps.get_db)
 ):
     """
     List accounting periods.
     
     Returns all periods or filtered by criteria.
     """
-    periods = period_service.get_periods(
-        db,
-        fiscal_year=fiscal_year,
-        is_open=is_open,
-        include_adjustment=include_adjustment
-    )
+    query = db.query(AccountingPeriodModel)
+    
+    if fiscal_year:
+        query = query.filter(AccountingPeriodModel.fiscal_year == fiscal_year)
+    
+    if is_open is not None:
+        query = query.filter(AccountingPeriodModel.is_open == is_open)
+        
+    if not include_adjustment:
+        query = query.filter(AccountingPeriodModel.is_adjustment_period == False)
+    
+    periods = query.order_by(AccountingPeriodModel.fiscal_year, AccountingPeriodModel.period_number).all()
     return periods
 
 
-@router.get("/current", response_model=AccountingPeriod)
+@router.get("/current", response_model=AccountingPeriodSimple)
 async def get_current_period(
-    db: Session = Depends(deps.get_db),
-    current_user=Depends(deps.get_current_active_user),
+    db: Session = Depends(deps.get_db)
 ):
     """Get the current open accounting period."""
-    period = period_service.get_current_period(db)
+    period = db.query(AccountingPeriodModel).filter(AccountingPeriodModel.is_open == True).first()
     if not period:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

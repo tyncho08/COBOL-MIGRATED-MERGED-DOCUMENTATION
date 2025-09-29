@@ -349,9 +349,47 @@ class BalanceSheet(BaseModel):
     is_balanced: bool
 
 
+# Simple Accounting Period Schema that matches the actual database table
+class AccountingPeriodSimple(BaseModel):
+    period_id: int = Field(..., description="Period ID")
+    period_number: int = Field(..., description="Period number (1-13)")
+    fiscal_year: int = Field(..., description="Fiscal year")
+    start_date: date = Field(..., description="Period start date")
+    end_date: date = Field(..., description="Period end date")
+    period_name: str = Field(..., description="Period name")
+    is_open: bool = Field(..., description="Is period open")
+    is_adjustment_period: bool = Field(..., description="Is adjustment period")
+    closed_date: Optional[datetime] = Field(None, description="Date period was closed")
+    closed_by: Optional[str] = Field(None, description="User who closed the period")
+    
+    model_config = ConfigDict(from_attributes=True)
+
+# Simple GL Account Schema that matches GLLedgerRec model
+class GLAccountSimple(BaseModel):
+    ledger_key: int = Field(..., description="Account code")
+    ledger_name: str = Field(..., description="Account name")
+    ledger_type: int = Field(..., description="Account type (1-5)")
+    ledger_place: str = Field(..., description="Balance sheet/P&L placement")
+    ledger_level: int = Field(..., description="Account hierarchy level")
+    ledger_balance: Decimal = Field(..., description="Current balance")
+    
+    model_config = ConfigDict(from_attributes=True)
+    
+    @property
+    def account_type_description(self) -> str:
+        """Get human-readable account type"""
+        types = {
+            1: "Asset",
+            2: "Liability", 
+            3: "Capital/Equity",
+            4: "Income/Revenue",
+            5: "Expense/Cost"
+        }
+        return types.get(self.ledger_type, "Unknown")
+
 # Response Models for Lists
 class GLAccountListResponse(BaseModel):
-    accounts: List[GLAccount]
+    accounts: List[GLAccountSimple]
     total: int
     skip: int
     limit: int
@@ -374,6 +412,6 @@ class JournalEntryResponse(JournalEntry):
     pass
 
 
-class GLAccountResponse(GLAccount):
+class GLAccountResponse(GLAccountSimple):
     """Alias for backward compatibility"""
     pass
