@@ -313,13 +313,6 @@ export default function CustomersPage() {
           />
         </Card>
 
-        {/* Real Data Badge */}
-        <div className="mt-8 flex justify-center">
-          <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800">
-            <CheckCircleIcon className="w-4 h-4 mr-2" />
-            ✨ Showing REAL data from PostgreSQL database
-          </div>
-        </div>
       </main>
     </div>
   )

@@ -84,9 +84,9 @@ export default function InvoicesPage() {
 
   // Filter invoices based on search
   const filteredInvoices = invoices.filter(invoice =>
-    invoice.invoice_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    invoice.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    invoice.invoice_reference.toLowerCase().includes(searchTerm.toLowerCase())
+    (invoice.invoice_number || '').toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (invoice.customer_name || '').toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (invoice.invoice_reference || '').toString().toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const handlePrintInvoices = () => {

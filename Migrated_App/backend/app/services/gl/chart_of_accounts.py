@@ -185,17 +185,11 @@ class ChartOfAccountsService:
         query = self.db.query(GLLedgerRec)
         
         if filters:
-            if 'active_only' in filters and filters['active_only']:
-                query = query.filter(GLLedgerRec.ledger_active == 'Y')
-                
+            # Note: ledger_active field doesn't exist in the actual model
+            # All accounts in the database are considered active
+            
             if 'account_type' in filters:
                 query = query.filter(GLLedgerRec.ledger_type == filters['account_type'])
-                
-            if 'control_only' in filters and filters['control_only']:
-                query = query.filter(GLLedgerRec.ledger_control == 'Y')
-                
-            if 'parent' in filters:
-                query = query.filter(GLLedgerRec.ledger_parent == filters['parent'])
                 
         return query.order_by(GLLedgerRec.ledger_key).all()
         

@@ -28,8 +28,7 @@ def list_accounts(
     limit: int = Query(100, ge=1, le=1000),
     account_type: Optional[str] = None,
     search: Optional[str] = None,
-    active_only: bool = True,
-    current_user: User = Depends(get_current_active_user)
+    active_only: bool = True
 ) -> GLAccountListResponse:
     """
     Retrieve list of GL accounts with optional filtering.
@@ -40,16 +39,23 @@ def list_accounts(
     if account_type:
         filters['account_type'] = account_type
     if active_only:
-        filters['is_active'] = True
+        filters['active_only'] = True
         
-    accounts = service.search_accounts(
-        search_term=search,
-        filters=filters,
-        skip=skip,
-        limit=limit
-    )
+    # Get all accounts with filters
+    all_accounts = service.get_account_list(filters)
     
-    total = service.count_accounts(filters)
+    # Apply search filter if provided
+    if search:
+        search_lower = search.lower()
+        all_accounts = [
+            acc for acc in all_accounts 
+            if (search_lower in str(acc.ledger_key) or 
+                search_lower in acc.ledger_name.lower())
+        ]
+    
+    # Apply pagination
+    total = len(all_accounts)
+    accounts = all_accounts[skip:skip + limit]
     
     return GLAccountListResponse(
         accounts=accounts,

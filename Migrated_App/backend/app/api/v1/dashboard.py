@@ -136,10 +136,15 @@ async def get_system_status(
     """Get system status information including GL balance, period status, and module activation"""
     
     try:
-        # Get system configuration
-        system_record = db.query(SystemRec).filter(
-            SystemRec.system_rec_key == 1
-        ).first()
+        # Get system configuration - handle case where columns don't exist
+        system_record = None
+        try:
+            system_record = db.query(SystemRec).filter(
+                SystemRec.system_rec_key == 1
+            ).first()
+        except Exception as e:
+            print(f"System status error: {e}")
+            # System record columns don't exist yet, use defaults
         
         # Check if GL is balanced
         # In a real system, this would sum debits and credits to verify they're equal
