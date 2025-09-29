@@ -141,6 +141,7 @@ export default function PaymentsPage() {
     {
       key: 'type',
       header: 'Type',
+      className: 'w-24',
       render: (value: any, row: RecentTransaction) => (
         <div className="flex items-center">
           {row.type === 'receipt' ? (
@@ -155,6 +156,7 @@ export default function PaymentsPage() {
     {
       key: 'reference',
       header: 'Reference',
+      className: 'min-w-[200px]',
       render: (value: any, row: RecentTransaction) => (
         <div>
           <div className="font-medium text-gray-900">{row.reference}</div>
@@ -165,6 +167,7 @@ export default function PaymentsPage() {
     {
       key: 'amount',
       header: 'Amount',
+      className: 'w-32',
       render: (value: any, row: RecentTransaction) => (
         <div className={`font-medium ${row.type === 'receipt' ? 'text-green-600' : 'text-red-600'}`}>
           {row.type === 'receipt' ? '+' : '-'}{formatCurrency(Math.abs(row.amount))}
@@ -174,24 +177,14 @@ export default function PaymentsPage() {
     {
       key: 'date',
       header: 'Date',
+      className: 'w-28',
       render: (value: any, row: RecentTransaction) => formatDate(row.date)
     },
     {
       key: 'account',
       header: 'Account',
+      className: 'min-w-[120px]',
       render: (value: any, row: RecentTransaction) => row.account
-    },
-    {
-      key: 'status',
-      header: 'Status',
-      render: (value: any, row: RecentTransaction) => getStatusBadge(row.status)
-    },
-    {
-      key: 'actions',
-      header: 'Actions',
-      render: (value: any, row: RecentTransaction) => (
-        <Button variant="outline" size="sm">View</Button>
-      )
     }
   ]
 

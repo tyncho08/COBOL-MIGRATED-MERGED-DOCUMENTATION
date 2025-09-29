@@ -42,7 +42,7 @@ export default function Table<T extends Record<string, any>>({
   if (loading) {
     return (
       <div className="animate-pulse">
-        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+        <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
               <tr>
@@ -91,7 +91,7 @@ export default function Table<T extends Record<string, any>>({
 
   return (
     <div className="flow-root">
-      <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+      <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-gray-50">
             <tr>

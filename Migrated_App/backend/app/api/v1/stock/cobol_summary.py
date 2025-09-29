@@ -11,6 +11,7 @@ from typing import Dict, List, Any
 
 from app.core.database import get_db
 from app.models.stock import StockRec
+from sqlalchemy import text
 
 router = APIRouter()
 
@@ -126,6 +127,61 @@ async def get_cobol_stock_summary(db: Session = Depends(get_db)) -> Dict[str, An
                 "reorder_qty": float(item.stock_reorder_qty or 0)
             })
         
+        # === RECENT MOVEMENTS FROM STOCK AUDIT TABLE ===
+        
+        recent_movements = []
+        try:
+            # Get recent stock movements from stockaudit_rec
+            movements_query = db.execute(text("""
+                SELECT 
+                    a.audit_id,
+                    a.audit_date,
+                    a.audit_time,
+                    a.audit_stock_code,
+                    a.audit_type,
+                    a.audit_reference,
+                    a.audit_source,
+                    a.audit_qty,
+                    a.audit_qty_before,
+                    a.audit_qty_after,
+                    a.audit_user,
+                    s.stock_desc
+                FROM acas.stockaudit_rec a
+                LEFT JOIN acas.stock_rec s ON a.audit_stock_code = s.stock_key
+                ORDER BY a.audit_date DESC, a.audit_time DESC
+                LIMIT 10
+            """)).fetchall()
+            
+            for movement in movements_query:
+                # Convert COBOL date (YYYYMMDD) and time (HHMMSS) to datetime
+                date_str = str(movement.audit_date)
+                time_str = str(movement.audit_time).zfill(6)
+                datetime_str = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]} {time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+                
+                movement_type = {
+                    'R': 'Receipt',
+                    'I': 'Issue', 
+                    'A': 'Adjustment',
+                    'T': 'Transfer'
+                }.get(movement.audit_type, movement.audit_type)
+                
+                recent_movements.append({
+                    "id": movement.audit_id,
+                    "date": datetime_str,
+                    "item_code": movement.audit_stock_code,
+                    "description": movement.stock_desc or '',
+                    "type": movement_type,
+                    "reference": movement.audit_reference,
+                    "source": movement.audit_source,
+                    "quantity": float(movement.audit_qty or 0),
+                    "qty_before": float(movement.audit_qty_before or 0),
+                    "qty_after": float(movement.audit_qty_after or 0),
+                    "user": movement.audit_user
+                })
+        except Exception as e:
+            print(f"Error fetching stock movements: {e}")
+            # Continue without movements if error
+        
         # === SUMMARY STRUCTURE COMPATIBLE WITH FRONTEND ===
         
         stock_summary = {
@@ -153,7 +209,7 @@ async def get_cobol_stock_summary(db: Session = Depends(get_db)) -> Dict[str, An
         
         return {
             "summary": stock_summary,
-            "recentMovements": [],  # Empty for COBOL system - no movement history table
+            "recentMovements": recent_movements,
             "topItems": top_items,
             "lowStockAlerts": low_stock_alerts,
             "data_source": "COBOL migrated database (stock master records)",
