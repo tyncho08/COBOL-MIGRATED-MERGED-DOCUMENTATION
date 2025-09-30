@@ -14,6 +14,7 @@ import Button from '@/components/UI/Button'
 import Table from '@/components/UI/Table'
 import PageHeader from '@/components/Layout/PageHeader'
 import { formatCurrency, formatDate } from '@/lib/utils'
+import { EmailService } from '@/lib/emailService'
 
 interface OutstandingInvoice {
   id: number
@@ -75,7 +76,41 @@ export default function OutstandingPage() {
       alert('Please select invoices to include in the statement')
       return
     }
-    alert(`Sending statements for ${selectedIds.length} invoice(s)...`)
+    
+    // Get selected invoice data and group by customer
+    const selectedInvoiceData = invoices.filter(inv => selectedIds.includes(inv.id))
+    const customerGroups = selectedInvoiceData.reduce((groups: any, inv) => {
+      if (!groups[inv.customer_code]) {
+        groups[inv.customer_code] = {
+          customer_name: inv.customer_name,
+          invoices: []
+        }
+      }
+      groups[inv.customer_code].invoices.push(inv)
+      return groups
+    }, {})
+    
+    // Send statement for each customer
+    Object.entries(customerGroups).forEach(([customerCode, data]: any) => {
+      const customerEmail = prompt(`Enter email address for ${data.customer_name}:`, 'customer@example.com')
+      
+      if (customerEmail) {
+        const statementData = {
+          totalOutstanding: data.invoices.reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          current: data.invoices.filter((inv: any) => inv.status === 'current').reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          overdue: data.invoices.filter((inv: any) => inv.status !== 'current').reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          days30: data.invoices.filter((inv: any) => inv.days_overdue > 0 && inv.days_overdue <= 30).reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          days60: data.invoices.filter((inv: any) => inv.days_overdue > 30 && inv.days_overdue <= 60).reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          days90: data.invoices.filter((inv: any) => inv.days_overdue > 60 && inv.days_overdue <= 90).reduce((sum: number, inv: any) => sum + inv.balance, 0),
+          daysOver90: data.invoices.filter((inv: any) => inv.days_overdue > 90).reduce((sum: number, inv: any) => sum + inv.balance, 0)
+        }
+        
+        EmailService.sendStatement(
+          { customer_code: customerCode, customer_name: data.customer_name, email: customerEmail },
+          statementData
+        )
+      }
+    })
   }
 
   const handleChasePayment = () => {
@@ -84,7 +119,23 @@ export default function OutstandingPage() {
       alert('Please select invoices to chase')
       return
     }
-    alert(`Sending payment reminders for ${selectedIds.length} invoice(s)...`)
+    
+    // Get selected invoice data
+    const selectedInvoiceData = invoices.filter(inv => selectedIds.includes(inv.id))
+    
+    selectedInvoiceData.forEach((invoice) => {
+      const customerEmail = prompt(`Enter email address for ${invoice.customer_name}:`, 'customer@example.com')
+      
+      if (customerEmail) {
+        EmailService.chasePayment({
+          ...invoice,
+          invoice_number: invoice.invoice_number,
+          invoice_due_date: invoice.due_date,
+          invoice_total_amount: invoice.amount,
+          invoice_balance: invoice.balance
+        }, customerEmail)
+      }
+    })
   }
 
   const getStatusBadge = (status: string) => {

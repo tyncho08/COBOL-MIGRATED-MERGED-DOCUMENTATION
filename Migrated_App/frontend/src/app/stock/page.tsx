@@ -72,6 +72,8 @@ export default function StockControlPage() {
     reorderPoint: '',
     reorderQuantity: ''
   })
+  const [inquirySearch, setInquirySearch] = useState('')
+  const [inquiryResult, setInquiryResult] = useState<any | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,6 +95,27 @@ export default function StockControlPage() {
 
     fetchData()
   }, [])
+
+  const handleItemSearch = async () => {
+    if (!inquirySearch.trim()) return
+    
+    try {
+      const response = await fetch(`http://localhost:8000/api/v1/stock/items/search?q=${encodeURIComponent(inquirySearch)}`)
+      if (response.ok) {
+        const data = await response.json()
+        if (data.items && data.items.length > 0) {
+          setInquiryResult(data.items[0])
+        } else {
+          setInquiryResult(null)
+        }
+      } else {
+        setInquiryResult(null)
+      }
+    } catch (error) {
+      console.error('Error searching item:', error)
+      setInquiryResult(null)
+    }
+  }
 
   const quickActions = (
     <div className="flex space-x-2">
@@ -329,7 +352,7 @@ export default function StockControlPage() {
                           </ul>
                         </div>
                         <div className="mt-4">
-                          <Button size="sm" variant="outline" onClick={() => alert('Low stock alerts coming soon!')}>
+                          <Button size="sm" variant="outline" onClick={() => router.push('/stock/alerts')}>
                             View Details
                           </Button>
                         </div>
@@ -356,12 +379,34 @@ export default function StockControlPage() {
           <p className="mt-1 text-sm text-gray-500">
             Perform a physical count of your inventory
           </p>
-          <div className="mt-6">
-            <Button onClick={() => {
-              setShowStockTakeModal(false)
-              alert('Stock take functionality coming soon!')
+          <div className="mt-6 space-y-3">
+            <Button onClick={async () => {
+              try {
+                const response = await fetch('http://localhost:8000/api/v1/stock/stock-take/start', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ date: new Date().toISOString() })
+                })
+                
+                const data = await response.json()
+                if (data.success) {
+                  setShowStockTakeModal(false)
+                  router.push('/stock/stock-take')
+                } else {
+                  alert(data.message || 'Failed to start stock take')
+                }
+              } catch (error) {
+                console.error('Error starting stock take:', error)
+                alert('Failed to start stock take')
+              }
             }}>
               Start Stock Take
+            </Button>
+            <Button variant="outline" onClick={() => {
+              setShowStockTakeModal(false)
+              router.push('/stock/items?mode=count')
+            }}>
+              Quick Count
             </Button>
           </div>
         </div>
@@ -380,17 +425,43 @@ export default function StockControlPage() {
             </Button>
             <Button 
               className="ml-2"
-              onClick={() => {
-                console.log('Receiving stock:', receiveForm)
-                setShowReceiveStockModal(false)
-                // Reset form
-                setReceiveForm({
-                  itemCode: '',
-                  quantity: '',
-                  supplier: '',
-                  poNumber: '',
-                  cost: ''
-                })
+              onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/stock/receive', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      item_code: receiveForm.itemCode,
+                      quantity: parseFloat(receiveForm.quantity),
+                      supplier_code: receiveForm.supplier,
+                      po_number: receiveForm.poNumber,
+                      unit_cost: parseFloat(receiveForm.cost),
+                      movement_type: 'RECEIPT',
+                      date: new Date().toISOString()
+                    })
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert('Stock received successfully!')
+                    setShowReceiveStockModal(false)
+                    // Reset form
+                    setReceiveForm({
+                      itemCode: '',
+                      quantity: '',
+                      supplier: '',
+                      poNumber: '',
+                      cost: ''
+                    })
+                    // Refresh data
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to receive stock')
+                  }
+                } catch (error) {
+                  console.error('Error receiving stock:', error)
+                  alert('Failed to receive stock')
+                }
               }}
             >
               Receive Stock
@@ -454,18 +525,42 @@ export default function StockControlPage() {
             </Button>
             <Button 
               className="ml-2"
-              onClick={() => {
-                console.log('Creating item:', newItemForm)
-                setShowNewItemModal(false)
-                // Reset form
-                setNewItemForm({
-                  code: '',
-                  description: '',
-                  category: 'Raw Material',
-                  unitOfMeasure: 'Each',
-                  reorderPoint: '',
-                  reorderQuantity: ''
-                })
+              onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/stock/items', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      item_code: newItemForm.code,
+                      description: newItemForm.description,
+                      category: newItemForm.category,
+                      unit_of_measure: newItemForm.unitOfMeasure,
+                      reorder_point: parseFloat(newItemForm.reorderPoint) || 0,
+                      reorder_quantity: parseFloat(newItemForm.reorderQuantity) || 0,
+                      active: true
+                    })
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert('Item created successfully!')
+                    setShowNewItemModal(false)
+                    // Reset form
+                    setNewItemForm({
+                      code: '',
+                      description: '',
+                      category: 'Raw Material',
+                      unitOfMeasure: 'Each',
+                      reorderPoint: '',
+                      reorderQuantity: ''
+                    })
+                  } else {
+                    alert(data.message || 'Failed to create item')
+                  }
+                } catch (error) {
+                  console.error('Error creating item:', error)
+                  alert('Failed to create item')
+                }
               }}
             >
               Create Item
@@ -541,22 +636,84 @@ export default function StockControlPage() {
       {/* Item Inquiry Modal */}
       <Modal
         isOpen={showInquiryModal}
-        onClose={() => setShowInquiryModal(false)}
+        onClose={() => {
+          setShowInquiryModal(false)
+          setInquirySearch('')
+          setInquiryResult(null)
+        }}
         title="Item Inquiry"
         size="md"
       >
         <div className="space-y-4">
-          <Input
-            label="Item Code or Description"
-            type="text"
-            placeholder="Search for an item"
-          />
-          <div className="text-center py-8">
-            <CubeIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <p className="mt-2 text-sm text-gray-500">
-              Enter an item code or description to view details
-            </p>
+          <div className="flex space-x-2">
+            <Input
+              label="Item Code or Description"
+              type="text"
+              placeholder="Search for an item"
+              value={inquirySearch}
+              onChange={(e) => setInquirySearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleItemSearch()
+                }
+              }}
+            />
+            <Button 
+              className="mt-6"
+              onClick={handleItemSearch}
+            >
+              Search
+            </Button>
           </div>
+          
+          {inquiryResult ? (
+            <div className="border rounded-lg p-4 space-y-3">
+              <h4 className="font-medium text-gray-900">{inquiryResult.description}</h4>
+              <dl className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <dt className="text-gray-500">Item Code:</dt>
+                  <dd className="font-medium">{inquiryResult.item_code}</dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">Category:</dt>
+                  <dd className="font-medium">{inquiryResult.category}</dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">On Hand:</dt>
+                  <dd className="font-medium">{inquiryResult.quantity_on_hand}</dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">Available:</dt>
+                  <dd className="font-medium">{inquiryResult.quantity_available}</dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">Unit Cost:</dt>
+                  <dd className="font-medium">{formatCurrency(inquiryResult.unit_cost || 0)}</dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">Total Value:</dt>
+                  <dd className="font-medium">{formatCurrency(inquiryResult.total_value || 0)}</dd>
+                </div>
+              </dl>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  setShowInquiryModal(false)
+                  router.push(`/stock/items/${inquiryResult.item_code}`)
+                }}
+              >
+                View Full Details
+              </Button>
+            </div>
+          ) : inquirySearch && (
+            <div className="text-center py-8">
+              <CubeIcon className="mx-auto h-12 w-12 text-gray-400" />
+              <p className="mt-2 text-sm text-gray-500">
+                No items found matching "{inquirySearch}"
+              </p>
+            </div>
+          )}
         </div>
       </Modal>
 
@@ -576,7 +733,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowGoodsReceiptModal(false)
-              alert('Goods receipt functionality coming soon!')
+              router.push('/purchase/receipts')
             }}>
               Go to Goods Receipt
             </Button>
@@ -599,7 +756,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowStockIssueModal(false)
-              alert('Stock issue functionality coming soon!')
+              router.push('/stock/issues')
             }}>
               Go to Stock Issue
             </Button>
@@ -622,7 +779,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowTransferModal(false)
-              alert('Stock transfer functionality coming soon!')
+              router.push('/stock/transfers')
             }}>
               Go to Stock Transfer
             </Button>
@@ -645,7 +802,7 @@ export default function StockControlPage() {
           <div className="mt-6">
             <Button onClick={() => {
               setShowValuationModal(false)
-              alert('Stock valuation report coming soon!')
+              router.push('/stock/valuation')
             }}>
               Generate Report
             </Button>

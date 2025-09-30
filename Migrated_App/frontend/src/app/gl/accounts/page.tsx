@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { 
   DocumentTextIcon,
   PlusIcon,
@@ -14,6 +15,9 @@ import PageHeader from '@/components/Layout/PageHeader'
 import Table from '@/components/UI/Table'
 import Input from '@/components/UI/Input'
 import { formatCurrency } from '@/lib/utils'
+import Modal from '@/components/UI/Modal'
+import Select from '@/components/UI/Select'
+import { ReportGenerator } from '@/lib/reportGenerator'
 
 interface GLAccount {
   ledger_key: number
@@ -25,10 +29,21 @@ interface GLAccount {
 }
 
 export default function GLAccountsPage() {
+  const router = useRouter()
   const [accounts, setAccounts] = useState<GLAccount[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
+  const [showNewAccountModal, setShowNewAccountModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [selectedAccount, setSelectedAccount] = useState<GLAccount | null>(null)
+  const [accountForm, setAccountForm] = useState({
+    ledger_key: '',
+    ledger_name: '',
+    ledger_type: '1',
+    ledger_level: '4',
+    active: true
+  })
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -91,11 +106,33 @@ export default function GLAccountsPage() {
 
   const quickActions = (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
+      <Button 
+        variant="outline" 
+        size="sm"
+        onClick={async () => {
+          try {
+            const data = filteredAccounts.map(acc => ({
+              'Account Code': acc.ledger_key,
+              'Account Name': acc.ledger_name,
+              'Type': acc.ledger_type === 1 ? 'Asset' : 
+                      acc.ledger_type === 2 ? 'Liability' :
+                      acc.ledger_type === 3 ? 'Capital/Equity' :
+                      acc.ledger_type === 4 ? 'Income/Revenue' :
+                      acc.ledger_type === 5 ? 'Expense/Cost' : 'Unknown',
+              'Balance': parseFloat(acc.ledger_balance || '0')
+            }))
+            
+            ReportGenerator.exportToExcel(data, 'Chart_of_Accounts')
+          } catch (error) {
+            console.error('Export error:', error)
+            alert('Failed to export accounts')
+          }
+        }}
+      >
         <FunnelIcon className="h-4 w-4" />
         Export
       </Button>
-      <Button size="sm">
+      <Button size="sm" onClick={() => setShowNewAccountModal(true)}>
         <PlusIcon className="h-4 w-4" />
         New Account
       </Button>
@@ -149,7 +186,21 @@ export default function GLAccountsPage() {
       className: 'w-24',
       render: (value: any, row: any) => (
         <div className="flex space-x-1">
-          <Button variant="outline" size="xs">
+          <Button 
+            variant="outline" 
+            size="xs"
+            onClick={() => {
+              setSelectedAccount(row)
+              setAccountForm({
+                ledger_key: row.ledger_key.toString(),
+                ledger_name: row.ledger_name,
+                ledger_type: row.ledger_type.toString(),
+                ledger_level: row.ledger_level?.toString() || '4',
+                active: true
+              })
+              setShowEditModal(true)
+            }}
+          >
             <PencilIcon className="h-3 w-3" />
           </Button>
         </div>
@@ -211,7 +262,11 @@ export default function GLAccountsPage() {
                   {filteredAccounts.length} of {accounts.length} accounts
                 </p>
               </div>
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => router.push('/gl/trial-balance')}
+              >
                 <DocumentTextIcon className="h-4 w-4" />
                 Trial Balance
               </Button>
@@ -225,6 +280,182 @@ export default function GLAccountsPage() {
           />
         </Card>
       </main>
+
+      {/* New Account Modal */}
+      <Modal
+        isOpen={showNewAccountModal}
+        onClose={() => {
+          setShowNewAccountModal(false)
+          setAccountForm({
+            ledger_key: '',
+            ledger_name: '',
+            ledger_type: '1',
+            ledger_level: '4',
+            active: true
+          })
+        }}
+        title="New GL Account"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowNewAccountModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/gl/accounts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(accountForm)
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert('Account created successfully!')
+                    setShowNewAccountModal(false)
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to create account')
+                  }
+                } catch (error) {
+                  console.error('Error creating account:', error)
+                  alert('Failed to create account')
+                }
+              }}
+            >
+              Create Account
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Account Code"
+            type="text"
+            value={accountForm.ledger_key}
+            onChange={(e) => setAccountForm({...accountForm, ledger_key: e.target.value})}
+            placeholder="10010000"
+            required
+          />
+          <Input
+            label="Account Name"
+            type="text"
+            value={accountForm.ledger_name}
+            onChange={(e) => setAccountForm({...accountForm, ledger_name: e.target.value})}
+            placeholder="Cash on Hand"
+            required
+          />
+          <Select
+            label="Account Type"
+            value={accountForm.ledger_type}
+            onChange={(e) => setAccountForm({...accountForm, ledger_type: e.target.value})}
+            options={[
+              { value: '1', label: 'Asset' },
+              { value: '2', label: 'Liability' },
+              { value: '3', label: 'Capital/Equity' },
+              { value: '4', label: 'Income/Revenue' },
+              { value: '5', label: 'Expense/Cost' }
+            ]}
+          />
+          <Select
+            label="Account Level"
+            value={accountForm.ledger_level}
+            onChange={(e) => setAccountForm({...accountForm, ledger_level: e.target.value})}
+            options={[
+              { value: '1', label: 'Level 1 - Header' },
+              { value: '2', label: 'Level 2 - Sub-Header' },
+              { value: '3', label: 'Level 3 - Detail' },
+              { value: '4', label: 'Level 4 - Transaction' }
+            ]}
+          />
+        </div>
+      </Modal>
+
+      {/* Edit Account Modal */}
+      <Modal
+        isOpen={showEditModal}
+        onClose={() => {
+          setShowEditModal(false)
+          setSelectedAccount(null)
+        }}
+        title="Edit GL Account"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowEditModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={async () => {
+                try {
+                  const response = await fetch(`http://localhost:8000/api/v1/gl/accounts/${selectedAccount?.ledger_key}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(accountForm)
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert('Account updated successfully!')
+                    setShowEditModal(false)
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to update account')
+                  }
+                } catch (error) {
+                  console.error('Error updating account:', error)
+                  alert('Failed to update account')
+                }
+              }}
+            >
+              Update Account
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <Input
+            label="Account Code"
+            type="text"
+            value={accountForm.ledger_key}
+            disabled
+            className="bg-gray-100"
+          />
+          <Input
+            label="Account Name"
+            type="text"
+            value={accountForm.ledger_name}
+            onChange={(e) => setAccountForm({...accountForm, ledger_name: e.target.value})}
+            required
+          />
+          <Select
+            label="Account Type"
+            value={accountForm.ledger_type}
+            onChange={(e) => setAccountForm({...accountForm, ledger_type: e.target.value})}
+            options={[
+              { value: '1', label: 'Asset' },
+              { value: '2', label: 'Liability' },
+              { value: '3', label: 'Capital/Equity' },
+              { value: '4', label: 'Income/Revenue' },
+              { value: '5', label: 'Expense/Cost' }
+            ]}
+          />
+          <Select
+            label="Account Level"
+            value={accountForm.ledger_level}
+            onChange={(e) => setAccountForm({...accountForm, ledger_level: e.target.value})}
+            options={[
+              { value: '1', label: 'Level 1 - Header' },
+              { value: '2', label: 'Level 2 - Sub-Header' },
+              { value: '3', label: 'Level 3 - Detail' },
+              { value: '4', label: 'Level 4 - Transaction' }
+            ]}
+          />
+        </div>
+      </Modal>
     </div>
   )
 }

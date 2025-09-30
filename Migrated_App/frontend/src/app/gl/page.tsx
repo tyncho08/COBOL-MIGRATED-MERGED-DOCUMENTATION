@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { 
   DocumentTextIcon,
   ScaleIcon,
@@ -13,6 +14,8 @@ import {
 import { Card, StatsCard } from '@/components/UI/Card'
 import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
+import Modal from '@/components/UI/Modal'
+import Input from '@/components/UI/Input'
 import { formatCurrency } from '@/lib/utils'
 
 interface GLSummary {
@@ -45,10 +48,21 @@ interface TrialBalanceItem {
 }
 
 export default function GeneralLedgerPage() {
+  const router = useRouter()
   const [summary, setSummary] = useState<GLSummary | null>(null)
   const [recentJournals, setRecentJournals] = useState<RecentJournal[]>([])
   const [trialBalancePreview, setTrialBalancePreview] = useState<TrialBalanceItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [showJournalModal, setShowJournalModal] = useState(false)
+  const [journalForm, setJournalForm] = useState({
+    date: new Date().toISOString().split('T')[0],
+    reference: '',
+    description: '',
+    lines: [
+      { account_code: '', account_name: '', debit: 0, credit: 0 },
+      { account_code: '', account_name: '', debit: 0, credit: 0 }
+    ]
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,15 +99,15 @@ export default function GeneralLedgerPage() {
 
   const quickActions = (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => setShowJournalModal(true)}>
         <DocumentTextIcon className="h-4 w-4" />
         New Journal
       </Button>
-      <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm" onClick={() => router.push('/gl/trial-balance')}>
         <ScaleIcon className="h-4 w-4" />
         Trial Balance
       </Button>
-      <Button size="sm">
+      <Button size="sm" onClick={() => router.push('/reports?module=gl')}>
         <ChartBarIcon className="h-4 w-4" />
         Reports
       </Button>
@@ -182,7 +196,7 @@ export default function GeneralLedgerPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Journal Entries</h3>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => router.push('/gl/journals')}>
                     View All
                   </Button>
                 </div>
@@ -298,23 +312,23 @@ export default function GeneralLedgerPage() {
                 <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
               </div>
               <div className="p-6 space-y-3">
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => router.push('/gl/accounts')}>
                   <DocumentTextIcon className="h-4 w-4 mr-2" />
                   Chart of Accounts
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => setShowJournalModal(true)}>
                   <ScaleIcon className="h-4 w-4 mr-2" />
                   Journal Entry
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => router.push('/reports?module=gl')}>
                   <ChartBarIcon className="h-4 w-4 mr-2" />
                   Financial Reports
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => router.push('/gl/periods')}>
                   <CalendarIcon className="h-4 w-4 mr-2" />
                   Period Processing
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start" onClick={() => alert('Budget Analysis module coming soon!')}>
                   <CurrencyDollarIcon className="h-4 w-4 mr-2" />
                   Budget Analysis
                 </Button>
@@ -326,7 +340,7 @@ export default function GeneralLedgerPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Trial Balance Preview</h3>
-                  <Button variant="link" size="sm">
+                  <Button variant="link" size="sm" onClick={() => router.push('/gl/trial-balance')}>
                     View Full
                   </Button>
                 </div>
@@ -406,12 +420,12 @@ export default function GeneralLedgerPage() {
                       <div className="mt-4">
                         <div className="flex space-x-2">
                           {summary.unposted_journals > 0 && (
-                            <Button size="sm" variant="outline">
+                            <Button size="sm" variant="outline" onClick={() => router.push('/gl/pending?type=unposted')}>
                               Review Unposted
                             </Button>
                           )}
                           {summary.pending_approvals > 0 && (
-                            <Button size="sm" variant="outline">
+                            <Button size="sm" variant="outline" onClick={() => router.push('/gl/pending?type=approval')}>
                               Review Approvals
                             </Button>
                           )}
@@ -425,6 +439,219 @@ export default function GeneralLedgerPage() {
           </div>
         )}
       </main>
+
+      {/* Journal Entry Modal */}
+      <Modal
+        isOpen={showJournalModal}
+        onClose={() => {
+          setShowJournalModal(false)
+          setJournalForm({
+            date: new Date().toISOString().split('T')[0],
+            reference: '',
+            description: '',
+            lines: [
+              { account_code: '', account_name: '', debit: 0, credit: 0 },
+              { account_code: '', account_name: '', debit: 0, credit: 0 }
+            ]
+          })
+        }}
+        title="New Journal Entry"
+        size="xl"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowJournalModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2"
+              onClick={async () => {
+                try {
+                  // Calculate totals
+                  const totalDebit = journalForm.lines.reduce((sum, line) => sum + (line.debit || 0), 0)
+                  const totalCredit = journalForm.lines.reduce((sum, line) => sum + (line.credit || 0), 0)
+                  
+                  if (totalDebit !== totalCredit) {
+                    alert('Journal entry must balance. Total debits must equal total credits.')
+                    return
+                  }
+                  
+                  const response = await fetch('http://localhost:8000/api/v1/gl/journal-entry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      ...journalForm,
+                      total_amount: totalDebit,
+                      status: 'pending'
+                    })
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert(data.message || 'Journal entry created successfully!')
+                    setShowJournalModal(false)
+                    window.location.reload() // Refresh to show new journal
+                  } else {
+                    alert(data.message || 'Failed to create journal entry')
+                  }
+                } catch (error) {
+                  console.error('Error creating journal:', error)
+                  alert('Failed to create journal entry')
+                }
+              }}
+            >
+              Create Journal
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Input
+              label="Date"
+              type="date"
+              value={journalForm.date}
+              onChange={(e) => setJournalForm({...journalForm, date: e.target.value})}
+              required
+            />
+            <Input
+              label="Reference"
+              type="text"
+              value={journalForm.reference}
+              onChange={(e) => setJournalForm({...journalForm, reference: e.target.value})}
+              placeholder="JV-001"
+            />
+            <Input
+              label="Description"
+              type="text"
+              value={journalForm.description}
+              onChange={(e) => setJournalForm({...journalForm, description: e.target.value})}
+              placeholder="Journal description"
+              required
+            />
+          </div>
+          
+          <div>
+            <h4 className="font-medium text-gray-900 mb-2">Journal Lines</h4>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Account Code</th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Account Name</th>
+                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">Debit</th>
+                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">Credit</th>
+                    <th className="px-3 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {journalForm.lines.map((line, index) => (
+                    <tr key={index}>
+                      <td className="px-3 py-2">
+                        <Input
+                          value={line.account_code}
+                          onChange={(e) => {
+                            const newLines = [...journalForm.lines]
+                            newLines[index].account_code = e.target.value
+                            setJournalForm({...journalForm, lines: newLines})
+                          }}
+                          placeholder="1000"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <Input
+                          value={line.account_name}
+                          onChange={(e) => {
+                            const newLines = [...journalForm.lines]
+                            newLines[index].account_name = e.target.value
+                            setJournalForm({...journalForm, lines: newLines})
+                          }}
+                          placeholder="Account name"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <Input
+                          type="number"
+                          value={line.debit}
+                          onChange={(e) => {
+                            const newLines = [...journalForm.lines]
+                            newLines[index].debit = parseFloat(e.target.value) || 0
+                            newLines[index].credit = 0 // Clear credit when entering debit
+                            setJournalForm({...journalForm, lines: newLines})
+                          }}
+                          placeholder="0.00"
+                          min="0"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <Input
+                          type="number"
+                          value={line.credit}
+                          onChange={(e) => {
+                            const newLines = [...journalForm.lines]
+                            newLines[index].credit = parseFloat(e.target.value) || 0
+                            newLines[index].debit = 0 // Clear debit when entering credit
+                            setJournalForm({...journalForm, lines: newLines})
+                          }}
+                          placeholder="0.00"
+                          min="0"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        {journalForm.lines.length > 2 && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              const newLines = journalForm.lines.filter((_, i) => i !== index)
+                              setJournalForm({...journalForm, lines: newLines})
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr className="bg-gray-50">
+                    <td colSpan={2} className="px-3 py-2 text-right font-medium">
+                      Totals:
+                    </td>
+                    <td className="px-3 py-2 text-right font-medium">
+                      {formatCurrency(journalForm.lines.reduce((sum, line) => sum + (line.debit || 0), 0))}
+                    </td>
+                    <td className="px-3 py-2 text-right font-medium">
+                      {formatCurrency(journalForm.lines.reduce((sum, line) => sum + (line.credit || 0), 0))}
+                    </td>
+                    <td></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div className="mt-2 flex justify-between">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setJournalForm({
+                    ...journalForm,
+                    lines: [...journalForm.lines, { account_code: '', account_name: '', debit: 0, credit: 0 }]
+                  })
+                }}
+              >
+                Add Line
+              </Button>
+              {journalForm.lines.reduce((sum, line) => sum + (line.debit || 0), 0) !== 
+               journalForm.lines.reduce((sum, line) => sum + (line.credit || 0), 0) && (
+                <span className="text-sm text-red-600 font-medium">
+                  Entry does not balance
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

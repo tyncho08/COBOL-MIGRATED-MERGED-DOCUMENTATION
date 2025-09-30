@@ -19,6 +19,7 @@ import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
 import Table from '@/components/UI/Table'
 import { formatCurrency, formatDate } from '@/lib/utils'
+import { BankStatementParser } from '@/lib/bankStatementParser'
 
 interface PaymentSummary {
   totalReceipts: number
@@ -56,6 +57,12 @@ export default function PaymentsPage() {
   const [showReconciliationModal, setShowReconciliationModal] = useState(false)
   const [showAllocationModal, setShowAllocationModal] = useState(false)
   const [showImportModal, setShowImportModal] = useState(false)
+  const [importFile, setImportFile] = useState<File | null>(null)
+  const [importAccount, setImportAccount] = useState('')
+  const [parsedTransactions, setParsedTransactions] = useState<any[]>([])
+  const [parseResult, setParseResult] = useState<any | null>(null)
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [matchingResults, setMatchingResults] = useState<any | null>(null)
   
   // Form states
   const [receiptForm, setReceiptForm] = useState({
@@ -581,7 +588,11 @@ export default function PaymentsPage() {
       {/* Import Bank Statement Modal */}
       <Modal
         isOpen={showImportModal}
-        onClose={() => setShowImportModal(false)}
+        onClose={() => {
+          setShowImportModal(false)
+          setImportFile(null)
+          setImportAccount('')
+        }}
         title="Import Bank Statement"
         size="md"
       >
@@ -590,9 +601,14 @@ export default function PaymentsPage() {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Bank Account
             </label>
-            <select className="form-select block w-full rounded-md border-gray-300 shadow-sm">
-              <option>Main Operating Account (****1234)</option>
-              <option>Savings Account (****5678)</option>
+            <select 
+              className="form-select block w-full rounded-md border-gray-300 shadow-sm"
+              value={importAccount}
+              onChange={(e) => setImportAccount(e.target.value)}
+            >
+              <option value="">Select account...</option>
+              <option value="main">Main Operating Account (****1234)</option>
+              <option value="savings">Savings Account (****5678)</option>
             </select>
           </div>
           <div>
@@ -602,20 +618,214 @@ export default function PaymentsPage() {
             <input
               type="file"
               accept=".csv,.ofx,.qfx"
+              onChange={(e) => setImportFile(e.target.files?.[0] || null)}
               className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
             />
             <p className="mt-1 text-xs text-gray-500">Supported formats: CSV, OFX, QFX</p>
           </div>
           <div className="flex justify-end space-x-2 pt-4">
-            <Button variant="outline" onClick={() => setShowImportModal(false)}>
+            <Button variant="outline" onClick={() => {
+              setShowImportModal(false)
+              setImportFile(null)
+              setImportAccount('')
+            }}>
               Cancel
             </Button>
-            <Button onClick={() => {
-              // Handle import
-              setShowImportModal(false)
-            }}>
-              Import Statement
+            <Button 
+              onClick={async () => {
+                if (!importFile) {
+                  alert('Please select a file to import')
+                  return
+                }
+                if (!importAccount) {
+                  alert('Please select a bank account')
+                  return
+                }
+                
+                try {
+                  let result
+                  const fileExtension = importFile.name.split('.').pop()?.toLowerCase()
+                  
+                  if (fileExtension === 'csv') {
+                    result = await BankStatementParser.parseCSV(importFile)
+                  } else if (fileExtension === 'ofx' || fileExtension === 'qfx') {
+                    result = await BankStatementParser.parseOFX(importFile)
+                  } else {
+                    alert('Unsupported file format')
+                    return
+                  }
+                  
+                  if (result.success && result.transactions.length > 0) {
+                    setParsedTransactions(result.transactions)
+                    setParseResult(result)
+                    setShowImportModal(false)
+                    setShowReviewModal(true)
+                  } else {
+                    alert(result.errors.join('\n') || 'Failed to parse bank statement')
+                  }
+                } catch (error) {
+                  console.error('Error parsing file:', error)
+                  alert('Failed to parse bank statement file')
+                }
+              }}
+              disabled={!importFile || !importAccount}
+            >
+              Parse Statement
             </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Review Parsed Transactions Modal */}
+      <Modal
+        isOpen={showReviewModal}
+        onClose={() => {
+          setShowReviewModal(false)
+          setParsedTransactions([])
+          setParseResult(null)
+          setMatchingResults(null)
+        }}
+        title="Review Bank Transactions"
+        size="xl"
+      >
+        <div className="space-y-4">
+          {parseResult && (
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h4 className="font-medium text-gray-900 mb-2">Statement Summary</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <p className="text-gray-500">Period</p>
+                  <p className="font-medium">{formatDate(parseResult.summary.startDate)} - {formatDate(parseResult.summary.endDate)}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Transactions</p>
+                  <p className="font-medium">{parseResult.summary.totalTransactions}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Total Credits</p>
+                  <p className="font-medium text-green-600">{formatCurrency(parseResult.summary.totalCredits)}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Total Debits</p>
+                  <p className="font-medium text-red-600">{formatCurrency(parseResult.summary.totalDebits)}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className="max-h-96 overflow-y-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Reference</th>
+                  <th className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Amount</th>
+                  <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Type</th>
+                  <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase">Match</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {parsedTransactions.map((tx, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-2 text-sm">{formatDate(tx.date)}</td>
+                    <td className="px-4 py-2 text-sm">{tx.description}</td>
+                    <td className="px-4 py-2 text-sm text-gray-500">{tx.reference}</td>
+                    <td className={`px-4 py-2 text-sm text-right font-medium ${tx.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
+                      {tx.type === 'credit' ? '+' : '-'}{formatCurrency(tx.amount)}
+                    </td>
+                    <td className="px-4 py-2 text-sm text-center">
+                      <span className={`inline-flex px-2 py-1 text-xs rounded-full ${
+                        tx.type === 'credit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
+                        {tx.type === 'credit' ? 'Credit' : 'Debit'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2 text-sm text-center">
+                      {matchingResults?.matched.some((m: any) => m.bank === tx) ? (
+                        <CheckCircleIcon className="h-5 w-5 text-green-600 mx-auto" />
+                      ) : matchingResults?.suggestions.some((s: any) => s.bank === tx) ? (
+                        <ClockIcon className="h-5 w-5 text-yellow-600 mx-auto" />
+                      ) : (
+                        <XCircleIcon className="h-5 w-5 text-gray-400 mx-auto" />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="flex justify-between items-center pt-4">
+            <div className="space-x-2">
+              <Button 
+                variant="outline"
+                onClick={async () => {
+                  try {
+                    // Fetch system transactions for matching
+                    const response = await fetch(`http://localhost:8000/api/v1/payments/transactions?account=${importAccount}`)
+                    if (response.ok) {
+                      const systemTransactions = await response.json()
+                      const results = await BankStatementParser.matchTransactions(
+                        parsedTransactions,
+                        systemTransactions.transactions || []
+                      )
+                      setMatchingResults(results)
+                      alert(`Matching complete:\n- ${results.matched.length} matched\n- ${results.suggestions.length} possible matches\n- ${results.unmatched.length} unmatched`)
+                    }
+                  } catch (error) {
+                    console.error('Error matching transactions:', error)
+                    alert('Failed to match transactions')
+                  }
+                }}
+              >
+                Match Transactions
+              </Button>
+            </div>
+            <div className="space-x-2">
+              <Button variant="outline" onClick={() => {
+                setShowReviewModal(false)
+                setParsedTransactions([])
+                setParseResult(null)
+                setMatchingResults(null)
+              }}>
+                Cancel
+              </Button>
+              <Button onClick={async () => {
+                try {
+                  const response = await fetch('http://localhost:8000/api/v1/payments/import-bank-statement', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      account: importAccount,
+                      transactions: parsedTransactions,
+                      summary: parseResult.summary,
+                      matchingResults
+                    })
+                  })
+                  
+                  const data = await response.json()
+                  if (data.success) {
+                    alert(`Successfully imported ${parsedTransactions.length} transactions`)
+                    setShowReviewModal(false)
+                    setParsedTransactions([])
+                    setParseResult(null)
+                    setMatchingResults(null)
+                    setImportFile(null)
+                    setImportAccount('')
+                    // Refresh page data
+                    window.location.reload()
+                  } else {
+                    alert(data.message || 'Failed to import transactions')
+                  }
+                } catch (error) {
+                  console.error('Error importing transactions:', error)
+                  alert('Failed to import transactions')
+                }
+              }}>
+                Import Transactions
+              </Button>
+            </div>
           </div>
         </div>
       </Modal>

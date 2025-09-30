@@ -14,6 +14,8 @@ import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
 import Table from '@/components/UI/Table'
 import { formatCurrency, formatDate } from '@/lib/utils'
+import Modal from '@/components/UI/Modal'
+import Input from '@/components/UI/Input'
 
 interface PendingItem {
   entry_id: number
@@ -36,6 +38,9 @@ export default function PendingItemsPage() {
   const [loading, setLoading] = useState(true)
   const [filterType, setFilterType] = useState('all')
   const [filterPriority, setFilterPriority] = useState('all')
+  const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set())
+  const [showApprovalModal, setShowApprovalModal] = useState(false)
+  const [approvalComment, setApprovalComment] = useState('')
 
   useEffect(() => {
     const fetchPendingItems = async () => {
@@ -67,9 +72,19 @@ export default function PendingItemsPage() {
         <DocumentTextIcon className="h-4 w-4" />
         New Journal
       </Button>
-      <Button size="sm">
+      <Button 
+        size="sm"
+        onClick={() => {
+          if (selectedItems.size === 0) {
+            alert('Please select items to approve')
+            return
+          }
+          setShowApprovalModal(true)
+        }}
+        disabled={selectedItems.size === 0}
+      >
         <CheckCircleIcon className="h-4 w-4" />
-        Bulk Approve
+        Bulk Approve ({selectedItems.size})
       </Button>
     </div>
   )
@@ -377,9 +392,173 @@ export default function PendingItemsPage() {
             columns={columns}
             loading={loading}
             emptyMessage="No pending items found"
+            selection={{
+              selectedRows: selectedItems,
+              onRowSelect: (index: number) => {
+                const newSelected = new Set(selectedItems)
+                const item = filteredItems[index]
+                if (newSelected.has(item.entry_id)) {
+                  newSelected.delete(item.entry_id)
+                } else {
+                  newSelected.add(item.entry_id)
+                }
+                setSelectedItems(newSelected)
+              },
+              onSelectAll: () => {
+                if (selectedItems.size === filteredItems.length) {
+                  setSelectedItems(new Set())
+                } else {
+                  setSelectedItems(new Set(filteredItems.map(item => item.entry_id)))
+                }
+              }
+            }}
           />
         </Card>
       </main>
+
+      {/* Bulk Approval Modal */}
+      <Modal
+        isOpen={showApprovalModal}
+        onClose={() => {
+          setShowApprovalModal(false)
+          setApprovalComment('')
+        }}
+        title="Bulk Approve Items"
+        size="md"
+        actions={
+          <>
+            <Button variant="outline" onClick={() => setShowApprovalModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              className="ml-2 bg-green-600 hover:bg-green-700"
+              onClick={async () => {
+                try {
+                  const selectedItemsList = filteredItems.filter(item => 
+                    selectedItems.has(item.entry_id)
+                  )
+                  
+                  // Process each selected item
+                  for (const item of selectedItemsList) {
+                    await fetch(`http://localhost:8000/api/v1/gl/pending/${item.entry_id}/approve`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        comment: approvalComment,
+                        approved_by: 'Current User' // This would come from auth context
+                      })
+                    })
+                  }
+                  
+                  alert(`Successfully approved ${selectedItemsList.length} items`)
+                  setShowApprovalModal(false)
+                  setSelectedItems(new Set())
+                  setApprovalComment('')
+                  
+                  // Refresh the pending items
+                  window.location.reload()
+                } catch (error) {
+                  console.error('Error approving items:', error)
+                  alert('Failed to approve some items')
+                }
+              }}
+            >
+              Approve Selected
+            </Button>
+            <Button 
+              variant="danger"
+              className="ml-2"
+              onClick={async () => {
+                try {
+                  const selectedItemsList = filteredItems.filter(item => 
+                    selectedItems.has(item.entry_id)
+                  )
+                  
+                  // Reject each selected item
+                  for (const item of selectedItemsList) {
+                    await fetch(`http://localhost:8000/api/v1/gl/pending/${item.entry_id}/reject`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        comment: approvalComment,
+                        rejected_by: 'Current User'
+                      })
+                    })
+                  }
+                  
+                  alert(`Successfully rejected ${selectedItemsList.length} items`)
+                  setShowApprovalModal(false)
+                  setSelectedItems(new Set())
+                  setApprovalComment('')
+                  
+                  // Refresh
+                  window.location.reload()
+                } catch (error) {
+                  console.error('Error rejecting items:', error)
+                  alert('Failed to reject some items')
+                }
+              }}
+            >
+              Reject Selected
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h4 className="font-medium text-blue-900 mb-2">Selected Items Summary</h4>
+            <div className="text-sm text-blue-700">
+              <p>Total Items: {selectedItems.size}</p>
+              {(() => {
+                const selectedItemsList = filteredItems.filter(item => selectedItems.has(item.entry_id))
+                const totalAmount = selectedItemsList.reduce((sum, item) => sum + item.amount, 0)
+                const byType = selectedItemsList.reduce((acc, item) => {
+                  acc[item.entry_type] = (acc[item.entry_type] || 0) + 1
+                  return acc
+                }, {} as Record<string, number>)
+                
+                return (
+                  <>
+                    <p>Total Amount: {formatCurrency(totalAmount)}</p>
+                    <div className="mt-2">
+                      {Object.entries(byType).map(([type, count]) => (
+                        <p key={type}>{type}: {count} items</p>
+                      ))}
+                    </div>
+                  </>
+                )
+              })()}
+            </div>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Approval Comments
+            </label>
+            <textarea
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              rows={3}
+              placeholder="Enter approval comments (optional)"
+              value={approvalComment}
+              onChange={(e) => setApprovalComment(e.target.value)}
+            />
+          </div>
+          
+          <div className="rounded-md bg-yellow-50 p-4">
+            <div className="flex">
+              <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" />
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-yellow-800">
+                  Important
+                </h3>
+                <div className="mt-2 text-sm text-yellow-700">
+                  <p>This action will approve/reject all selected items. Make sure you have reviewed them carefully.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

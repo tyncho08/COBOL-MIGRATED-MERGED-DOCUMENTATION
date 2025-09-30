@@ -301,8 +301,10 @@ export default function ReportHistoryPage() {
   const availableReports = reportHistory.filter(r => r.status === 'available').length
   const totalDownloads = reportHistory.reduce((sum, r) => sum + r.download_count, 0)
   const totalSize = reportHistory.reduce((sum, r) => {
-    const sizeInMB = parseFloat(r.file_size.replace(/[^\d.]/g, ''))
-    return sum + (r.file_size.includes('KB') ? sizeInMB / 1024 : sizeInMB)
+    // Ensure file_size is a string and handle undefined/null cases
+    const fileSize = r.file_size?.toString() || '0 MB'
+    const sizeInMB = parseFloat(fileSize.replace(/[^\d.]/g, '')) || 0
+    return sum + (fileSize.includes('KB') ? sizeInMB / 1024 : sizeInMB)
   }, 0)
 
   const uniqueUsers = Array.from(new Set(reportHistory.map(r => r.generated_by)))

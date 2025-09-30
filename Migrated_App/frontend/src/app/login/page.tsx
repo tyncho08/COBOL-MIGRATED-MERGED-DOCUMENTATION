@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { BuildingOfficeIcon } from '@heroicons/react/24/outline'
 import Input from '@/components/UI/Input'
@@ -10,9 +10,41 @@ import { Card } from '@/components/UI/Card'
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    // Check if there's a saved username on component mount
+    const savedUsername = localStorage.getItem('rememberedUsername')
+    if (savedUsername) {
+      setUsername(savedUsername)
+      setRememberMe(true)
+    }
+    
+    // Check if there's a valid persistent session
+    const persistentSession = localStorage.getItem('persistentSession')
+    if (persistentSession) {
+      try {
+        const sessionData = JSON.parse(persistentSession)
+        const sessionExpiry = new Date(sessionData.expiry)
+        
+        if (sessionExpiry > new Date()) {
+          // Session is still valid, restore user data and redirect
+          localStorage.setItem('user', JSON.stringify(sessionData.userData))
+          document.cookie = `user=${JSON.stringify(sessionData.userData)}; path=/`
+          window.location.href = '/'
+        } else {
+          // Session expired, clear it
+          localStorage.removeItem('persistentSession')
+        }
+      } catch (err) {
+        // Invalid session data, clear it
+        localStorage.removeItem('persistentSession')
+      }
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,8 +62,34 @@ export default function LoginPage() {
           token: 'demo-token'
         }
         localStorage.setItem('user', JSON.stringify(userData))
-        // Set cookie for server-side authentication
-        document.cookie = `user=${JSON.stringify(userData)}; path=/`
+        
+        // Handle Remember Me
+        if (rememberMe) {
+          // Save username for next time
+          localStorage.setItem('rememberedUsername', username)
+          
+          // Create persistent session (valid for 30 days)
+          const expiryDate = new Date()
+          expiryDate.setDate(expiryDate.getDate() + 30)
+          
+          const persistentSessionData = {
+            userData,
+            expiry: expiryDate.toISOString(),
+            createdAt: new Date().toISOString()
+          }
+          localStorage.setItem('persistentSession', JSON.stringify(persistentSessionData))
+          
+          // Set a long-lived cookie
+          document.cookie = `user=${JSON.stringify(userData)}; path=/; expires=${expiryDate.toUTCString()}`
+        } else {
+          // Clear any saved username if Remember Me is unchecked
+          localStorage.removeItem('rememberedUsername')
+          localStorage.removeItem('persistentSession')
+          
+          // Set session cookie (expires when browser closes)
+          document.cookie = `user=${JSON.stringify(userData)}; path=/`
+        }
+        
         // Force page reload to ensure middleware picks up the authentication
         window.location.href = '/'
       } else {
@@ -87,22 +145,18 @@ export default function LoginPage() {
               placeholder="Enter your password"
             />
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center">
               <label className="flex items-center">
                 <input
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                 />
                 <span className="ml-2 block text-sm text-gray-900">
-                  Remember me
+                  Remember me for 30 days
                 </span>
               </label>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot password?
-                </a>
-              </div>
             </div>
 
             <Button

@@ -19,7 +19,7 @@ import {
   BellIcon,
   UserCircleIcon,
   ArrowRightOnRectangleIcon,
-  UserIcon
+  MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 
 const navigation = [
@@ -44,6 +44,9 @@ interface NavbarProps {
 export default function Navbar({ user }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [currentUser, setCurrentUser] = useState(user)
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [notifications, setNotifications] = useState<any[]>([])
+  const [unreadCount, setUnreadCount] = useState(0)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -53,11 +56,62 @@ export default function Navbar({ user }: NavbarProps) {
     if (storedUser) {
       setCurrentUser(JSON.parse(storedUser))
     }
+    
+    // Fetch notifications
+    fetchNotifications()
   }, [])
+  
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/notifications/unread')
+      if (response.ok) {
+        const data = await response.json()
+        setNotifications(data.notifications || getMockNotifications())
+        setUnreadCount(data.notifications?.filter((n: any) => !n.read).length || 2)
+      } else {
+        // Use mock data as fallback
+        const mockNotifications = getMockNotifications()
+        setNotifications(mockNotifications)
+        setUnreadCount(mockNotifications.filter(n => !n.read).length)
+      }
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error)
+      const mockNotifications = getMockNotifications()
+      setNotifications(mockNotifications)
+      setUnreadCount(mockNotifications.filter(n => !n.read).length)
+    }
+  }
+  
+  const getMockNotifications = () => [
+    {
+      id: 1,
+      type: 'payment_received',
+      title: 'Payment Received',
+      message: 'Payment of $1,250.00 received from ABC Corporation',
+      timestamp: '2024-01-15T10:30:00Z',
+      read: false
+    },
+    {
+      id: 2,
+      type: 'stock_low',
+      title: 'Low Stock Alert',
+      message: 'Widget A - Blue is running low (25 units remaining)',
+      timestamp: '2024-01-15T09:15:00Z',
+      read: false
+    }
+  ]
 
   const handleLogout = () => {
+    // Clear user session
     localStorage.removeItem('user')
+    
+    // Clear persistent session if exists (Remember Me)
+    localStorage.removeItem('persistentSession')
+    
+    // Clear the cookie
     document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    
+    // Redirect to login
     router.push('/login')
   }
 
@@ -165,11 +219,72 @@ export default function Navbar({ user }: NavbarProps) {
               </div>
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6 ml-auto">
-              {/* Notifications button */}
-              <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" />
+              {/* Search Button */}
+              <button
+                onClick={() => router.push('/search')}
+                className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+              >
+                <span className="sr-only">Search</span>
+                <MagnifyingGlassIcon className="h-5 w-5" />
               </button>
+              
+              {/* Notifications dropdown */}
+              <Menu as="div" className="relative">
+                <Menu.Button className="relative -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center h-5 w-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="px-4 py-2 border-b border-gray-200">
+                      <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map(notification => (
+                          <Menu.Item key={notification.id}>
+                            {({ active }) => (
+                              <div className={`${active ? 'bg-gray-50' : ''} px-4 py-3 ${!notification.read ? 'bg-blue-50' : ''}`}>
+                                <p className="text-sm font-medium text-gray-900">{notification.title}</p>
+                                <p className="text-sm text-gray-500 mt-1">{notification.message}</p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  {new Date(notification.timestamp).toLocaleTimeString()}
+                                </p>
+                              </div>
+                            )}
+                          </Menu.Item>
+                        ))
+                      ) : (
+                        <div className="px-4 py-8 text-center">
+                          <BellIcon className="mx-auto h-12 w-12 text-gray-400" />
+                          <p className="mt-2 text-sm text-gray-500">No new notifications</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="px-4 py-2 border-t border-gray-200">
+                      <Link 
+                        href="/settings?tab=Notifications"
+                        className="text-sm text-indigo-600 hover:text-indigo-500 font-medium"
+                      >
+                        View all notifications →
+                      </Link>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
 
               {/* Separator */}
               <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" />
@@ -195,17 +310,6 @@ export default function Navbar({ user }: NavbarProps) {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link
-                          href="/profile"
-                          className={`${active ? 'bg-gray-100' : ''} flex px-4 py-2 text-sm text-gray-700`}
-                        >
-                          <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
-                          Your Profile
-                        </Link>
-                      )}
-                    </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -296,11 +400,72 @@ export default function Navbar({ user }: NavbarProps) {
               {/* Breadcrumb could go here */}
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6">
-              {/* Notifications button */}
-              <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" />
+              {/* Search Button */}
+              <button
+                onClick={() => router.push('/search')}
+                className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+              >
+                <span className="sr-only">Search</span>
+                <MagnifyingGlassIcon className="h-6 w-6" />
               </button>
+              
+              {/* Notifications dropdown */}
+              <Menu as="div" className="relative">
+                <Menu.Button className="relative -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="h-6 w-6" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center h-5 w-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="px-4 py-2 border-b border-gray-200">
+                      <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map(notification => (
+                          <Menu.Item key={notification.id}>
+                            {({ active }) => (
+                              <div className={`${active ? 'bg-gray-50' : ''} px-4 py-3 ${!notification.read ? 'bg-blue-50' : ''}`}>
+                                <p className="text-sm font-medium text-gray-900">{notification.title}</p>
+                                <p className="text-sm text-gray-500 mt-1">{notification.message}</p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  {new Date(notification.timestamp).toLocaleTimeString()}
+                                </p>
+                              </div>
+                            )}
+                          </Menu.Item>
+                        ))
+                      ) : (
+                        <div className="px-4 py-8 text-center">
+                          <BellIcon className="mx-auto h-12 w-12 text-gray-400" />
+                          <p className="mt-2 text-sm text-gray-500">No new notifications</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="px-4 py-2 border-t border-gray-200">
+                      <Link 
+                        href="/settings?tab=Notifications"
+                        className="text-sm text-indigo-600 hover:text-indigo-500 font-medium"
+                      >
+                        View all notifications →
+                      </Link>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
 
               {/* Separator */}
               <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" />
@@ -327,17 +492,6 @@ export default function Navbar({ user }: NavbarProps) {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link
-                          href="/profile"
-                          className={`${active ? 'bg-gray-100' : ''} flex px-4 py-2 text-sm text-gray-700`}
-                        >
-                          <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
-                          Your Profile
-                        </Link>
-                      )}
-                    </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
                         <button

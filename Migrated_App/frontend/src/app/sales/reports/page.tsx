@@ -18,6 +18,7 @@ import Button from '@/components/UI/Button'
 import PageHeader from '@/components/Layout/PageHeader'
 import Select from '@/components/UI/Select'
 import Input from '@/components/UI/Input'
+import { EmailService } from '@/lib/emailService'
 
 interface Report {
   id: string
@@ -140,7 +141,15 @@ export default function ReportsPage() {
   }
 
   const handleEmailReport = (reportId: string) => {
-    alert(`Email setup for report: ${reportId}`)
+    const report = reports.find(r => r.id === reportId)
+    if (!report) return
+    
+    const recipientEmail = prompt('Enter recipient email address:', 'recipient@example.com')
+    
+    if (recipientEmail) {
+      const format = selectedFormat.toUpperCase()
+      EmailService.sendReport(report.title, recipientEmail, format)
+    }
   }
 
   const periodOptions = [

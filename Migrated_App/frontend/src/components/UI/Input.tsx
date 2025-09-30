@@ -9,11 +9,19 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   leftIcon?: ReactNode
   rightIcon?: ReactNode
   variant?: 'default' | 'search'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, error, helpText, leftIcon, rightIcon, variant = 'default', ...props }, ref) => {
-    const baseInputClasses = 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+  ({ className, type, label, error, helpText, leftIcon, rightIcon, variant = 'default', size = 'md', ...props }, ref) => {
+    const sizeClasses = {
+      xs: 'py-1 text-xs',
+      sm: 'py-1.5 text-sm',
+      md: 'py-1.5 text-sm',
+      lg: 'py-2 text-base',
+    }
+    
+    const baseInputClasses = `block w-full rounded-md border-0 ${sizeClasses[size]} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6`
     const errorClasses = error ? 'ring-red-300 focus:ring-red-600' : ''
     const iconClasses = leftIcon || rightIcon ? 'pl-10' : 'pl-3'
     const rightIconClasses = rightIcon ? 'pr-10' : 'pr-3'
