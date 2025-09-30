@@ -211,7 +211,7 @@ export default function StockControlPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Movements</h3>
-                  <Button variant="outline" size="sm" onClick={() => alert('Stock movements report coming soon!')}>
+                  <Button variant="outline" size="sm" onClick={() => router.push('/stock/movements')}>
                     View All
                   </Button>
                 </div>

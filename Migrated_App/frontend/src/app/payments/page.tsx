@@ -257,7 +257,7 @@ export default function PaymentsPage() {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">Recent Transactions</h3>
-                  <Button variant="outline" size="sm" onClick={() => alert('Transaction history coming soon!')}>
+                  <Button variant="outline" size="sm" onClick={() => router.push('/payments/transactions')}>
                     View All
                   </Button>
                 </div>
